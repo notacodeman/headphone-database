@@ -1,0 +1,5 @@
+family_id,manufacturer_id,family_name,family_type
+1,1,WH,Headphone
+2,1,MDR,Headphone
+3,2,HD,Headphone
+4,3,Fidelio,Headphone

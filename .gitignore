@@ -1,0 +1,15 @@
+# Generated SQLite DB — always rebuildable from CSVs via build_db.py
+database/headphones.db
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Export artifacts
+*.export.csv
+
+# OS
+.DS_Store
+Thumbs.db

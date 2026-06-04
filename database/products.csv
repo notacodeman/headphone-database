@@ -1,0 +1,4 @@
+product_id,family_id,manufacturer_id,model_name,full_name,release_year,discontinued_year,status,category,design,driver_type,wireless,anc,predecessor,successor,notes
+SONY_WH1000XM5,1,1,WH-1000XM5,Sony WH-1000XM5,2022,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,SONY_WH1000XM4,SONY_WH1000XM6,Flagship ANC headphone
+SENN_HD600,3,2,HD 600,Sennheiser HD 600,1997,,Legacy Active,Headphone,Open Back,Dynamic,No,No,,SENN_HD650,Reference open-back headphone
+PHIL_X2HR,4,3,X2HR,Philips Fidelio X2HR,2017,,Active,Headphone,Open Back,Dynamic,No,No,,,Popular open-back value pick
