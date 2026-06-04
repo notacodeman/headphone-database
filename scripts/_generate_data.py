@@ -55,6 +55,26 @@ manufacturers = [
     (40, "Anker Soundcore",  "China",       "https://www.soundcore.com",       "Active"),
     (41, "Technics",         "Japan",       "https://www.technics.com",        "Active"),
     (42, "Nothing",          "UK",          "https://nothing.tech",            "Active"),
+    # New brands — mainstream / popular
+    (43, "Koss",             "USA",         "https://www.koss.com",            "Active"),
+    (44, "V-Moda",           "USA",         "https://www.v-moda.com",          "Active"),
+    (45, "Yamaha",           "Japan",       "https://www.yamaha.com",          "Active"),
+    (46, "Pioneer",          "Japan",       "https://www.pioneer-audiovisual.com","Active"),
+    (47, "AIAIAI",           "Denmark",     "https://www.aiaiai.audio",        "Active"),
+    (48, "1More",            "China",       "https://www.1more.com",           "Active"),
+    (49, "Edifier",          "China",       "https://www.edifier.com",         "Active"),
+    (50, "Cleer",            "USA",         "https://www.cleeraudio.com",      "Active"),
+    # New brands — audiophile / boutique
+    (51, "Austrian Audio",   "Austria",     "https://austrian.audio",          "Active"),
+    (52, "Neumann",          "Germany",     "https://www.neumann.com",         "Active"),
+    (53, "Moondrop",         "China",       "https://moondroplab.com",         "Active"),
+    (54, "Sivga",            "China",       "https://www.sivgaaudio.com",      "Active"),
+    (55, "Sendy Audio",      "China",       "https://www.sendyaudio.com",      "Active"),
+    (56, "FiiO",             "China",       "https://www.fiio.com",            "Active"),
+    (57, "Spirit Torino",    "Italy",       "https://www.spirittorino.com",    "Active"),
+    (58, "Warwick Acoustics","UK",          "https://warwickacoustics.com",    "Active"),
+    (59, "Mark Levinson",    "USA",         "https://www.marklevinson.com",    "Active"),
+    (60, "T+A",              "Germany",     "https://www.ta-hifi.com",         "Active"),
 ]
 mfr_id = {name: i for i, name, *_ in manufacturers}
 
@@ -173,6 +193,57 @@ families_raw = [
     ("Logitech G", "Astro", "Gaming"),
     ("Bang & Olufsen", "Beoplay Portal", "Gaming"),
     ("JBL", "Quantum", "Gaming"),
+    # Deepening batch 3
+    ("Beats", "Pro", "Headphone"),
+    ("Beats", "Executive", "Headphone"),
+    ("JBL", "Everest", "Headphone"),
+    ("JBL", "Tune", "Headphone"),
+    ("Skullcandy", "Hesh", "Headphone"),
+    ("Sony", "h.ear", "Headphone"),
+    ("Marshall", "Major", "Headphone"),
+    # Pre-2010 legacy families
+    ("Sennheiser", "HD Classic", "Headphone"),
+    ("Sennheiser", "HD 200-series", "Studio"),
+    ("Sony", "Qualia/SA", "Headphone"),
+    ("AKG", "K-Reference", "Headphone"),
+    ("Audio-Technica", "ESW/ES", "Headphone"),
+    ("Grado", "Vintage", "Headphone"),
+    ("Bose", "TriPort/QC Legacy", "Headphone"),
+    ("Beyerdynamic", "DT Classic", "Headphone"),
+    # Complete-the-brands batch
+    ("Shure", "SRH-DJ", "Studio"),
+    ("ZMF Headphones", "Eikon", "Headphone"),
+    ("ZMF Headphones", "Atticus", "Headphone"),
+    ("ZMF Headphones", "Bokeh", "Headphone"),
+    ("Stax", "Lambda", "Headphone"),
+    ("Final Audio", "Sonorous", "Headphone"),
+    ("Sony", "MA", "Headphone"),
+    ("Abyss", "Diana TC", "Headphone"),
+    # New brand families
+    ("Koss", "Porta Pro", "Headphone"),
+    ("Koss", "KSC", "Headphone"),
+    ("Koss", "Pro", "Studio"),
+    ("V-Moda", "Crossfade", "Headphone"),
+    ("V-Moda", "M-200", "Studio"),
+    ("Yamaha", "HPH", "Headphone"),
+    ("Yamaha", "YH", "Headphone"),
+    ("Pioneer", "SE-Monitor", "Headphone"),
+    ("Pioneer", "HDJ", "Studio"),
+    ("AIAIAI", "TMA", "Studio"),
+    ("1More", "SonoFlow", "Headphone"),
+    ("Edifier", "STAX Spirit", "Headphone"),
+    ("Edifier", "WH", "Headphone"),
+    ("Cleer", "Flow/Enduro", "Headphone"),
+    ("Austrian Audio", "Hi-X", "Studio"),
+    ("Neumann", "NDH", "Studio"),
+    ("Moondrop", "Planar", "Headphone"),
+    ("Sivga", "Open", "Headphone"),
+    ("Sendy Audio", "Flagship", "Headphone"),
+    ("FiiO", "FT", "Headphone"),
+    ("Spirit Torino", "Flagship", "Headphone"),
+    ("Warwick Acoustics", "Sonoma", "Headphone"),
+    ("Mark Levinson", "No. 5909", "Headphone"),
+    ("T+A", "Solitaire", "Headphone"),
 ]
 families = []
 fam_id = {}
@@ -696,6 +767,289 @@ add("JBL_QUANTUM910","JBL","Quantum","Quantum 910 Wireless","JBL Quantum 910 Wir
 add("MARSHALL_MIDANC","Marshall","Monitor","Mid ANC","Marshall Mid ANC",2018,"Discontinued","Closed Back","Dynamic","Yes","Yes",category="Headphone")
 add("SKULL_HESH3","Skullcandy","Crusher","Hesh 3","Skullcandy Hesh 3",2018,"Discontinued","Closed Back","Dynamic","Yes","No",category="Headphone")
 add("SKULL_CRUSHERANC","Skullcandy","Crusher","Crusher ANC","Skullcandy Crusher ANC",2019,"Discontinued","Closed Back","Dynamic","Yes","Yes",succ="SKULL_CRUSHERANC2")
+
+# ============================================================================
+# DEEPENING BATCH 3 — Beats history, consumer catalogs, more gaming
+# ============================================================================
+
+# ---- Beats: full over-ear/on-ear history ----
+add("BEATS_STUDIO2013","Beats","Studio","Studio (2013)","Beats Studio (2013)",2013,"Discontinued","Closed Back","Dynamic","No","Yes",succ="BEATS_STUDIO2",notes="Redesigned wired Studio")
+add("BEATS_MIXR","Beats","Pro","Mixr","Beats Mixr",2011,"Discontinued","Closed Back","Dynamic","No","No",category="Headphone",notes="DJ on-ear, David Guetta")
+add("BEATS_PRO","Beats","Pro","Pro","Beats Pro",2011,"Discontinued","Closed Back","Dynamic","No","No",notes="All-metal over-ear")
+add("BEATS_EXECUTIVE","Beats","Executive","Executive","Beats Executive",2012,"Discontinued","Closed Back","Dynamic","No","Yes",notes="Aluminum ANC over-ear")
+add("BEATS_SOLO2","Beats","Solo","Solo 2","Beats Solo 2",2014,"Discontinued","Closed Back","Dynamic","No","No",category="Headphone",succ="BEATS_SOLO3")
+add("BEATS_SOLOPRO","Beats","Solo","Solo Pro","Beats Solo Pro",2019,"Discontinued","Closed Back","Dynamic","Yes","Yes",category="Headphone",notes="On-ear ANC")
+add("BEATS_EP","Beats","Solo","EP","Beats EP",2016,"Active","Closed Back","Dynamic","No","No",category="Headphone",notes="Budget wired on-ear")
+
+# ---- Sony: h.ear and earlier NC line ----
+add("SONY_MDR100ABN","Sony","h.ear","MDR-100ABN","Sony MDR-100ABN (h.ear on)",2015,"Discontinued","Closed Back","Dynamic","Yes","Yes",succ="SONY_WHH900N",notes="h.ear series ANC")
+add("SONY_MDR100AAP","Sony","h.ear","MDR-100AAP","Sony MDR-100AAP (h.ear on)",2015,"Discontinued","Closed Back","Dynamic","No","No")
+add("SONY_MDR10R","Sony","MDR","MDR-10R","Sony MDR-10R",2013,"Discontinued","Closed Back","Dynamic","No","No")
+add("SONY_MDR10RBT","Sony","MDR","MDR-10RBT","Sony MDR-10RBT",2013,"Discontinued","Closed Back","Dynamic","Yes","No")
+
+# ---- JBL: Everest + Tune over-ear lines ----
+add("JBL_EVEREST700","JBL","Everest","Everest 700","JBL Everest 700",2015,"Discontinued","Closed Back","Dynamic","Yes","No")
+add("JBL_EVEREST710","JBL","Everest","Everest 710","JBL Everest 710",2016,"Discontinued","Closed Back","Dynamic","Yes","No")
+add("JBL_EVERESTELITE750","JBL","Everest","Everest Elite 750NC","JBL Everest Elite 750NC",2016,"Discontinued","Closed Back","Dynamic","Yes","Yes")
+add("JBL_TUNE750","JBL","Tune","Tune 750BTNC","JBL Tune 750BTNC",2019,"Discontinued","Closed Back","Dynamic","Yes","Yes")
+add("JBL_TUNE760","JBL","Tune","Tune 760NC","JBL Tune 760NC",2021,"Active","Closed Back","Dynamic","Yes","Yes")
+add("JBL_TUNE770","JBL","Tune","Tune 770NC","JBL Tune 770NC",2023,"Active","Closed Back","Dynamic","Yes","Yes")
+
+# ---- Skullcandy: Hesh + Crusher line ----
+add("SKULL_HESH2","Skullcandy","Hesh","Hesh 2 Wireless","Skullcandy Hesh 2 Wireless",2015,"Discontinued","Closed Back","Dynamic","Yes","No",category="Headphone")
+add("SKULL_HESHANC","Skullcandy","Hesh","Hesh ANC","Skullcandy Hesh ANC",2020,"Active","Closed Back","Dynamic","Yes","Yes",category="Headphone")
+add("SKULL_HESHEVO","Skullcandy","Hesh","Hesh Evo","Skullcandy Hesh Evo",2020,"Active","Closed Back","Dynamic","Yes","No",category="Headphone")
+add("SKULL_CRUSHER540","Skullcandy","Crusher","Crusher 540 Active","Skullcandy Crusher 540 Active",2025,"Active","Closed Back","Dynamic","Yes","No",category="Headphone",notes="Sensory bass, fitness-focused")
+
+# ---- Marshall: full Major + Monitor line ----
+add("MARSHALL_MAJOR2","Marshall","Major","Major II","Marshall Major II",2014,"Discontinued","Closed Back","Dynamic","No","No",category="Headphone",succ="MARSHALL_MAJOR3")
+add("MARSHALL_MAJOR3","Marshall","Major","Major III","Marshall Major III",2018,"Discontinued","Closed Back","Dynamic","Yes","No",category="Headphone",pred="MARSHALL_MAJOR2",succ="MARSHALL_MAJOR4")
+add("MARSHALL_MONITOR","Marshall","Monitor","Monitor","Marshall Monitor",2013,"Discontinued","Closed Back","Dynamic","No","No",succ="MARSHALL_MONITOR2")
+add("MARSHALL_MONITOR3","Marshall","Monitor","Monitor III ANC","Marshall Monitor III ANC",2024,"Active","Closed Back","Dynamic","Yes","Yes",pred="MARSHALL_MONITOR2",notes="100hr battery")
+
+# ---- Anker Soundcore + Technics deepen ----
+add("ANKER_LIFEQ30","Anker Soundcore","Space","Life Q30","Anker Soundcore Life Q30",2020,"Active","Closed Back","Dynamic","Yes","Yes")
+add("ANKER_LIFEQ20","Anker Soundcore","Space","Life Q20","Anker Soundcore Life Q20",2019,"Active","Closed Back","Dynamic","Yes","Yes")
+add("TECH_EAHA800M2","Technics","EAH","EAH-A800M2","Technics EAH-A800M2",2025,"Active","Closed Back","Dynamic","Yes","Yes",pred="TECH_EAHA800")
+
+# ---- More gaming from existing brands ----
+add("RAZER_KRAKENV4","Razer","Kraken","Kraken V4","Razer Kraken V4",2025,"Active","Closed Back","Dynamic","Yes","No",category="Gaming")
+add("RAZER_BLACKSHARKV3","Razer","BlackShark","BlackShark V3","Razer BlackShark V3",2025,"Active","Closed Back","Dynamic","No","No",category="Gaming")
+add("STEEL_NOVA5X","SteelSeries","Arctis Nova","Arctis Nova 5X","SteelSeries Arctis Nova 5X",2024,"Active","Closed Back","Dynamic","Yes","No",category="Gaming")
+add("LOGI_G935","Logitech G","G","G935","Logitech G935",2019,"Active","Closed Back","Dynamic","Yes","No",category="Gaming")
+add("ASTRO_A40","Astro Gaming","A-Series","A40 TR Gen 2","Astro A40 TR (Gen 2)",2019,"Active","Open Back","Dynamic","No","No",category="Gaming")
+add("CORSAIR_HS80MAX","Corsair","HS","HS80 Max Wireless","Corsair HS80 Max Wireless",2023,"Active","Closed Back","Dynamic","Yes","No",category="Gaming")
+
+# ============================================================================
+# PRE-2010 LEGACY CLASSICS — older models from brands already in the DB
+# ============================================================================
+
+# ---- Sennheiser ----
+add("SENN_HD414","Sennheiser","HD Classic","HD 414","Sennheiser HD 414",1968,"Discontinued","Open Back","Dynamic","No","No",notes="World's first open-back hi-fi headphone")
+add("SENN_HD580","Sennheiser","HD","HD 580 Precision","Sennheiser HD 580 Precision",1991,"Discontinued","Open Back","Dynamic","No","No",succ="SENN_HD600",notes="Direct ancestor of the HD 600")
+add("SENN_HD540","Sennheiser","HD Classic","HD 540 Reference","Sennheiser HD 540 Reference",1985,"Discontinued","Open Back","Dynamic","No","No")
+add("SENN_HD25_1","Sennheiser","HD","HD 25-1","Sennheiser HD 25-1",1988,"Legacy Active","Closed Back","Dynamic","No","No",category="Studio",notes="On-ear monitoring/DJ standard")
+add("SENN_HD555","Sennheiser","HD 500-series","HD 555","Sennheiser HD 555",2005,"Discontinued","Open Back","Dynamic","No","No",succ="SENN_HD558")
+add("SENN_HD595","Sennheiser","HD 500-series","HD 595","Sennheiser HD 595",2005,"Discontinued","Open Back","Dynamic","No","No",succ="SENN_HD598")
+add("SENN_HD280PRO","Sennheiser","HD 200-series","HD 280 Pro","Sennheiser HD 280 Pro",2003,"Active","Closed Back","Dynamic","No","No",category="Studio",notes="Studio monitoring staple")
+add("SENN_HD202","Sennheiser","HD 200-series","HD 202","Sennheiser HD 202",2003,"Discontinued","Closed Back","Dynamic","No","No")
+add("SENN_PX100","Sennheiser","HD Classic","PX 100","Sennheiser PX 100",2003,"Discontinued","Open Back","Dynamic","No","No",category="Headphone",notes="Portable on-ear")
+add("SENN_PX200","Sennheiser","HD Classic","PX 200","Sennheiser PX 200",2004,"Discontinued","Closed Back","Dynamic","No","No",category="Headphone")
+add("SENN_HE60","Sennheiser","HD Classic","HE 60 (Orpheus)","Sennheiser HE 60 / HEV 70",1991,"Discontinued","Open Back","Electrostatic","No","No",notes="Baby Orpheus electrostatic")
+
+# ---- Sony ----
+add("SONY_MDRSA5000","Sony","Qualia/SA","MDR-SA5000","Sony MDR-SA5000",2004,"Discontinued","Open Back","Dynamic","No","No",notes="Lightweight magnesium open-back")
+add("SONY_MDRR10","Sony","Qualia/SA","MDR-R10","Sony MDR-R10",1989,"Discontinued","Closed Back","Dynamic","No","No",notes="Legendary wood-cup flagship")
+add("SONY_MDRCD3000","Sony","Qualia/SA","MDR-CD3000","Sony MDR-CD3000",1991,"Discontinued","Closed Back","Dynamic","No","No")
+add("SONY_QUALIA010","Sony","Qualia/SA","Qualia 010 (MDR-Q010)","Sony Qualia 010",2004,"Discontinued","Open Back","Dynamic","No","No",notes="Qualia-series flagship")
+add("SONY_MDRV600","Sony","MDR Studio","MDR-V600","Sony MDR-V600",1992,"Discontinued","Closed Back","Dynamic","No","No",category="Studio")
+add("SONY_MDR7509HD","Sony","MDR Studio","MDR-7509HD","Sony MDR-7509HD",2003,"Discontinued","Closed Back","Dynamic","No","No",category="Studio",notes="Larger-driver pro model")
+add("SONY_MDRXB700","Sony","XB","MDR-XB700","Sony MDR-XB700",2009,"Discontinued","Closed Back","Dynamic","No","No",notes="Original Extra Bass over-ear")
+
+# ---- AKG ----
+add("AKG_K1000","AKG","K-Reference","K1000","AKG K1000",1989,"Discontinued","Open Back","Dynamic","No","No",notes="Ear-speaker, hinged off-ear design")
+add("AKG_K240SEXTETT","AKG","K-Reference","K240 Sextett","AKG K240 Sextett",1979,"Discontinued","Semi-Open","Dynamic","No","No",notes="Passive-radiator classic")
+add("AKG_K340","AKG","K-Reference","K340","AKG K340",1978,"Discontinued","Closed Back","Hybrid","No","No",notes="Dynamic + electrostatic hybrid")
+add("AKG_K501","AKG","K-Reference","K501","AKG K501",1995,"Discontinued","Open Back","Dynamic","No","No",succ="AKG_K601")
+add("AKG_K601","AKG","K-Reference","K601","AKG K601",2005,"Discontinued","Open Back","Dynamic","No","No",pred="AKG_K501")
+add("AKG_K271","AKG","K-Studio","K271 Studio","AKG K271 Studio",2003,"Discontinued","Closed Back","Dynamic","No","No",category="Studio",succ="AKG_K271MK2")
+add("AKG_K141","AKG","K-Studio","K141 Studio","AKG K141 Studio",2003,"Active","Semi-Open","Dynamic","No","No",category="Studio")
+
+# ---- Beyerdynamic ----
+add("BEYER_DT48","Beyerdynamic","DT Classic","DT 48","Beyerdynamic DT 48",1937,"Discontinued","Closed Back","Dynamic","No","No",notes="Among the oldest headphones in continuous production")
+add("BEYER_DT831","Beyerdynamic","DT Classic","DT 831","Beyerdynamic DT 831",1994,"Discontinued","Closed Back","Dynamic","No","No")
+add("BEYER_DT880_2005","Beyerdynamic","DT","DT 880 Edition (2005)","Beyerdynamic DT 880 Edition (2005)",2005,"Active","Semi-Open","Dynamic","No","No",notes="Consumer Edition revision")
+add("BEYER_DT150","Beyerdynamic","DT Classic","DT 150","Beyerdynamic DT 150",1980,"Active","Closed Back","Dynamic","No","No",category="Studio",notes="Broadcast monitoring classic")
+add("BEYER_DT100","Beyerdynamic","DT Classic","DT 100","Beyerdynamic DT 100",1965,"Legacy Active","Closed Back","Dynamic","No","No",category="Studio",notes="Broadcast/studio staple")
+
+# ---- Audio-Technica ----
+add("ATECH_M50","Audio-Technica","M-Series","ATH-M50","Audio-Technica ATH-M50",2007,"Discontinued","Closed Back","Dynamic","No","No",category="Studio",succ="ATECH_M50X",notes="The original M50, fixed cable")
+add("ATECH_ESW9","Audio-Technica","ESW/ES","ATH-ESW9","Audio-Technica ATH-ESW9",2006,"Discontinued","Closed Back","Dynamic","No","No",category="Headphone",notes="Portable wood on-ear")
+add("ATECH_ES7","Audio-Technica","ESW/ES","ATH-ES7","Audio-Technica ATH-ES7",2005,"Discontinued","Closed Back","Dynamic","No","No",category="Headphone")
+add("ATECH_AD2000","Audio-Technica","A-Series","ATH-AD2000","Audio-Technica ATH-AD2000",2005,"Discontinued","Open Back","Dynamic","No","No",succ="ATECH_AD2000X")
+add("ATECH_L3000","Audio-Technica","W-Series","ATH-L3000","Audio-Technica ATH-L3000",2002,"Discontinued","Closed Back","Dynamic","No","No",notes="Leather-wrapped wood flagship")
+add("ATECH_W1000","Audio-Technica","W-Series","ATH-W1000","Audio-Technica ATH-W1000",2002,"Discontinued","Closed Back","Dynamic","No","No",succ="ATECH_W1000Z")
+
+# ---- Grado ----
+add("GRADO_SR60","Grado","Vintage","SR60","Grado SR60",1991,"Discontinued","Open Back","Dynamic","No","No",notes="The headphone that launched the Prestige line")
+add("GRADO_RS1","Grado","Reference","RS1","Grado RS1",1994,"Discontinued","Open Back","Dynamic","No","No",notes="Original mahogany Reference")
+add("GRADO_SR325I","Grado","Prestige","SR325i","Grado SR325i",2008,"Discontinued","Open Back","Dynamic","No","No",succ="GRADO_SR325E")
+add("GRADO_GS1000","Grado","Statement","GS1000","Grado GS1000",2006,"Discontinued","Open Back","Dynamic","No","No",notes="First Statement-series, large bowl pads")
+add("GRADO_PS1000","Grado","Statement-PS","PS1000","Grado PS1000",2009,"Discontinued","Open Back","Dynamic","No","No",succ="GRADO_PS1000E")
+
+# ---- Bose ----
+add("BOSE_TRIPORT","Bose","TriPort/QC Legacy","TriPort","Bose TriPort",2003,"Discontinued","Closed Back","Dynamic","No","No",category="Headphone",succ="BOSE_AE2")
+add("BOSE_QC2","Bose","TriPort/QC Legacy","QuietComfort 2","Bose QuietComfort 2",2003,"Discontinued","Closed Back","Dynamic","No","Yes",notes="Defined consumer ANC")
+add("BOSE_QC15","Bose","QuietComfort","QuietComfort 15","Bose QuietComfort 15",2009,"Discontinued","Closed Back","Dynamic","No","Yes",succ="BOSE_QC25",notes="Hugely popular wired ANC")
+
+# ---- Philips ----
+add("PHIL_SHP2000","Philips","SHP","SHP2000","Philips SHP2000",2008,"Discontinued","Open Back","Dynamic","No","No")
+
+# ---- Ultrasone / Denon / Fostex legacy ----
+add("ULTRA_HFI580","Ultrasone","Edition","HFI-580","Ultrasone HFI-580",2008,"Discontinued","Closed Back","Dynamic","No","No",notes="S-Logic surround positioning")
+add("DENON_D2000","Denon","AH-D","AH-D2000","Denon AH-D2000",2007,"Discontinued","Closed Back","Dynamic","No","No",notes="Beloved bio-cellulose closed-back")
+add("DENON_D5000","Denon","AH-D","AH-D5000","Denon AH-D5000",2007,"Discontinued","Closed Back","Dynamic","No","No",notes="Mahogany-cup classic")
+add("FOSTEX_TH900","Fostex","TH","TH900","Fostex TH900",2011,"Discontinued","Closed Back","Dynamic","No","No",succ="FOSTEX_TH900MK2",notes="Original urushi-lacquer flagship")
+
+# ============================================================================
+# COMPLETE-THE-BRANDS BATCH — remaining gaps in the current 42
+# ============================================================================
+
+# ---- Philips: Fidelio L line + budget over-ear ----
+add("PHIL_L1","Philips","Fidelio","L1","Philips Fidelio L1",2012,"Discontinued","Open Back","Dynamic","No","No",notes="First Fidelio over-ear flagship")
+add("PHIL_L4","Philips","Fidelio","L4","Philips Fidelio L4",2024,"Active","Closed Back","Dynamic","Yes","Yes",pred="PHIL_L3",notes="Wireless ANC flagship")
+add("PHIL_SHP9600","Philips","SHP","SHP9600","Philips SHP9600",2020,"Active","Open Back","Dynamic","No","No",pred="PHIL_SHP9500")
+add("PHIL_H8505","Philips","Fidelio","Fidelio H1","Philips Fidelio H1",2014,"Discontinued","Open Back","Dynamic","No","No",category="Headphone")
+
+# ---- Shure: full SRH studio/DJ line ----
+add("SHURE_SRH240A","Shure","SRH","SRH240A","Shure SRH240A",2011,"Active","Closed Back","Dynamic","No","No",category="Studio")
+add("SHURE_SRH440","Shure","SRH","SRH440","Shure SRH440",2009,"Active","Closed Back","Dynamic","No","No",category="Studio",succ="SHURE_SRH440A")
+add("SHURE_SRH440A","Shure","SRH","SRH440A","Shure SRH440A",2023,"Active","Closed Back","Dynamic","No","No",category="Studio",pred="SHURE_SRH440")
+add("SHURE_SRH840","Shure","SRH","SRH840","Shure SRH840",2009,"Active","Closed Back","Dynamic","No","No",category="Studio",succ="SHURE_SRH840A")
+add("SHURE_SRH840A","Shure","SRH","SRH840A","Shure SRH840A",2023,"Active","Closed Back","Dynamic","No","No",category="Studio",pred="SHURE_SRH840")
+add("SHURE_SRH750DJ","Shure","SRH-DJ","SRH750DJ","Shure SRH750DJ",2010,"Discontinued","Closed Back","Dynamic","No","No",category="Studio")
+add("SHURE_SRH940","Shure","SRH","SRH940","Shure SRH940",2011,"Discontinued","Closed Back","Dynamic","No","No",category="Studio")
+add("SHURE_SRH1440","Shure","SRH","SRH1440","Shure SRH1440",2012,"Active","Open Back","Dynamic","No","No",category="Studio")
+add("SHURE_AONIC40","Shure","AONIC","AONIC 40","Shure AONIC 40",2022,"Active","Closed Back","Dynamic","Yes","Yes")
+
+# ---- ZMF: complete dynamic + closed range ----
+add("ZMF_EIKON","ZMF Headphones","Eikon","Eikon","ZMF Eikon",2016,"Active","Closed Back","Dynamic","No","No",notes="Bio-cellulose closed-back")
+add("ZMF_ATTICUS","ZMF Headphones","Atticus","Atticus","ZMF Atticus",2016,"Active","Closed Back","Dynamic","No","No",notes="Warm 'ZMF house sound'")
+add("ZMF_AEOLUS","ZMF Headphones","Atticus","Aeolus","ZMF Aeolus",2018,"Active","Open Back","Dynamic","No","No",notes="Open-back Atticus sibling")
+add("ZMF_ATRIUMCLOSED","ZMF Headphones","Atrium","Atrium Closed","ZMF Atrium Closed",2023,"Active","Closed Back","Dynamic","No","No")
+add("ZMF_BOKEHOPEN","ZMF Headphones","Bokeh","Bokeh Open","ZMF Bokeh Open",2024,"Active","Open Back","Dynamic","No","No")
+add("ZMF_BOKEHCLOSED","ZMF Headphones","Bokeh","Bokeh Closed","ZMF Bokeh Closed",2024,"Active","Closed Back","Dynamic","No","No")
+add("ZMF_CALDERACLOSED","ZMF Headphones","Caldera","Caldera Closed","ZMF Caldera Closed",2024,"Active","Closed Back","Planar Magnetic","No","No",pred="ZMF_CALDERA")
+
+# ---- Stax: fuller electrostatic Lambda + Omega lines ----
+add("STAX_SR007","Stax","SR","SR-007 (Omega II)","Stax SR-007 mk2",2003,"Active","Open Back","Electrostatic","No","No",notes="Omega II reference")
+add("STAX_SRL300","Stax","Lambda","SR-L300","Stax SR-L300",2015,"Active","Open Back","Electrostatic","No","No")
+add("STAX_SRL500","Stax","Lambda","SR-L500","Stax SR-L500",2015,"Active","Open Back","Electrostatic","No","No")
+add("STAX_SRL700MK2","Stax","Lambda","SR-L700 MK2","Stax SR-L700 MK2",2020,"Active","Open Back","Electrostatic","No","No",pred="STAX_SRL700")
+add("STAX_SR404","Stax","Lambda","SR-404 Signature","Stax SR-404 Signature",2002,"Discontinued","Open Back","Electrostatic","No","No")
+
+# ---- Final Audio: Sonorous closed line ----
+add("FINAL_SONOROUS3","Final Audio","Sonorous","Sonorous III","Final Audio Sonorous III",2014,"Discontinued","Closed Back","Dynamic","No","No")
+add("FINAL_SONOROUS6","Final Audio","Sonorous","Sonorous VI","Final Audio Sonorous VI",2014,"Discontinued","Closed Back","Dynamic","No","No")
+add("FINAL_SONOROUSX","Final Audio","Sonorous","Sonorous X","Final Audio Sonorous X",2015,"Discontinued","Closed Back","Dynamic","No","No",notes="Flagship closed dynamic")
+
+# ---- Abyss: Diana TC + 1266 variants ----
+add("ABYSS_DIANATC","Abyss","Diana TC","Diana TC","Abyss Diana TC",2021,"Active","Open Back","Planar Magnetic","No","No",notes="Diana with TC driver tech")
+add("ABYSS_DIANAMR","Abyss","Diana","Diana MR","Abyss Diana MR",2023,"Active","Open Back","Planar Magnetic","No","No")
+
+# ---- Sony: MA open-back + recent studio reference ----
+add("SONY_MDRMA900","Sony","MA","MDR-MA900","Sony MDR-MA900",2012,"Discontinued","Open Back","Dynamic","No","No",notes="Lightweight 70mm open-back")
+add("SONY_MDRMV1","Sony","MA","MDR-MV1","Sony MDR-MV1",2023,"Active","Open Back","Dynamic","No","No",category="Studio",notes="Open-back studio reference")
+add("SONY_MDRM1","Sony","MA","MDR-M1","Sony MDR-M1",2024,"Active","Closed Back","Dynamic","No","No",category="Studio",notes="Modern studio monitor")
+
+# ---- Audeze: remaining LCD + headset ----
+add("AUDEZE_LCD24","Audeze","LCD","LCD-24","Audeze LCD-24 (Anniversary)",2023,"Active","Open Back","Planar Magnetic","No","No",notes="Limited anniversary LCD")
+add("AUDEZE_PENROSE","Audeze","Maxwell","Penrose","Audeze Penrose",2020,"Discontinued","Closed Back","Planar Magnetic","Yes","No",category="Gaming",notes="Wireless gaming predecessor to Maxwell")
+
+# ---- Meze: 99 line + IEM-adjacent over-ear ----
+add("MEZE_99CLASSICSWALNUT","Meze Audio","Classics","99 Classics Walnut Gold","Meze 99 Classics Walnut Gold",2015,"Active","Closed Back","Dynamic","No","No",notes="Standard walnut/gold finish")
+
+# ============================================================================
+# NEW BRANDS
+# ============================================================================
+
+# ---- Koss ----
+add("KOSS_PORTAPRO","Koss","Porta Pro","Porta Pro","Koss Porta Pro",1984,"Legacy Active","Open Back","Dynamic","No","No",category="Headphone",notes="Iconic on-ear, in production since 1984")
+add("KOSS_PORTAPROWL","Koss","Porta Pro","Porta Pro Wireless","Koss Porta Pro Wireless",2020,"Active","Open Back","Dynamic","Yes","No",category="Headphone")
+add("KOSS_KSC75","Koss","KSC","KSC75","Koss KSC75",1998,"Active","Open Back","Dynamic","No","No",category="Headphone",notes="Cult-favorite clip-on")
+add("KOSS_PRO4AA","Koss","Pro","Pro4AA","Koss Pro4AA",1970,"Discontinued","Closed Back","Dynamic","No","No",category="Studio",notes="Vintage studio classic")
+add("KOSS_ESP95X","Koss","Pro","ESP/95X","Koss ESP/95X",2015,"Active","Open Back","Electrostatic","No","No",notes="Electrostatic system w/ energizer")
+
+# ---- V-Moda ----
+add("VMODA_LP","V-Moda","Crossfade","Crossfade LP","V-Moda Crossfade LP",2010,"Discontinued","Closed Back","Dynamic","No","No",category="Headphone")
+add("VMODA_LP2","V-Moda","Crossfade","Crossfade LP2","V-Moda Crossfade LP2",2012,"Discontinued","Closed Back","Dynamic","No","No",category="Headphone",pred="VMODA_LP")
+add("VMODA_M100","V-Moda","Crossfade","Crossfade M-100","V-Moda Crossfade M-100",2012,"Discontinued","Closed Back","Dynamic","No","No",succ="VMODA_M100MASTER",notes="DJ/production favorite")
+add("VMODA_M100MASTER","V-Moda","Crossfade","Crossfade M-100 Master","V-Moda Crossfade M-100 Master",2019,"Active","Closed Back","Dynamic","No","No",pred="VMODA_M100")
+add("VMODA_CROSSFADE2WL","V-Moda","Crossfade","Crossfade 2 Wireless","V-Moda Crossfade 2 Wireless",2016,"Active","Closed Back","Dynamic","Yes","No")
+add("VMODA_M200","V-Moda","M-200","M-200","V-Moda M-200",2019,"Active","Closed Back","Dynamic","No","No",category="Studio")
+
+# ---- Yamaha ----
+add("YAMAHA_HPH200","Yamaha","HPH","HPH-200","Yamaha HPH-200",2013,"Discontinued","Open Back","Dynamic","No","No")
+add("YAMAHA_HPHMT8","Yamaha","HPH","HPH-MT8","Yamaha HPH-MT8",2016,"Active","Closed Back","Dynamic","No","No",category="Studio")
+add("YAMAHA_YHL700A","Yamaha","YH","YH-L700A","Yamaha YH-L700A",2021,"Active","Closed Back","Dynamic","Yes","Yes",notes="3D field ANC")
+add("YAMAHA_YHE700A","Yamaha","YH","YH-E700A","Yamaha YH-E700A",2021,"Active","Closed Back","Dynamic","Yes","Yes")
+add("YAMAHA_HP1","Yamaha","HPH","HP-1","Yamaha HP-1",1976,"Discontinued","Open Back","Planar Magnetic","No","No",notes="Orthodynamic classic by Mark Levinson")
+
+# ---- Pioneer ----
+add("PIONEER_SEMONITOR5","Pioneer","SE-Monitor","SE-Monitor 5","Pioneer SE-Monitor 5",2017,"Active","Closed Back","Dynamic","No","No",notes="Flagship hi-res closed-back")
+add("PIONEER_SEMASTER1","Pioneer","SE-Monitor","SE-Master 1","Pioneer SE-Master 1",2015,"Discontinued","Open Back","Dynamic","No","No",notes="Hand-built flagship")
+add("PIONEER_HDJX10","Pioneer","HDJ","HDJ-X10","Pioneer HDJ-X10",2017,"Active","Closed Back","Dynamic","No","No",category="Studio",notes="Pro DJ headphone")
+add("PIONEER_HDJ2000","Pioneer","HDJ","HDJ-2000","Pioneer HDJ-2000",2010,"Discontinued","Closed Back","Dynamic","No","No",category="Studio")
+
+# ---- AIAIAI ----
+add("AIAIAI_TMA1","AIAIAI","TMA","TMA-1","AIAIAI TMA-1",2010,"Discontinued","Closed Back","Dynamic","No","No",category="Studio",succ="AIAIAI_TMA2")
+add("AIAIAI_TMA2","AIAIAI","TMA","TMA-2 (Modular)","AIAIAI TMA-2 Modular",2015,"Active","Closed Back","Dynamic","No","No",category="Studio",pred="AIAIAI_TMA1",notes="Fully modular system")
+add("AIAIAI_TMA2STUDIO","AIAIAI","TMA","TMA-2 Studio","AIAIAI TMA-2 Studio",2018,"Active","Closed Back","Dynamic","No","No",category="Studio")
+add("AIAIAI_TMA2WL","AIAIAI","TMA","TMA-2 Studio Wireless+","AIAIAI TMA-2 Studio Wireless+",2021,"Active","Closed Back","Dynamic","Yes","No",category="Studio")
+
+# ---- 1More ----
+add("1MORE_SONOFLOW","1More","SonoFlow","SonoFlow","1More SonoFlow",2022,"Active","Closed Back","Dynamic","Yes","Yes",notes="Budget ANC value pick")
+add("1MORE_SONOFLOWSE","1More","SonoFlow","SonoFlow SE","1More SonoFlow SE",2023,"Active","Closed Back","Dynamic","Yes","Yes")
+add("1MORE_MK802","1More","SonoFlow","MK802 Bluetooth","1More MK802 Bluetooth",2017,"Discontinued","Closed Back","Dynamic","Yes","No")
+
+# ---- Edifier ----
+add("EDIFIER_STAXGT1","Edifier","STAX Spirit","STAX Spirit S3","Edifier STAX Spirit S3",2022,"Active","Closed Back","Planar Magnetic","Yes","No",notes="Planar under licensed STAX Spirit brand")
+add("EDIFIER_STAXGT5","Edifier","STAX Spirit","STAX Spirit S5","Edifier STAX Spirit S5",2024,"Active","Closed Back","Planar Magnetic","Yes","No")
+add("EDIFIER_W820NB","Edifier","WH","W820NB","Edifier W820NB",2021,"Active","Closed Back","Dynamic","Yes","Yes")
+add("EDIFIER_WH950NB","Edifier","WH","WH950NB","Edifier WH950NB",2023,"Active","Closed Back","Dynamic","Yes","Yes")
+
+# ---- Cleer ----
+add("CLEER_FLOW2","Cleer","Flow/Enduro","Flow II","Cleer Flow II",2019,"Active","Closed Back","Dynamic","Yes","Yes")
+add("CLEER_ENDURO100","Cleer","Flow/Enduro","Enduro 100","Cleer Enduro 100",2020,"Active","Closed Back","Dynamic","Yes","No",notes="100hr battery")
+add("CLEER_ALPHA","Cleer","Flow/Enduro","Alpha","Cleer Alpha",2022,"Active","Closed Back","Dynamic","Yes","Yes")
+
+# ---- Austrian Audio ----
+add("AUSTRIAN_HIX55","Austrian Audio","Hi-X","Hi-X55","Austrian Audio Hi-X55",2019,"Active","Closed Back","Dynamic","No","No",category="Studio")
+add("AUSTRIAN_HIX65","Austrian Audio","Hi-X","Hi-X65","Austrian Audio Hi-X65",2020,"Active","Open Back","Dynamic","No","No",category="Studio")
+add("AUSTRIAN_HIX60","Austrian Audio","Hi-X","Hi-X60","Austrian Audio Hi-X60",2022,"Active","Closed Back","Dynamic","No","No",category="Studio")
+add("AUSTRIAN_THECOMPOSER","Austrian Audio","Hi-X","The Composer","Austrian Audio The Composer",2022,"Active","Open Back","Dynamic","No","No",notes="Flagship open-back")
+
+# ---- Neumann ----
+add("NEUMANN_NDH20","Neumann","NDH","NDH 20","Neumann NDH 20",2019,"Active","Closed Back","Dynamic","No","No",category="Studio",notes="Studio reference closed-back")
+add("NEUMANN_NDH30","Neumann","NDH","NDH 30","Neumann NDH 30",2021,"Active","Open Back","Dynamic","No","No",category="Studio",notes="Open-back studio reference")
+
+# ---- Moondrop ----
+add("MOONDROP_VENUS","Moondrop","Planar","Venus","Moondrop Venus",2022,"Active","Open Back","Planar Magnetic","No","No",notes="First Moondrop over-ear planar")
+add("MOONDROP_PARA","Moondrop","Planar","Para","Moondrop Para",2023,"Active","Open Back","Planar Magnetic","No","No",notes="Value planar")
+add("MOONDROP_COSMO","Moondrop","Planar","Cosmo","Moondrop Cosmo",2023,"Active","Open Back","Planar Magnetic","No","No",notes="Flagship planar")
+
+# ---- Sivga ----
+add("SIVGA_PHOENIX","Sivga","Open","Phoenix","Sivga Phoenix",2021,"Active","Open Back","Dynamic","No","No")
+add("SIVGA_PII","Sivga","Open","P-II","Sivga P-II",2021,"Active","Open Back","Planar Magnetic","No","No",notes="Also sold as Sendy Aiva")
+add("SIVGA_SV021","Sivga","Open","SV021 Robin","Sivga SV021 Robin",2022,"Active","Open Back","Dynamic","No","No")
+add("SIVGA_ORIOLE","Sivga","Open","Oriole","Sivga Oriole",2023,"Active","Open Back","Dynamic","No","No")
+
+# ---- Sendy Audio ----
+add("SENDY_AIVA","Sendy Audio","Flagship","Aiva","Sendy Audio Aiva",2019,"Active","Open Back","Planar Magnetic","No","No",notes="Zebrawood planar")
+add("SENDY_PEACOCK","Sendy Audio","Flagship","Peacock","Sendy Audio Peacock",2021,"Active","Open Back","Planar Magnetic","No","No",notes="Four-coil 88mm planar flagship")
+add("SENDY_APOLLO","Sendy Audio","Flagship","Apollo","Sendy Audio Apollo",2023,"Active","Open Back","Planar Magnetic","No","No")
+
+# ---- FiiO ----
+add("FIIO_FT3","FiiO","FT","FT3","FiiO FT3",2023,"Active","Open Back","Dynamic","No","No",notes="60mm dynamic open-back")
+add("FIIO_FT5","FiiO","FT","FT5","FiiO FT5",2024,"Active","Open Back","Planar Magnetic","No","No",notes="Value planar flagship")
+add("FIIO_FT1","FiiO","FT","FT1","FiiO FT1",2024,"Active","Closed Back","Dynamic","No","No")
+add("FIIO_FT1PRO","FiiO","FT","FT1 Pro","FiiO FT1 Pro",2025,"Active","Open Back","Planar Magnetic","No","No")
+
+# ---- Spirit Torino ----
+add("SPIRITTORINO_SUPER","Spirit Torino","Flagship","Super Leggera","Spirit Torino Super Leggera",2019,"Active","Open Back","Dynamic","No","No",notes="Hand-built Italian flagship")
+add("SPIRITTORINO_RADIANTE","Spirit Torino","Flagship","Radiante","Spirit Torino Radiante",2021,"Active","Closed Back","Dynamic","No","No")
+
+# ---- Warwick Acoustics ----
+add("WARWICK_SONOMA","Warwick Acoustics","Sonoma","Sonoma Model One","Warwick Acoustics Sonoma Model One",2017,"Active","Open Back","Electrostatic","No","No",notes="Electrostatic system w/ amp/DAC")
+add("WARWICK_APERIO","Warwick Acoustics","Sonoma","Aperio","Warwick Acoustics Aperio",2019,"Active","Open Back","Electrostatic","No","No",notes="Reference electrostatic system")
+
+# ---- Mark Levinson ----
+add("MARKLEV_5909","Mark Levinson","No. 5909","No. 5909","Mark Levinson No. 5909",2022,"Active","Closed Back","Dynamic","Yes","Yes",notes="High-end wireless ANC")
+
+# ---- T+A ----
+add("TA_SOLITAIRE_P","T+A","Solitaire","Solitaire P","T+A Solitaire P",2020,"Active","Open Back","Planar Magnetic","No","No",notes="Flagship planar")
+add("TA_SOLITAIRE_PSE","T+A","Solitaire","Solitaire P-SE","T+A Solitaire P-SE",2021,"Active","Open Back","Planar Magnetic","No","No")
+add("TA_SOLITAIRE_T","T+A","Solitaire","Solitaire T","T+A Solitaire T",2023,"Active","Closed Back","Dynamic","Yes","Yes",notes="Wireless ANC")
 
 # ---------------------------------------------------------------------------
 # Resolve family ids and build lineage from predecessor/successor links

@@ -403,3 +403,184 @@ JBL_QUANTUM910,106,38,Quantum 910 Wireless,JBL Quantum 910 Wireless,2022,,Active
 MARSHALL_MIDANC,82,37,Mid ANC,Marshall Mid ANC,2018,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,,,
 SKULL_HESH3,85,39,Hesh 3,Skullcandy Hesh 3,2018,,Discontinued,Headphone,Closed Back,Dynamic,Yes,No,,,
 SKULL_CRUSHERANC,85,39,Crusher ANC,Skullcandy Crusher ANC,2019,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,,SKULL_CRUSHERANC2,
+BEATS_STUDIO2013,51,16,Studio (2013),Beats Studio (2013),2013,,Discontinued,Headphone,Closed Back,Dynamic,No,Yes,,BEATS_STUDIO2,Redesigned wired Studio
+BEATS_MIXR,107,16,Mixr,Beats Mixr,2011,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,"DJ on-ear, David Guetta"
+BEATS_PRO,107,16,Pro,Beats Pro,2011,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,All-metal over-ear
+BEATS_EXECUTIVE,108,16,Executive,Beats Executive,2012,,Discontinued,Headphone,Closed Back,Dynamic,No,Yes,,,Aluminum ANC over-ear
+BEATS_SOLO2,52,16,Solo 2,Beats Solo 2,2014,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,BEATS_SOLO3,
+BEATS_SOLOPRO,52,16,Solo Pro,Beats Solo Pro,2019,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,,,On-ear ANC
+BEATS_EP,52,16,EP,Beats EP,2016,,Active,Headphone,Closed Back,Dynamic,No,No,,,Budget wired on-ear
+SONY_MDR100ABN,112,1,MDR-100ABN,Sony MDR-100ABN (h.ear on),2015,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,,SONY_WHH900N,h.ear series ANC
+SONY_MDR100AAP,112,1,MDR-100AAP,Sony MDR-100AAP (h.ear on),2015,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,
+SONY_MDR10R,2,1,MDR-10R,Sony MDR-10R,2013,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,
+SONY_MDR10RBT,2,1,MDR-10RBT,Sony MDR-10RBT,2013,,Discontinued,Headphone,Closed Back,Dynamic,Yes,No,,,
+JBL_EVEREST700,109,38,Everest 700,JBL Everest 700,2015,,Discontinued,Headphone,Closed Back,Dynamic,Yes,No,,,
+JBL_EVEREST710,109,38,Everest 710,JBL Everest 710,2016,,Discontinued,Headphone,Closed Back,Dynamic,Yes,No,,,
+JBL_EVERESTELITE750,109,38,Everest Elite 750NC,JBL Everest Elite 750NC,2016,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,,,
+JBL_TUNE750,110,38,Tune 750BTNC,JBL Tune 750BTNC,2019,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,,,
+JBL_TUNE760,110,38,Tune 760NC,JBL Tune 760NC,2021,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,
+JBL_TUNE770,110,38,Tune 770NC,JBL Tune 770NC,2023,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,
+SKULL_HESH2,111,39,Hesh 2 Wireless,Skullcandy Hesh 2 Wireless,2015,,Discontinued,Headphone,Closed Back,Dynamic,Yes,No,,,
+SKULL_HESHANC,111,39,Hesh ANC,Skullcandy Hesh ANC,2020,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,
+SKULL_HESHEVO,111,39,Hesh Evo,Skullcandy Hesh Evo,2020,,Active,Headphone,Closed Back,Dynamic,Yes,No,,,
+SKULL_CRUSHER540,85,39,Crusher 540 Active,Skullcandy Crusher 540 Active,2025,,Active,Headphone,Closed Back,Dynamic,Yes,No,,,"Sensory bass, fitness-focused"
+MARSHALL_MAJOR2,113,37,Major II,Marshall Major II,2014,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,MARSHALL_MAJOR3,
+MARSHALL_MAJOR3,113,37,Major III,Marshall Major III,2018,,Discontinued,Headphone,Closed Back,Dynamic,Yes,No,MARSHALL_MAJOR2,MARSHALL_MAJOR4,
+MARSHALL_MONITOR,82,37,Monitor,Marshall Monitor,2013,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,MARSHALL_MONITOR2,
+MARSHALL_MONITOR3,82,37,Monitor III ANC,Marshall Monitor III ANC,2024,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,MARSHALL_MONITOR2,,100hr battery
+ANKER_LIFEQ30,86,40,Life Q30,Anker Soundcore Life Q30,2020,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,
+ANKER_LIFEQ20,86,40,Life Q20,Anker Soundcore Life Q20,2019,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,
+TECH_EAHA800M2,87,41,EAH-A800M2,Technics EAH-A800M2,2025,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,TECH_EAHA800,,
+RAZER_KRAKENV4,59,20,Kraken V4,Razer Kraken V4,2025,,Active,Gaming,Closed Back,Dynamic,Yes,No,,,
+RAZER_BLACKSHARKV3,58,20,BlackShark V3,Razer BlackShark V3,2025,,Active,Gaming,Closed Back,Dynamic,No,No,,,
+STEEL_NOVA5X,55,18,Arctis Nova 5X,SteelSeries Arctis Nova 5X,2024,,Active,Gaming,Closed Back,Dynamic,Yes,No,,,
+LOGI_G935,61,21,G935,Logitech G935,2019,,Active,Gaming,Closed Back,Dynamic,Yes,No,,,
+ASTRO_A40,62,22,A40 TR Gen 2,Astro A40 TR (Gen 2),2019,,Active,Gaming,Open Back,Dynamic,No,No,,,
+CORSAIR_HS80MAX,65,24,HS80 Max Wireless,Corsair HS80 Max Wireless,2023,,Active,Gaming,Closed Back,Dynamic,Yes,No,,,
+SENN_HD414,114,2,HD 414,Sennheiser HD 414,1968,,Discontinued,Headphone,Open Back,Dynamic,No,No,,,World's first open-back hi-fi headphone
+SENN_HD580,4,2,HD 580 Precision,Sennheiser HD 580 Precision,1991,,Discontinued,Headphone,Open Back,Dynamic,No,No,,SENN_HD600,Direct ancestor of the HD 600
+SENN_HD540,114,2,HD 540 Reference,Sennheiser HD 540 Reference,1985,,Discontinued,Headphone,Open Back,Dynamic,No,No,,,
+SENN_HD25_1,4,2,HD 25-1,Sennheiser HD 25-1,1988,,Legacy Active,Studio,Closed Back,Dynamic,No,No,,,On-ear monitoring/DJ standard
+SENN_HD555,89,2,HD 555,Sennheiser HD 555,2005,,Discontinued,Headphone,Open Back,Dynamic,No,No,,SENN_HD558,
+SENN_HD595,89,2,HD 595,Sennheiser HD 595,2005,,Discontinued,Headphone,Open Back,Dynamic,No,No,,SENN_HD598,
+SENN_HD280PRO,115,2,HD 280 Pro,Sennheiser HD 280 Pro,2003,,Active,Studio,Closed Back,Dynamic,No,No,,,Studio monitoring staple
+SENN_HD202,115,2,HD 202,Sennheiser HD 202,2003,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,
+SENN_PX100,114,2,PX 100,Sennheiser PX 100,2003,,Discontinued,Headphone,Open Back,Dynamic,No,No,,,Portable on-ear
+SENN_PX200,114,2,PX 200,Sennheiser PX 200,2004,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,
+SENN_HE60,114,2,HE 60 (Orpheus),Sennheiser HE 60 / HEV 70,1991,,Discontinued,Headphone,Open Back,Electrostatic,No,No,,,Baby Orpheus electrostatic
+SONY_MDRSA5000,116,1,MDR-SA5000,Sony MDR-SA5000,2004,,Discontinued,Headphone,Open Back,Dynamic,No,No,,,Lightweight magnesium open-back
+SONY_MDRR10,116,1,MDR-R10,Sony MDR-R10,1989,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,Legendary wood-cup flagship
+SONY_MDRCD3000,116,1,MDR-CD3000,Sony MDR-CD3000,1991,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,
+SONY_QUALIA010,116,1,Qualia 010 (MDR-Q010),Sony Qualia 010,2004,,Discontinued,Headphone,Open Back,Dynamic,No,No,,,Qualia-series flagship
+SONY_MDRV600,91,1,MDR-V600,Sony MDR-V600,1992,,Discontinued,Studio,Closed Back,Dynamic,No,No,,,
+SONY_MDR7509HD,91,1,MDR-7509HD,Sony MDR-7509HD,2003,,Discontinued,Studio,Closed Back,Dynamic,No,No,,,Larger-driver pro model
+SONY_MDRXB700,93,1,MDR-XB700,Sony MDR-XB700,2009,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,Original Extra Bass over-ear
+AKG_K1000,117,5,K1000,AKG K1000,1989,,Discontinued,Headphone,Open Back,Dynamic,No,No,,,"Ear-speaker, hinged off-ear design"
+AKG_K240SEXTETT,117,5,K240 Sextett,AKG K240 Sextett,1979,,Discontinued,Headphone,Semi-Open,Dynamic,No,No,,,Passive-radiator classic
+AKG_K340,117,5,K340,AKG K340,1978,,Discontinued,Headphone,Closed Back,Hybrid,No,No,,,Dynamic + electrostatic hybrid
+AKG_K501,117,5,K501,AKG K501,1995,,Discontinued,Headphone,Open Back,Dynamic,No,No,,AKG_K601,
+AKG_K601,117,5,K601,AKG K601,2005,,Discontinued,Headphone,Open Back,Dynamic,No,No,AKG_K501,,
+AKG_K271,97,5,K271 Studio,AKG K271 Studio,2003,,Discontinued,Studio,Closed Back,Dynamic,No,No,,AKG_K271MK2,
+AKG_K141,97,5,K141 Studio,AKG K141 Studio,2003,,Active,Studio,Semi-Open,Dynamic,No,No,,,
+BEYER_DT48,121,6,DT 48,Beyerdynamic DT 48,1937,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,Among the oldest headphones in continuous production
+BEYER_DT831,121,6,DT 831,Beyerdynamic DT 831,1994,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,
+BEYER_DT880_2005,17,6,DT 880 Edition (2005),Beyerdynamic DT 880 Edition (2005),2005,,Active,Headphone,Semi-Open,Dynamic,No,No,,,Consumer Edition revision
+BEYER_DT150,121,6,DT 150,Beyerdynamic DT 150,1980,,Active,Studio,Closed Back,Dynamic,No,No,,,Broadcast monitoring classic
+BEYER_DT100,121,6,DT 100,Beyerdynamic DT 100,1965,,Legacy Active,Studio,Closed Back,Dynamic,No,No,,,Broadcast/studio staple
+ATECH_M50,10,4,ATH-M50,Audio-Technica ATH-M50,2007,,Discontinued,Studio,Closed Back,Dynamic,No,No,,ATECH_M50X,"The original M50, fixed cable"
+ATECH_ESW9,118,4,ATH-ESW9,Audio-Technica ATH-ESW9,2006,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,Portable wood on-ear
+ATECH_ES7,118,4,ATH-ES7,Audio-Technica ATH-ES7,2005,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,
+ATECH_AD2000,12,4,ATH-AD2000,Audio-Technica ATH-AD2000,2005,,Discontinued,Headphone,Open Back,Dynamic,No,No,,ATECH_AD2000X,
+ATECH_L3000,13,4,ATH-L3000,Audio-Technica ATH-L3000,2002,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,Leather-wrapped wood flagship
+ATECH_W1000,13,4,ATH-W1000,Audio-Technica ATH-W1000,2002,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,ATECH_W1000Z,
+GRADO_SR60,119,12,SR60,Grado SR60,1991,,Discontinued,Headphone,Open Back,Dynamic,No,No,,,The headphone that launched the Prestige line
+GRADO_RS1,42,12,RS1,Grado RS1,1994,,Discontinued,Headphone,Open Back,Dynamic,No,No,,,Original mahogany Reference
+GRADO_SR325I,41,12,SR325i,Grado SR325i,2008,,Discontinued,Headphone,Open Back,Dynamic,No,No,,GRADO_SR325E,
+GRADO_GS1000,43,12,GS1000,Grado GS1000,2006,,Discontinued,Headphone,Open Back,Dynamic,No,No,,,"First Statement-series, large bowl pads"
+GRADO_PS1000,102,12,PS1000,Grado PS1000,2009,,Discontinued,Headphone,Open Back,Dynamic,No,No,,GRADO_PS1000E,
+BOSE_TRIPORT,120,7,TriPort,Bose TriPort,2003,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,BOSE_AE2,
+BOSE_QC2,120,7,QuietComfort 2,Bose QuietComfort 2,2003,,Discontinued,Headphone,Closed Back,Dynamic,No,Yes,,,Defined consumer ANC
+BOSE_QC15,21,7,QuietComfort 15,Bose QuietComfort 15,2009,,Discontinued,Headphone,Closed Back,Dynamic,No,Yes,,BOSE_QC25,Hugely popular wired ANC
+PHIL_SHP2000,9,3,SHP2000,Philips SHP2000,2008,,Discontinued,Headphone,Open Back,Dynamic,No,No,,,
+ULTRA_HFI580,79,34,HFI-580,Ultrasone HFI-580,2008,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,S-Logic surround positioning
+DENON_D2000,76,31,AH-D2000,Denon AH-D2000,2007,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,Beloved bio-cellulose closed-back
+DENON_D5000,76,31,AH-D5000,Denon AH-D5000,2007,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,Mahogany-cup classic
+FOSTEX_TH900,75,30,TH900,Fostex TH900,2011,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,FOSTEX_TH900MK2,Original urushi-lacquer flagship
+PHIL_L1,8,3,L1,Philips Fidelio L1,2012,,Discontinued,Headphone,Open Back,Dynamic,No,No,,,First Fidelio over-ear flagship
+PHIL_L4,8,3,L4,Philips Fidelio L4,2024,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,PHIL_L3,,Wireless ANC flagship
+PHIL_SHP9600,9,3,SHP9600,Philips SHP9600,2020,,Active,Headphone,Open Back,Dynamic,No,No,PHIL_SHP9500,,
+PHIL_H8505,8,3,Fidelio H1,Philips Fidelio H1,2014,,Discontinued,Headphone,Open Back,Dynamic,No,No,,,
+SHURE_SRH240A,53,17,SRH240A,Shure SRH240A,2011,,Active,Studio,Closed Back,Dynamic,No,No,,,
+SHURE_SRH440,53,17,SRH440,Shure SRH440,2009,,Active,Studio,Closed Back,Dynamic,No,No,,SHURE_SRH440A,
+SHURE_SRH440A,53,17,SRH440A,Shure SRH440A,2023,,Active,Studio,Closed Back,Dynamic,No,No,SHURE_SRH440,,
+SHURE_SRH840,53,17,SRH840,Shure SRH840,2009,,Active,Studio,Closed Back,Dynamic,No,No,,SHURE_SRH840A,
+SHURE_SRH840A,53,17,SRH840A,Shure SRH840A,2023,,Active,Studio,Closed Back,Dynamic,No,No,SHURE_SRH840,,
+SHURE_SRH750DJ,122,17,SRH750DJ,Shure SRH750DJ,2010,,Discontinued,Studio,Closed Back,Dynamic,No,No,,,
+SHURE_SRH940,53,17,SRH940,Shure SRH940,2011,,Discontinued,Studio,Closed Back,Dynamic,No,No,,,
+SHURE_SRH1440,53,17,SRH1440,Shure SRH1440,2012,,Active,Studio,Open Back,Dynamic,No,No,,,
+SHURE_AONIC40,54,17,AONIC 40,Shure AONIC 40,2022,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,
+ZMF_EIKON,123,27,Eikon,ZMF Eikon,2016,,Active,Headphone,Closed Back,Dynamic,No,No,,,Bio-cellulose closed-back
+ZMF_ATTICUS,124,27,Atticus,ZMF Atticus,2016,,Active,Headphone,Closed Back,Dynamic,No,No,,,Warm 'ZMF house sound'
+ZMF_AEOLUS,124,27,Aeolus,ZMF Aeolus,2018,,Active,Headphone,Open Back,Dynamic,No,No,,,Open-back Atticus sibling
+ZMF_ATRIUMCLOSED,71,27,Atrium Closed,ZMF Atrium Closed,2023,,Active,Headphone,Closed Back,Dynamic,No,No,,,
+ZMF_BOKEHOPEN,125,27,Bokeh Open,ZMF Bokeh Open,2024,,Active,Headphone,Open Back,Dynamic,No,No,,,
+ZMF_BOKEHCLOSED,125,27,Bokeh Closed,ZMF Bokeh Closed,2024,,Active,Headphone,Closed Back,Dynamic,No,No,,,
+ZMF_CALDERACLOSED,72,27,Caldera Closed,ZMF Caldera Closed,2024,,Active,Headphone,Closed Back,Planar Magnetic,No,No,ZMF_CALDERA,,
+STAX_SR007,73,28,SR-007 (Omega II),Stax SR-007 mk2,2003,,Active,Headphone,Open Back,Electrostatic,No,No,,,Omega II reference
+STAX_SRL300,126,28,SR-L300,Stax SR-L300,2015,,Active,Headphone,Open Back,Electrostatic,No,No,,,
+STAX_SRL500,126,28,SR-L500,Stax SR-L500,2015,,Active,Headphone,Open Back,Electrostatic,No,No,,,
+STAX_SRL700MK2,126,28,SR-L700 MK2,Stax SR-L700 MK2,2020,,Active,Headphone,Open Back,Electrostatic,No,No,STAX_SRL700,,
+STAX_SR404,126,28,SR-404 Signature,Stax SR-404 Signature,2002,,Discontinued,Headphone,Open Back,Electrostatic,No,No,,,
+FINAL_SONOROUS3,127,29,Sonorous III,Final Audio Sonorous III,2014,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,
+FINAL_SONOROUS6,127,29,Sonorous VI,Final Audio Sonorous VI,2014,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,
+FINAL_SONOROUSX,127,29,Sonorous X,Final Audio Sonorous X,2015,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,Flagship closed dynamic
+ABYSS_DIANATC,129,26,Diana TC,Abyss Diana TC,2021,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,Diana with TC driver tech
+ABYSS_DIANAMR,68,26,Diana MR,Abyss Diana MR,2023,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,
+SONY_MDRMA900,128,1,MDR-MA900,Sony MDR-MA900,2012,,Discontinued,Headphone,Open Back,Dynamic,No,No,,,Lightweight 70mm open-back
+SONY_MDRMV1,128,1,MDR-MV1,Sony MDR-MV1,2023,,Active,Studio,Open Back,Dynamic,No,No,,,Open-back studio reference
+SONY_MDRM1,128,1,MDR-M1,Sony MDR-M1,2024,,Active,Studio,Closed Back,Dynamic,No,No,,,Modern studio monitor
+AUDEZE_LCD24,23,8,LCD-24,Audeze LCD-24 (Anniversary),2023,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,Limited anniversary LCD
+AUDEZE_PENROSE,25,8,Penrose,Audeze Penrose,2020,,Discontinued,Gaming,Closed Back,Planar Magnetic,Yes,No,,,Wireless gaming predecessor to Maxwell
+MEZE_99CLASSICSWALNUT,45,13,99 Classics Walnut Gold,Meze 99 Classics Walnut Gold,2015,,Active,Headphone,Closed Back,Dynamic,No,No,,,Standard walnut/gold finish
+KOSS_PORTAPRO,130,43,Porta Pro,Koss Porta Pro,1984,,Legacy Active,Headphone,Open Back,Dynamic,No,No,,,"Iconic on-ear, in production since 1984"
+KOSS_PORTAPROWL,130,43,Porta Pro Wireless,Koss Porta Pro Wireless,2020,,Active,Headphone,Open Back,Dynamic,Yes,No,,,
+KOSS_KSC75,131,43,KSC75,Koss KSC75,1998,,Active,Headphone,Open Back,Dynamic,No,No,,,Cult-favorite clip-on
+KOSS_PRO4AA,132,43,Pro4AA,Koss Pro4AA,1970,,Discontinued,Studio,Closed Back,Dynamic,No,No,,,Vintage studio classic
+KOSS_ESP95X,132,43,ESP/95X,Koss ESP/95X,2015,,Active,Headphone,Open Back,Electrostatic,No,No,,,Electrostatic system w/ energizer
+VMODA_LP,133,44,Crossfade LP,V-Moda Crossfade LP,2010,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,
+VMODA_LP2,133,44,Crossfade LP2,V-Moda Crossfade LP2,2012,,Discontinued,Headphone,Closed Back,Dynamic,No,No,VMODA_LP,,
+VMODA_M100,133,44,Crossfade M-100,V-Moda Crossfade M-100,2012,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,VMODA_M100MASTER,DJ/production favorite
+VMODA_M100MASTER,133,44,Crossfade M-100 Master,V-Moda Crossfade M-100 Master,2019,,Active,Headphone,Closed Back,Dynamic,No,No,VMODA_M100,,
+VMODA_CROSSFADE2WL,133,44,Crossfade 2 Wireless,V-Moda Crossfade 2 Wireless,2016,,Active,Headphone,Closed Back,Dynamic,Yes,No,,,
+VMODA_M200,134,44,M-200,V-Moda M-200,2019,,Active,Studio,Closed Back,Dynamic,No,No,,,
+YAMAHA_HPH200,135,45,HPH-200,Yamaha HPH-200,2013,,Discontinued,Headphone,Open Back,Dynamic,No,No,,,
+YAMAHA_HPHMT8,135,45,HPH-MT8,Yamaha HPH-MT8,2016,,Active,Studio,Closed Back,Dynamic,No,No,,,
+YAMAHA_YHL700A,136,45,YH-L700A,Yamaha YH-L700A,2021,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,3D field ANC
+YAMAHA_YHE700A,136,45,YH-E700A,Yamaha YH-E700A,2021,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,
+YAMAHA_HP1,135,45,HP-1,Yamaha HP-1,1976,,Discontinued,Headphone,Open Back,Planar Magnetic,No,No,,,Orthodynamic classic by Mark Levinson
+PIONEER_SEMONITOR5,137,46,SE-Monitor 5,Pioneer SE-Monitor 5,2017,,Active,Headphone,Closed Back,Dynamic,No,No,,,Flagship hi-res closed-back
+PIONEER_SEMASTER1,137,46,SE-Master 1,Pioneer SE-Master 1,2015,,Discontinued,Headphone,Open Back,Dynamic,No,No,,,Hand-built flagship
+PIONEER_HDJX10,138,46,HDJ-X10,Pioneer HDJ-X10,2017,,Active,Studio,Closed Back,Dynamic,No,No,,,Pro DJ headphone
+PIONEER_HDJ2000,138,46,HDJ-2000,Pioneer HDJ-2000,2010,,Discontinued,Studio,Closed Back,Dynamic,No,No,,,
+AIAIAI_TMA1,139,47,TMA-1,AIAIAI TMA-1,2010,,Discontinued,Studio,Closed Back,Dynamic,No,No,,AIAIAI_TMA2,
+AIAIAI_TMA2,139,47,TMA-2 (Modular),AIAIAI TMA-2 Modular,2015,,Active,Studio,Closed Back,Dynamic,No,No,AIAIAI_TMA1,,Fully modular system
+AIAIAI_TMA2STUDIO,139,47,TMA-2 Studio,AIAIAI TMA-2 Studio,2018,,Active,Studio,Closed Back,Dynamic,No,No,,,
+AIAIAI_TMA2WL,139,47,TMA-2 Studio Wireless+,AIAIAI TMA-2 Studio Wireless+,2021,,Active,Studio,Closed Back,Dynamic,Yes,No,,,
+1MORE_SONOFLOW,140,48,SonoFlow,1More SonoFlow,2022,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,Budget ANC value pick
+1MORE_SONOFLOWSE,140,48,SonoFlow SE,1More SonoFlow SE,2023,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,
+1MORE_MK802,140,48,MK802 Bluetooth,1More MK802 Bluetooth,2017,,Discontinued,Headphone,Closed Back,Dynamic,Yes,No,,,
+EDIFIER_STAXGT1,141,49,STAX Spirit S3,Edifier STAX Spirit S3,2022,,Active,Headphone,Closed Back,Planar Magnetic,Yes,No,,,Planar under licensed STAX Spirit brand
+EDIFIER_STAXGT5,141,49,STAX Spirit S5,Edifier STAX Spirit S5,2024,,Active,Headphone,Closed Back,Planar Magnetic,Yes,No,,,
+EDIFIER_W820NB,142,49,W820NB,Edifier W820NB,2021,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,
+EDIFIER_WH950NB,142,49,WH950NB,Edifier WH950NB,2023,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,
+CLEER_FLOW2,143,50,Flow II,Cleer Flow II,2019,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,
+CLEER_ENDURO100,143,50,Enduro 100,Cleer Enduro 100,2020,,Active,Headphone,Closed Back,Dynamic,Yes,No,,,100hr battery
+CLEER_ALPHA,143,50,Alpha,Cleer Alpha,2022,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,
+AUSTRIAN_HIX55,144,51,Hi-X55,Austrian Audio Hi-X55,2019,,Active,Studio,Closed Back,Dynamic,No,No,,,
+AUSTRIAN_HIX65,144,51,Hi-X65,Austrian Audio Hi-X65,2020,,Active,Studio,Open Back,Dynamic,No,No,,,
+AUSTRIAN_HIX60,144,51,Hi-X60,Austrian Audio Hi-X60,2022,,Active,Studio,Closed Back,Dynamic,No,No,,,
+AUSTRIAN_THECOMPOSER,144,51,The Composer,Austrian Audio The Composer,2022,,Active,Headphone,Open Back,Dynamic,No,No,,,Flagship open-back
+NEUMANN_NDH20,145,52,NDH 20,Neumann NDH 20,2019,,Active,Studio,Closed Back,Dynamic,No,No,,,Studio reference closed-back
+NEUMANN_NDH30,145,52,NDH 30,Neumann NDH 30,2021,,Active,Studio,Open Back,Dynamic,No,No,,,Open-back studio reference
+MOONDROP_VENUS,146,53,Venus,Moondrop Venus,2022,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,First Moondrop over-ear planar
+MOONDROP_PARA,146,53,Para,Moondrop Para,2023,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,Value planar
+MOONDROP_COSMO,146,53,Cosmo,Moondrop Cosmo,2023,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,Flagship planar
+SIVGA_PHOENIX,147,54,Phoenix,Sivga Phoenix,2021,,Active,Headphone,Open Back,Dynamic,No,No,,,
+SIVGA_PII,147,54,P-II,Sivga P-II,2021,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,Also sold as Sendy Aiva
+SIVGA_SV021,147,54,SV021 Robin,Sivga SV021 Robin,2022,,Active,Headphone,Open Back,Dynamic,No,No,,,
+SIVGA_ORIOLE,147,54,Oriole,Sivga Oriole,2023,,Active,Headphone,Open Back,Dynamic,No,No,,,
+SENDY_AIVA,148,55,Aiva,Sendy Audio Aiva,2019,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,Zebrawood planar
+SENDY_PEACOCK,148,55,Peacock,Sendy Audio Peacock,2021,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,Four-coil 88mm planar flagship
+SENDY_APOLLO,148,55,Apollo,Sendy Audio Apollo,2023,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,
+FIIO_FT3,149,56,FT3,FiiO FT3,2023,,Active,Headphone,Open Back,Dynamic,No,No,,,60mm dynamic open-back
+FIIO_FT5,149,56,FT5,FiiO FT5,2024,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,Value planar flagship
+FIIO_FT1,149,56,FT1,FiiO FT1,2024,,Active,Headphone,Closed Back,Dynamic,No,No,,,
+FIIO_FT1PRO,149,56,FT1 Pro,FiiO FT1 Pro,2025,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,
+SPIRITTORINO_SUPER,150,57,Super Leggera,Spirit Torino Super Leggera,2019,,Active,Headphone,Open Back,Dynamic,No,No,,,Hand-built Italian flagship
+SPIRITTORINO_RADIANTE,150,57,Radiante,Spirit Torino Radiante,2021,,Active,Headphone,Closed Back,Dynamic,No,No,,,
+WARWICK_SONOMA,151,58,Sonoma Model One,Warwick Acoustics Sonoma Model One,2017,,Active,Headphone,Open Back,Electrostatic,No,No,,,Electrostatic system w/ amp/DAC
+WARWICK_APERIO,151,58,Aperio,Warwick Acoustics Aperio,2019,,Active,Headphone,Open Back,Electrostatic,No,No,,,Reference electrostatic system
+MARKLEV_5909,152,59,No. 5909,Mark Levinson No. 5909,2022,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,High-end wireless ANC
+TA_SOLITAIRE_P,153,60,Solitaire P,T+A Solitaire P,2020,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,Flagship planar
+TA_SOLITAIRE_PSE,153,60,Solitaire P-SE,T+A Solitaire P-SE,2021,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,
+TA_SOLITAIRE_T,153,60,Solitaire T,T+A Solitaire T,2023,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,Wireless ANC
