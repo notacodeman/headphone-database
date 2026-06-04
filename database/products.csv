@@ -1,4 +1,405 @@
 product_id,family_id,manufacturer_id,model_name,full_name,release_year,discontinued_year,status,category,design,driver_type,wireless,anc,predecessor,successor,notes
-SONY_WH1000XM5,1,1,WH-1000XM5,Sony WH-1000XM5,2022,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,SONY_WH1000XM4,SONY_WH1000XM6,Flagship ANC headphone
-SENN_HD600,3,2,HD 600,Sennheiser HD 600,1997,,Legacy Active,Headphone,Open Back,Dynamic,No,No,,SENN_HD650,Reference open-back headphone
-PHIL_X2HR,4,3,X2HR,Philips Fidelio X2HR,2017,,Active,Headphone,Open Back,Dynamic,No,No,,,Popular open-back value pick
+SONY_MDR1R,2,1,MDR-1R,Sony MDR-1R,2012,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,SONY_MDR1A,Premium closed-back
+SONY_MDR1A,2,1,MDR-1A,Sony MDR-1A,2014,,Discontinued,Headphone,Closed Back,Dynamic,No,No,SONY_MDR1R,,
+SONY_MDRZ7,2,1,MDR-Z7,Sony MDR-Z7,2014,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,SONY_MDRZ7M2,70mm driver
+SONY_MDRZ7M2,2,1,MDR-Z7M2,Sony MDR-Z7M2,2018,,Active,Headphone,Closed Back,Dynamic,No,No,SONY_MDRZ7,,
+SONY_MDRZ1R,2,1,MDR-Z1R,Sony MDR-Z1R,2016,,Active,Headphone,Closed Back,Dynamic,No,No,,,Signature Series flagship
+SONY_MDR1000X,1,1,MDR-1000X,Sony MDR-1000X,2016,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,,SONY_WH1000XM2,First in the 1000X line
+SONY_WH1000XM2,1,1,WH-1000XM2,Sony WH-1000XM2,2017,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,SONY_MDR1000X,SONY_WH1000XM3,
+SONY_WH1000XM3,1,1,WH-1000XM3,Sony WH-1000XM3,2018,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,SONY_WH1000XM2,SONY_WH1000XM4,
+SONY_WH1000XM4,1,1,WH-1000XM4,Sony WH-1000XM4,2020,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,SONY_WH1000XM3,SONY_WH1000XM5,
+SONY_WH1000XM5,1,1,WH-1000XM5,Sony WH-1000XM5,2022,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,SONY_WH1000XM4,SONY_WH1000XM6,Flagship ANC
+SONY_WH1000XM6,1,1,WH-1000XM6,Sony WH-1000XM6,2025,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,SONY_WH1000XM5,,"Foldable redesign, QN3 processor"
+SONY_WHH900N,1,1,WH-H900N,Sony WH-H900N (h.ear on 2),2017,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,,,
+SONY_ULTWEAR,3,1,ULT WEAR,Sony ULT WEAR,2024,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,Bass-focused ANC
+SENN_HD600,4,2,HD 600,Sennheiser HD 600,1997,,Legacy Active,Headphone,Open Back,Dynamic,No,No,,SENN_HD650,"Reference open-back, still in production"
+SENN_HD650,4,2,HD 650,Sennheiser HD 650,2003,,Legacy Active,Headphone,Open Back,Dynamic,No,No,SENN_HD600,SENN_HD660S,
+SENN_HD700,4,2,HD 700,Sennheiser HD 700,2012,,Discontinued,Headphone,Open Back,Dynamic,No,No,,,
+SENN_HD800,4,2,HD 800,Sennheiser HD 800,2009,,Legacy Active,Headphone,Open Back,Dynamic,No,No,,SENN_HD800S,56mm ring radiator
+SENN_HD800S,4,2,HD 800 S,Sennheiser HD 800 S,2015,,Active,Headphone,Open Back,Dynamic,No,No,SENN_HD800,,
+SENN_HD820,4,2,HD 820,Sennheiser HD 820,2018,,Active,Headphone,Closed Back,Dynamic,No,No,,,"Closed-back flagship, glass earcups"
+SENN_HD660S,4,2,HD 660S,Sennheiser HD 660S,2017,,Discontinued,Headphone,Open Back,Dynamic,No,No,SENN_HD650,SENN_HD660S2,
+SENN_HD660S2,4,2,HD 660S2,Sennheiser HD 660S2,2023,,Active,Headphone,Open Back,Dynamic,No,No,SENN_HD660S,,
+SENN_HD560S,4,2,HD 560S,Sennheiser HD 560S,2020,,Active,Headphone,Open Back,Dynamic,No,No,,,Reference value pick
+SENN_HD620S,4,2,HD 620S,Sennheiser HD 620S,2024,,Active,Headphone,Closed Back,Dynamic,No,No,,,Closed-back addition to 600 line
+SENN_HD550,4,2,HD 550,Sennheiser HD 550,2025,,Active,Headphone,Open Back,Dynamic,No,No,,,
+SENN_MOMENTUM,5,2,Momentum,Sennheiser Momentum,2013,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,SENN_MOMENTUM2,Original Momentum over-ear
+SENN_MOMENTUM2,5,2,Momentum 2.0,Sennheiser Momentum 2.0,2015,,Discontinued,Headphone,Closed Back,Dynamic,No,No,SENN_MOMENTUM,SENN_MOMENTUM3,
+SENN_MOMENTUM3,5,2,Momentum 3 Wireless,Sennheiser Momentum 3 Wireless,2019,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,SENN_MOMENTUM2,SENN_MOMENTUM4,
+SENN_MOMENTUM4,5,2,Momentum 4 Wireless,Sennheiser Momentum 4 Wireless,2022,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,SENN_MOMENTUM3,SENN_MOMENTUM5,
+SENN_MOMENTUM5,5,2,Momentum 5 Wireless,Sennheiser Momentum 5 Wireless,2024,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,SENN_MOMENTUM4,,
+SENN_HDB630,6,2,HDB 630,Sennheiser HDB 630,2025,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,First wireless model in the audiophile 600 line
+SENN_ACCENTUM,7,2,Accentum Wireless,Sennheiser Accentum Wireless,2023,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,SENN_ACCENTUMPLUS,
+SENN_ACCENTUMPLUS,7,2,Accentum Plus,Sennheiser Accentum Plus Wireless,2024,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,SENN_ACCENTUM,,
+PHIL_X1,8,3,X1,Philips Fidelio X1,2012,,Discontinued,Headphone,Open Back,Dynamic,No,No,,PHIL_X2,
+PHIL_X2,8,3,X2,Philips Fidelio X2,2014,,Discontinued,Headphone,Open Back,Dynamic,No,No,PHIL_X1,PHIL_X2HR,
+PHIL_X2HR,8,3,X2HR,Philips Fidelio X2HR,2017,,Active,Headphone,Open Back,Dynamic,No,No,PHIL_X2,PHIL_X3,Popular open-back value pick
+PHIL_X3,8,3,X3,Philips Fidelio X3,2020,,Active,Headphone,Open Back,Dynamic,No,No,PHIL_X2HR,,
+PHIL_L2,8,3,L2,Philips Fidelio L2,2013,,Discontinued,Headphone,Open Back,Dynamic,No,No,,PHIL_L3,
+PHIL_L3,8,3,L3,Philips Fidelio L3,2021,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,PHIL_L2,,
+PHIL_SHP9500,9,3,SHP9500,Philips SHP9500,2014,,Active,Headphone,Open Back,Dynamic,No,No,,,Budget open-back favorite
+ATECH_M40X,10,4,ATH-M40x,Audio-Technica ATH-M40x,2014,,Active,Studio,Closed Back,Dynamic,No,No,,,
+ATECH_M50X,10,4,ATH-M50x,Audio-Technica ATH-M50x,2014,,Active,Studio,Closed Back,Dynamic,No,No,,,Best-selling studio monitor
+ATECH_M60X,10,4,ATH-M60x,Audio-Technica ATH-M60x,2019,,Active,Studio,Closed Back,Dynamic,No,No,,,
+ATECH_M70X,10,4,ATH-M70x,Audio-Technica ATH-M70x,2015,,Active,Studio,Closed Back,Dynamic,No,No,,,
+ATECH_M50XBT,10,4,ATH-M50xBT,Audio-Technica ATH-M50xBT,2018,,Discontinued,Headphone,Closed Back,Dynamic,Yes,No,,ATECH_M50XBT2,
+ATECH_M50XBT2,10,4,ATH-M50xBT2,Audio-Technica ATH-M50xBT2,2021,,Active,Headphone,Closed Back,Dynamic,Yes,No,ATECH_M50XBT,,
+ATECH_MSR7,14,4,ATH-MSR7,Audio-Technica ATH-MSR7,2014,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,
+ATECH_R70X,11,4,ATH-R70x,Audio-Technica ATH-R70x,2015,,Active,Studio,Open Back,Dynamic,No,No,,ATECH_R70XA,First A-T open-back reference
+ATECH_R70XA,11,4,ATH-R70xa,Audio-Technica ATH-R70xa,2025,,Active,Studio,Open Back,Dynamic,No,No,ATECH_R70X,,
+ATECH_R50X,11,4,ATH-R50x,Audio-Technica ATH-R50x,2025,,Active,Studio,Open Back,Dynamic,No,No,,,
+ATECH_R30X,11,4,ATH-R30x,Audio-Technica ATH-R30x,2025,,Active,Studio,Open Back,Dynamic,No,No,,,
+ATECH_ADX5000,12,4,ATH-ADX5000,Audio-Technica ATH-ADX5000,2017,,Active,Headphone,Open Back,Dynamic,No,No,,,Flagship open-back
+ATECH_ADX3000,12,4,ATH-ADX3000,Audio-Technica ATH-ADX3000,2025,,Active,Headphone,Open Back,Dynamic,No,No,,,
+ATECH_AD700X,12,4,ATH-AD700X,Audio-Technica ATH-AD700X,2012,,Active,Headphone,Open Back,Dynamic,No,No,,,
+ATECH_AD900X,12,4,ATH-AD900X,Audio-Technica ATH-AD900X,2012,,Active,Headphone,Open Back,Dynamic,No,No,,,
+ATECH_WP900,13,4,ATH-WP900,Audio-Technica ATH-WP900,2019,,Active,Headphone,Closed Back,Dynamic,No,No,,,Flame maple wood earcups
+ATECH_AWKT,13,4,ATH-AWKT,Audio-Technica ATH-AWKT,2019,,Active,Headphone,Closed Back,Dynamic,No,No,,,Ebony wood
+AKG_K702,15,5,K702,AKG K702,2009,,Legacy Active,Headphone,Open Back,Dynamic,No,No,,,Reference open-back
+AKG_K612,15,5,K612 Pro,AKG K612 Pro,2011,,Active,Headphone,Open Back,Dynamic,No,No,,,
+AKG_K812,15,5,K812,AKG K812,2013,,Active,Headphone,Open Back,Dynamic,No,No,,,Reference flagship
+AKG_K712,15,5,K712 Pro,AKG K712 Pro,2014,,Active,Headphone,Open Back,Dynamic,No,No,,,
+AKG_K371,15,5,K371,AKG K371,2019,,Active,Headphone,Closed Back,Dynamic,No,No,,,Harman-tuned closed-back
+AKG_K361,15,5,K361,AKG K361,2019,,Active,Headphone,Closed Back,Dynamic,No,No,,,
+AKG_N700NC,16,5,N700NC,AKG N700NC,2018,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,,AKG_N700NCM2,
+AKG_N700NCM2,16,5,N700NC M2,AKG N700NC M2,2019,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,AKG_N700NC,,
+AKG_N90Q,16,5,N90Q,AKG N90Q,2016,,Discontinued,Headphone,Closed Back,Dynamic,No,Yes,,,Tuned by Quincy Jones
+BEYER_DT770PRO,17,6,DT 770 Pro,Beyerdynamic DT 770 Pro,1985,,Legacy Active,Studio,Closed Back,Dynamic,No,No,,,"Studio classic, still produced"
+BEYER_DT880,17,6,DT 880,Beyerdynamic DT 880 Edition,1980,,Legacy Active,Headphone,Semi-Open,Dynamic,No,No,,,Semi-open classic
+BEYER_DT990PRO,17,6,DT 990 Pro,Beyerdynamic DT 990 Pro,1985,,Legacy Active,Studio,Open Back,Dynamic,No,No,,,
+BEYER_DT1770,17,6,DT 1770 Pro,Beyerdynamic DT 1770 Pro,2016,,Active,Studio,Closed Back,Dynamic,No,No,,,Tesla driver
+BEYER_DT1990,17,6,DT 1990 Pro,Beyerdynamic DT 1990 Pro,2016,,Active,Studio,Open Back,Dynamic,No,No,,BEYER_DT1990MK2,
+BEYER_DT1990MK2,17,6,DT 1990 Pro MkII,Beyerdynamic DT 1990 Pro MkII,2024,,Active,Studio,Open Back,Dynamic,No,No,BEYER_DT1990,,
+BEYER_DT700PROX,17,6,DT 700 Pro X,Beyerdynamic DT 700 Pro X,2022,,Active,Studio,Closed Back,Dynamic,No,No,,,Stellar.45 driver
+BEYER_DT900PROX,17,6,DT 900 Pro X,Beyerdynamic DT 900 Pro X,2022,,Active,Studio,Open Back,Dynamic,No,No,,,
+BEYER_T1,18,6,T1,Beyerdynamic T1 (1st Gen),2009,,Discontinued,Headphone,Open Back,Dynamic,No,No,,BEYER_T1_2,Tesla flagship
+BEYER_T1_2,18,6,T1 2nd Gen,Beyerdynamic T1 2nd Generation,2014,,Discontinued,Headphone,Open Back,Dynamic,No,No,BEYER_T1,BEYER_T1_3,
+BEYER_T1_3,18,6,T1 3rd Gen,Beyerdynamic T1 3rd Generation,2020,,Active,Headphone,Open Back,Dynamic,No,No,BEYER_T1_2,,
+BEYER_T5_3,18,6,T5 3rd Gen,Beyerdynamic T5 3rd Generation,2020,,Active,Headphone,Closed Back,Dynamic,No,No,,,Closed sibling of T1
+BEYER_AMIRON,19,6,Amiron Home,Beyerdynamic Amiron Home,2017,,Active,Headphone,Open Back,Dynamic,No,No,,,
+BEYER_AMIRONW,19,6,Amiron Wireless,Beyerdynamic Amiron Wireless,2018,,Active,Headphone,Closed Back,Dynamic,Yes,No,,,
+BEYER_AVENTHOW,18,6,Aventho Wireless,Beyerdynamic Aventho Wireless,2017,,Discontinued,Headphone,Closed Back,Dynamic,Yes,No,,,
+BEYER_MMX300,20,6,MMX 300,Beyerdynamic MMX 300,2014,,Active,Gaming,Closed Back,Dynamic,No,No,,,Gaming headset
+BEYER_CUSTOM1,17,6,Custom One Pro,Beyerdynamic Custom One Pro,2012,,Active,Headphone,Closed Back,Dynamic,No,No,,,Adjustable bass sliders
+BOSE_QC25,21,7,QuietComfort 25,Bose QuietComfort 25,2014,,Discontinued,Headphone,Closed Back,Dynamic,No,Yes,,BOSE_QC35,
+BOSE_QC35,21,7,QuietComfort 35,Bose QuietComfort 35,2016,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,BOSE_QC25,BOSE_QC35II,
+BOSE_QC35II,21,7,QuietComfort 35 II,Bose QuietComfort 35 II,2017,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,BOSE_QC35,BOSE_QC45,
+BOSE_QC45,21,7,QuietComfort 45,Bose QuietComfort 45,2021,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,BOSE_QC35II,BOSE_QCHP,
+BOSE_NC700,22,7,Noise Cancelling 700,Bose Noise Cancelling Headphones 700,2019,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,Premium business/travel line
+BOSE_QCULTRA,21,7,QuietComfort Ultra,Bose QuietComfort Ultra Headphones,2023,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,BOSE_QCULTRA2,Immersive spatial audio
+BOSE_QCULTRA2,21,7,QuietComfort Ultra (2nd Gen),Bose QuietComfort Ultra Headphones (2nd Gen),2025,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,BOSE_QCULTRA,,
+BOSE_QCHP,21,7,QuietComfort Headphones,Bose QuietComfort Headphones,2024,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,BOSE_QC45,,
+AUDEZE_LCD2,23,8,LCD-2,Audeze LCD-2,2009,,Legacy Active,Headphone,Open Back,Planar Magnetic,No,No,,,The headphone that launched Audeze
+AUDEZE_LCD3,23,8,LCD-3,Audeze LCD-3,2011,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,
+AUDEZE_LCDX,23,8,LCD-X,Audeze LCD-X,2013,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,Studio reference
+AUDEZE_LCDXC,23,8,LCD-XC,Audeze LCD-XC,2013,,Active,Headphone,Closed Back,Planar Magnetic,No,No,,,
+AUDEZE_LCD4,23,8,LCD-4,Audeze LCD-4,2015,,Discontinued,Headphone,Open Back,Planar Magnetic,No,No,,,Former flagship
+AUDEZE_LCD1,23,8,LCD-1,Audeze LCD-1,2020,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,Lightweight portable planar
+AUDEZE_LCD5,23,8,LCD-5,Audeze LCD-5,2021,,Active,Headphone,Open Back,Planar Magnetic,No,No,,AUDEZE_LCD5S,Flagship planar
+AUDEZE_LCD5S,23,8,LCD-5s,Audeze LCD-5s,2026,,Active,Headphone,Open Back,Planar Magnetic,No,No,AUDEZE_LCD5,,SLAM acoustic tech
+AUDEZE_MM500,24,8,MM-500,Audeze MM-500,2022,,Active,Studio,Open Back,Planar Magnetic,No,No,,,Co-developed with Manny Marroquin
+AUDEZE_MM100,24,8,MM-100,Audeze MM-100,2023,,Active,Studio,Open Back,Planar Magnetic,No,No,,,
+AUDEZE_CRBN,26,8,CRBN,Audeze CRBN,2022,,Active,Headphone,Open Back,Electrostatic,No,No,,,Carbon-nanotube electrostatic
+AUDEZE_MAXWELL,25,8,Maxwell,Audeze Maxwell,2023,,Active,Gaming,Closed Back,Planar Magnetic,Yes,No,,AUDEZE_MAXWELL2,Wireless gaming planar
+AUDEZE_MAXWELL2,25,8,Maxwell 2,Audeze Maxwell 2,2025,,Active,Gaming,Closed Back,Planar Magnetic,Yes,No,AUDEZE_MAXWELL,,
+HIFIMAN_HE400,27,9,HE-400,HiFiMan HE-400,2011,,Discontinued,Headphone,Open Back,Planar Magnetic,No,No,,HIFIMAN_HE400I,
+HIFIMAN_HE400I,27,9,HE-400i,HiFiMan HE-400i,2014,,Discontinued,Headphone,Open Back,Planar Magnetic,No,No,HIFIMAN_HE400,,
+HIFIMAN_HE400SE,27,9,HE400SE,HiFiMan HE400SE,2021,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,Budget Stealth Magnet planar
+HIFIMAN_HE560,27,9,HE-560,HiFiMan HE-560,2014,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,
+HIFIMAN_HE6SE,27,9,HE6se,HiFiMan HE6se,2018,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,Hard-to-drive planar
+HIFIMAN_SUNDARA,32,9,Sundara,HiFiMan Sundara,2018,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,Popular mid-tier planar
+HIFIMAN_ANANDA,29,9,Ananda,HiFiMan Ananda,2018,,Active,Headphone,Open Back,Planar Magnetic,No,No,,HIFIMAN_ANANDANANO,
+HIFIMAN_ANANDANANO,29,9,Ananda Nano,HiFiMan Ananda Nano,2023,,Active,Headphone,Open Back,Planar Magnetic,No,No,HIFIMAN_ANANDA,,
+HIFIMAN_ARYA,30,9,Arya,HiFiMan Arya,2018,,Active,Headphone,Open Back,Planar Magnetic,No,No,,HIFIMAN_ARYAORGANIC,
+HIFIMAN_ARYAORGANIC,30,9,Arya Organic,HiFiMan Arya Organic,2023,,Active,Headphone,Open Back,Planar Magnetic,No,No,HIFIMAN_ARYA,,
+HIFIMAN_HE1000,27,9,HE1000,HiFiMan HE1000,2015,,Discontinued,Headphone,Open Back,Planar Magnetic,No,No,,HIFIMAN_HE1000SE,Nanometer diaphragm
+HIFIMAN_HE1000SE,27,9,HE1000se,HiFiMan HE1000se,2020,,Active,Headphone,Open Back,Planar Magnetic,No,No,HIFIMAN_HE1000,,
+HIFIMAN_SUSVARA,31,9,Susvara,HiFiMan Susvara,2017,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,Reference flagship planar
+HIFIMAN_EDITIONXS,28,9,Edition XS,HiFiMan Edition XS,2021,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,Value Stealth Magnet planar
+HIFIMAN_DEVA,33,9,Deva,HiFiMan Deva,2019,,Discontinued,Headphone,Open Back,Planar Magnetic,Yes,No,,HIFIMAN_DEVAPRO,Optional Bluemini wireless module
+HIFIMAN_DEVAPRO,33,9,Deva Pro,HiFiMan Deva Pro,2021,,Active,Headphone,Open Back,Planar Magnetic,Yes,No,HIFIMAN_DEVA,,
+FOCAL_ELEAR,35,10,Elear,Focal Elear,2016,,Discontinued,Headphone,Open Back,Dynamic,No,No,,,Aluminum-magnesium dome
+FOCAL_CLEAR,35,10,Clear,Focal Clear,2017,,Discontinued,Headphone,Open Back,Dynamic,No,No,,FOCAL_CLEARMG,
+FOCAL_CLEARMG,35,10,Clear MG,Focal Clear MG,2021,,Active,Headphone,Open Back,Dynamic,No,No,FOCAL_CLEAR,,Magnesium dome
+FOCAL_UTOPIA,34,10,Utopia,Focal Utopia,2016,,Discontinued,Headphone,Open Back,Dynamic,No,No,,FOCAL_UTOPIA2022,Beryllium dome flagship
+FOCAL_UTOPIA2022,34,10,Utopia 2022,Focal Utopia 2022,2022,,Active,Headphone,Open Back,Dynamic,No,No,FOCAL_UTOPIA,,
+FOCAL_ELEGIA,36,10,Elegia,Focal Elegia,2018,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,
+FOCAL_STELLIA,36,10,Stellia,Focal Stellia,2019,,Active,Headphone,Closed Back,Dynamic,No,No,,,Closed beryllium flagship
+FOCAL_CELESTEE,36,10,Celestee,Focal Celestee,2021,,Active,Headphone,Closed Back,Dynamic,No,No,,,
+FOCAL_BATHYS,37,10,Bathys,Focal Bathys,2022,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,FOCAL_BATHYSMG,First Focal wireless ANC
+FOCAL_BATHYSMG,37,10,Bathys MG,Focal Bathys MG,2025,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,FOCAL_BATHYS,,Magnesium driver edition
+FOCAL_AZURYS,38,10,Azurys,Focal Azurys,2025,,Active,Headphone,Closed Back,Dynamic,No,No,,,Affordable closed-back
+FOCAL_HADENYS,38,10,Hadenys,Focal Hadenys,2025,,Active,Headphone,Open Back,Dynamic,No,No,,,Affordable open-back
+BW_P5,39,11,P5,Bowers & Wilkins P5,2010,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,First B&W headphone
+BW_P7,39,11,P7,Bowers & Wilkins P7,2013,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,
+BW_P9,39,11,P9 Signature,Bowers & Wilkins P9 Signature,2016,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,
+BW_PX,40,11,PX,Bowers & Wilkins PX,2017,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,,BW_PX7,
+BW_PX7,40,11,PX7,Bowers & Wilkins PX7,2019,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,BW_PX,BW_PX7S2,
+BW_PX7S2,40,11,Px7 S2,Bowers & Wilkins Px7 S2,2022,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,BW_PX7,BW_PX7S2E,
+BW_PX7S2E,40,11,Px7 S2e,Bowers & Wilkins Px7 S2e,2023,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,BW_PX7S2,BW_PX7S3,
+BW_PX7S3,40,11,Px7 S3,Bowers & Wilkins Px7 S3,2025,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,BW_PX7S2E,,
+BW_PX8,40,11,Px8,Bowers & Wilkins Px8,2022,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,BW_PX8S2,Carbon cone drivers
+BW_PX8S2,40,11,Px8 S2,Bowers & Wilkins Px8 S2,2025,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,BW_PX8,,
+GRADO_SR60X,41,12,SR60x,Grado SR60x,2021,,Active,Headphone,Open Back,Dynamic,No,No,,,
+GRADO_SR80X,41,12,SR80x,Grado SR80x,2021,,Active,Headphone,Open Back,Dynamic,No,No,,,Longest-running Grado model
+GRADO_SR325X,41,12,SR325x,Grado SR325x,2021,,Active,Headphone,Open Back,Dynamic,No,No,,,Metal housing
+GRADO_RS1X,42,12,RS1x,Grado RS1x,2021,,Active,Headphone,Open Back,Dynamic,No,No,,,Tri-wood housing
+GRADO_RS2X,42,12,RS2x,Grado RS2x,2021,,Active,Headphone,Open Back,Dynamic,No,No,,,
+GRADO_GS3000X,43,12,GS3000x,Grado GS3000x,2021,,Active,Headphone,Open Back,Dynamic,No,No,,,Cocobolo flagship
+GRADO_HEMP,41,12,Hemp,Grado Hemp Headphone,2020,,Discontinued,Headphone,Open Back,Dynamic,No,No,,,Limited hemp-housing model
+GRADO_GW100X,44,12,GW100x,Grado GW100x,2021,,Active,Headphone,Open Back,Dynamic,Yes,No,,,Wireless open-back
+MEZE_99CLASSICS,45,13,99 Classics,Meze 99 Classics,2015,,Active,Headphone,Closed Back,Dynamic,No,No,,,Walnut wood earcups
+MEZE_99NEO,45,13,99 Neo,Meze 99 Neo,2017,,Active,Headphone,Closed Back,Dynamic,No,No,,,
+MEZE_109PRO,45,13,109 Pro,Meze 109 Pro,2022,,Active,Headphone,Open Back,Dynamic,No,No,,,Open-back dynamic
+MEZE_105AER,45,13,105 AER,Meze 105 AER,2024,,Active,Headphone,Open Back,Dynamic,No,No,,,
+MEZE_EMPYREAN,46,13,Empyrean,Meze Empyrean,2018,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,Isodynamic hybrid array
+MEZE_ELITE,46,13,Elite,Meze Elite,2021,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,Flagship planar
+MEZE_LIRIC,46,13,Liric,Meze Liric,2022,,Active,Headphone,Closed Back,Planar Magnetic,No,No,,MEZE_LIRIC2,Closed planar
+MEZE_LIRIC2,46,13,Liric 2nd Gen,Meze Liric 2nd Generation,2024,,Active,Headphone,Closed Back,Planar Magnetic,No,No,MEZE_LIRIC,,
+MEZE_POET,46,13,Poet,Meze Poet,2024,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,
+DCA_AEONFLOW,47,14,Aeon Flow,Dan Clark Audio Aeon Flow,2017,,Discontinued,Headphone,Closed Back,Planar Magnetic,No,No,,,Originally MrSpeakers
+DCA_AEON2,47,14,Aeon 2,Dan Clark Audio Aeon 2,2019,,Active,Headphone,Closed Back,Planar Magnetic,No,No,,,
+DCA_AEON2NOIRE,47,14,Aeon 2 Noire,Dan Clark Audio Aeon 2 Noire,2020,,Active,Headphone,Closed Back,Planar Magnetic,No,No,,,
+DCA_ETHER2,48,14,Ether 2,Dan Clark Audio Ether 2,2018,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,
+DCA_STEALTH,49,14,Stealth,Dan Clark Audio Stealth,2021,,Active,Headphone,Closed Back,Planar Magnetic,No,No,,,"AMTS tuning, closed flagship"
+DCA_EXPANSE,49,14,Expanse,Dan Clark Audio Expanse,2022,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,Open-back sibling of Stealth
+DCA_E3,49,14,E3,Dan Clark Audio E3,2024,,Active,Headphone,Closed Back,Planar Magnetic,No,No,,,Brings AMTS to lower price
+DCA_CORINA,49,14,Corina,Dan Clark Audio Corina,2023,,Active,Headphone,Open Back,Electrostatic,No,No,,,Electrostatic flagship
+APPLE_AIRPODSMAX,50,15,AirPods Max,Apple AirPods Max,2020,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,,APPLE_AIRPODSMAXUSBC,Lightning port
+APPLE_AIRPODSMAXUSBC,50,15,AirPods Max (USB-C),Apple AirPods Max (USB-C),2024,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,APPLE_AIRPODSMAX,,"USB-C, lossless audio support"
+BEATS_STUDIO2,51,16,Studio 2,Beats Studio 2 Wireless,2014,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,,BEATS_STUDIO3,
+BEATS_STUDIO3,51,16,Studio 3,Beats Studio 3 Wireless,2017,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,BEATS_STUDIO2,BEATS_STUDIOPRO,
+BEATS_STUDIOPRO,51,16,Studio Pro,Beats Studio Pro,2023,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,BEATS_STUDIO3,,
+BEATS_SOLO3,52,16,Solo 3,Beats Solo 3 Wireless,2016,,Discontinued,Headphone,Closed Back,Dynamic,Yes,No,,BEATS_SOLO4,
+BEATS_SOLO4,52,16,Solo 4,Beats Solo 4,2024,,Active,Headphone,Closed Back,Dynamic,Yes,No,BEATS_SOLO3,,
+SHURE_SRH1540,53,17,SRH1540,Shure SRH1540,2014,,Active,Studio,Closed Back,Dynamic,No,No,,,
+SHURE_SRH1840,53,17,SRH1840,Shure SRH1840,2011,,Active,Studio,Open Back,Dynamic,No,No,,,
+SHURE_AONIC50,54,17,AONIC 50,Shure AONIC 50,2020,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,,SHURE_AONIC50G2,
+SHURE_AONIC50G2,54,17,AONIC 50 Gen 2,Shure AONIC 50 Gen 2,2023,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,SHURE_AONIC50,,
+STEEL_ARCTIS7,56,18,Arctis 7,SteelSeries Arctis 7,2017,,Discontinued,Gaming,Closed Back,Dynamic,Yes,No,,,
+STEEL_ARCTISPRO,56,18,Arctis Pro Wireless,SteelSeries Arctis Pro Wireless,2018,,Discontinued,Gaming,Closed Back,Dynamic,Yes,No,,,
+STEEL_NOVAPRO,55,18,Arctis Nova Pro Wireless,SteelSeries Arctis Nova Pro Wireless,2022,,Active,Gaming,Closed Back,Dynamic,Yes,Yes,,,"Dual hot-swap batteries, ANC"
+STEEL_NOVA7,55,18,Arctis Nova 7,SteelSeries Arctis Nova 7,2022,,Active,Gaming,Closed Back,Dynamic,Yes,No,,,
+STEEL_NOVA3,55,18,Arctis Nova 3,SteelSeries Arctis Nova 3,2022,,Active,Gaming,Closed Back,Dynamic,No,No,,,
+STEEL_NOVA5,55,18,Arctis Nova 5,SteelSeries Arctis Nova 5,2024,,Active,Gaming,Closed Back,Dynamic,Yes,No,,,
+STEEL_NOVAELITE,55,18,Arctis Nova Elite,SteelSeries Arctis Nova Elite,2025,,Active,Gaming,Closed Back,Dynamic,Yes,Yes,,,Simultaneous BT + 2.4GHz
+HYPERX_CLOUD2,57,19,Cloud II,HyperX Cloud II,2015,,Active,Gaming,Closed Back,Dynamic,No,No,,,Long-running wired classic
+HYPERX_CLOUDALPHA,57,19,Cloud Alpha,HyperX Cloud Alpha,2017,,Active,Gaming,Closed Back,Dynamic,No,No,,,Dual-chamber drivers
+HYPERX_CLOUDALPHAW,57,19,Cloud Alpha Wireless,HyperX Cloud Alpha Wireless,2022,,Active,Gaming,Closed Back,Dynamic,Yes,No,,,~300hr battery life
+HYPERX_CLOUD3,57,19,Cloud III,HyperX Cloud III,2023,,Active,Gaming,Closed Back,Dynamic,No,No,HYPERX_CLOUD2,,
+HYPERX_CLOUD3W,57,19,Cloud III Wireless,HyperX Cloud III Wireless,2023,,Active,Gaming,Closed Back,Dynamic,Yes,No,,,
+RAZER_BSV2,58,20,BlackShark V2,Razer BlackShark V2,2020,,Active,Gaming,Closed Back,Dynamic,No,No,,,TriForce Titanium drivers
+RAZER_BSV2PRO,58,20,BlackShark V2 Pro,Razer BlackShark V2 Pro,2020,,Active,Gaming,Closed Back,Dynamic,Yes,No,,RAZER_BSV2PRO23,
+RAZER_BSV2PRO23,58,20,BlackShark V2 Pro (2023),Razer BlackShark V2 Pro (2023),2023,,Active,Gaming,Closed Back,Dynamic,Yes,No,RAZER_BSV2PRO,,
+RAZER_BSV3PRO,58,20,BlackShark V3 Pro,Razer BlackShark V3 Pro,2025,,Active,Gaming,Closed Back,Dynamic,Yes,No,,,HyperClear mic
+RAZER_KRAKENV3,59,20,Kraken V3,Razer Kraken V3,2021,,Active,Gaming,Closed Back,Dynamic,No,No,,,
+RAZER_KRAKENV4PRO,59,20,Kraken V4 Pro,Razer Kraken V4 Pro,2025,,Active,Gaming,Closed Back,Dynamic,Yes,No,,,
+LOGI_GPROX,60,21,G Pro X,Logitech G Pro X,2019,,Discontinued,Gaming,Closed Back,Dynamic,No,No,,LOGI_GPROX2,Blue VO!CE mic
+LOGI_GPROX2,60,21,G Pro X 2 Lightspeed,Logitech G Pro X 2 Lightspeed,2023,,Active,Gaming,Closed Back,Dynamic,Yes,No,LOGI_GPROX,,50mm Pro-G Graphene drivers
+LOGI_G535,61,21,G535 Lightspeed,Logitech G535 Lightspeed,2021,,Active,Gaming,Closed Back,Dynamic,Yes,No,,,
+LOGI_G733,61,21,G733 Lightspeed,Logitech G733 Lightspeed,2020,,Active,Gaming,Closed Back,Dynamic,Yes,No,,,
+ASTRO_A50G4,62,22,A50 Wireless Gen 4,Astro A50 Wireless (Gen 4),2019,,Discontinued,Gaming,Closed Back,Dynamic,Yes,No,,ASTRO_A50X,
+ASTRO_A50X,62,22,A50 X Lightspeed,Astro A50 X Lightspeed,2024,,Active,Gaming,Closed Back,Dynamic,Yes,No,ASTRO_A50G4,,"HDMI base station, multi-console switching"
+ASTRO_A40TR,62,22,A40 TR,Astro A40 TR,2017,,Active,Gaming,Open Back,Dynamic,No,No,,,
+TB_STEALTH700G2,63,23,Stealth 700 Gen 2,Turtle Beach Stealth 700 Gen 2,2020,,Active,Gaming,Closed Back,Dynamic,Yes,No,,,
+TB_STEALTHPRO,63,23,Stealth Pro,Turtle Beach Stealth Pro,2023,,Active,Gaming,Closed Back,Dynamic,Yes,Yes,,,"Swappable batteries, ANC"
+TB_ATLASAIR,63,23,Atlas Air,Turtle Beach Atlas Air,2024,,Active,Gaming,Open Back,Dynamic,Yes,No,,,Open-back wireless
+CORSAIR_VIRTUOSO,64,24,Virtuoso RGB Wireless,Corsair Virtuoso RGB Wireless,2019,,Active,Gaming,Closed Back,Dynamic,Yes,No,,,
+CORSAIR_VIRTUOSOXT,64,24,Virtuoso RGB Wireless XT,Corsair Virtuoso RGB Wireless XT,2021,,Active,Gaming,Closed Back,Dynamic,Yes,No,,,
+CORSAIR_VIRTUOSOPRO,64,24,Virtuoso Pro,Corsair Virtuoso Pro,2023,,Active,Gaming,Open Back,Dynamic,No,No,,,"Open-back, graphene drivers"
+CORSAIR_HS80,65,24,HS80 RGB Wireless,Corsair HS80 RGB Wireless,2021,,Active,Gaming,Closed Back,Dynamic,Yes,No,,,
+ASUS_DELTAS,66,25,ROG Delta S,ASUS ROG Delta S,2021,,Active,Gaming,Closed Back,Dynamic,No,No,,,"USB-C, quad-DAC"
+ASUS_DELTA2,66,25,ROG Delta II,ASUS ROG Delta II,2025,,Active,Gaming,Closed Back,Dynamic,Yes,No,,,
+ABYSS_AB1266,67,26,AB-1266 Phi TC,Abyss AB-1266 Phi TC,2013,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,Reference flagship planar
+ABYSS_DIANA,68,26,Diana,Abyss Diana,2017,,Active,Headphone,Open Back,Planar Magnetic,No,No,,ABYSS_DIANAV2,
+ABYSS_DIANAV2,68,26,Diana V2,Abyss Diana V2,2020,,Active,Headphone,Open Back,Planar Magnetic,No,No,ABYSS_DIANA,,
+ZMF_AUTEUR,70,27,Auteur,ZMF Auteur,2017,,Active,Headphone,Open Back,Dynamic,No,No,,,Hand-built wood
+ZMF_VERITEOPEN,69,27,Verite Open,ZMF Verite Open,2019,,Active,Headphone,Open Back,Dynamic,No,No,,,Beryllium-coated driver
+ZMF_VERITECLOSED,69,27,Verite Closed,ZMF Verite Closed,2019,,Active,Headphone,Closed Back,Dynamic,No,No,,,
+ZMF_ATRIUM,71,27,Atrium,ZMF Atrium,2022,,Active,Headphone,Open Back,Dynamic,No,No,,,
+ZMF_CALDERA,72,27,Caldera,ZMF Caldera,2023,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,First ZMF planar
+STAX_SR009,73,28,SR-009,Stax SR-009,2011,,Active,Headphone,Open Back,Electrostatic,No,No,,,"Electrostatic earspeaker, needs energizer"
+STAX_SR009S,73,28,SR-009S,Stax SR-009S,2018,,Active,Headphone,Open Back,Electrostatic,No,No,,,
+STAX_SRL700,73,28,SR-L700,Stax SR-L700,2015,,Active,Headphone,Open Back,Electrostatic,No,No,,,
+STAX_X9000,73,28,SR-X9000,Stax SR-X9000,2021,,Active,Headphone,Open Back,Electrostatic,No,No,,,Flagship electrostatic
+FINAL_D8000,74,29,D8000,Final Audio D8000,2017,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,AFDS planar tech
+FINAL_D8000PRO,74,29,D8000 Pro,Final Audio D8000 Pro,2019,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,
+FOSTEX_TH900MK2,75,30,TH900 mk2,Fostex TH900 mk2,2015,,Active,Headphone,Closed Back,Dynamic,No,No,,,"Biodynamic driver, urushi finish"
+FOSTEX_TH610,75,30,TH610,Fostex TH610,2016,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,
+FOSTEX_TH909,75,30,TH909,Fostex TH909,2018,,Active,Headphone,Open Back,Dynamic,No,No,,,
+DENON_D5200,76,31,AH-D5200,Denon AH-D5200,2017,,Active,Headphone,Closed Back,Dynamic,No,No,,,"Zebrawood, FreeEdge driver"
+DENON_D7200,76,31,AH-D7200,Denon AH-D7200,2016,,Active,Headphone,Closed Back,Dynamic,No,No,,,
+DENON_D9200,76,31,AH-D9200,Denon AH-D9200,2018,,Active,Headphone,Closed Back,Dynamic,No,No,,,Bamboo flagship
+ROSSON_RAD0,77,32,RAD-0,Rosson Audio RAD-0,2020,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,Hand-finished resin
+KENNERTON_ODIN,78,33,Odin,Kennerton Odin,2014,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,
+KENNERTON_THROR,78,33,Thror,Kennerton Thror,2018,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,
+ULTRA_ED5,79,34,Edition 5,Ultrasone Edition 5,2014,,Active,Headphone,Closed Back,Dynamic,No,No,,,S-Logic Plus
+ULTRA_PERF880,79,34,Performance 880,Ultrasone Performance 880,2014,,Active,Headphone,Closed Back,Dynamic,No,No,,,
+BO_H95,80,35,Beoplay H95,Bang & Olufsen Beoplay H95,2020,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,Anniversary flagship
+BO_HX,80,35,Beoplay HX,Bang & Olufsen Beoplay HX,2021,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,
+BO_H100,80,35,Beoplay H100,Bang & Olufsen Beoplay H100,2024,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,Luxury flagship
+BO_H6,80,35,Beoplay H6,Bang & Olufsen Beoplay H6,2013,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,
+SONOS_ACE,81,36,Ace,Sonos Ace,2024,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,First Sonos headphone
+MARSHALL_MONITOR2,82,37,Monitor II ANC,Marshall Monitor II ANC,2020,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,
+MARSHALL_MAJOR4,82,37,Major IV,Marshall Major IV,2021,,Active,Headphone,Closed Back,Dynamic,Yes,No,,,
+MARSHALL_MAJOR5,82,37,Major V,Marshall Major V,2024,,Active,Headphone,Closed Back,Dynamic,Yes,No,,,
+JBL_TOUR1,83,38,Tour One,JBL Tour One,2020,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,,JBL_TOUR1M2,
+JBL_TOUR1M2,83,38,Tour One M2,JBL Tour One M2,2023,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,JBL_TOUR1,,
+JBL_LIVE660,84,38,Live 660NC,JBL Live 660NC,2021,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,
+SKULL_CRUSHERANC2,85,39,Crusher ANC 2,Skullcandy Crusher ANC 2,2023,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,Sensory bass
+SKULL_CRUSHEREVO,85,39,Crusher Evo,Skullcandy Crusher Evo,2021,,Active,Headphone,Closed Back,Dynamic,Yes,No,,,
+ANKER_SPACEQ45,86,40,Space Q45,Anker Soundcore Space Q45,2022,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,
+ANKER_SPACEONE,86,40,Space One,Anker Soundcore Space One,2023,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,
+ANKER_SPACEONEPRO,86,40,Space One Pro,Anker Soundcore Space One Pro,2024,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,
+TECH_EAHA800,87,41,EAH-A800,Technics EAH-A800,2022,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,
+NOTHING_HEADPHONE1,88,42,Headphone (1),Nothing Headphone (1),2025,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,"First Nothing over-ear, KEF-tuned"
+SENN_HD518,89,2,HD 518,Sennheiser HD 518,2010,,Discontinued,Headphone,Open Back,Dynamic,No,No,,,
+SENN_HD558,89,2,HD 558,Sennheiser HD 558,2010,,Discontinued,Headphone,Open Back,Dynamic,No,No,,SENN_HD559,
+SENN_HD598,89,2,HD 598,Sennheiser HD 598,2010,,Discontinued,Headphone,Open Back,Dynamic,No,No,,SENN_HD599,Popular mid-tier open-back
+SENN_HD598CS,89,2,HD 598 Cs,Sennheiser HD 598 Cs,2016,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,Closed-back variant
+SENN_HD559,89,2,HD 559,Sennheiser HD 559,2016,,Active,Headphone,Open Back,Dynamic,No,No,SENN_HD558,,
+SENN_HD569,89,2,HD 569,Sennheiser HD 569,2016,,Active,Headphone,Closed Back,Dynamic,No,No,,,
+SENN_HD579,89,2,HD 579,Sennheiser HD 579,2016,,Active,Headphone,Open Back,Dynamic,No,No,,,
+SENN_HD599,89,2,HD 599,Sennheiser HD 599,2016,,Active,Headphone,Open Back,Dynamic,No,No,SENN_HD598,,
+SENN_HD505,89,2,HD 505,Sennheiser HD 505,2025,,Active,Headphone,Open Back,Dynamic,No,No,,,
+SENN_HD25,4,2,HD 25,Sennheiser HD 25,2010,,Active,Studio,Closed Back,Dynamic,No,No,,,On-ear DJ/monitoring standard
+SENN_HD250BT,4,2,HD 250BT,Sennheiser HD 250BT,2020,,Active,Headphone,Closed Back,Dynamic,Yes,No,,,
+SENN_HD350BT,4,2,HD 350BT,Sennheiser HD 350BT,2019,,Active,Headphone,Closed Back,Dynamic,Yes,No,,,
+SENN_HD450BT,4,2,HD 450BT,Sennheiser HD 450BT,2019,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,
+SENN_HD4_40BT,4,2,HD 4.40 BT,Sennheiser HD 4.40 BT,2016,,Discontinued,Headphone,Closed Back,Dynamic,Yes,No,,,
+SENN_HD4_50BTNC,4,2,HD 4.50 BTNC,Sennheiser HD 4.50 BTNC,2016,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,,,
+SENN_PXC550,90,2,PXC 550 Wireless,Sennheiser PXC 550 Wireless,2016,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,,SENN_PXC550II,
+SENN_PXC550II,90,2,PXC 550-II Wireless,Sennheiser PXC 550-II Wireless,2019,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,SENN_PXC550,,
+SENN_HD58X,4,2,HD 58X Jubilee,Drop x Sennheiser HD 58X Jubilee,2018,,Active,Headphone,Open Back,Dynamic,No,No,,,Drop collaboration
+SENN_HD6XX,4,2,HD 6XX,Drop x Sennheiser HD 6XX,2016,,Active,Headphone,Open Back,Dynamic,No,No,,,Drop-exclusive HD 650 variant
+SENN_HD8XX,4,2,HD 8XX,Drop x Sennheiser HD 8XX,2020,,Active,Headphone,Open Back,Dynamic,No,No,,,Drop-exclusive HD 800 variant
+SONY_MDR7506,91,1,MDR-7506,Sony MDR-7506,1991,,Legacy Active,Studio,Closed Back,Dynamic,No,No,,,"Studio monitoring standard, still produced"
+SONY_MDRV6,91,1,MDR-V6,Sony MDR-V6,1985,,Discontinued,Studio,Closed Back,Dynamic,No,No,,SONY_MDR7506,
+SONY_MDR7510,91,1,MDR-7510,Sony MDR-7510,2010,,Discontinued,Studio,Closed Back,Dynamic,No,No,,,
+SONY_CD900ST,91,1,MDR-CD900ST,Sony MDR-CD900ST,1989,,Legacy Active,Studio,Closed Back,Dynamic,No,No,,,Japanese studio standard
+SONY_ZX110,92,1,MDR-ZX110,Sony MDR-ZX110,2014,,Active,Headphone,Closed Back,Dynamic,No,No,,,Budget on-ear
+SONY_ZX310,92,1,MDR-ZX310,Sony MDR-ZX310,2014,,Active,Headphone,Closed Back,Dynamic,No,No,,,
+SONY_ZX750BN,92,1,MDR-ZX750BN,Sony MDR-ZX750BN,2014,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,,,
+SONY_XB650,93,1,MDR-XB650BT,Sony MDR-XB650BT,2016,,Discontinued,Headphone,Closed Back,Dynamic,Yes,No,,,Extra Bass
+SONY_XB950B1,93,1,MDR-XB950B1,Sony MDR-XB950B1,2016,,Discontinued,Headphone,Closed Back,Dynamic,Yes,No,,,
+SONY_XB900N,93,1,WH-XB900N,Sony WH-XB900N,2018,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,,SONY_XB910N,Extra Bass ANC
+SONY_XB910N,93,1,WH-XB910N,Sony WH-XB910N,2021,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,SONY_XB900N,,
+SONY_CH500,94,1,WH-CH500,Sony WH-CH500,2018,,Discontinued,Headphone,Closed Back,Dynamic,Yes,No,,,
+SONY_CH510,94,1,WH-CH510,Sony WH-CH510,2019,,Active,Headphone,Closed Back,Dynamic,Yes,No,,,
+SONY_CH520,94,1,WH-CH520,Sony WH-CH520,2023,,Active,Headphone,Closed Back,Dynamic,Yes,No,,,
+SONY_CH700N,94,1,WH-CH700N,Sony WH-CH700N,2018,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,,SONY_CH710N,
+SONY_CH710N,94,1,WH-CH710N,Sony WH-CH710N,2020,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,SONY_CH700N,SONY_CH720N,
+SONY_CH720N,94,1,WH-CH720N,Sony WH-CH720N,2023,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,SONY_CH710N,,
+ATECH_A550Z,95,4,ATH-A550Z,Audio-Technica ATH-A550Z,2014,,Active,Headphone,Closed Back,Dynamic,No,No,,,
+ATECH_A990Z,95,4,ATH-A990Z,Audio-Technica ATH-A990Z,2014,,Active,Headphone,Closed Back,Dynamic,No,No,,,"Art Monitor, D.A.D.S."
+ATECH_A1000Z,95,4,ATH-A1000Z,Audio-Technica ATH-A1000Z,2014,,Active,Headphone,Closed Back,Dynamic,No,No,,,
+ATECH_A2000Z,95,4,ATH-A2000Z,Audio-Technica ATH-A2000Z,2014,,Active,Headphone,Closed Back,Dynamic,No,No,,,
+ATECH_AD500X,12,4,ATH-AD500X,Audio-Technica ATH-AD500X,2013,,Active,Headphone,Open Back,Dynamic,No,No,,,
+ATECH_AD1000X,12,4,ATH-AD1000X,Audio-Technica ATH-AD1000X,2013,,Active,Headphone,Open Back,Dynamic,No,No,,,
+ATECH_AD2000X,12,4,ATH-AD2000X,Audio-Technica ATH-AD2000X,2013,,Active,Headphone,Open Back,Dynamic,No,No,,,Flagship Air series
+ATECH_W1000Z,13,4,ATH-W1000Z,Audio-Technica ATH-W1000Z,2014,,Active,Headphone,Closed Back,Dynamic,No,No,,,Teak wood
+ATECH_W5000,13,4,ATH-W5000,Audio-Technica ATH-W5000,2007,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,
+ATECH_MSR7B,14,4,ATH-MSR7b,Audio-Technica ATH-MSR7b,2018,,Active,Headphone,Closed Back,Dynamic,No,No,ATECH_MSR7,,
+ATECH_M20X,10,4,ATH-M20x,Audio-Technica ATH-M20x,2014,,Active,Studio,Closed Back,Dynamic,No,No,,,
+ATECH_M30X,10,4,ATH-M30x,Audio-Technica ATH-M30x,2014,,Active,Studio,Closed Back,Dynamic,No,No,,,
+ATECH_SR50BT,96,4,ATH-SR50BT,Audio-Technica ATH-SR50BT,2018,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,
+ATECH_SR30BT,96,4,ATH-SR30BT,Audio-Technica ATH-SR30BT,2019,,Active,Headphone,Closed Back,Dynamic,Yes,No,,,70hr battery
+ATECH_ANC900BT,96,4,ATH-ANC900BT,Audio-Technica ATH-ANC900BT QuietPoint,2019,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,
+AKG_K240STUDIO,97,5,K240 Studio,AKG K240 Studio,1991,,Legacy Active,Studio,Semi-Open,Dynamic,No,No,,,"Studio classic, still produced"
+AKG_K271MK2,97,5,K271 MkII,AKG K271 MkII,2008,,Active,Studio,Closed Back,Dynamic,No,No,,,
+AKG_K72,97,5,K72,AKG K72,2015,,Active,Studio,Closed Back,Dynamic,No,No,,,
+AKG_K92,97,5,K92,AKG K92,2015,,Active,Studio,Closed Back,Dynamic,No,No,,,
+AKG_K245,97,5,K245,AKG K245,2018,,Active,Studio,Open Back,Dynamic,No,No,,,
+AKG_K550,15,5,K550,AKG K550,2012,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,AKG_K553,
+AKG_K553,15,5,K553 Pro,AKG K553 Pro,2015,,Active,Studio,Closed Back,Dynamic,No,No,AKG_K550,,
+AKG_K701,15,5,K701,AKG K701,2005,,Legacy Active,Headphone,Open Back,Dynamic,No,No,,,Reference open-back classic
+AKG_Y50BT,15,5,Y50BT,AKG Y50BT,2015,,Discontinued,Headphone,Closed Back,Dynamic,Yes,No,,,
+BEYER_DT770_32,17,6,DT 770 Pro 32 Ohm,Beyerdynamic DT 770 Pro (32 Ohm),2014,,Active,Studio,Closed Back,Dynamic,No,No,,,Low-impedance mobile variant
+BEYER_DT770_80,17,6,DT 770 Pro 80 Ohm,Beyerdynamic DT 770 Pro (80 Ohm),1985,,Legacy Active,Studio,Closed Back,Dynamic,No,No,,,Most popular impedance
+BEYER_DT770_250,17,6,DT 770 Pro 250 Ohm,Beyerdynamic DT 770 Pro (250 Ohm),1985,,Legacy Active,Studio,Closed Back,Dynamic,No,No,,,High-impedance studio variant
+BEYER_DT880_250,17,6,DT 880 Pro 250 Ohm,Beyerdynamic DT 880 Pro (250 Ohm),2005,,Legacy Active,Studio,Semi-Open,Dynamic,No,No,,,
+BEYER_DT990_250,17,6,DT 990 Pro 250 Ohm,Beyerdynamic DT 990 Pro (250 Ohm),1985,,Legacy Active,Studio,Open Back,Dynamic,No,No,,,
+BEYER_DT240PRO,17,6,DT 240 Pro,Beyerdynamic DT 240 Pro,2016,,Active,Studio,Closed Back,Dynamic,No,No,,,
+BEYER_DT700PROX2,17,6,DT 700 Pro X mkII,Beyerdynamic DT 700 Pro X mkII,2025,,Active,Studio,Closed Back,Dynamic,No,No,BEYER_DT700PROX,,
+BEYER_CUSTOMSTUDIO,98,6,Custom Studio,Beyerdynamic Custom Studio,2015,,Active,Studio,Closed Back,Dynamic,No,No,,,
+BEYER_LAGOONANC,98,6,Lagoon ANC,Beyerdynamic Lagoon ANC,2019,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,,,
+BEYER_MMX150,20,6,MMX 150,Beyerdynamic MMX 150,2022,,Active,Gaming,Closed Back,Dynamic,No,No,,,
+BEYER_MMX300_2,20,6,MMX 300 2nd Gen,Beyerdynamic MMX 300 (2nd Gen),2019,,Active,Gaming,Closed Back,Dynamic,No,No,BEYER_MMX300,,
+BOSE_QC3,100,7,QuietComfort 3,Bose QuietComfort 3,2006,,Discontinued,Headphone,Closed Back,Dynamic,No,Yes,,,On-ear ANC
+BOSE_OE2,99,7,OE2,Bose OE2,2011,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,
+BOSE_AE2,99,7,AE2,Bose AE2,2010,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,
+BOSE_SOUNDLINKAE,99,7,SoundLink Around-Ear II,Bose SoundLink Around-Ear II,2015,,Discontinued,Headphone,Closed Back,Dynamic,Yes,No,,,
+BOSE_SOUNDLINKOE,99,7,SoundLink On-Ear,Bose SoundLink On-Ear,2016,,Discontinued,Headphone,Closed Back,Dynamic,Yes,No,,,
+HIFIMAN_HE500,27,9,HE-500,HiFiMan HE-500,2011,,Discontinued,Headphone,Open Back,Planar Magnetic,No,No,,,Beloved early planar
+HIFIMAN_HE6,27,9,HE-6,HiFiMan HE-6,2011,,Discontinued,Headphone,Open Back,Planar Magnetic,No,No,,HIFIMAN_HE6SE,Famously power-hungry
+HIFIMAN_EDITIONX,28,9,Edition X,HiFiMan Edition X,2015,,Discontinued,Headphone,Open Back,Planar Magnetic,No,No,,HIFIMAN_EDITIONXV2,
+HIFIMAN_EDITIONXV2,28,9,Edition X V2,HiFiMan Edition X V2,2016,,Discontinued,Headphone,Open Back,Planar Magnetic,No,No,HIFIMAN_EDITIONX,,
+HIFIMAN_EDITIONS,28,9,Edition S,HiFiMan Edition S,2016,,Discontinued,Headphone,Open Back,Dynamic,No,No,,,"On-ear, switchable open/closed"
+HIFIMAN_HE400S,27,9,HE400S,HiFiMan HE400S,2015,,Discontinued,Headphone,Open Back,Planar Magnetic,No,No,,,
+HIFIMAN_HE1000V2,27,9,HE1000 V2,HiFiMan HE1000 V2,2016,,Discontinued,Headphone,Open Back,Planar Magnetic,No,No,HIFIMAN_HE1000,HIFIMAN_HE1000SE,
+HIFIMAN_HE1000UNV,27,9,HE1000 Unveiled,HiFiMan HE1000 Unveiled,2024,,Active,Headphone,Open Back,Planar Magnetic,No,No,HIFIMAN_HE1000SE,,Stator-less open design
+HIFIMAN_ARYASTEALTH,30,9,Arya Stealth,HiFiMan Arya Stealth Magnet,2021,,Discontinued,Headphone,Open Back,Planar Magnetic,No,No,,,Stealth Magnet revision
+HIFIMAN_ARYAUNV,30,9,Arya Unveiled,HiFiMan Arya Unveiled,2024,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,
+HIFIMAN_ANANDANANOUNV,29,9,Ananda Unveiled,HiFiMan Ananda Unveiled,2024,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,
+HIFIMAN_SUNDARAC,32,9,Sundara Closed-Back,HiFiMan Sundara Closed-Back,2022,,Active,Headphone,Closed Back,Planar Magnetic,No,No,,,
+HIFIMAN_HER9,27,9,HE-R9,HiFiMan HE-R9,2021,,Active,Headphone,Closed Back,Dynamic,Yes,No,,,"Dynamic, optional Bluemini"
+HIFIMAN_HER10P,27,9,HE-R10P,HiFiMan HE-R10P,2021,,Discontinued,Headphone,Closed Back,Planar Magnetic,No,No,,,Homage to R10
+HIFIMAN_HE4XX,27,9,HE4XX,Drop x HiFiMan HE4XX,2017,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,Drop collaboration
+HIFIMAN_HE5XX,27,9,HE5XX,Drop x HiFiMan HE5XX,2021,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,Drop collaboration
+HIFIMAN_JADE2,27,9,Jade II,HiFiMan Jade II,2019,,Active,Headphone,Open Back,Electrostatic,No,No,,,"Electrostatic, needs energizer"
+HIFIMAN_SHANGRILA,27,9,Shangri-La Jr,HiFiMan Shangri-La Jr,2017,,Active,Headphone,Open Back,Electrostatic,No,No,,,
+HIFIMAN_AUDIVINA,27,9,Audivina,HiFiMan Audivina,2023,,Active,Headphone,Closed Back,Planar Magnetic,No,No,,,Closed-back home listening
+FOCAL_SPIRITONE,101,10,Spirit One,Focal Spirit One,2012,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,
+FOCAL_SPIRITPRO,101,10,Spirit Professional,Focal Spirit Professional,2013,,Discontinued,Studio,Closed Back,Dynamic,No,No,,,
+FOCAL_LISTEN,38,10,Listen,Focal Listen,2016,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,
+FOCAL_LISTENPRO,101,10,Listen Professional,Focal Listen Professional,2017,,Active,Studio,Closed Back,Dynamic,No,No,,,
+FOCAL_LISTENWL,38,10,Listen Wireless,Focal Listen Wireless,2017,,Discontinued,Headphone,Closed Back,Dynamic,Yes,No,,,
+FOCAL_ELEX,35,10,Elex,Drop x Focal Elex,2017,,Active,Headphone,Open Back,Dynamic,No,No,,,Drop collaboration
+FOCAL_CLEARPRO,35,10,Clear Professional,Focal Clear Professional,2018,,Active,Studio,Open Back,Dynamic,No,No,,,
+FOCAL_RADIANCE,36,10,Radiance,Focal Radiance,2019,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,Bentley edition
+FOCAL_CLEARMGPRO,35,10,Clear MG Professional,Focal Clear MG Professional,2021,,Active,Studio,Open Back,Dynamic,No,No,,,
+GRADO_SR125X,41,12,SR125x,Grado SR125x,2021,,Active,Headphone,Open Back,Dynamic,No,No,,,
+GRADO_SR225X,41,12,SR225x,Grado SR225x,2021,,Active,Headphone,Open Back,Dynamic,No,No,,,
+GRADO_SR80E,41,12,SR80e,Grado SR80e,2014,,Discontinued,Headphone,Open Back,Dynamic,No,No,,GRADO_SR80X,
+GRADO_SR325E,41,12,SR325e,Grado SR325e,2014,,Discontinued,Headphone,Open Back,Dynamic,No,No,,GRADO_SR325X,
+GRADO_RS2E,42,12,RS2e,Grado RS2e,2014,,Discontinued,Headphone,Open Back,Dynamic,No,No,,GRADO_RS2X,
+GRADO_GS1000X,43,12,GS1000x,Grado GS1000x,2022,,Active,Headphone,Open Back,Dynamic,No,No,,,
+GRADO_PS500E,102,12,PS500e,Grado PS500e,2014,,Discontinued,Headphone,Open Back,Dynamic,No,No,,,
+GRADO_PS1000E,102,12,PS1000e,Grado PS1000e,2014,,Active,Headphone,Open Back,Dynamic,No,No,,,Pro statement flagship
+GRADO_PS2000E,102,12,PS2000e,Grado PS2000e,2017,,Active,Headphone,Open Back,Dynamic,No,No,,,Statement flagship
+MEZE_99NOIR,45,13,99 Classics Noir,Meze 99 Classics Noir,2017,,Active,Headphone,Closed Back,Dynamic,No,No,,,All-black variant w/ tuning tweak
+MEZE_109PRODESC,45,13,109 Pro Descenso,Meze 109 Pro Descenso,2024,,Active,Headphone,Open Back,Dynamic,No,No,,,
+MEZE_EMPYREAN2,46,13,Empyrean II,Meze Empyrean II,2024,,Active,Headphone,Open Back,Planar Magnetic,No,No,MEZE_EMPYREAN,,
+MEZE_LIRICII,46,13,Liric II,Meze Liric II,2024,,Active,Headphone,Closed Back,Planar Magnetic,No,No,,,
+BW_P3,39,11,P3,Bowers & Wilkins P3,2011,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,
+BW_P5S2,39,11,P5 Series 2,Bowers & Wilkins P5 Series 2,2014,,Discontinued,Headphone,Closed Back,Dynamic,No,No,BW_P5,,
+BW_P7WIRELESS,39,11,P7 Wireless,Bowers & Wilkins P7 Wireless,2015,,Discontinued,Headphone,Closed Back,Dynamic,Yes,No,,,
+BW_PX5,40,11,PX5,Bowers & Wilkins PX5,2019,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,,,On-ear ANC
+AUDEZE_LCD2C,23,8,LCD-2 Classic,Audeze LCD-2 Classic,2018,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,
+AUDEZE_LCDGX,23,8,LCD-GX,Audeze LCD-GX,2019,,Active,Gaming,Open Back,Planar Magnetic,No,No,,,Open-back gaming
+AUDEZE_LCD4Z,23,8,LCD-4z,Audeze LCD-4z,2017,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,Low-impedance LCD-4
+AUDEZE_LCDXC2021,23,8,LCD-XC (2021),Audeze LCD-XC (2021),2021,,Active,Headphone,Closed Back,Planar Magnetic,No,No,AUDEZE_LCDXC,,
+AUDEZE_CRBN2,26,8,CRBN2,Audeze CRBN2,2024,,Active,Headphone,Open Back,Electrostatic,No,No,AUDEZE_CRBN,,
+STEEL_ARCTIS5,56,18,Arctis 5,SteelSeries Arctis 5,2017,,Discontinued,Gaming,Closed Back,Dynamic,No,No,,,
+STEEL_NOVA1,55,18,Arctis Nova 1,SteelSeries Arctis Nova 1,2022,,Active,Gaming,Closed Back,Dynamic,No,No,,,
+STEEL_NOVA7X,55,18,Arctis Nova 7X,SteelSeries Arctis Nova 7X,2022,,Active,Gaming,Closed Back,Dynamic,Yes,No,,,
+STEEL_NOVAPROOMNI,55,18,Arctis Nova Pro Omni,SteelSeries Arctis Nova Pro Omni,2025,,Active,Gaming,Closed Back,Dynamic,Yes,Yes,STEEL_NOVAPRO,,
+HYPERX_CLOUD,57,19,Cloud,HyperX Cloud,2014,,Discontinued,Gaming,Closed Back,Dynamic,No,No,,HYPERX_CLOUD2,
+HYPERX_CLOUD2W,57,19,Cloud II Wireless,HyperX Cloud II Wireless,2020,,Active,Gaming,Closed Back,Dynamic,Yes,No,,,
+HYPERX_CLOUDFLIGHT,57,19,Cloud Flight,HyperX Cloud Flight,2018,,Active,Gaming,Closed Back,Dynamic,Yes,No,,,
+RAZER_KRAKENKITTYV2,59,20,Kraken Kitty V2,Razer Kraken Kitty V2,2022,,Active,Gaming,Closed Back,Dynamic,No,No,,,
+RAZER_BARRACUDAPRO,103,20,Barracuda Pro,Razer Barracuda Pro,2022,,Active,Gaming,Closed Back,Dynamic,Yes,Yes,,,"ANC, hybrid gaming/lifestyle"
+RAZER_BLACKSHARKV2X,58,20,BlackShark V2 X,Razer BlackShark V2 X,2020,,Active,Gaming,Closed Back,Dynamic,No,No,,,
+LOGI_G933,61,21,G933 Artemis Spectrum,Logitech G933 Artemis Spectrum,2015,,Discontinued,Gaming,Closed Back,Dynamic,Yes,No,,,
+LOGI_GPROXWL,60,21,G Pro X Wireless,Logitech G Pro X Wireless,2020,,Active,Gaming,Closed Back,Dynamic,Yes,No,,,
+CORSAIR_VOID,65,24,Void RGB Elite Wireless,Corsair Void RGB Elite Wireless,2019,,Active,Gaming,Closed Back,Dynamic,Yes,No,,,
+TB_STEALTH600G2,63,23,Stealth 600 Gen 2,Turtle Beach Stealth 600 Gen 2,2020,,Active,Gaming,Closed Back,Dynamic,Yes,No,,,
+TB_STEALTHPRO2,63,23,Stealth Pro II,Turtle Beach Stealth Pro II,2025,,Active,Gaming,Closed Back,Dynamic,Yes,Yes,TB_STEALTHPRO,,
+BO_H4,80,35,Beoplay H4,Bang & Olufsen Beoplay H4,2017,,Discontinued,Headphone,Closed Back,Dynamic,Yes,No,,,
+BO_H9,80,35,Beoplay H9,Bang & Olufsen Beoplay H9,2017,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,,,
+BO_PORTAL,105,35,Beoplay Portal,Bang & Olufsen Beoplay Portal,2021,,Active,Gaming,Closed Back,Dynamic,Yes,Yes,,,Gaming/lifestyle hybrid
+JBL_LIVE770NC,84,38,Live 770NC,JBL Live 770NC,2023,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,
+JBL_QUANTUM910,106,38,Quantum 910 Wireless,JBL Quantum 910 Wireless,2022,,Active,Gaming,Closed Back,Dynamic,Yes,Yes,,,
+MARSHALL_MIDANC,82,37,Mid ANC,Marshall Mid ANC,2018,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,,,
+SKULL_HESH3,85,39,Hesh 3,Skullcandy Hesh 3,2018,,Discontinued,Headphone,Closed Back,Dynamic,Yes,No,,,
+SKULL_CRUSHERANC,85,39,Crusher ANC,Skullcandy Crusher ANC,2019,,Discontinued,Headphone,Closed Back,Dynamic,Yes,Yes,,SKULL_CRUSHERANC2,
