@@ -65,7 +65,7 @@ AKG_N700NC,16,5,N700NC,AKG N700NC,2018,,Discontinued,Headphone,Closed Back,Dynam
 AKG_N700NCM2,16,5,N700NC M2,AKG N700NC M2,2019,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,AKG_N700NC,,
 AKG_N90Q,16,5,N90Q,AKG N90Q,2016,,Discontinued,Headphone,Closed Back,Dynamic,No,Yes,,,Tuned by Quincy Jones
 BEYER_DT770PRO,17,6,DT 770 Pro,Beyerdynamic DT 770 Pro,1985,,Legacy Active,Studio,Closed Back,Dynamic,No,No,,,"Studio classic, still produced"
-BEYER_DT880,17,6,DT 880,Beyerdynamic DT 880 Edition,1980,,Legacy Active,Headphone,Semi-Open,Dynamic,No,No,,,Semi-open classic
+BEYER_DT880,17,6,DT 880,Beyerdynamic DT 880,1980,,Legacy Active,Headphone,Semi-Open,Dynamic,No,No,,BEYER_DT880_2005,Original semi-open classic
 BEYER_DT990PRO,17,6,DT 990 Pro,Beyerdynamic DT 990 Pro,1985,,Legacy Active,Studio,Open Back,Dynamic,No,No,,,
 BEYER_DT1770,17,6,DT 1770 Pro,Beyerdynamic DT 1770 Pro,2016,,Active,Studio,Closed Back,Dynamic,No,No,,,Tesla driver
 BEYER_DT1990,17,6,DT 1990 Pro,Beyerdynamic DT 1990 Pro,2016,,Active,Studio,Open Back,Dynamic,No,No,,BEYER_DT1990MK2,
@@ -95,7 +95,7 @@ AUDEZE_LCDX,23,8,LCD-X,Audeze LCD-X,2013,,Active,Headphone,Open Back,Planar Magn
 AUDEZE_LCDXC,23,8,LCD-XC,Audeze LCD-XC,2013,,Active,Headphone,Closed Back,Planar Magnetic,No,No,,,
 AUDEZE_LCD4,23,8,LCD-4,Audeze LCD-4,2015,,Discontinued,Headphone,Open Back,Planar Magnetic,No,No,,,Former flagship
 AUDEZE_LCD1,23,8,LCD-1,Audeze LCD-1,2020,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,Lightweight portable planar
-AUDEZE_LCD5,23,8,LCD-5,Audeze LCD-5,2021,,Active,Headphone,Open Back,Planar Magnetic,No,No,,AUDEZE_LCD5S,Flagship planar
+AUDEZE_LCD5,23,8,LCD-5,Audeze LCD-5,2021,2026,Discontinued,Headphone,Open Back,Planar Magnetic,No,No,,AUDEZE_LCD5S,Flagship planar; replaced by LCD-5s
 AUDEZE_LCD5S,23,8,LCD-5s,Audeze LCD-5s,2026,,Active,Headphone,Open Back,Planar Magnetic,No,No,AUDEZE_LCD5,,SLAM acoustic tech
 AUDEZE_MM500,24,8,MM-500,Audeze MM-500,2022,,Active,Studio,Open Back,Planar Magnetic,No,No,,,Co-developed with Manny Marroquin
 AUDEZE_MM100,24,8,MM-100,Audeze MM-100,2023,,Active,Studio,Open Back,Planar Magnetic,No,No,,,
@@ -112,8 +112,8 @@ HIFIMAN_ANANDA,29,9,Ananda,HiFiMan Ananda,2018,,Active,Headphone,Open Back,Plana
 HIFIMAN_ANANDANANO,29,9,Ananda Nano,HiFiMan Ananda Nano,2023,,Active,Headphone,Open Back,Planar Magnetic,No,No,HIFIMAN_ANANDA,,
 HIFIMAN_ARYA,30,9,Arya,HiFiMan Arya,2018,,Active,Headphone,Open Back,Planar Magnetic,No,No,,HIFIMAN_ARYAORGANIC,
 HIFIMAN_ARYAORGANIC,30,9,Arya Organic,HiFiMan Arya Organic,2023,,Active,Headphone,Open Back,Planar Magnetic,No,No,HIFIMAN_ARYA,,
-HIFIMAN_HE1000,27,9,HE1000,HiFiMan HE1000,2015,,Discontinued,Headphone,Open Back,Planar Magnetic,No,No,,HIFIMAN_HE1000SE,Nanometer diaphragm
-HIFIMAN_HE1000SE,27,9,HE1000se,HiFiMan HE1000se,2020,,Active,Headphone,Open Back,Planar Magnetic,No,No,HIFIMAN_HE1000,,
+HIFIMAN_HE1000,27,9,HE1000,HiFiMan HE1000,2015,,Discontinued,Headphone,Open Back,Planar Magnetic,No,No,,HIFIMAN_HE1000V2,Nanometer diaphragm
+HIFIMAN_HE1000SE,27,9,HE1000se,HiFiMan HE1000se,2020,,Active,Headphone,Open Back,Planar Magnetic,No,No,HIFIMAN_HE1000V2,,
 HIFIMAN_SUSVARA,31,9,Susvara,HiFiMan Susvara,2017,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,Reference flagship planar
 HIFIMAN_EDITIONXS,28,9,Edition XS,HiFiMan Edition XS,2021,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,Value Stealth Magnet planar
 HIFIMAN_DEVA,33,9,Deva,HiFiMan Deva,2019,,Discontinued,Headphone,Open Back,Planar Magnetic,Yes,No,,HIFIMAN_DEVAPRO,Optional Bluemini wireless module
@@ -210,7 +210,7 @@ CORSAIR_VIRTUOSOPRO,64,24,Virtuoso Pro,Corsair Virtuoso Pro,2023,,Active,Gaming,
 CORSAIR_HS80,65,24,HS80 RGB Wireless,Corsair HS80 RGB Wireless,2021,,Active,Gaming,Closed Back,Dynamic,Yes,No,,,
 ASUS_DELTAS,66,25,ROG Delta S,ASUS ROG Delta S,2021,,Active,Gaming,Closed Back,Dynamic,No,No,,,"USB-C, quad-DAC"
 ASUS_DELTA2,66,25,ROG Delta II,ASUS ROG Delta II,2025,,Active,Gaming,Closed Back,Dynamic,Yes,No,,,
-ABYSS_AB1266,67,26,AB-1266 Phi TC,Abyss AB-1266 Phi TC,2013,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,Reference flagship planar
+ABYSS_AB1266,67,26,AB-1266,Abyss AB-1266,2013,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,Reference flagship planar; later revised as Phi and Phi TC
 ABYSS_DIANA,68,26,Diana,Abyss Diana,2017,,Active,Headphone,Open Back,Planar Magnetic,No,No,,ABYSS_DIANAV2,
 ABYSS_DIANAV2,68,26,Diana V2,Abyss Diana V2,2020,,Active,Headphone,Open Back,Planar Magnetic,No,No,ABYSS_DIANA,,
 ZMF_AUTEUR,70,27,Auteur,ZMF Auteur,2017,,Active,Headphone,Open Back,Dynamic,No,No,,,Hand-built wood
@@ -464,7 +464,7 @@ AKG_K271,97,5,K271 Studio,AKG K271 Studio,2003,,Discontinued,Studio,Closed Back,
 AKG_K141,97,5,K141 Studio,AKG K141 Studio,2003,,Active,Studio,Semi-Open,Dynamic,No,No,,,
 BEYER_DT48,121,6,DT 48,Beyerdynamic DT 48,1937,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,Among the oldest headphones in continuous production
 BEYER_DT831,121,6,DT 831,Beyerdynamic DT 831,1994,,Discontinued,Headphone,Closed Back,Dynamic,No,No,,,
-BEYER_DT880_2005,17,6,DT 880 Edition (2005),Beyerdynamic DT 880 Edition (2005),2005,,Active,Headphone,Semi-Open,Dynamic,No,No,,,Consumer Edition revision
+BEYER_DT880_2005,17,6,DT 880 Edition (2005),Beyerdynamic DT 880 Edition (2005),2005,,Active,Headphone,Semi-Open,Dynamic,No,No,BEYER_DT880,,Consumer Edition revision
 BEYER_DT150,121,6,DT 150,Beyerdynamic DT 150,1980,,Active,Studio,Closed Back,Dynamic,No,No,,,Broadcast monitoring classic
 BEYER_DT100,121,6,DT 100,Beyerdynamic DT 100,1965,,Legacy Active,Studio,Closed Back,Dynamic,No,No,,,Broadcast/studio staple
 ATECH_M50,10,4,ATH-M50,Audio-Technica ATH-M50,2007,,Discontinued,Studio,Closed Back,Dynamic,No,No,,ATECH_M50X,"The original M50, fixed cable"
@@ -584,3 +584,18 @@ MARKLEV_5909,152,59,No. 5909,Mark Levinson No. 5909,2022,,Active,Headphone,Close
 TA_SOLITAIRE_P,153,60,Solitaire P,T+A Solitaire P,2020,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,Flagship planar
 TA_SOLITAIRE_PSE,153,60,Solitaire P-SE,T+A Solitaire P-SE,2021,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,
 TA_SOLITAIRE_T,153,60,Solitaire T,T+A Solitaire T,2023,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,Wireless ANC
+HEDD_HEDDPHONE,154,61,HEDDphone,HEDD Audio HEDDphone,2020,,Discontinued,Studio,Open Back,AMT,No,No,,HEDD_HEDDPHONE2,World's first full-range AMT (Air Motion Transformer) headphone
+HEDD_HEDDPHONE2,154,61,HEDDphone TWO,HEDD Audio HEDDphone TWO,2023,,Active,Studio,Open Back,AMT,No,No,HEDD_HEDDPHONE,,"AMT driver, improved comfort"
+HEDD_HEDDPHONED1,154,61,HEDDphone D1,HEDD Audio HEDDphone D1,2025,,Active,Studio,Open Back,Dynamic,No,No,,,"50mm TPCD dynamic driver, $799"
+GRELL_OAE2,155,62,OAE2,Grell Audio OAE2,2026,,Active,Headphone,Open Back,Dynamic,No,No,,,"40mm bio-cellulose, angled OAE drivers, $599"
+OLLO_S4X,156,63,S4X,Ollo Audio S4X,2021,,Active,Studio,Closed Back,Dynamic,No,No,,,
+OLLO_S5X,156,63,S5X,Ollo Audio S5X,2022,,Active,Studio,Open Back,Dynamic,No,No,,,
+OLLO_X1,157,63,X1,Ollo Audio X1,2023,,Active,Studio,Open Back,Dynamic,No,No,,,Reference open-back
+HIFIMAN_HE600,27,9,HE600,HiFiMan HE600,2025,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,"Ultra-thin diaphragm, $799"
+HIFIMAN_EDITIONXV,28,9,Edition XV,HiFiMan Edition XV,2025,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,
+MOONDROP_HORIZON,146,53,Horizon,Moondrop Horizon,2025,,Active,Headphone,Open Back,Dynamic,No,No,,,"Dynamic driver, low-distortion"
+MOONDROP_EDGE,158,53,Edge,Moondrop Edge,2024,,Active,Headphone,Closed Back,Dynamic,Yes,Yes,,,First Moondrop over-ear wireless ANC
+MOONDROP_OLDFASHIONED,159,53,Old Fashioned,Moondrop Old Fashioned,2025,,Active,Headphone,Open Back,Dynamic,No,No,,,"$25 retro on-ear, 40mm driver"
+AUDEZE_LCDS20,23,8,LCD-S20,Audeze LCD-S20,2025,,Active,Headphone,Open Back,Planar Magnetic,No,No,,,"Accessible LCD line w/ SLAM, $499"
+SENN_HD480PRO,115,2,HD 480 Pro,Sennheiser HD 480 Pro,2026,,Active,Studio,Closed Back,Dynamic,No,No,,,"Closed studio, flexible cable"
+GRADO_S550,43,12,Signature S550,Grado Signature S550,2026,,Active,Headphone,Open Back,Dynamic,No,No,,,Debuted CanJam NYC 2026

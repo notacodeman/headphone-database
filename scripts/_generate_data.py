@@ -75,6 +75,9 @@ manufacturers = [
     (58, "Warwick Acoustics","UK",          "https://warwickacoustics.com",    "Active"),
     (59, "Mark Levinson",    "USA",         "https://www.marklevinson.com",    "Active"),
     (60, "T+A",              "Germany",     "https://www.ta-hifi.com",         "Active"),
+    (61, "HEDD Audio",       "Germany",     "https://hedd.audio",              "Active"),
+    (62, "Grell Audio",      "Germany",     "https://grell-audio.com",         "Active"),
+    (63, "Ollo Audio",       "Slovenia",    "https://www.olloaudio.com",       "Active"),
 ]
 mfr_id = {name: i for i, name, *_ in manufacturers}
 
@@ -244,6 +247,13 @@ families_raw = [
     ("Warwick Acoustics", "Sonoma", "Headphone"),
     ("Mark Levinson", "No. 5909", "Headphone"),
     ("T+A", "Solitaire", "Headphone"),
+    # Newest makers + 2025-2026 model lines
+    ("HEDD Audio", "HEDDphone", "Studio"),
+    ("Grell Audio", "OAE", "Headphone"),
+    ("Ollo Audio", "S-Series", "Studio"),
+    ("Ollo Audio", "X-Series", "Studio"),
+    ("Moondrop", "Wireless", "Headphone"),
+    ("Moondrop", "On-Ear", "Headphone"),
 ]
 families = []
 fam_id = {}
@@ -339,7 +349,7 @@ add("AKG_N90Q","AKG","N-Series","N90Q","AKG N90Q",2016,"Discontinued","Closed Ba
 
 # ---- Beyerdynamic ----
 add("BEYER_DT770PRO","Beyerdynamic","DT","DT 770 Pro","Beyerdynamic DT 770 Pro",1985,"Legacy Active","Closed Back","Dynamic","No","No",category="Studio",notes="Studio classic, still produced")
-add("BEYER_DT880","Beyerdynamic","DT","DT 880","Beyerdynamic DT 880 Edition",1980,"Legacy Active","Semi-Open","Dynamic","No","No",notes="Semi-open classic")
+add("BEYER_DT880","Beyerdynamic","DT","DT 880","Beyerdynamic DT 880",1980,"Legacy Active","Semi-Open","Dynamic","No","No",succ="BEYER_DT880_2005",notes="Original semi-open classic")
 add("BEYER_DT990PRO","Beyerdynamic","DT","DT 990 Pro","Beyerdynamic DT 990 Pro",1985,"Legacy Active","Open Back","Dynamic","No","No",category="Studio")
 add("BEYER_DT1770","Beyerdynamic","DT","DT 1770 Pro","Beyerdynamic DT 1770 Pro",2016,"Active","Closed Back","Dynamic","No","No",category="Studio",notes="Tesla driver")
 add("BEYER_DT1990","Beyerdynamic","DT","DT 1990 Pro","Beyerdynamic DT 1990 Pro",2016,"Active","Open Back","Dynamic","No","No",category="Studio",succ="BEYER_DT1990MK2")
@@ -373,7 +383,7 @@ add("AUDEZE_LCDX","Audeze","LCD","LCD-X","Audeze LCD-X",2013,"Active","Open Back
 add("AUDEZE_LCDXC","Audeze","LCD","LCD-XC","Audeze LCD-XC",2013,"Active","Closed Back","Planar Magnetic","No","No")
 add("AUDEZE_LCD4","Audeze","LCD","LCD-4","Audeze LCD-4",2015,"Discontinued","Open Back","Planar Magnetic","No","No",notes="Former flagship")
 add("AUDEZE_LCD1","Audeze","LCD","LCD-1","Audeze LCD-1",2020,"Active","Open Back","Planar Magnetic","No","No",notes="Lightweight portable planar")
-add("AUDEZE_LCD5","Audeze","LCD","LCD-5","Audeze LCD-5",2021,"Active","Open Back","Planar Magnetic","No","No",succ="AUDEZE_LCD5S",notes="Flagship planar")
+add("AUDEZE_LCD5","Audeze","LCD","LCD-5","Audeze LCD-5",2021,"Discontinued","Open Back","Planar Magnetic","No","No",succ="AUDEZE_LCD5S",disc="2026",notes="Flagship planar; replaced by LCD-5s")
 add("AUDEZE_LCD5S","Audeze","LCD","LCD-5s","Audeze LCD-5s",2026,"Active","Open Back","Planar Magnetic","No","No",pred="AUDEZE_LCD5",notes="SLAM acoustic tech")
 add("AUDEZE_MM500","Audeze","MM","MM-500","Audeze MM-500",2022,"Active","Open Back","Planar Magnetic","No","No",category="Studio",notes="Co-developed with Manny Marroquin")
 add("AUDEZE_MM100","Audeze","MM","MM-100","Audeze MM-100",2023,"Active","Open Back","Planar Magnetic","No","No",category="Studio")
@@ -392,8 +402,8 @@ add("HIFIMAN_ANANDA","HiFiMan","Ananda","Ananda","HiFiMan Ananda",2018,"Active",
 add("HIFIMAN_ANANDANANO","HiFiMan","Ananda","Ananda Nano","HiFiMan Ananda Nano",2023,"Active","Open Back","Planar Magnetic","No","No",pred="HIFIMAN_ANANDA")
 add("HIFIMAN_ARYA","HiFiMan","Arya","Arya","HiFiMan Arya",2018,"Active","Open Back","Planar Magnetic","No","No",succ="HIFIMAN_ARYAORGANIC")
 add("HIFIMAN_ARYAORGANIC","HiFiMan","Arya","Arya Organic","HiFiMan Arya Organic",2023,"Active","Open Back","Planar Magnetic","No","No",pred="HIFIMAN_ARYA")
-add("HIFIMAN_HE1000","HiFiMan","HE","HE1000","HiFiMan HE1000",2015,"Discontinued","Open Back","Planar Magnetic","No","No",succ="HIFIMAN_HE1000SE",notes="Nanometer diaphragm")
-add("HIFIMAN_HE1000SE","HiFiMan","HE","HE1000se","HiFiMan HE1000se",2020,"Active","Open Back","Planar Magnetic","No","No",pred="HIFIMAN_HE1000")
+add("HIFIMAN_HE1000","HiFiMan","HE","HE1000","HiFiMan HE1000",2015,"Discontinued","Open Back","Planar Magnetic","No","No",succ="HIFIMAN_HE1000V2",notes="Nanometer diaphragm")
+add("HIFIMAN_HE1000SE","HiFiMan","HE","HE1000se","HiFiMan HE1000se",2020,"Active","Open Back","Planar Magnetic","No","No",pred="HIFIMAN_HE1000V2")
 add("HIFIMAN_SUSVARA","HiFiMan","Susvara","Susvara","HiFiMan Susvara",2017,"Active","Open Back","Planar Magnetic","No","No",notes="Reference flagship planar")
 add("HIFIMAN_EDITIONXS","HiFiMan","Edition","Edition XS","HiFiMan Edition XS",2021,"Active","Open Back","Planar Magnetic","No","No",notes="Value Stealth Magnet planar")
 add("HIFIMAN_DEVA","HiFiMan","Deva","Deva","HiFiMan Deva",2019,"Discontinued","Open Back","Planar Magnetic","Yes","No",succ="HIFIMAN_DEVAPRO",notes="Optional Bluemini wireless module")
@@ -520,7 +530,7 @@ add("ASUS_DELTA2","ASUS ROG","Delta","ROG Delta II","ASUS ROG Delta II",2025,"Ac
 
 # =========================== HIGH-END / NICHE ===========================
 # ---- Abyss ----
-add("ABYSS_AB1266","Abyss","AB-1266","AB-1266 Phi TC","Abyss AB-1266 Phi TC",2013,"Active","Open Back","Planar Magnetic","No","No",notes="Reference flagship planar")
+add("ABYSS_AB1266","Abyss","AB-1266","AB-1266","Abyss AB-1266",2013,"Active","Open Back","Planar Magnetic","No","No",notes="Reference flagship planar; later revised as Phi and Phi TC")
 add("ABYSS_DIANA","Abyss","Diana","Diana","Abyss Diana",2017,"Active","Open Back","Planar Magnetic","No","No",succ="ABYSS_DIANAV2")
 add("ABYSS_DIANAV2","Abyss","Diana","Diana V2","Abyss Diana V2",2020,"Active","Open Back","Planar Magnetic","No","No",pred="ABYSS_DIANA")
 # ---- ZMF Headphones ----
@@ -858,7 +868,7 @@ add("AKG_K141","AKG","K-Studio","K141 Studio","AKG K141 Studio",2003,"Active","S
 # ---- Beyerdynamic ----
 add("BEYER_DT48","Beyerdynamic","DT Classic","DT 48","Beyerdynamic DT 48",1937,"Discontinued","Closed Back","Dynamic","No","No",notes="Among the oldest headphones in continuous production")
 add("BEYER_DT831","Beyerdynamic","DT Classic","DT 831","Beyerdynamic DT 831",1994,"Discontinued","Closed Back","Dynamic","No","No")
-add("BEYER_DT880_2005","Beyerdynamic","DT","DT 880 Edition (2005)","Beyerdynamic DT 880 Edition (2005)",2005,"Active","Semi-Open","Dynamic","No","No",notes="Consumer Edition revision")
+add("BEYER_DT880_2005","Beyerdynamic","DT","DT 880 Edition (2005)","Beyerdynamic DT 880 Edition (2005)",2005,"Active","Semi-Open","Dynamic","No","No",pred="BEYER_DT880",notes="Consumer Edition revision")
 add("BEYER_DT150","Beyerdynamic","DT Classic","DT 150","Beyerdynamic DT 150",1980,"Active","Closed Back","Dynamic","No","No",category="Studio",notes="Broadcast monitoring classic")
 add("BEYER_DT100","Beyerdynamic","DT Classic","DT 100","Beyerdynamic DT 100",1965,"Legacy Active","Closed Back","Dynamic","No","No",category="Studio",notes="Broadcast/studio staple")
 
@@ -1050,6 +1060,44 @@ add("MARKLEV_5909","Mark Levinson","No. 5909","No. 5909","Mark Levinson No. 5909
 add("TA_SOLITAIRE_P","T+A","Solitaire","Solitaire P","T+A Solitaire P",2020,"Active","Open Back","Planar Magnetic","No","No",notes="Flagship planar")
 add("TA_SOLITAIRE_PSE","T+A","Solitaire","Solitaire P-SE","T+A Solitaire P-SE",2021,"Active","Open Back","Planar Magnetic","No","No")
 add("TA_SOLITAIRE_T","T+A","Solitaire","Solitaire T","T+A Solitaire T",2023,"Active","Closed Back","Dynamic","Yes","Yes",notes="Wireless ANC")
+
+# ============================================================================
+# NEWEST MAKERS + 2025-2026 MODELS
+# ============================================================================
+
+# ---- HEDD Audio (Germany, AMT/dynamic studio) ----
+add("HEDD_HEDDPHONE","HEDD Audio","HEDDphone","HEDDphone","HEDD Audio HEDDphone",2020,"Discontinued","Open Back","AMT","No","No",category="Studio",succ="HEDD_HEDDPHONE2",notes="World's first full-range AMT (Air Motion Transformer) headphone")
+add("HEDD_HEDDPHONE2","HEDD Audio","HEDDphone","HEDDphone TWO","HEDD Audio HEDDphone TWO",2023,"Active","Open Back","AMT","No","No",category="Studio",pred="HEDD_HEDDPHONE",notes="AMT driver, improved comfort")
+add("HEDD_HEDDPHONED1","HEDD Audio","HEDDphone","HEDDphone D1","HEDD Audio HEDDphone D1",2025,"Active","Open Back","Dynamic","No","No",category="Studio",notes="50mm TPCD dynamic driver, $799")
+
+# ---- Grell Audio (Germany, by ex-Sennheiser Axel Grell) ----
+add("GRELL_OAE2","Grell Audio","OAE","OAE2","Grell Audio OAE2",2026,"Active","Open Back","Dynamic","No","No",notes="40mm bio-cellulose, angled OAE drivers, $599")
+
+# ---- Ollo Audio (Slovenia, modular studio) ----
+add("OLLO_S4X","Ollo Audio","S-Series","S4X","Ollo Audio S4X",2021,"Active","Closed Back","Dynamic","No","No",category="Studio")
+add("OLLO_S5X","Ollo Audio","S-Series","S5X","Ollo Audio S5X",2022,"Active","Open Back","Dynamic","No","No",category="Studio")
+add("OLLO_X1","Ollo Audio","X-Series","X1","Ollo Audio X1",2023,"Active","Open Back","Dynamic","No","No",category="Studio",notes="Reference open-back")
+
+# ---- HiFiMan: 2025 launches ----
+add("HIFIMAN_HE600","HiFiMan","HE","HE600","HiFiMan HE600",2025,"Active","Open Back","Planar Magnetic","No","No",notes="Ultra-thin diaphragm, $799")
+add("HIFIMAN_EDITIONXV","HiFiMan","Edition","Edition XV","HiFiMan Edition XV",2025,"Active","Open Back","Planar Magnetic","No","No")
+
+# ---- Moondrop: wireless + on-ear additions ----
+add("MOONDROP_HORIZON","Moondrop","Planar","Horizon","Moondrop Horizon",2025,"Active","Open Back","Dynamic","No","No",notes="Dynamic driver, low-distortion")
+add("MOONDROP_EDGE","Moondrop","Wireless","Edge","Moondrop Edge",2024,"Active","Closed Back","Dynamic","Yes","Yes",notes="First Moondrop over-ear wireless ANC")
+add("MOONDROP_OLDFASHIONED","Moondrop","On-Ear","Old Fashioned","Moondrop Old Fashioned",2025,"Active","Open Back","Dynamic","No","No",category="Headphone",notes="$25 retro on-ear, 40mm driver")
+
+# ---- FiiO: FT1 Pro already added? add if missing ----
+# (FIIO_FT1PRO added in new-brands batch)
+
+# ---- Audeze: 2026 LCD-S20 ----
+add("AUDEZE_LCDS20","Audeze","LCD","LCD-S20","Audeze LCD-S20",2025,"Active","Open Back","Planar Magnetic","No","No",notes="Accessible LCD line w/ SLAM, $499")
+
+# ---- Sennheiser: 2026 HD 480 Pro studio ----
+add("SENN_HD480PRO","Sennheiser","HD 200-series","HD 480 Pro","Sennheiser HD 480 Pro",2026,"Active","Closed Back","Dynamic","No","No",category="Studio",notes="Closed studio, flexible cable")
+
+# ---- Grado: 2026 Signature ----
+add("GRADO_S550","Grado","Statement","Signature S550","Grado Signature S550",2026,"Active","Open Back","Dynamic","No","No",notes="Debuted CanJam NYC 2026")
 
 # ---------------------------------------------------------------------------
 # Resolve family ids and build lineage from predecessor/successor links
