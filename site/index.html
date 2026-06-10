@@ -18,6 +18,7 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { background: var(--paper); }
 
   body {
     background: var(--paper);
@@ -182,7 +183,8 @@
   thead th > span:first-child { display: inline-block; max-width: calc(100% - 10px); overflow: hidden; text-overflow: ellipsis; vertical-align: bottom; }
   tbody tr.datarow td { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .resizer { position: absolute; top: 0; right: 0; width: 9px; height: 100%; cursor: col-resize; user-select: none; }
-  .resizer:hover { background: var(--accent); opacity: 0.4; }
+  .resizer::before { content: ""; position: absolute; right: 3px; top: 25%; height: 50%; width: 1px; background: var(--line); }
+  .resizer:hover::before { right: 3px; top: 0; height: 100%; width: 2px; background: var(--accent); }
   thead th {
     text-align: left;
     font-size: 0.65rem;
@@ -250,7 +252,7 @@
   footer a { color: var(--accent-2); }
 
   /* Zebra striping (subtle) */
-  tbody tr.datarow.zebra { background: rgba(26,23,20,0.028); }
+  tbody tr.datarow.zebra { background: #ece4d4; }
   tbody tr.datarow { cursor: pointer; }
   tbody tr.datarow:hover { background: var(--paper-2); }
 
@@ -260,7 +262,7 @@
   .caret { display: inline-block; transition: transform 0.15s ease; }
   tr.datarow.expanded .caret { transform: rotate(90deg); color: var(--accent); }
   tr.detailrow > td { padding: 0; border-bottom: 1px solid var(--line); }
-  tr.detailrow.zebra > td { background: rgba(26,23,20,0.028); }
+  tr.detailrow.zebra > td { background: #ece4d4; }
   .detailwrap { padding: 1.1rem 1.4rem; border-left: 3px solid var(--accent); }
   .detail-specs { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.6rem 1.5rem; margin: 0; }
   .detail-specs dt { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }

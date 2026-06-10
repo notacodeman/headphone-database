@@ -34,6 +34,10 @@ export async function onRequestPost({ request, env }) {
       await env.DB.prepare(`UPDATE suggestions SET status = 'reviewed' WHERE id = ?`).bind(id).run();
     } else if (body.action === "pending") {
       await env.DB.prepare(`UPDATE suggestions SET status = 'pending' WHERE id = ?`).bind(id).run();
+    } else if (body.action === "accept") {
+      await env.DB.prepare(`UPDATE suggestions SET status = 'accepted' WHERE id = ?`).bind(id).run();
+    } else if (body.action === "reject") {
+      await env.DB.prepare(`UPDATE suggestions SET status = 'rejected' WHERE id = ?`).bind(id).run();
     } else {
       return json({ ok: false, error: "Unknown action." }, 400);
     }
