@@ -34,6 +34,7 @@
   .actions button { font-family:inherit; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em;
     padding:0.45rem 0.9rem; cursor:pointer; border:none; border-radius:99px; }
   .btn-rev { background:var(--accent-2); color:var(--paper); }
+  .btn-undo { background:none; border:1px solid var(--accent-2); color:var(--accent-2); }
   .btn-del { background:var(--accent); color:var(--paper); }
   .empty,.loading { text-align:center; color:var(--muted); padding:3rem 1rem; }
 </style>
@@ -101,6 +102,7 @@ function render() {
       </div>
       <div class="actions">
         ${s.status === "pending" ? `<button class="btn-rev" onclick="act(${s.id},'reviewed')">Mark reviewed</button>` : ""}
+        ${s.status === "reviewed" ? `<button class="btn-undo" onclick="act(${s.id},'pending')">Move back to pending</button>` : ""}
         <button class="btn-del" onclick="act(${s.id},'delete')">Delete</button>
       </div>
     </div>
@@ -118,7 +120,8 @@ async function act(id, action) {
     const data = await res.json();
     if (!data.ok) throw new Error();
     if (action === "delete") all = all.filter(s => s.id !== id);
-    else all = all.map(s => s.id === id ? { ...s, status: "reviewed" } : s);
+    else if (action === "reviewed") all = all.map(s => s.id === id ? { ...s, status: "reviewed" } : s);
+    else if (action === "pending") all = all.map(s => s.id === id ? { ...s, status: "pending" } : s);
     render();
   } catch (e) { alert("Action failed. Try again."); }
 }

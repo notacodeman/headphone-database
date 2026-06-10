@@ -360,6 +360,28 @@ function parseCSV(text) {
 }
 
 async function load() {
+  // Prefer the live D1 catalog; fall back to the GitHub CSVs so the site never breaks.
+  try {
+    const res = await fetch("/api/catalog");
+    if (res.ok) {
+      const data = await res.json();
+      if (data.ok && data.products && data.products.length) {
+        state.rows = data.products.map(p => ({ ...p, _brand: p._brand || "Unknown" }));
+        initFilters();
+        buildColMenu();
+        apply();
+        document.getElementById("source").innerHTML =
+          'Source: <a href="https://github.com/notacodeman/headphone-database">github.com/notacodeman/headphone-database</a>';
+        return;
+      }
+    }
+    throw new Error("api empty");
+  } catch (e) {
+    await loadFromCSV();
+  }
+}
+
+async function loadFromCSV() {
   try {
     const [pRes, mRes] = await Promise.all([
       fetch(RAW_BASE + "/products.csv"),

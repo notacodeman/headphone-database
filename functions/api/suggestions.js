@@ -32,6 +32,8 @@ export async function onRequestPost({ request, env }) {
       await env.DB.prepare(`DELETE FROM suggestions WHERE id = ?`).bind(id).run();
     } else if (body.action === "reviewed") {
       await env.DB.prepare(`UPDATE suggestions SET status = 'reviewed' WHERE id = ?`).bind(id).run();
+    } else if (body.action === "pending") {
+      await env.DB.prepare(`UPDATE suggestions SET status = 'pending' WHERE id = ?`).bind(id).run();
     } else {
       return json({ ok: false, error: "Unknown action." }, 400);
     }
