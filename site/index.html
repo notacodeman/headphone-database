@@ -176,7 +176,13 @@
     border-radius: 0; cursor: pointer;
   }
 
-  table { width: 100%; border-collapse: collapse; }
+  table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+  #tablewrap { overflow-x: auto; }
+  thead th { position: relative; }
+  thead th > span:first-child { display: inline-block; max-width: calc(100% - 10px); overflow: hidden; text-overflow: ellipsis; vertical-align: bottom; }
+  tbody tr.datarow td { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .resizer { position: absolute; top: 0; right: 0; width: 9px; height: 100%; cursor: col-resize; user-select: none; }
+  .resizer:hover { background: var(--accent); opacity: 0.4; }
   thead th {
     text-align: left;
     font-size: 0.65rem;
@@ -342,17 +348,17 @@ const RAW_BASE = "https://raw.githubusercontent.com/notacodeman/headphone-databa
 
 // Column definitions. `on` is the default visibility.
 const COLS = [
-  { key: "_brand",         label: "Brand",       on: true,  sortable: true },
-  { key: "model_name",     label: "Model",       on: true,  sortable: true },
-  { key: "release_year",   label: "Year",        on: true,  sortable: true },
-  { key: "design",         label: "Design",      on: true,  sortable: true },
-  { key: "driver_type",    label: "Driver",      on: true,  sortable: true },
-  { key: "driver_size_mm", label: "Driver Size", on: true,  sortable: true },
-  { key: "impedance_ohms", label: "Impedance",   on: true,  sortable: true },
-  { key: "sensitivity_db", label: "Sensitivity", on: false, sortable: true },
-  { key: "status",         label: "Status",      on: true,  sortable: true },
-  { key: "_flags",         label: "Wireless/ANC",on: true,  sortable: false },
-  { key: "notes",          label: "Notes",       on: false, sortable: false }
+  { key: "_brand",         label: "Brand",       on: true,  sortable: true,  w: 130 },
+  { key: "model_name",     label: "Model",       on: true,  sortable: true,  w: 180 },
+  { key: "release_year",   label: "Year",        on: true,  sortable: true,  w: 80 },
+  { key: "design",         label: "Design",      on: true,  sortable: true,  w: 120 },
+  { key: "driver_type",    label: "Driver",      on: true,  sortable: true,  w: 130 },
+  { key: "driver_size_mm", label: "Driver Size", on: true,  sortable: true,  w: 110 },
+  { key: "impedance_ohms", label: "Impedance",   on: true,  sortable: true,  w: 110 },
+  { key: "sensitivity_db", label: "Sensitivity", on: false, sortable: true,  w: 110 },
+  { key: "status",         label: "Status",      on: true,  sortable: true,  w: 130 },
+  { key: "_flags",         label: "Wireless/ANC",on: true,  sortable: false, w: 120 },
+  { key: "notes",          label: "Notes",       on: false, sortable: false, w: 280 }
 ];
 
 const state = { rows: [], filtered: [], sortKey: "release_year", sortDir: "descending", visible: {} };
@@ -367,6 +373,29 @@ function loadColPrefs() {
 }
 function saveColPrefs() {
   try { localStorage.setItem("archive_cols", JSON.stringify(state.visible)); } catch (e) {}
+}
+
+const CARET_W = 44;
+const colW = {};
+function loadColW(){ COLS.forEach(c=>colW[c.key]=c.w); try{ const s=JSON.parse(localStorage.getItem("archive_colw")||"null"); if(s) Object.assign(colW,s);}catch(e){} }
+function saveColW(){ try{ localStorage.setItem("archive_colw",JSON.stringify(colW)); }catch(e){} }
+function visTotalW(){ return COLS.filter(c=>state.visible[c.key]).reduce((s,c)=>s+colW[c.key],0) + CARET_W; }
+
+let resizing = null;
+document.addEventListener("mousemove", e => {
+  if (!resizing) return;
+  colW[resizing.key] = Math.max(50, resizing.startW + (e.clientX - resizing.startX));
+  const th = document.querySelector(`th[data-key="${resizing.key}"]`);
+  if (th) th.style.width = colW[resizing.key] + "px";
+  const tbl = document.querySelector("#tablewrap table");
+  if (tbl) tbl.style.width = visTotalW() + "px";
+});
+document.addEventListener("mouseup", () => { if (resizing){ resizing=null; document.body.style.userSelect=""; saveColW(); } });
+function startResize(e){
+  const key = e.target.getAttribute("data-key");
+  resizing = { key, startX:e.clientX, startW:colW[key] };
+  document.body.style.userSelect = "none";
+  e.preventDefault(); e.stopPropagation();
 }
 
 function parseCSV(text) {
@@ -592,12 +621,12 @@ function render() {
     return;
   }
   const cols = COLS.filter(c => state.visible[c.key]);
-  let html = "<table><thead><tr>";
+  let html = `<table style="width:${visTotalW()}px"><thead><tr>`;
   cols.forEach(c => {
     const sortAttr = c.sortable ? (state.sortKey === c.key ? ` aria-sort="${state.sortDir}"` : ' aria-sort="none"') : "";
-    html += `<th scope="col" data-key="${c.key}"${sortAttr}><span>${c.label}</span></th>`;
+    html += `<th scope="col" data-key="${c.key}" style="width:${colW[c.key]}px"${sortAttr}><span>${c.label}</span><span class="resizer" data-key="${c.key}"></span></th>`;
   });
-  html += '<th scope="col" class="caretcol"><span class="vh">Details</span></th>';
+  html += `<th scope="col" class="caretcol" style="width:${CARET_W}px"><span class="vh">Details</span></th>`;
   html += "</tr></thead><tbody>";
   state.filtered.forEach((r, i) => {
     const z = i % 2 ? " zebra" : "";
@@ -618,6 +647,11 @@ function render() {
     });
   });
 
+  document.querySelectorAll(".resizer").forEach(rz => {
+    rz.addEventListener("mousedown", startResize);
+    rz.addEventListener("click", e => e.stopPropagation());
+  });
+
   document.querySelectorAll("th[data-key]").forEach(th => {
     const key = th.getAttribute("data-key");
     const col = COLS.find(c => c.key === key);
@@ -629,7 +663,7 @@ function render() {
       else { state.sortKey = key; state.sortDir = "ascending"; }
       sortRows(); render();
     };
-    th.addEventListener("click", doSort);
+    th.addEventListener("click", (e) => { if (e.target.classList.contains("resizer")) return; doSort(); });
     th.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); doSort(); } });
   });
 }
@@ -660,6 +694,7 @@ function wireColumnsMenu() {
 }
 
 loadColPrefs();
+loadColW();
 buildColMenu();
 wireColumnsMenu();
 load();

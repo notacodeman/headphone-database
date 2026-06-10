@@ -31,6 +31,12 @@
   .btn-ghost { background:none; border:1px solid var(--ink); color:var(--ink); font-size:0.72rem; padding:0.55rem 1rem; }
   .btn-reset { background:none; border:1px solid var(--line); color:var(--muted); font-size:0.6rem; padding:0.35rem 0.7rem; margin-left:auto; }
   .btn-reset:hover { border-color:var(--accent); color:var(--accent); }
+  .colwrap { position:relative; display:inline-block; }
+  .colmenu { position:absolute; left:0; top:2.4rem; z-index:30; background:var(--card); border:1px solid var(--ink); border-radius:8px; box-shadow:4px 4px 0 rgba(26,23,20,0.12); padding:0.85rem 1rem; min-width:180px; display:none; }
+  .colmenu.open { display:block; }
+  .colmenu h4 { font-size:0.6rem; text-transform:uppercase; letter-spacing:0.14em; color:var(--muted); margin-bottom:0.5rem; }
+  .colmenu label { display:flex; align-items:center; gap:0.5rem; font-size:0.8rem; padding:0.22rem 0; cursor:pointer; text-transform:none; letter-spacing:0; color:var(--ink); margin:0; }
+  .colmenu input[type=checkbox]{ width:auto; accent-color:var(--accent); cursor:pointer; }
 
   /* The list as an elevated card, clearly separate from the page */
   .card { background:var(--card); border:1px solid var(--ink); border-radius:12px; box-shadow:0 10px 30px -14px rgba(26,23,20,0.45); overflow-x:auto; }
@@ -91,6 +97,10 @@
   <div class="toolbar">
     <input type="text" class="search" id="q" placeholder="Search by brand, model, keyword&hellip;" autocomplete="off" aria-label="Search the catalog">
     <button class="btn btn-primary" id="addBtn">+ Add headphone</button>
+    <span class="colwrap">
+      <button class="btn btn-ghost" id="coltoggle" aria-haspopup="true" aria-expanded="false">Columns &#9662;</button>
+      <div class="colmenu" id="colmenu"><h4>Show columns</h4><div id="colboxes"></div></div>
+    </span>
     <button class="btn btn-reset" id="importBtn" title="Wipe and reload the catalog from the GitHub CSVs">Reset from CSV</button>
   </div>
 
@@ -174,6 +184,26 @@ let colW = {};
 function loadColW(){ COLS.forEach(c=>colW[c.key]=c.w); try{ const s=JSON.parse(localStorage.getItem("admin_colw")||"null"); if(s) Object.assign(colW,s);}catch(e){} }
 function saveColW(){ try{ localStorage.setItem("admin_colw",JSON.stringify(colW)); }catch(e){} }
 
+let colVis = {};
+function loadColVis(){ COLS.forEach(c=>colVis[c.key]=true); try{ const s=JSON.parse(localStorage.getItem("admin_colvis")||"null"); if(s) COLS.forEach(c=>{ if(c.key in s) colVis[c.key]=!!s[c.key]; });}catch(e){} }
+function saveColVis(){ try{ localStorage.setItem("admin_colvis",JSON.stringify(colVis)); }catch(e){} }
+function visibleCols(){ return COLS.filter(c=>colVis[c.key]); }
+
+function buildColMenu(){
+  const wrap=document.getElementById("colboxes"); wrap.innerHTML="";
+  COLS.forEach(c=>{
+    const lab=document.createElement("label");
+    lab.innerHTML=`<input type="checkbox" ${colVis[c.key]?"checked":""}> ${esc(c.label)}`;
+    wrap.appendChild(lab);
+    lab.querySelector("input").addEventListener("change",e=>{ colVis[c.key]=e.target.checked; saveColVis(); render(); });
+  });
+}
+function wireColMenu(){
+  const t=document.getElementById("coltoggle"), m=document.getElementById("colmenu");
+  t.addEventListener("click",e=>{ e.stopPropagation(); m.classList.toggle("open"); });
+  document.addEventListener("click",e=>{ if(!m.contains(e.target)&&e.target!==t) m.classList.remove("open"); });
+}
+
 function esc(s){ return (s||"").toString().replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
 function toast(msg){ const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"),2300); }
 
@@ -210,15 +240,16 @@ function render() {
   document.getElementById("sub").textContent = `${all.length} headphones in the database${q?` \u00b7 ${rows.length} shown`:""} \u00b7 click a row to edit`;
   if (!rows.length) { document.getElementById("tablewrap").innerHTML='<div class="empty">No matches.</div>'; return; }
 
-  const total = COLS.reduce((s,c)=>s+colW[c.key],0);
+  const cols = visibleCols();
+  const total = cols.reduce((s,c)=>s+colW[c.key],0);
   let html = `<table style="width:${total}px"><thead><tr>`;
-  COLS.forEach(c => {
+  cols.forEach(c => {
     html += `<th data-key="${c.key}" style="width:${colW[c.key]}px"><span>${esc(c.label)}</span><span class="resizer" data-key="${c.key}"></span></th>`;
   });
   html += `</tr></thead><tbody>`;
   rows.forEach(p => {
     html += `<tr data-id="${esc(p.product_id)}">` +
-      COLS.map(c => `<td class="${c.cls||""}" style="width:${colW[c.key]}px">${cell(p,c.key)}</td>`).join("") +
+      cols.map(c => `<td class="${c.cls||""}">${cell(p,c.key)}</td>`).join("") +
       `</tr>`;
   });
   html += `</tbody></table>`;
@@ -244,14 +275,10 @@ function startResize(e) {
 document.addEventListener("mousemove", e => {
   if (!resizing) return;
   colW[resizing.key] = Math.max(45, resizing.startW + (e.clientX - resizing.startX));
-  // live-apply widths without full re-render
-  document.querySelectorAll(`th[data-key="${resizing.key}"], td.col-${resizing.key}`);
   const th = document.querySelector(`th[data-key="${resizing.key}"]`);
   if (th) th.style.width = colW[resizing.key] + "px";
-  const idx = COLS.findIndex(c=>c.key===resizing.key);
-  document.querySelectorAll(`tbody tr`).forEach(tr=>{ const td=tr.children[idx]; if(td) td.style.width=colW[resizing.key]+"px"; });
-  const total = COLS.reduce((s,c)=>s+colW[c.key],0);
-  const tbl = document.querySelector("table"); if (tbl) tbl.style.width = total+"px";
+  const tbl = document.querySelector("table");
+  if (tbl) tbl.style.width = visibleCols().reduce((s,c)=>s+colW[c.key],0) + "px";
 });
 document.addEventListener("mouseup", () => { if(resizing){ resizing=null; document.body.style.userSelect=""; saveColW(); } });
 
@@ -339,6 +366,9 @@ document.getElementById("confirmOverlay").addEventListener("click", e => { if (e
 document.addEventListener("keydown", e => { if (e.key==="Escape"){ closeModal(); hideConfirm(); } });
 
 loadColW();
+loadColVis();
+buildColMenu();
+wireColMenu();
 load();
 </script>
 </body>
