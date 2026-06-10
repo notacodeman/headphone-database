@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Headphone Archive</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,400&family=Spline+Sans+Mono:wght@400;500;600&display=swap');
+
+  :root {
+    --ink: #1a1714;
+    --paper: #f4f0e8;
+    --paper-2: #eae3d6;
+    --accent: #c2410c;
+    --accent-2: #1e3a2f;
+    --line: #d6cdbd;
+    --muted: #8a8071;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Spline Sans Mono', monospace;
+    line-height: 1.5;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(0,0,0,0.02) 28px, rgba(0,0,0,0.02) 29px);
+  }
+
+  header {
+    border-bottom: 2px solid var(--ink);
+    padding: 2.5rem 2rem 1.5rem;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  .masthead {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(2.2rem, 6vw, 4.5rem);
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+
+  .tagline {
+    text-align: right;
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    max-width: 240px;
+  }
+
+  .stats-bar {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0.75rem 2rem;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+    border-bottom: 1px solid var(--line);
+    color: var(--accent-2);
+  }
+  .stats-bar strong { font-weight: 600; }
+
+  .controls {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    gap: 0.75rem;
+  }
+  @media (max-width: 900px) { .controls { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px) { .controls { grid-template-columns: 1fr; } }
+
+  .field label {
+    display: block;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-bottom: 0.3rem;
+  }
+  input, select {
+    width: 100%;
+    padding: 0.6rem 0.7rem;
+    border: 1px solid var(--ink);
+    background: var(--paper);
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: var(--ink);
+    border-radius: 0;
+  }
+  input:focus, select:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+
+  main { max-width: 1300px; margin: 0 auto; padding: 0 2rem 4rem; }
+
+  .resultmeta {
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.5rem 0 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .sortbtn {
+    background: none; border: none; font-family: inherit; cursor: pointer;
+    color: var(--accent-2); font-size: 0.75rem; text-transform: uppercase;
+    letter-spacing: 0.1em; text-decoration: underline; text-underline-offset: 3px;
+  }
+
+  table { width: 100%; border-collapse: collapse; }
+  thead th {
+    text-align: left;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    padding: 0.5rem 0.6rem;
+    border-bottom: 2px solid var(--ink);
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+  }
+  thead th:hover { color: var(--accent); }
+  thead th[aria-sort] span::after { content: ' \2195'; opacity: 0.4; }
+  thead th[aria-sort="ascending"] span::after { content: ' \2191'; opacity: 1; color: var(--accent); }
+  thead th[aria-sort="descending"] span::after { content: ' \2193'; opacity: 1; color: var(--accent); }
+
+  tbody tr { border-bottom: 1px solid var(--line); transition: background 0.12s; }
+  tbody tr:hover { background: var(--paper-2); }
+  tbody td { padding: 0.7rem 0.6rem; font-size: 0.86rem; vertical-align: top; }
+
+  .model { font-weight: 600; }
+  .model-name { font-family: 'Fraunces', serif; font-size: 1.02rem; }
+  .brand { color: var(--accent-2); font-weight: 500; }
+  .year { font-variant-numeric: tabular-nums; }
+  .notes { color: var(--muted); font-size: 0.78rem; max-width: 280px; }
+
+  .tag {
+    display: inline-block;
+    font-size: 0.68rem;
+    padding: 0.1rem 0.45rem;
+    border: 1px solid var(--line);
+    border-radius: 99px;
+    white-space: nowrap;
+  }
+  .tag.disc { color: var(--muted); }
+  .tag.active { border-color: var(--accent-2); color: var(--accent-2); }
+  .flags { font-size: 0.7rem; color: var(--accent); letter-spacing: 0.05em; }
+
+  .loading, .empty {
+    text-align: center;
+    padding: 4rem 1rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+  .loading::after {
+    content: '';
+    display: block;
+    width: 28px; height: 28px;
+    margin: 1rem auto 0;
+    border: 2px solid var(--line);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  footer {
+    max-width: 1300px; margin: 0 auto; padding: 2rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.72rem; color: var(--muted);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+  }
+  footer a { color: var(--accent-2); }
+</style>
+</head>
+<body>
+<header>
+  <div class="masthead">
+    <h1>The Headphone<br><em>Archive</em></h1>
+    <div class="tagline">A catalog of over-ear &amp; on-ear headphones — 1937 to present</div>
+  </div>
+</header>
+
+<div class="stats-bar" id="statsbar">
+  <span>Loading catalog&hellip;</span>
+</div>
+
+<div class="controls">
+  <div class="field">
+    <label for="q">Search</label>
+    <input type="text" id="q" placeholder="Model, brand, keyword&hellip;" autocomplete="off">
+  </div>
+  <div class="field">
+    <label for="brand">Brand</label>
+    <select id="brand"><option value="">All</option></select>
+  </div>
+  <div class="field">
+    <label for="design">Design</label>
+    <select id="design"><option value="">All</option></select>
+  </div>
+  <div class="field">
+    <label for="driver">Driver</label>
+    <select id="driver"><option value="">All</option></select>
+  </div>
+  <div class="field">
+    <label for="status">Status</label>
+    <select id="status"><option value="">All</option></select>
+  </div>
+</div>
+
+<main>
+  <div class="resultmeta">
+    <span id="count"></span>
+    <button class="sortbtn" id="reset">Reset filters</button>
+  </div>
+  <div id="tablewrap">
+    <div class="loading">Fetching the archive</div>
+  </div>
+</main>
+
+<footer>
+  <span>Data: community-maintained CSV catalog</span>
+  <span id="source"></span>
+</footer>
+
+<script>
+// ============================================================
+// CONFIG — point this at your GitHub raw CSV location.
+// ============================================================
+const RAW_BASE = "https://raw.githubusercontent.com/notacodeman/headphone-database/main/database";
+
+const state = { rows: [], filtered: [], sortKey: "release_year", sortDir: "descending" };
+
+// --- tiny CSV parser (handles quoted fields, commas, CRLF) ---
+function parseCSV(text) {
+  const rows = [];
+  let row = [], field = "", inQuotes = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (inQuotes) {
+      if (c === '"') {
+        if (text[i+1] === '"') { field += '"'; i++; }
+        else inQuotes = false;
+      } else field += c;
+    } else {
+      if (c === '"') inQuotes = true;
+      else if (c === ',') { row.push(field); field = ""; }
+      else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ""; }
+      else if (c === '\r') { /* skip */ }
+      else field += c;
+    }
+  }
+  if (field.length || row.length) { row.push(field); rows.push(row); }
+  const header = rows.shift();
+  return rows.filter(r => r.length > 1).map(r => {
+    const o = {};
+    header.forEach((h, i) => o[h.trim()] = (r[i] || "").trim());
+    return o;
+  });
+}
+
+async function load() {
+  try {
+    const [pRes, mRes] = await Promise.all([
+      fetch(RAW_BASE + "/products.csv"),
+      fetch(RAW_BASE + "/manufacturers.csv")
+    ]);
+    if (!pRes.ok || !mRes.ok) throw new Error("fetch failed");
+    const products = parseCSV(await pRes.text());
+    const mfrs = parseCSV(await mRes.text());
+    const mfrName = {};
+    mfrs.forEach(m => mfrName[m.manufacturer_id] = m.name);
+    products.forEach(p => p._brand = mfrName[p.manufacturer_id] || "Unknown");
+    state.rows = products;
+    initFilters();
+    apply();
+    document.getElementById("source").innerHTML =
+      'Source: <a href="https://github.com/notacodeman/headphone-database">github.com/notacodeman/headphone-database</a>';
+  } catch (e) {
+    document.getElementById("tablewrap").innerHTML =
+      '<div class="empty">Could not load the catalog. If you just updated the repo, give it a moment and refresh.</div>';
+    document.getElementById("statsbar").innerHTML = '<span>Catalog unavailable</span>';
+  }
+}
+
+function uniqueSorted(key) {
+  return [...new Set(state.rows.map(r => r[key]).filter(Boolean))].sort();
+}
+
+function initFilters() {
+  const fill = (id, vals) => {
+    const sel = document.getElementById(id);
+    vals.forEach(v => { const o = document.createElement("option"); o.value = v; o.textContent = v; sel.appendChild(o); });
+  };
+  fill("brand", uniqueSorted("_brand"));
+  fill("design", uniqueSorted("design"));
+  fill("driver", uniqueSorted("driver_type"));
+  fill("status", uniqueSorted("status"));
+
+  const brands = uniqueSorted("_brand").length;
+  const years = state.rows.map(r => +r.release_year).filter(Boolean);
+  document.getElementById("statsbar").innerHTML =
+    `<span><strong>${state.rows.length}</strong> headphones</span>` +
+    `<span><strong>${brands}</strong> brands</span>` +
+    `<span><strong>${Math.min(...years)}</strong>&ndash;<strong>${Math.max(...years)}</strong></span>`;
+
+  ["q","brand","design","driver","status"].forEach(id =>
+    document.getElementById(id).addEventListener("input", apply));
+  document.getElementById("reset").addEventListener("click", () => {
+    ["q","brand","design","driver","status"].forEach(id => document.getElementById(id).value = "");
+    apply();
+  });
+}
+
+function apply() {
+  const q = document.getElementById("q").value.toLowerCase();
+  const b = document.getElementById("brand").value;
+  const d = document.getElementById("design").value;
+  const dr = document.getElementById("driver").value;
+  const s = document.getElementById("status").value;
+
+  state.filtered = state.rows.filter(r => {
+    if (b && r._brand !== b) return false;
+    if (d && r.design !== d) return false;
+    if (dr && r.driver_type !== dr) return false;
+    if (s && r.status !== s) return false;
+    if (q) {
+      const hay = (r.full_name + " " + r._brand + " " + r.notes + " " + r.model_name).toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+  sortRows();
+  render();
+}
+
+function sortRows() {
+  const k = state.sortKey, dir = state.sortDir === "ascending" ? 1 : -1;
+  state.filtered.sort((a, b) => {
+    let va = a[k], vb = b[k];
+    if (k === "release_year") { va = +va || 0; vb = +vb || 0; }
+    else { va = (va||"").toLowerCase(); vb = (vb||"").toLowerCase(); }
+    return va < vb ? -dir : va > vb ? dir : 0;
+  });
+}
+
+const COLS = [
+  { key: "_brand", label: "Brand" },
+  { key: "model_name", label: "Model" },
+  { key: "release_year", label: "Year" },
+  { key: "design", label: "Design" },
+  { key: "driver_type", label: "Driver" },
+  { key: "status", label: "Status" },
+  { key: "_flags", label: "Wireless/ANC" },
+  { key: "notes", label: "Notes" }
+];
+
+function render() {
+  document.getElementById("count").textContent =
+    `${state.filtered.length} result${state.filtered.length === 1 ? "" : "s"}`;
+  if (!state.filtered.length) {
+    document.getElementById("tablewrap").innerHTML = '<div class="empty">No headphones match those filters.</div>';
+    return;
+  }
+  let html = "<table><thead><tr>";
+  COLS.forEach(c => {
+    const sortAttr = state.sortKey === c.key ? ` aria-sort="${state.sortDir}"` : (c.key !== "_flags" && c.key !== "notes" ? ' aria-sort="none"' : "");
+    html += `<th data-key="${c.key}"${sortAttr}><span>${c.label}</span></th>`;
+  });
+  html += "</tr></thead><tbody>";
+  state.filtered.forEach(r => {
+    const flags = [];
+    if (r.wireless === "Yes") flags.push("WL");
+    if (r.anc === "Yes") flags.push("ANC");
+    const statusClass = /disc/i.test(r.status) ? "disc" : "active";
+    html += `<tr>
+      <td class="brand">${esc(r._brand)}</td>
+      <td class="model"><span class="model-name">${esc(r.model_name)}</span></td>
+      <td class="year">${esc(r.release_year)}${r.discontinued_year ? "&ndash;" + esc(r.discontinued_year) : ""}</td>
+      <td>${esc(r.design)}</td>
+      <td>${esc(r.driver_type)}</td>
+      <td><span class="tag ${statusClass}">${esc(r.status)}</span></td>
+      <td class="flags">${flags.join(" \u00b7 ") || "&mdash;"}</td>
+      <td class="notes">${esc(r.notes)}</td>
+    </tr>`;
+  });
+  html += "</tbody></table>";
+  document.getElementById("tablewrap").innerHTML = html;
+
+  document.querySelectorAll("th[data-key]").forEach(th => {
+    const key = th.getAttribute("data-key");
+    if (key === "_flags" || key === "notes") return;
+    th.addEventListener("click", () => {
+      if (state.sortKey === key) state.sortDir = state.sortDir === "ascending" ? "descending" : "ascending";
+      else { state.sortKey = key; state.sortDir = "ascending"; }
+      sortRows(); render();
+    });
+  });
+}
+
+function esc(s) {
+  return (s || "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+}
+
+load();
+</script>
+</body>
+</html>
