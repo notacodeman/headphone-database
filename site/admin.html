@@ -38,14 +38,22 @@
   .colmenu label { display:flex; align-items:center; gap:0.5rem; font-size:0.8rem; padding:0.22rem 0; cursor:pointer; text-transform:none; letter-spacing:0; color:var(--ink); margin:0; }
   .colmenu input[type=checkbox]{ width:auto; accent-color:var(--accent); cursor:pointer; }
   .btn-ghost.active { background:var(--ink); color:var(--paper); }
-  tr.suggrow td { background:#fbeee6; border-top:1px solid var(--accent); border-bottom:1px solid var(--accent); padding:0.6rem 0.7rem; white-space:normal; }
-  tr.suggrow:hover td { background:#f8e6d9; }
-  .sugg-badge { display:inline-block; font-size:0.56rem; text-transform:uppercase; letter-spacing:0.08em; background:var(--accent); color:var(--paper); border-radius:99px; padding:0.12rem 0.55rem; margin-right:0.55rem; vertical-align:middle; }
-  .sugg-summary { color:var(--muted); font-size:0.78rem; }
-  .sugg-actions { float:right; white-space:nowrap; }
-  .sugg-actions button { border:none; cursor:pointer; border-radius:99px; font-size:0.85rem; width:30px; height:30px; margin-left:0.35rem; line-height:1; }
+  #suggwrap { margin-bottom:1.5rem; }
+  .sugg-head { font-size:0.66rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--accent); margin-bottom:0.6rem; }
+  .sugg-card { display:flex; gap:1rem; align-items:flex-start; background:#fbeee6; border:1px solid var(--accent); border-radius:10px; padding:0.9rem 1.1rem; margin-bottom:0.7rem; }
+  .sugg-date { flex:0 0 110px; font-size:0.66rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); line-height:1.4; }
+  .sugg-date strong { font-size:0.84rem; color:var(--ink); text-transform:none; letter-spacing:0; }
+  .sugg-body { flex:1; min-width:0; }
+  .sugg-hp { font-family:'Fraunces',serif; font-size:1.1rem; font-weight:600; }
+  .sugg-specs { font-size:0.82rem; color:var(--accent-2); margin-top:0.2rem; }
+  .sugg-note { font-size:0.8rem; color:var(--ink); margin-top:0.45rem; }
+  .sugg-src { font-size:0.74rem; color:var(--muted); margin-top:0.45rem; }
+  .sugg-src a { color:var(--accent-2); }
+  .sugg-actions { flex:0 0 auto; display:flex; flex-direction:column; gap:0.5rem; }
+  .sugg-actions button { border:none; cursor:pointer; border-radius:99px; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.08em; padding:0.5rem 0.9rem; white-space:nowrap; }
   .sugg-good { background:var(--accent-2); color:var(--paper); }
   .sugg-bad { background:#b4361f; color:var(--paper); }
+  @media (max-width:600px){ .sugg-card { flex-wrap:wrap; } .sugg-actions { flex-direction:row; } }
 
   /* The list as an elevated card, clearly separate from the page */
   .card { background:var(--card); border:1px solid var(--ink); border-radius:12px; box-shadow:0 10px 30px -14px rgba(26,23,20,0.45); overflow-x:auto; }
@@ -115,7 +123,8 @@
     <button class="btn btn-reset" id="importBtn" title="Wipe and reload the catalog from the GitHub CSVs">Reset from CSV</button>
   </div>
 
-  <div class="card"><div id="tablewrap"><div class="loading">Loading catalog&hellip;</div></div></div>
+  <div id="suggwrap"></div>
+  <div class="card" id="catalogcard"><div id="tablewrap"><div class="loading">Loading catalog&hellip;</div></div></div>
 </div>
 
 <!-- Edit modal -->
@@ -239,24 +248,36 @@ async function load() {
   }
 }
 
-function suggRowHtml(s, span) {
-  const specs = [];
-  if (s.driver_size_mm) specs.push(`${esc(s.driver_size_mm)}mm`);
-  if (s.impedance_ohms) specs.push(`${esc(s.impedance_ohms)}\u03A9`);
-  if (s.sensitivity_db) specs.push(`${esc(s.sensitivity_db)}dB`);
-  if (s.connector) specs.push(`conn ${esc(s.connector)}`);
-  if (s.detachable) specs.push(`detach ${esc(s.detachable)}`);
-  if (s.weight_g) specs.push(`${esc(s.weight_g)}g`);
-  const summary = specs.join(" \u00b7 ") || "see log for details";
-  return `<tr class="suggrow"><td colspan="${span}">
-    <span class="sugg-badge">Suggestion #${esc(s.id)}</span>
-    <strong>${esc(s.headphone)}</strong>
-    <span class="sugg-summary"> &mdash; ${summary}</span>
-    <span class="sugg-actions">
-      <button class="sugg-good" title="Good \u2014 apply to the catalog" data-sid="${esc(s.id)}">\u2713</button>
-      <button class="sugg-bad" title="Bad \u2014 reject (stays in the log)" data-sid="${esc(s.id)}">\u2715</button>
-    </span>
-  </td></tr>`;
+function renderSuggestions() {
+  const wrap = document.getElementById("suggwrap");
+  if (!suggs.length) { wrap.innerHTML = ""; return; }
+  wrap.innerHTML = `<div class="sugg-head">${suggs.length} pending suggestion${suggs.length===1?"":"s"}</div>` +
+    suggs.map(s => {
+      const specs = [];
+      if (s.driver_size_mm) specs.push(`Driver ${esc(s.driver_size_mm)} mm`);
+      if (s.impedance_ohms) specs.push(`Impedance ${esc(s.impedance_ohms)} \u03A9`);
+      if (s.sensitivity_db) specs.push(`Sensitivity ${esc(s.sensitivity_db)} dB`);
+      if (s.connector) specs.push(`Connector ${esc(s.connector)}`);
+      if (s.detachable) specs.push(`Detachable ${esc(s.detachable)}`);
+      if (s.weight_g) specs.push(`Weight ${esc(s.weight_g)} g`);
+      const date = (s.created_at || "").slice(0,10) || "unknown date";
+      return `<div class="sugg-card">
+        <div class="sugg-date">Submitted<br><strong>${esc(date)}</strong></div>
+        <div class="sugg-body">
+          <div class="sugg-hp">${esc(s.headphone)}</div>
+          <div class="sugg-specs">${specs.length ? specs.join(" \u00b7 ") : "<span class='muted'>no specs given \u2014 see notes</span>"}</div>
+          ${s.notes ? `<div class="sugg-note">${esc(s.notes)}</div>` : ""}
+          ${s.source ? `<div class="sugg-src"><a href="${esc(s.source)}" target="_blank" rel="noopener">source &#8599;</a>${s.submitter?` \u00b7 by ${esc(s.submitter)}`:""}</div>` : ""}
+        </div>
+        <div class="sugg-actions">
+          <button class="sugg-good" data-sid="${esc(s.id)}">&#10003; Accept</button>
+          <button class="sugg-bad" data-sid="${esc(s.id)}">&#10007; Reject</button>
+        </div>
+      </div>`;
+    }).join("");
+
+  wrap.querySelectorAll(".sugg-good").forEach(b => b.addEventListener("click", () => applySuggestion(b.getAttribute("data-sid"))));
+  wrap.querySelectorAll(".sugg-bad").forEach(b => b.addEventListener("click", () => rejectSuggestion(b.getAttribute("data-sid"))));
 }
 
 function cell(p, key) {
@@ -268,40 +289,43 @@ function cell(p, key) {
 }
 
 function render() {
+  renderSuggestions();
+  const card = document.getElementById("catalogcard");
+  if (onlySuggestions) {
+    card.style.display = "none";
+    document.getElementById("sub").textContent =
+      `${suggs.length} pending suggestion${suggs.length===1?"":"s"} \u00b7 catalog hidden`;
+    return;
+  }
+  card.style.display = "";
+
   const q = document.getElementById("q").value.toLowerCase();
   const rows = all.filter(p => !q || (`${p._brand} ${p.model_name} ${p.full_name} ${p.notes}`||"").toLowerCase().includes(q));
   const sCount = suggs.length;
   document.getElementById("sub").textContent =
-    `${all.length} headphones${sCount?` \u00b7 ${sCount} pending suggestion${sCount===1?"":"s"} at top`:""}${q?` \u00b7 ${rows.length} shown`:""} \u00b7 click a row to edit`;
+    `${all.length} headphones${sCount?` \u00b7 ${sCount} pending suggestion${sCount===1?"":"s"} above`:""}${q?` \u00b7 ${rows.length} shown`:""} \u00b7 click a row to edit`;
 
   const cols = visibleCols();
   const total = cols.reduce((s,c)=>s+colW[c.key],0);
-  const span = cols.length;
 
-  if (onlySuggestions && !sCount) { document.getElementById("tablewrap").innerHTML='<div class="empty">No pending suggestions.</div>'; return; }
-  if (!onlySuggestions && !rows.length && !sCount) { document.getElementById("tablewrap").innerHTML='<div class="empty">No matches.</div>'; return; }
+  if (!rows.length) { document.getElementById("tablewrap").innerHTML='<div class="empty">No matches.</div>'; return; }
 
   let html = `<table style="width:${total}px"><thead><tr>`;
   cols.forEach(c => {
     html += `<th data-key="${c.key}" style="width:${colW[c.key]}px"><span>${esc(c.label)}</span><span class="resizer" data-key="${c.key}"></span></th>`;
   });
   html += `</tr></thead><tbody>`;
-  suggs.forEach(s => html += suggRowHtml(s, span));
-  if (!onlySuggestions) {
-    rows.forEach(p => {
-      html += `<tr data-id="${esc(p.product_id)}">` +
-        cols.map(c => `<td class="${c.cls||""}">${cell(p,c.key)}</td>`).join("") +
-        `</tr>`;
-    });
-  }
+  rows.forEach(p => {
+    html += `<tr data-id="${esc(p.product_id)}">` +
+      cols.map(c => `<td class="${c.cls||""}">${cell(p,c.key)}</td>`).join("") +
+      `</tr>`;
+  });
   html += `</tbody></table>`;
   document.getElementById("tablewrap").innerHTML = html;
 
   document.querySelectorAll("tbody tr[data-id]").forEach(tr => {
     tr.addEventListener("click", () => openEdit(tr.getAttribute("data-id")));
   });
-  document.querySelectorAll(".sugg-good").forEach(b => b.addEventListener("click", e => { e.stopPropagation(); applySuggestion(b.getAttribute("data-sid")); }));
-  document.querySelectorAll(".sugg-bad").forEach(b => b.addEventListener("click", e => { e.stopPropagation(); rejectSuggestion(b.getAttribute("data-sid")); }));
   document.querySelectorAll(".resizer").forEach(rz => {
     rz.addEventListener("mousedown", startResize);
     rz.addEventListener("click", e => e.stopPropagation());
