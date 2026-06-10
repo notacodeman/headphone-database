@@ -42,6 +42,20 @@ export async function onRequestPost({ request, env }) {
     if (!(p.model_name || "").toString().trim())
       return json({ ok: false, error: "model_name is required." }, 400);
 
+    // Snapshot existing row BEFORE overwriting it (for version history).
+    // Only fires on updates (not new inserts) — no row means nothing to snapshot.
+    try {
+      const existing = await env.DB.prepare(
+        "SELECT * FROM products WHERE product_id = ?"
+      ).bind(id).first();
+      if (existing) {
+        const editedAt = new Date().toISOString();
+        await env.DB.prepare(
+          "INSERT INTO product_history (product_id, edited_at, snapshot) VALUES (?, ?, ?)"
+        ).bind(id, editedAt, JSON.stringify(existing)).run();
+      }
+    } catch (_) { /* history write failure should never block the actual save */ }
+
     const vals = FIELDS.map(f => {
       let v = p[f];
       if (v === undefined || v === null) v = "";
@@ -50,7 +64,6 @@ export async function onRequestPost({ request, env }) {
         return Number.isFinite(n) ? n : null;
       }
       if (f === "date_added") {
-        // keep existing date if provided, otherwise stamp today
         const s = v.toString().trim();
         return s || new Date().toISOString().slice(0, 10);
       }

@@ -34,8 +34,14 @@
   .hp { font-family:'Fraunces',serif; font-size:1rem; }
   .when { color:var(--muted); font-size:0.76rem; white-space:nowrap; }
   .pill { display:inline-block; font-size:0.6rem; text-transform:uppercase; letter-spacing:0.08em; border:1px solid var(--line); border-radius:99px; padding:0.1rem 0.55rem; white-space:nowrap; }
-  .pill.pending { border-color:var(--accent); color:var(--accent); }
+  .pill.pending  { border-color:var(--accent);   color:var(--accent); }
   .pill.reviewed { border-color:var(--accent-2); color:var(--accent-2); }
+  .pill.accepted { border-color:#2d7a3a; color:#2d7a3a; background:rgba(45,122,58,0.08); }
+  .pill.rejected { border-color:var(--muted); color:var(--muted); }
+  .filters button[data-f="pending"].active  { background:var(--accent);   border-color:var(--accent);   color:var(--paper); }
+  .filters button[data-f="reviewed"].active { background:var(--accent-2); border-color:var(--accent-2); color:var(--paper); }
+  .filters button[data-f="accepted"].active { background:#2d7a3a;         border-color:#2d7a3a;         color:var(--paper); }
+  .filters button[data-f="rejected"].active { background:var(--muted);    border-color:var(--muted);    color:var(--paper); }
   .caretcol { width:2rem; text-align:center; }
   .expandbtn { background:none; border:none; cursor:pointer; color:var(--muted); font-size:1.1rem; line-height:1; }
   .caret { display:inline-block; transition:transform 0.15s ease; }
@@ -69,6 +75,8 @@
       <button data-f="all" class="active">All</button>
       <button data-f="pending">Pending</button>
       <button data-f="reviewed">Reviewed</button>
+      <button data-f="accepted">Accepted</button>
+      <button data-f="rejected">Rejected</button>
     </div>
   </div>
 
@@ -117,9 +125,15 @@ function render() {
   const q = document.getElementById("q").value.toLowerCase();
   let rows = all.filter(s => filter === "all" ? true : s.status === filter);
   if (q) rows = rows.filter(s => (`#${s.id} ${s.headphone} ${s.source} ${s.submitter} ${s.notes} ${s.status}`||"").toLowerCase().includes(q));
-  const pending = all.filter(s => s.status === "pending").length;
+  const counts = { pending:0, reviewed:0, accepted:0, rejected:0 };
+  all.forEach(s => { if (s.status in counts) counts[s.status]++; });
+  const parts = [`${all.length} total`];
+  if (counts.pending)  parts.push(`${counts.pending} pending`);
+  if (counts.accepted) parts.push(`${counts.accepted} accepted`);
+  if (counts.rejected) parts.push(`${counts.rejected} rejected`);
+  if (counts.reviewed) parts.push(`${counts.reviewed} reviewed`);
   document.getElementById("sub").textContent =
-    `${all.length} suggestions logged \u00b7 ${pending} pending${q||filter!=="all"?` \u00b7 ${rows.length} shown`:""} \u00b7 click a row for details`;
+    parts.join(" \u00b7 ") + (q||filter!=="all" ? ` \u00b7 ${rows.length} shown` : "") + " \u00b7 click a row for details";
 
   if (!rows.length) { document.getElementById("list").innerHTML = '<div class="empty">No suggestions match.</div>'; return; }
 

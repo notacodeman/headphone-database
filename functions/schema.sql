@@ -16,3 +16,11 @@ CREATE TABLE IF NOT EXISTS suggestions (
     status          TEXT DEFAULT 'pending',
     created_at      TEXT
 );
+
+-- Version history: one row per save, storing the state BEFORE the edit.
+CREATE TABLE IF NOT EXISTS product_history (
+    history_id   INTEGER PRIMARY KEY AUTOINCREMENT,
+    product_id   TEXT NOT NULL,
+    edited_at    TEXT NOT NULL,
+    snapshot     TEXT NOT NULL  -- full JSON of the row as it was before this edit
+);

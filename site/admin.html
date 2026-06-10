@@ -81,6 +81,21 @@
   .overlay.open { display:flex; }
   .modal { background:var(--card); border:2px solid var(--ink); border-radius:12px; max-width:680px; width:100%; padding:1.6rem 1.8rem; }
   .modal h2 { font-family:'Fraunces',serif; font-size:1.4rem; margin-bottom:1rem; }
+  .modal-tabs { display:flex; gap:0; border-bottom:2px solid var(--ink); margin-bottom:1.2rem; }
+  .mtab { font-family:inherit; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.1em; background:none; border:none; cursor:pointer; padding:0.55rem 1rem; color:var(--muted); border-bottom:2px solid transparent; margin-bottom:-2px; }
+  .mtab:hover { color:var(--ink); }
+  .mtab.active { color:var(--ink); border-bottom-color:var(--accent); font-weight:600; }
+  .hist-sub { font-size:0.76rem; color:var(--muted); margin-bottom:1rem; }
+  .hist-entry { border:1px solid var(--line); border-radius:8px; margin-bottom:0.8rem; overflow:hidden; }
+  .hist-header { display:flex; justify-content:space-between; align-items:center; padding:0.55rem 0.8rem; background:var(--paper-2); font-size:0.72rem; color:var(--muted); }
+  .hist-header strong { color:var(--ink); font-size:0.8rem; }
+  .hist-fields { padding:0.6rem 0.8rem; display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:0.4rem 1rem; }
+  .hist-field { font-size:0.76rem; }
+  .hist-field dt { font-size:0.56rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); }
+  .hist-field dd { color:var(--ink); }
+  .hist-field.changed dt { color:var(--accent); }
+  .hist-field.changed dd { color:var(--accent); font-weight:500; }
+  .hist-none { font-size:0.84rem; color:var(--muted); text-align:center; padding:2rem 0; }
   .grid { display:grid; grid-template-columns:1fr 1fr; gap:0.8rem 1rem; }
   .grid .full { grid-column:1 / -1; }
   @media (max-width:560px){ .grid { grid-template-columns:1fr; } }
@@ -133,34 +148,51 @@
 <!-- Edit modal -->
 <div class="overlay" id="overlay">
   <div class="modal">
-    <h2 id="modalTitle">Edit headphone</h2>
-    <div class="grid">
-      <div><label>Product ID *</label><input id="f_product_id" placeholder="BRAND_MODEL"></div>
-      <div><label>Brand</label><select id="f_manufacturer_id"></select></div>
-      <div><label>Model name *</label><input id="f_model_name"></div>
-      <div><label>Full name</label><input id="f_full_name"></div>
-      <div><label>Release year</label><input id="f_release_year"></div>
-      <div><label>Discontinued year</label><input id="f_discontinued_year"></div>
-      <div><label>Status</label><input id="f_status" placeholder="Active / Discontinued / Legacy Active"></div>
-      <div><label>Category</label><input id="f_category" placeholder="Headphone / Studio / Gaming"></div>
-      <div><label>Design</label><input id="f_design" placeholder="Open Back / Closed Back / Semi-Open / In-Ear"></div>
-      <div><label>Driver type</label><input id="f_driver_type" placeholder="Dynamic / Planar Magnetic / ..."></div>
-      <div><label>Driver size (mm)</label><input id="f_driver_size_mm"></div>
-      <div><label>Impedance (ohms)</label><input id="f_impedance_ohms"></div>
-      <div><label>Sensitivity (dB)</label><input id="f_sensitivity_db"></div>
-      <div><label>Wireless</label><select id="f_wireless"><option>No</option><option>Yes</option></select></div>
-      <div><label>ANC</label><select id="f_anc"><option>No</option><option>Yes</option></select></div>
-      <div><label>Predecessor (product_id)</label><input id="f_predecessor"></div>
-      <div><label>Successor (product_id)</label><input id="f_successor"></div>
-      <div class="full"><label>Comments / notes</label><textarea id="f_notes"></textarea></div>
-      <div><label>Date added</label><input id="f_date_added" placeholder="YYYY-MM-DD" type="date"></div>
+    <div class="modal-tabs">
+      <button class="mtab active" id="tabEdit">Edit</button>
+      <button class="mtab" id="tabHistory">History</button>
     </div>
-    <div class="modal-actions">
-      <button class="btn btn-ghost" id="deleteBtn" style="border-color:var(--accent);color:var(--accent);">Delete</button>
-      <span class="right">
-        <button class="btn btn-ghost" id="cancelBtn">Cancel</button>
-        <button class="btn btn-2" id="saveBtn">Save</button>
-      </span>
+
+    <div id="panelEdit">
+      <h2 id="modalTitle">Edit headphone</h2>
+      <div class="grid">
+        <div><label>Product ID *</label><input id="f_product_id" placeholder="BRAND_MODEL"></div>
+        <div><label>Brand</label><select id="f_manufacturer_id"></select></div>
+        <div><label>Model name *</label><input id="f_model_name"></div>
+        <div><label>Full name</label><input id="f_full_name"></div>
+        <div><label>Release year</label><input id="f_release_year"></div>
+        <div><label>Discontinued year</label><input id="f_discontinued_year"></div>
+        <div><label>Status</label><input id="f_status" placeholder="Active / Discontinued / Legacy Active"></div>
+        <div><label>Category</label><input id="f_category" placeholder="Headphone / Studio / Gaming"></div>
+        <div><label>Design</label><input id="f_design" placeholder="Open Back / Closed Back / Semi-Open / In-Ear"></div>
+        <div><label>Driver type</label><input id="f_driver_type" placeholder="Dynamic / Planar Magnetic / ..."></div>
+        <div><label>Driver size (mm)</label><input id="f_driver_size_mm"></div>
+        <div><label>Impedance (ohms)</label><input id="f_impedance_ohms"></div>
+        <div><label>Sensitivity (dB)</label><input id="f_sensitivity_db"></div>
+        <div><label>Wireless</label><select id="f_wireless"><option>No</option><option>Yes</option></select></div>
+        <div><label>ANC</label><select id="f_anc"><option>No</option><option>Yes</option></select></div>
+        <div><label>Predecessor (product_id)</label><input id="f_predecessor"></div>
+        <div><label>Successor (product_id)</label><input id="f_successor"></div>
+        <div class="full"><label>Comments / notes</label><textarea id="f_notes"></textarea></div>
+        <div><label>Date added</label><input id="f_date_added" placeholder="YYYY-MM-DD" type="date"></div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="deleteBtn" style="border-color:var(--accent);color:var(--accent);">Delete</button>
+        <span class="right">
+          <button class="btn btn-ghost" id="cancelBtn">Cancel</button>
+          <button class="btn btn-2" id="saveBtn">Save</button>
+        </span>
+      </div>
+    </div>
+
+    <div id="panelHistory" hidden>
+      <h2>Edit History</h2>
+      <p class="hist-sub" id="histSub"></p>
+      <div id="histList"><div class="loading">Loading history&hellip;</div></div>
+      <div class="modal-actions">
+        <span></span>
+        <button class="btn btn-ghost" id="histCancelBtn">Close</button>
+      </div>
     </div>
   </div>
 </div>
@@ -426,6 +458,7 @@ function openEdit(id) {
   document.getElementById("f_product_id").disabled = true;
   document.getElementById("deleteBtn").style.display = "";
   setForm(p);
+  showTab("edit");
   document.getElementById("overlay").classList.add("open");
 }
 function openAdd() {
@@ -434,9 +467,71 @@ function openAdd() {
   document.getElementById("f_product_id").disabled = false;
   document.getElementById("deleteBtn").style.display = "none";
   setForm({});
+  showTab("edit");
   document.getElementById("overlay").classList.add("open");
 }
 function closeModal(){ document.getElementById("overlay").classList.remove("open"); pendingSuggId = null; }
+
+function showTab(which) {
+  const isEdit = which === "edit";
+  document.getElementById("panelEdit").hidden = !isEdit;
+  document.getElementById("panelHistory").hidden = isEdit;
+  document.getElementById("tabEdit").classList.toggle("active", isEdit);
+  document.getElementById("tabHistory").classList.toggle("active", !isEdit);
+  if (!isEdit && editingId) loadHistory(editingId);
+}
+
+const HIST_LABELS = {
+  model_name:"Model", full_name:"Full name", release_year:"Year",
+  discontinued_year:"Disc. year", status:"Status", category:"Category",
+  design:"Design", driver_type:"Driver", driver_size_mm:"Driver size",
+  impedance_ohms:"Impedance", sensitivity_db:"Sensitivity",
+  wireless:"Wireless", anc:"ANC", predecessor:"Predecessor",
+  successor:"Successor", notes:"Notes", date_added:"Date added"
+};
+
+async function loadHistory(pid) {
+  const listEl = document.getElementById("histList");
+  const subEl = document.getElementById("histSub");
+  listEl.innerHTML = '<div class="loading">Loading\u2026</div>';
+  subEl.textContent = "";
+  try {
+    const res = await fetch(`/api/admin/history?product_id=${encodeURIComponent(pid)}`);
+    const d = await res.json();
+    if (!d.ok) throw new Error(d.error||"");
+    const hist = d.history;
+    if (!hist.length) {
+      listEl.innerHTML = '<div class="hist-none">No edit history yet — changes will appear here after the first save.</div>';
+      subEl.textContent = "";
+      return;
+    }
+    subEl.textContent = `${hist.length} edit${hist.length===1?"":"s"} recorded \u00b7 each entry shows the state before that edit`;
+    // Build diff: compare each snapshot to the one before it (i.e. the next entry, which is older)
+    listEl.innerHTML = hist.map((entry, i) => {
+      const snap = entry.snapshot;
+      const prev = i + 1 < hist.length ? hist[i + 1].snapshot : null;
+      const when = (entry.edited_at||"").slice(0,16).replace("T"," ");
+      const fields = Object.keys(HIST_LABELS).filter(k => snap[k] !== undefined || (prev && prev[k] !== undefined));
+      const rows = fields.map(k => {
+        const val = snap[k] ?? "";
+        const changed = prev && String(prev[k]??"") !== String(val);
+        return `<div class="hist-field${changed?" changed":""}"><dt>${HIST_LABELS[k]}</dt><dd>${esc(val||"\u2014")}</dd></div>`;
+      }).join("");
+      const changedCount = prev ? fields.filter(k => String(prev[k]??"") !== String(snap[k]??"")).length : 0;
+      const badge = prev ? `${changedCount} field${changedCount===1?"":"s"} changed` : "initial state";
+      return `<div class="hist-entry">
+        <div class="hist-header"><strong>${esc(when)}</strong><span>${badge}</span></div>
+        <div class="hist-fields">${rows}</div>
+      </div>`;
+    }).join("");
+  } catch(e) {
+    listEl.innerHTML = '<div class="hist-none">Could not load history.</div>';
+  }
+}
+
+document.getElementById("tabEdit").addEventListener("click", () => showTab("edit"));
+document.getElementById("tabHistory").addEventListener("click", () => showTab("history"));
+document.getElementById("histCancelBtn").addEventListener("click", closeModal);
 
 async function save() {
   const p = {};
