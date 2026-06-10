@@ -1,0 +1,79 @@
+// /api/admin/products — protected by Cloudflare Access.
+//   GET                       -> list all products (with brand name)
+//   POST {product...}         -> insert or update one product (upsert by product_id)
+//   DELETE {product_id}       -> remove a product
+// Also serves the manufacturers list via ?manufacturers=1 for the editor's brand dropdown.
+
+const json = (o, s = 200) =>
+  new Response(JSON.stringify(o), { status: s, headers: { "Content-Type": "application/json" } });
+
+const FIELDS = [
+  "product_id", "family_id", "manufacturer_id", "model_name", "full_name",
+  "release_year", "discontinued_year", "status", "category", "design", "driver_type",
+  "driver_size_mm", "impedance_ohms", "sensitivity_db", "wireless", "anc",
+  "predecessor", "successor", "notes",
+];
+
+export async function onRequestGet({ request, env }) {
+  try {
+    const url = new URL(request.url);
+    if (url.searchParams.get("manufacturers")) {
+      const { results } = await env.DB.prepare(
+        "SELECT manufacturer_id, name FROM manufacturers ORDER BY name"
+      ).all();
+      return json({ ok: true, manufacturers: results || [] });
+    }
+    const { results } = await env.DB.prepare(
+      `SELECT p.*, m.name AS _brand
+       FROM products p LEFT JOIN manufacturers m ON m.manufacturer_id = p.manufacturer_id
+       ORDER BY p.release_year DESC`
+    ).all();
+    return json({ ok: true, products: results || [] });
+  } catch (err) {
+    return json({ ok: false, error: String(err && err.message || err) }, 500);
+  }
+}
+
+export async function onRequestPost({ request, env }) {
+  try {
+    const p = await request.json();
+    const id = (p.product_id || "").toString().trim();
+    if (!id) return json({ ok: false, error: "product_id is required." }, 400);
+    if (!(p.model_name || "").toString().trim())
+      return json({ ok: false, error: "model_name is required." }, 400);
+
+    const vals = FIELDS.map(f => {
+      let v = p[f];
+      if (v === undefined || v === null) v = "";
+      if (f === "manufacturer_id" || f === "release_year") {
+        const n = parseInt(v, 10);
+        return Number.isFinite(n) ? n : null;
+      }
+      return v.toString();
+    });
+
+    const placeholders = FIELDS.map(() => "?").join(",");
+    const updates = FIELDS.filter(f => f !== "product_id")
+      .map(f => `${f}=excluded.${f}`).join(",");
+
+    await env.DB.prepare(
+      `INSERT INTO products (${FIELDS.join(",")}) VALUES (${placeholders})
+       ON CONFLICT(product_id) DO UPDATE SET ${updates}`
+    ).bind(...vals).run();
+
+    return json({ ok: true });
+  } catch (err) {
+    return json({ ok: false, error: String(err && err.message || err) }, 500);
+  }
+}
+
+export async function onRequestDelete({ request, env }) {
+  try {
+    const { product_id } = await request.json();
+    if (!product_id) return json({ ok: false, error: "product_id required." }, 400);
+    await env.DB.prepare("DELETE FROM products WHERE product_id = ?").bind(product_id).run();
+    return json({ ok: true });
+  } catch (err) {
+    return json({ ok: false, error: String(err && err.message || err) }, 500);
+  }
+}

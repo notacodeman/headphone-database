@@ -3,136 +3,226 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin — Suggestions</title>
+<title>Admin — Catalog Editor</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,900&family=Spline+Sans+Mono:wght@400;500;600&display=swap');
   :root { --ink:#1a1714; --paper:#f4f0e8; --paper-2:#eae3d6; --accent:#c2410c; --accent-2:#1e3a2f; --line:#d6cdbd; --muted:#8a8071; }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--paper); color:var(--ink); font-family:'Spline Sans Mono',monospace; line-height:1.5; padding:2rem; }
-  .wrap { max-width:1100px; margin:0 auto; }
+  .wrap { max-width:1200px; margin:0 auto; }
+  .topnav { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:0.5rem; }
+  .topnav a { font-size:0.72rem; text-transform:uppercase; letter-spacing:0.14em; color:var(--accent-2); text-decoration:none; }
+  .topnav a:hover { color:var(--accent); }
   h1 { font-family:'Fraunces',serif; font-weight:900; font-size:clamp(1.8rem,4vw,2.8rem); letter-spacing:-0.02em; }
   h1 em { font-style:italic; color:var(--accent); }
-  .sub { color:var(--muted); font-size:0.8rem; margin:0.4rem 0 2rem; }
-  .back { font-size:0.72rem; text-transform:uppercase; letter-spacing:0.14em; color:var(--accent-2); text-decoration:none; }
-  .filterbar { display:flex; gap:1rem; align-items:center; margin-bottom:1.5rem; font-size:0.78rem; }
-  .filterbar button { font-family:inherit; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.1em;
-    background:none; border:1px solid var(--ink); padding:0.4rem 0.85rem; cursor:pointer; color:var(--ink); }
-  .filterbar button.active { background:var(--ink); color:var(--paper); }
-  .card { border:1px solid var(--ink); padding:1.2rem 1.3rem; margin-bottom:1rem; background:var(--paper-2); }
-  .card.reviewed { opacity:0.55; }
-  .card h3 { font-family:'Fraunces',serif; font-size:1.2rem; margin-bottom:0.5rem; }
-  .specs { display:flex; flex-wrap:wrap; gap:0.5rem 1.5rem; font-size:0.84rem; margin-bottom:0.6rem; }
-  .specs span b { color:var(--accent-2); font-weight:600; }
-  .notes { font-size:0.84rem; color:var(--ink); margin:0.5rem 0; }
-  .meta { font-size:0.72rem; color:var(--muted); margin-bottom:0.8rem; }
-  .meta a { color:var(--accent-2); word-break:break-all; }
-  .pill { display:inline-block; font-size:0.64rem; text-transform:uppercase; letter-spacing:0.1em;
-    border:1px solid var(--line); border-radius:99px; padding:0.1rem 0.5rem; }
-  .pill.pending { border-color:var(--accent); color:var(--accent); }
-  .pill.reviewed { border-color:var(--muted); color:var(--muted); }
-  .actions { display:flex; gap:0.6rem; margin-top:0.5rem; }
-  .actions button { font-family:inherit; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em;
-    padding:0.45rem 0.9rem; cursor:pointer; border:none; border-radius:99px; }
-  .btn-rev { background:var(--accent-2); color:var(--paper); }
-  .btn-undo { background:none; border:1px solid var(--accent-2); color:var(--accent-2); }
-  .btn-del { background:var(--accent); color:var(--paper); }
-  .empty,.loading { text-align:center; color:var(--muted); padding:3rem 1rem; }
+  .sub { color:var(--muted); font-size:0.8rem; margin:0.3rem 0 1.5rem; }
+  .toolbar { display:flex; gap:0.75rem; flex-wrap:wrap; align-items:center; margin-bottom:1.2rem; }
+  .toolbar input { flex:1; min-width:200px; padding:0.6rem 0.75rem; border:1px solid var(--ink); background:var(--paper); font-family:inherit; font-size:0.9rem; color:var(--ink); }
+  .btn { font-family:inherit; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.1em; padding:0.6rem 1rem; cursor:pointer; border:none; border-radius:99px; white-space:nowrap; }
+  .btn-primary { background:var(--accent); color:var(--paper); }
+  .btn-ghost { background:none; border:1px solid var(--ink); color:var(--ink); }
+  .btn-2 { background:var(--accent-2); color:var(--paper); }
+  table { width:100%; border-collapse:collapse; }
+  thead th { text-align:left; font-size:0.62rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); padding:0.5rem 0.5rem; border-bottom:2px solid var(--ink); }
+  tbody tr { border-bottom:1px solid var(--line); cursor:pointer; }
+  tbody tr:hover { background:var(--paper-2); }
+  tbody td { padding:0.55rem 0.5rem; font-size:0.83rem; }
+  .b { color:var(--accent-2); font-weight:500; }
+  .mn { font-family:'Fraunces',serif; font-size:0.98rem; }
+  .muted { color:var(--muted); }
+  .loading,.empty { text-align:center; color:var(--muted); padding:3rem 1rem; }
+  .overlay { position:fixed; inset:0; background:rgba(26,23,20,0.55); display:none; align-items:flex-start; justify-content:center; padding:3rem 1rem; overflow-y:auto; z-index:50; }
+  .overlay.open { display:flex; }
+  .modal { background:var(--paper); border:2px solid var(--ink); max-width:680px; width:100%; padding:1.6rem 1.8rem; }
+  .modal h2 { font-family:'Fraunces',serif; font-size:1.4rem; margin-bottom:1rem; }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:0.8rem 1rem; }
+  .grid .full { grid-column:1 / -1; }
+  @media (max-width:560px){ .grid { grid-template-columns:1fr; } }
+  label { display:block; font-size:0.62rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:0.25rem; }
+  .modal input, .modal select, .modal textarea { width:100%; padding:0.5rem 0.6rem; border:1px solid var(--ink); background:var(--paper); font-family:inherit; font-size:0.86rem; color:var(--ink); }
+  .modal textarea { resize:vertical; min-height:60px; }
+  .modal-actions { display:flex; justify-content:space-between; align-items:center; margin-top:1.4rem; gap:0.75rem; }
+  .modal-actions .right { display:flex; gap:0.6rem; }
+  .toast { position:fixed; bottom:1.5rem; left:50%; transform:translateX(-50%); background:var(--ink); color:var(--paper); padding:0.7rem 1.3rem; font-size:0.82rem; border-radius:99px; opacity:0; transition:opacity 0.25s; pointer-events:none; z-index:60; }
+  .toast.show { opacity:1; }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <a class="back" href="index.html">&larr; Back to the Archive</a>
-  <h1>Suggestion <em>Queue</em></h1>
+  <div class="topnav">
+    <a href="index.html">&larr; View the Archive</a>
+    <a href="admin-suggestions.html">Review Suggestions &rarr;</a>
+  </div>
+  <h1>Catalog <em>Editor</em></h1>
   <p class="sub" id="sub">Loading&hellip;</p>
 
-  <div class="filterbar">
-    <span>Show:</span>
-    <button data-f="pending" class="active">Pending</button>
-    <button data-f="reviewed">Reviewed</button>
-    <button data-f="all">All</button>
+  <div class="toolbar">
+    <input type="text" id="q" placeholder="Search by brand, model, keyword&hellip;" autocomplete="off">
+    <button class="btn btn-primary" id="addBtn">+ Add headphone</button>
+    <button class="btn btn-ghost" id="importBtn" title="Wipe and reload the catalog from the GitHub CSVs">Reset from CSV</button>
   </div>
 
-  <div id="list"><div class="loading">Loading suggestions&hellip;</div></div>
+  <div id="tablewrap"><div class="loading">Loading catalog&hellip;</div></div>
 </div>
 
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <h2 id="modalTitle">Edit headphone</h2>
+    <div class="grid">
+      <div><label>Product ID *</label><input id="f_product_id" placeholder="BRAND_MODEL"></div>
+      <div><label>Brand</label><select id="f_manufacturer_id"></select></div>
+      <div><label>Model name *</label><input id="f_model_name"></div>
+      <div><label>Full name</label><input id="f_full_name"></div>
+      <div><label>Release year</label><input id="f_release_year"></div>
+      <div><label>Discontinued year</label><input id="f_discontinued_year"></div>
+      <div><label>Status</label><input id="f_status" placeholder="Active / Discontinued / Legacy Active"></div>
+      <div><label>Category</label><input id="f_category" placeholder="Headphone / Studio / Gaming"></div>
+      <div><label>Design</label><input id="f_design" placeholder="Open Back / Closed Back / Semi-Open / In-Ear"></div>
+      <div><label>Driver type</label><input id="f_driver_type" placeholder="Dynamic / Planar Magnetic / ..."></div>
+      <div><label>Driver size (mm)</label><input id="f_driver_size_mm"></div>
+      <div><label>Impedance (ohms)</label><input id="f_impedance_ohms"></div>
+      <div><label>Sensitivity (dB)</label><input id="f_sensitivity_db"></div>
+      <div><label>Wireless</label><select id="f_wireless"><option>No</option><option>Yes</option></select></div>
+      <div><label>ANC</label><select id="f_anc"><option>No</option><option>Yes</option></select></div>
+      <div><label>Predecessor (product_id)</label><input id="f_predecessor"></div>
+      <div><label>Successor (product_id)</label><input id="f_successor"></div>
+      <div class="full"><label>Notes</label><textarea id="f_notes"></textarea></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="deleteBtn" style="border-color:var(--accent);color:var(--accent);">Delete</button>
+      <span class="right">
+        <button class="btn btn-ghost" id="cancelBtn">Cancel</button>
+        <button class="btn btn-2" id="saveBtn">Save</button>
+      </span>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
 <script>
-let all = [], filter = "pending";
+let all = [], mfrs = [], editingId = null;
+const FIELDS = ["product_id","manufacturer_id","model_name","full_name","release_year","discontinued_year","status","category","design","driver_type","driver_size_mm","impedance_ohms","sensitivity_db","wireless","anc","predecessor","successor","notes"];
+
+function esc(s){ return (s||"").toString().replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function toast(msg){ const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"),2200); }
 
 async function load() {
   try {
-    const res = await fetch("/api/suggestions");
-    const data = await res.json();
-    if (!data.ok) throw new Error();
-    all = data.suggestions;
+    const [pRes, mRes] = await Promise.all([
+      fetch("/api/admin/products"),
+      fetch("/api/admin/products?manufacturers=1")
+    ]);
+    const pData = await pRes.json(), mData = await mRes.json();
+    if (!pData.ok) throw new Error();
+    all = pData.products;
+    mfrs = (mData.ok && mData.manufacturers) ? mData.manufacturers : [];
+    document.getElementById("f_manufacturer_id").innerHTML =
+      mfrs.map(m=>`<option value="${m.manufacturer_id}">${esc(m.name)}</option>`).join("");
     render();
-  } catch (e) {
-    document.getElementById("list").innerHTML =
-      '<div class="empty">Could not load suggestions. (If this page loaded but data didn\'t, check that the D1 binding and Access policy are set up.)</div>';
+  } catch(e) {
+    document.getElementById("tablewrap").innerHTML = '<div class="empty">Could not load the catalog from D1. Check the /api/admin/products binding and Access policy.</div>';
     document.getElementById("sub").textContent = "";
   }
 }
 
-function esc(s){ return (s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
-
-function spec(label, v, unit){ return v ? `<span><b>${label}:</b> ${esc(v)}${unit||""}</span>` : ""; }
-
 function render() {
-  const rows = all.filter(s => filter === "all" ? true : s.status === filter);
-  const pending = all.filter(s => s.status === "pending").length;
-  document.getElementById("sub").textContent =
-    `${all.length} total \u00b7 ${pending} pending review`;
-
-  if (!rows.length) { document.getElementById("list").innerHTML = '<div class="empty">Nothing here.</div>'; return; }
-
-  document.getElementById("list").innerHTML = rows.map(s => `
-    <div class="card ${s.status}">
-      <h3>${esc(s.headphone)} <span class="pill ${s.status}">${s.status}</span></h3>
-      <div class="specs">
-        ${spec("Driver", s.driver_size_mm, " mm")}
-        ${spec("Impedance", s.impedance_ohms, " \u03A9")}
-        ${spec("Sensitivity", s.sensitivity_db, " dB")}
-        ${spec("Connector", s.connector)}
-        ${spec("Detachable", s.detachable)}
-        ${spec("Weight", s.weight_g, " g")}
-      </div>
-      ${s.notes ? `<div class="notes">${esc(s.notes)}</div>` : ""}
-      <div class="meta">
-        Source: <a href="${esc(s.source)}" target="_blank" rel="noopener">${esc(s.source)}</a><br>
-        ${s.submitter ? "By " + esc(s.submitter) + " \u00b7 " : ""}${esc(s.created_at)}
-      </div>
-      <div class="actions">
-        ${s.status === "pending" ? `<button class="btn-rev" onclick="act(${s.id},'reviewed')">Mark reviewed</button>` : ""}
-        ${s.status === "reviewed" ? `<button class="btn-undo" onclick="act(${s.id},'pending')">Move back to pending</button>` : ""}
-        <button class="btn-del" onclick="act(${s.id},'delete')">Delete</button>
-      </div>
-    </div>
-  `).join("");
+  const q = document.getElementById("q").value.toLowerCase();
+  const rows = all.filter(p => !q || (`${p._brand} ${p.model_name} ${p.full_name} ${p.notes}`||"").toLowerCase().includes(q));
+  document.getElementById("sub").textContent = `${all.length} headphones in the database${q?` \u00b7 ${rows.length} shown`:""}`;
+  if (!rows.length) { document.getElementById("tablewrap").innerHTML='<div class="empty">No matches.</div>'; return; }
+  document.getElementById("tablewrap").innerHTML = `
+    <table><thead><tr>
+      <th>Brand</th><th>Model</th><th>Year</th><th>Design</th><th>Driver</th><th>Imp.</th><th>Sens.</th>
+    </tr></thead><tbody>
+    ${rows.map(p=>`<tr onclick="openEdit('${esc(p.product_id)}')">
+      <td class="b">${esc(p._brand)}</td>
+      <td class="mn">${esc(p.model_name)}</td>
+      <td>${esc(p.release_year)}</td>
+      <td>${esc(p.design)}</td>
+      <td>${esc(p.driver_type)}</td>
+      <td>${p.impedance_ohms?esc(p.impedance_ohms)+" \u03A9":'<span class="muted">\u2014</span>'}</td>
+      <td>${p.sensitivity_db?esc(p.sensitivity_db)+" dB":'<span class="muted">\u2014</span>'}</td>
+    </tr>`).join("")}
+    </tbody></table>`;
 }
 
-async function act(id, action) {
-  if (action === "delete" && !confirm("Delete this suggestion permanently?")) return;
+function setForm(p) {
+  FIELDS.forEach(f => {
+    const el = document.getElementById("f_"+f);
+    if (!el) return;
+    el.value = (p[f] !== undefined && p[f] !== null) ? p[f] : (f==="wireless"||f==="anc"?"No":"");
+  });
+}
+
+function openEdit(id) {
+  const p = all.find(x => x.product_id === id);
+  if (!p) return;
+  editingId = id;
+  document.getElementById("modalTitle").textContent = "Edit headphone";
+  document.getElementById("f_product_id").disabled = true;
+  document.getElementById("deleteBtn").style.display = "";
+  setForm(p);
+  document.getElementById("overlay").classList.add("open");
+}
+
+function openAdd() {
+  editingId = null;
+  document.getElementById("modalTitle").textContent = "Add headphone";
+  document.getElementById("f_product_id").disabled = false;
+  document.getElementById("deleteBtn").style.display = "none";
+  setForm({});
+  document.getElementById("overlay").classList.add("open");
+}
+
+function closeModal(){ document.getElementById("overlay").classList.remove("open"); }
+
+async function save() {
+  const p = {};
+  FIELDS.forEach(f => { const el=document.getElementById("f_"+f); if(el) p[f]=el.value.trim(); });
+  if (!p.product_id || !p.model_name) { toast("Product ID and Model name are required."); return; }
   try {
-    const res = await fetch("/api/suggestions", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id, action })
-    });
-    const data = await res.json();
-    if (!data.ok) throw new Error();
-    if (action === "delete") all = all.filter(s => s.id !== id);
-    else if (action === "reviewed") all = all.map(s => s.id === id ? { ...s, status: "reviewed" } : s);
-    else if (action === "pending") all = all.map(s => s.id === id ? { ...s, status: "pending" } : s);
-    render();
-  } catch (e) { alert("Action failed. Try again."); }
+    const res = await fetch("/api/admin/products", { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(p) });
+    const d = await res.json();
+    if (!d.ok) throw new Error(d.error||"");
+    p._brand = (mfrs.find(m=>String(m.manufacturer_id)===String(p.manufacturer_id))||{}).name || "Unknown";
+    const i = all.findIndex(x=>x.product_id===p.product_id);
+    if (i>=0) all[i] = {...all[i], ...p}; else all.unshift(p);
+    closeModal(); render(); toast("Saved.");
+  } catch(e){ toast("Save failed: " + (e.message||"error")); }
 }
 
-document.querySelectorAll(".filterbar button").forEach(b =>
-  b.addEventListener("click", () => {
-    document.querySelectorAll(".filterbar button").forEach(x => x.classList.remove("active"));
-    b.classList.add("active");
-    filter = b.dataset.f;
-    render();
-  }));
+async function del() {
+  if (!editingId) return;
+  if (!confirm("Delete this headphone from the database permanently?")) return;
+  try {
+    const res = await fetch("/api/admin/products", { method:"DELETE", headers:{"Content-Type":"application/json"}, body:JSON.stringify({product_id:editingId}) });
+    const d = await res.json();
+    if (!d.ok) throw new Error(d.error||"");
+    all = all.filter(x=>x.product_id!==editingId);
+    closeModal(); render(); toast("Deleted.");
+  } catch(e){ toast("Delete failed."); }
+}
+
+async function resetFromCSV() {
+  if (!confirm("This WIPES the live database and reloads it from the GitHub CSVs. Any edits made here that aren't in the CSVs will be lost. Continue?")) return;
+  toast("Reimporting from CSV\u2026");
+  try {
+    const res = await fetch("/api/admin/import", { method:"POST" });
+    const d = await res.json();
+    if (!d.ok) throw new Error(d.error||"");
+    toast(`Reloaded ${d.products} headphones.`);
+    load();
+  } catch(e){ toast("Import failed: " + (e.message||"error")); }
+}
+
+document.getElementById("q").addEventListener("input", render);
+document.getElementById("addBtn").addEventListener("click", openAdd);
+document.getElementById("importBtn").addEventListener("click", resetFromCSV);
+document.getElementById("saveBtn").addEventListener("click", save);
+document.getElementById("deleteBtn").addEventListener("click", del);
+document.getElementById("cancelBtn").addEventListener("click", closeModal);
+document.getElementById("overlay").addEventListener("click", e => { if (e.target.id==="overlay") closeModal(); });
 
 load();
 </script>
