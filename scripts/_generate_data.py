@@ -269,10 +269,10 @@ for i, (mfr, fname, ftype) in enumerate(families_raw, start=1):
 P = []
 def add(pid, mfr, fam, model, full, year, status, design, driver, wireless, anc,
         pred="", succ="", notes="", disc="", category="Headphone",
-        driver_size="", impedance="", sensitivity=""):
+        driver_size="", impedance="", sensitivity="", date_added=""):
     P.append([pid, mfr, fam, model, full, year, disc, status, category,
               design, driver, driver_size, impedance, sensitivity,
-              wireless, anc, pred, succ, notes])
+              wireless, anc, pred, succ, notes, date_added])
 
 # ---- Sony ----
 add("SONY_MDR1R","Sony","MDR","MDR-1R","Sony MDR-1R",2012,"Discontinued","Closed Back","Dynamic","No","No",succ="SONY_MDR1A",notes="Premium closed-back")
@@ -1175,7 +1175,7 @@ with open(OUT / "products.csv", "w", newline="", encoding="utf-8") as f:
     w.writerow(["product_id","family_id","manufacturer_id","model_name","full_name",
                 "release_year","discontinued_year","status","category","design",
                 "driver_type","driver_size_mm","impedance_ohms","sensitivity_db",
-                "wireless","anc","predecessor","successor","notes"])
+                "wireless","anc","predecessor","successor","notes","date_added"])
     w.writerows(products)
 
 lineage = sorted(lineage_pairs, key=lambda x: (x[1], x[0]))

@@ -198,9 +198,8 @@
     white-space: nowrap;
   }
   thead th:hover { color: var(--accent); }
-  thead th[aria-sort] span::after { content: ' \2195'; opacity: 0.4; }
-  thead th[aria-sort="ascending"] span::after { content: ' \2191'; opacity: 1; color: var(--accent); }
-  thead th[aria-sort="descending"] span::after { content: ' \2193'; opacity: 1; color: var(--accent); }
+  thead th[aria-sort="ascending"]::after  { content: ' \2191'; color: var(--accent); font-size: 0.7rem; }
+  thead th[aria-sort="descending"]::after { content: ' \2193'; color: var(--accent); font-size: 0.7rem; }
 
   tbody tr { border-bottom: 1px solid var(--line); transition: background 0.12s; }
   tbody tr:hover { background: var(--paper-2); }
@@ -360,7 +359,8 @@ const COLS = [
   { key: "sensitivity_db", label: "Sensitivity", on: false, sortable: true,  w: 110 },
   { key: "status",         label: "Status",      on: true,  sortable: true,  w: 130 },
   { key: "_flags",         label: "Wireless/ANC",on: true,  sortable: false, w: 120 },
-  { key: "notes",          label: "Notes",       on: false, sortable: false, w: 280 }
+  { key: "notes",          label: "Notes",       on: false, sortable: false, w: 280 },
+  { key: "date_added",     label: "Date Added",  on: false, sortable: true,  w: 110 }
 ];
 
 const state = { rows: [], filtered: [], sortKey: "release_year", sortDir: "descending", visible: {} };
@@ -595,6 +595,7 @@ function rowDetail(r) {
   add("Sensitivity", r.sensitivity_db, "\u200adB");
   add("Wireless", r.wireless);
   add("Active noise cancelling", r.anc);
+  if (r.date_added) add("Added to archive", r.date_added);
   if (r.predecessor) parts.push(`<div><dt>Replaces</dt><dd>${esc(modelById(r.predecessor))}</dd></div>`);
   if (r.successor) parts.push(`<div><dt>Succeeded by</dt><dd>${esc(modelById(r.successor))}</dd></div>`);
   const q = encodeURIComponent(`${r._brand} ${r.model_name} headphone review measurements`);

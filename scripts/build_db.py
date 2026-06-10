@@ -61,7 +61,8 @@ CREATE TABLE IF NOT EXISTS products (
     anc                 TEXT    CHECK(anc IN ('Yes','No')),
     predecessor         TEXT    REFERENCES products(product_id),
     successor           TEXT    REFERENCES products(product_id),
-    notes               TEXT
+    notes               TEXT,
+    date_added          TEXT
 );
 
 CREATE TABLE IF NOT EXISTS lineage (
@@ -182,8 +183,8 @@ def load_products(conn, rows, verbose):
                 model_name, full_name, release_year, discontinued_year,
                 status, category, design, driver_type,
                 driver_size_mm, impedance_ohms, sensitivity_db,
-                wireless, anc, predecessor, successor, notes
-            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+                wireless, anc, predecessor, successor, notes, date_added
+            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
             ON CONFLICT(product_id) DO UPDATE SET
                 family_id=excluded.family_id,
                 manufacturer_id=excluded.manufacturer_id,
@@ -202,7 +203,8 @@ def load_products(conn, rows, verbose):
                 anc=excluded.anc,
                 predecessor=excluded.predecessor,
                 successor=excluded.successor,
-                notes=excluded.notes
+                notes=excluded.notes,
+                date_added=excluded.date_added
         """, (
             coerce_str(r.get("product_id")),
             coerce_int(r.get("family_id")),
@@ -223,6 +225,7 @@ def load_products(conn, rows, verbose):
             coerce_str(r.get("predecessor")),
             coerce_str(r.get("successor")),
             coerce_str(r.get("notes")),
+            coerce_str(r.get("date_added")),
         ))
         n += 1
     if verbose:

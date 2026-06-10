@@ -42,7 +42,7 @@ CREATE TABLE products (
     model_name TEXT, full_name TEXT, release_year INTEGER, discontinued_year INTEGER,
     status TEXT, category TEXT, design TEXT, driver_type TEXT,
     driver_size_mm TEXT, impedance_ohms TEXT, sensitivity_db TEXT,
-    wireless TEXT, anc TEXT, predecessor TEXT, successor TEXT, notes TEXT
+    wireless TEXT, anc TEXT, predecessor TEXT, successor TEXT, notes TEXT, date_added TEXT
 );
 CREATE TABLE lineage (lineage_id INTEGER PRIMARY KEY, predecessor_product_id TEXT, successor_product_id TEXT);
 CREATE TABLE sources (source_id INTEGER PRIMARY KEY, product_id TEXT, source_type TEXT, title TEXT, url TEXT);

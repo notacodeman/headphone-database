@@ -153,6 +153,7 @@
       <div><label>Predecessor (product_id)</label><input id="f_predecessor"></div>
       <div><label>Successor (product_id)</label><input id="f_successor"></div>
       <div class="full"><label>Comments / notes</label><textarea id="f_notes"></textarea></div>
+      <div><label>Date added</label><input id="f_date_added" placeholder="YYYY-MM-DD" type="date"></div>
     </div>
     <div class="modal-actions">
       <button class="btn btn-ghost" id="deleteBtn" style="border-color:var(--accent);color:var(--accent);">Delete</button>
@@ -217,6 +218,7 @@ const COLS = [
   {key:"predecessor", label:"Predecessor", w:150},
   {key:"successor", label:"Successor", w:150},
   {key:"notes", label:"Comments", w:300, cls:"notes"},
+  {key:"date_added", label:"Date Added", w:100},
 ];
 
 let colW = {};

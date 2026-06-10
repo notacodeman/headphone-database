@@ -11,7 +11,7 @@ const FIELDS = [
   "product_id", "family_id", "manufacturer_id", "model_name", "full_name",
   "release_year", "discontinued_year", "status", "category", "design", "driver_type",
   "driver_size_mm", "impedance_ohms", "sensitivity_db", "wireless", "anc",
-  "predecessor", "successor", "notes",
+  "predecessor", "successor", "notes", "date_added",
 ];
 
 export async function onRequestGet({ request, env }) {
@@ -48,6 +48,11 @@ export async function onRequestPost({ request, env }) {
       if (f === "manufacturer_id" || f === "release_year") {
         const n = parseInt(v, 10);
         return Number.isFinite(n) ? n : null;
+      }
+      if (f === "date_added") {
+        // keep existing date if provided, otherwise stamp today
+        const s = v.toString().trim();
+        return s || new Date().toISOString().slice(0, 10);
       }
       return v.toString();
     });
