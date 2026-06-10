@@ -3,23 +3,23 @@ SONY_MDR1R,2,1,MDR-1R,Sony MDR-1R,2012,,Discontinued,Headphone,Closed Back,Dynam
 SONY_MDR1A,2,1,MDR-1A,Sony MDR-1A,2014,,Discontinued,Headphone,Closed Back,Dynamic,,,,No,No,SONY_MDR1R,,
 SONY_MDRZ7,2,1,MDR-Z7,Sony MDR-Z7,2014,,Discontinued,Headphone,Closed Back,Dynamic,,,,No,No,,SONY_MDRZ7M2,70mm driver
 SONY_MDRZ7M2,2,1,MDR-Z7M2,Sony MDR-Z7M2,2018,,Active,Headphone,Closed Back,Dynamic,,,,No,No,SONY_MDRZ7,,
-SONY_MDRZ1R,2,1,MDR-Z1R,Sony MDR-Z1R,2016,,Active,Headphone,Closed Back,Dynamic,,,,No,No,,,Signature Series flagship
+SONY_MDRZ1R,2,1,MDR-Z1R,Sony MDR-Z1R,2016,,Active,Headphone,Closed Back,Dynamic,70,64,100,No,No,,,Signature Series flagship
 SONY_MDR1000X,1,1,MDR-1000X,Sony MDR-1000X,2016,,Discontinued,Headphone,Closed Back,Dynamic,,,,Yes,Yes,,SONY_WH1000XM2,First in the 1000X line
 SONY_WH1000XM2,1,1,WH-1000XM2,Sony WH-1000XM2,2017,,Discontinued,Headphone,Closed Back,Dynamic,,,,Yes,Yes,SONY_MDR1000X,SONY_WH1000XM3,
 SONY_WH1000XM3,1,1,WH-1000XM3,Sony WH-1000XM3,2018,,Discontinued,Headphone,Closed Back,Dynamic,,,,Yes,Yes,SONY_WH1000XM2,SONY_WH1000XM4,
 SONY_WH1000XM4,1,1,WH-1000XM4,Sony WH-1000XM4,2020,,Discontinued,Headphone,Closed Back,Dynamic,,,,Yes,Yes,SONY_WH1000XM3,SONY_WH1000XM5,
-SONY_WH1000XM5,1,1,WH-1000XM5,Sony WH-1000XM5,2022,,Active,Headphone,Closed Back,Dynamic,,,,Yes,Yes,SONY_WH1000XM4,SONY_WH1000XM6,Flagship ANC
+SONY_WH1000XM5,1,1,WH-1000XM5,Sony WH-1000XM5,2022,,Active,Headphone,Closed Back,Dynamic,30,,,Yes,Yes,SONY_WH1000XM4,SONY_WH1000XM6,Flagship ANC
 SONY_WH1000XM6,1,1,WH-1000XM6,Sony WH-1000XM6,2025,,Active,Headphone,Closed Back,Dynamic,,,,Yes,Yes,SONY_WH1000XM5,,"Foldable redesign, QN3 processor"
 SONY_WHH900N,1,1,WH-H900N,Sony WH-H900N (h.ear on 2),2017,,Discontinued,Headphone,Closed Back,Dynamic,,,,Yes,Yes,,,
 SONY_ULTWEAR,3,1,ULT WEAR,Sony ULT WEAR,2024,,Active,Headphone,Closed Back,Dynamic,,,,Yes,Yes,,,Bass-focused ANC
-SENN_HD600,4,2,HD 600,Sennheiser HD 600,1997,,Legacy Active,Headphone,Open Back,Dynamic,,,,No,No,,SENN_HD650,"Reference open-back, still in production"
-SENN_HD650,4,2,HD 650,Sennheiser HD 650,2003,,Legacy Active,Headphone,Open Back,Dynamic,,,,No,No,SENN_HD600,SENN_HD660S,
+SENN_HD600,4,2,HD 600,Sennheiser HD 600,1997,,Legacy Active,Headphone,Open Back,Dynamic,,300,97,No,No,,SENN_HD650,"Reference open-back, still in production"
+SENN_HD650,4,2,HD 650,Sennheiser HD 650,2003,,Legacy Active,Headphone,Open Back,Dynamic,,300,103,No,No,SENN_HD600,SENN_HD660S,
 SENN_HD700,4,2,HD 700,Sennheiser HD 700,2012,,Discontinued,Headphone,Open Back,Dynamic,,,,No,No,,,
-SENN_HD800,4,2,HD 800,Sennheiser HD 800,2009,,Legacy Active,Headphone,Open Back,Dynamic,,,,No,No,,SENN_HD800S,56mm ring radiator
-SENN_HD800S,4,2,HD 800 S,Sennheiser HD 800 S,2015,,Active,Headphone,Open Back,Dynamic,,,,No,No,SENN_HD800,,
+SENN_HD800,4,2,HD 800,Sennheiser HD 800,2009,,Legacy Active,Headphone,Open Back,Dynamic,56,300,102,No,No,,SENN_HD800S,56mm ring radiator
+SENN_HD800S,4,2,HD 800 S,Sennheiser HD 800 S,2015,,Active,Headphone,Open Back,Dynamic,56,300,102,No,No,SENN_HD800,,
 SENN_HD820,4,2,HD 820,Sennheiser HD 820,2018,,Active,Headphone,Closed Back,Dynamic,,,,No,No,,,"Closed-back flagship, glass earcups"
-SENN_HD660S,4,2,HD 660S,Sennheiser HD 660S,2017,,Discontinued,Headphone,Open Back,Dynamic,,,,No,No,SENN_HD650,SENN_HD660S2,
-SENN_HD660S2,4,2,HD 660S2,Sennheiser HD 660S2,2023,,Active,Headphone,Open Back,Dynamic,,,,No,No,SENN_HD660S,,
+SENN_HD660S,4,2,HD 660S,Sennheiser HD 660S,2017,,Discontinued,Headphone,Open Back,Dynamic,,150,104,No,No,SENN_HD650,SENN_HD660S2,
+SENN_HD660S2,4,2,HD 660S2,Sennheiser HD 660S2,2023,,Active,Headphone,Open Back,Dynamic,38,300,104,No,No,SENN_HD660S,,
 SENN_HD560S,4,2,HD 560S,Sennheiser HD 560S,2020,,Active,Headphone,Open Back,Dynamic,,,,No,No,,,Reference value pick
 SENN_HD620S,4,2,HD 620S,Sennheiser HD 620S,2024,,Active,Headphone,Closed Back,Dynamic,,,,No,No,,,Closed-back addition to 600 line
 SENN_HD550,4,2,HD 550,Sennheiser HD 550,2025,,Active,Headphone,Open Back,Dynamic,,,,No,No,,,
@@ -33,11 +33,11 @@ SENN_ACCENTUM,7,2,Accentum Wireless,Sennheiser Accentum Wireless,2023,,Active,He
 SENN_ACCENTUMPLUS,7,2,Accentum Plus,Sennheiser Accentum Plus Wireless,2024,,Active,Headphone,Closed Back,Dynamic,,,,Yes,Yes,SENN_ACCENTUM,,
 PHIL_X1,8,3,X1,Philips Fidelio X1,2012,,Discontinued,Headphone,Open Back,Dynamic,,,,No,No,,PHIL_X2,
 PHIL_X2,8,3,X2,Philips Fidelio X2,2014,,Discontinued,Headphone,Open Back,Dynamic,,,,No,No,PHIL_X1,PHIL_X2HR,
-PHIL_X2HR,8,3,X2HR,Philips Fidelio X2HR,2017,,Active,Headphone,Open Back,Dynamic,,,,No,No,PHIL_X2,PHIL_X3,Popular open-back value pick
-PHIL_X3,8,3,X3,Philips Fidelio X3,2020,,Active,Headphone,Open Back,Dynamic,,,,No,No,PHIL_X2HR,,
+PHIL_X2HR,8,3,X2HR,Philips Fidelio X2HR,2017,,Active,Headphone,Open Back,Dynamic,50,30,100,No,No,PHIL_X2,PHIL_X3,Popular open-back value pick
+PHIL_X3,8,3,X3,Philips Fidelio X3,2020,,Active,Headphone,Open Back,Dynamic,50,30,100,No,No,PHIL_X2HR,,
 PHIL_L2,8,3,L2,Philips Fidelio L2,2013,,Discontinued,Headphone,Open Back,Dynamic,,,,No,No,,PHIL_L3,
 PHIL_L3,8,3,L3,Philips Fidelio L3,2021,,Active,Headphone,Closed Back,Dynamic,,,,Yes,Yes,PHIL_L2,,
-PHIL_SHP9500,9,3,SHP9500,Philips SHP9500,2014,,Active,Headphone,Open Back,Dynamic,,,,No,No,,,Budget open-back favorite
+PHIL_SHP9500,9,3,SHP9500,Philips SHP9500,2014,,Active,Headphone,Open Back,Dynamic,50,32,101,No,No,,,Budget open-back favorite
 ATECH_M40X,10,4,ATH-M40x,Audio-Technica ATH-M40x,2014,,Active,Studio,Closed Back,Dynamic,,,,No,No,,,
 ATECH_M50X,10,4,ATH-M50x,Audio-Technica ATH-M50x,2014,,Active,Studio,Closed Back,Dynamic,,,,No,No,,,Best-selling studio monitor
 ATECH_M60X,10,4,ATH-M60x,Audio-Technica ATH-M60x,2019,,Active,Studio,Closed Back,Dynamic,,,,No,No,,,
@@ -104,11 +104,11 @@ AUDEZE_MAXWELL,25,8,Maxwell,Audeze Maxwell,2023,,Active,Gaming,Closed Back,Plana
 AUDEZE_MAXWELL2,25,8,Maxwell 2,Audeze Maxwell 2,2025,,Active,Gaming,Closed Back,Planar Magnetic,,,,Yes,No,AUDEZE_MAXWELL,,
 HIFIMAN_HE400,27,9,HE-400,HiFiMan HE-400,2011,,Discontinued,Headphone,Open Back,Planar Magnetic,,,,No,No,,HIFIMAN_HE400I,
 HIFIMAN_HE400I,27,9,HE-400i,HiFiMan HE-400i,2014,,Discontinued,Headphone,Open Back,Planar Magnetic,,,,No,No,HIFIMAN_HE400,,
-HIFIMAN_HE400SE,27,9,HE400SE,HiFiMan HE400SE,2021,,Active,Headphone,Open Back,Planar Magnetic,,,,No,No,,,Budget Stealth Magnet planar
+HIFIMAN_HE400SE,27,9,HE400SE,HiFiMan HE400SE,2021,,Active,Headphone,Open Back,Planar Magnetic,,32,91,No,No,,,Budget Stealth Magnet planar
 HIFIMAN_HE560,27,9,HE-560,HiFiMan HE-560,2014,,Active,Headphone,Open Back,Planar Magnetic,,,,No,No,,,
 HIFIMAN_HE6SE,27,9,HE6se,HiFiMan HE6se,2018,,Active,Headphone,Open Back,Planar Magnetic,,,,No,No,,,Hard-to-drive planar
-HIFIMAN_SUNDARA,32,9,Sundara,HiFiMan Sundara,2018,,Active,Headphone,Open Back,Planar Magnetic,,,,No,No,,,Popular mid-tier planar
-HIFIMAN_ANANDA,29,9,Ananda,HiFiMan Ananda,2018,,Active,Headphone,Open Back,Planar Magnetic,,,,No,No,,HIFIMAN_ANANDANANO,
+HIFIMAN_SUNDARA,32,9,Sundara,HiFiMan Sundara,2018,,Active,Headphone,Open Back,Planar Magnetic,,37,94,No,No,,,Popular mid-tier planar
+HIFIMAN_ANANDA,29,9,Ananda,HiFiMan Ananda,2018,,Active,Headphone,Open Back,Planar Magnetic,,25,103,No,No,,HIFIMAN_ANANDANANO,
 HIFIMAN_ANANDANANO,29,9,Ananda Nano,HiFiMan Ananda Nano,2023,,Active,Headphone,Open Back,Planar Magnetic,,,,No,No,HIFIMAN_ANANDA,,
 HIFIMAN_ARYA,30,9,Arya,HiFiMan Arya,2018,,Active,Headphone,Open Back,Planar Magnetic,,,,No,No,,HIFIMAN_ARYAORGANIC,
 HIFIMAN_ARYAORGANIC,30,9,Arya Organic,HiFiMan Arya Organic,2023,,Active,Headphone,Open Back,Planar Magnetic,,,,No,No,HIFIMAN_ARYA,,
@@ -273,8 +273,8 @@ SENN_PXC550II,90,2,PXC 550-II Wireless,Sennheiser PXC 550-II Wireless,2019,,Disc
 SENN_HD58X,4,2,HD 58X Jubilee,Drop x Sennheiser HD 58X Jubilee,2018,,Active,Headphone,Open Back,Dynamic,,,,No,No,,,Drop collaboration
 SENN_HD6XX,4,2,HD 6XX,Drop x Sennheiser HD 6XX,2016,,Active,Headphone,Open Back,Dynamic,,,,No,No,,,Drop-exclusive HD 650 variant
 SENN_HD8XX,4,2,HD 8XX,Drop x Sennheiser HD 8XX,2020,,Active,Headphone,Open Back,Dynamic,,,,No,No,,,Drop-exclusive HD 800 variant
-SONY_MDR7506,91,1,MDR-7506,Sony MDR-7506,1991,,Legacy Active,Studio,Closed Back,Dynamic,,,,No,No,,,"Studio monitoring standard, still produced"
-SONY_MDRV6,91,1,MDR-V6,Sony MDR-V6,1985,,Discontinued,Studio,Closed Back,Dynamic,,,,No,No,,SONY_MDR7506,
+SONY_MDR7506,91,1,MDR-7506,Sony MDR-7506,1991,,Legacy Active,Studio,Closed Back,Dynamic,40,63,106,No,No,,,"Studio monitoring standard, still produced"
+SONY_MDRV6,91,1,MDR-V6,Sony MDR-V6,1985,,Discontinued,Studio,Closed Back,Dynamic,40,63,106,No,No,,SONY_MDR7506,
 SONY_MDR7510,91,1,MDR-7510,Sony MDR-7510,2010,,Discontinued,Studio,Closed Back,Dynamic,,,,No,No,,,
 SONY_CD900ST,91,1,MDR-CD900ST,Sony MDR-CD900ST,1989,,Legacy Active,Studio,Closed Back,Dynamic,,,,No,No,,,Japanese studio standard
 SONY_ZX110,92,1,MDR-ZX110,Sony MDR-ZX110,2014,,Active,Headphone,Closed Back,Dynamic,,,,No,No,,,Budget on-ear
@@ -314,11 +314,11 @@ AKG_K550,15,5,K550,AKG K550,2012,,Discontinued,Headphone,Closed Back,Dynamic,,,,
 AKG_K553,15,5,K553 Pro,AKG K553 Pro,2015,,Active,Studio,Closed Back,Dynamic,,,,No,No,AKG_K550,,
 AKG_K701,15,5,K701,AKG K701,2005,,Legacy Active,Headphone,Open Back,Dynamic,,,,No,No,,,Reference open-back classic
 AKG_Y50BT,15,5,Y50BT,AKG Y50BT,2015,,Discontinued,Headphone,Closed Back,Dynamic,,,,Yes,No,,,
-BEYER_DT770_32,17,6,DT 770 Pro 32 Ohm,Beyerdynamic DT 770 Pro (32 Ohm),2014,,Active,Studio,Closed Back,Dynamic,,,,No,No,,,Low-impedance mobile variant
-BEYER_DT770_80,17,6,DT 770 Pro 80 Ohm,Beyerdynamic DT 770 Pro (80 Ohm),1985,,Legacy Active,Studio,Closed Back,Dynamic,,,,No,No,,,Most popular impedance
-BEYER_DT770_250,17,6,DT 770 Pro 250 Ohm,Beyerdynamic DT 770 Pro (250 Ohm),1985,,Legacy Active,Studio,Closed Back,Dynamic,,,,No,No,,,High-impedance studio variant
-BEYER_DT880_250,17,6,DT 880 Pro 250 Ohm,Beyerdynamic DT 880 Pro (250 Ohm),2005,,Legacy Active,Studio,Semi-Open,Dynamic,,,,No,No,,,
-BEYER_DT990_250,17,6,DT 990 Pro 250 Ohm,Beyerdynamic DT 990 Pro (250 Ohm),1985,,Legacy Active,Studio,Open Back,Dynamic,,,,No,No,,,
+BEYER_DT770_32,17,6,DT 770 Pro 32 Ohm,Beyerdynamic DT 770 Pro (32 Ohm),2014,,Active,Studio,Closed Back,Dynamic,45,32,,No,No,,,Low-impedance mobile variant
+BEYER_DT770_80,17,6,DT 770 Pro 80 Ohm,Beyerdynamic DT 770 Pro (80 Ohm),1985,,Legacy Active,Studio,Closed Back,Dynamic,45,80,96,No,No,,,Most popular impedance
+BEYER_DT770_250,17,6,DT 770 Pro 250 Ohm,Beyerdynamic DT 770 Pro (250 Ohm),1985,,Legacy Active,Studio,Closed Back,Dynamic,45,250,96,No,No,,,High-impedance studio variant
+BEYER_DT880_250,17,6,DT 880 Pro 250 Ohm,Beyerdynamic DT 880 Pro (250 Ohm),2005,,Legacy Active,Studio,Semi-Open,Dynamic,45,250,96,No,No,,,
+BEYER_DT990_250,17,6,DT 990 Pro 250 Ohm,Beyerdynamic DT 990 Pro (250 Ohm),1985,,Legacy Active,Studio,Open Back,Dynamic,45,250,96,No,No,,,
 BEYER_DT240PRO,17,6,DT 240 Pro,Beyerdynamic DT 240 Pro,2016,,Active,Studio,Closed Back,Dynamic,,,,No,No,,,
 BEYER_DT700PROX2,17,6,DT 700 Pro X mkII,Beyerdynamic DT 700 Pro X mkII,2025,,Active,Studio,Closed Back,Dynamic,,,,No,No,BEYER_DT700PROX,,
 BEYER_CUSTOMSTUDIO,98,6,Custom Studio,Beyerdynamic Custom Studio,2015,,Active,Studio,Closed Back,Dynamic,,,,No,No,,,
@@ -464,7 +464,7 @@ AKG_K271,97,5,K271 Studio,AKG K271 Studio,2003,,Discontinued,Studio,Closed Back,
 AKG_K141,97,5,K141 Studio,AKG K141 Studio,2003,,Active,Studio,Semi-Open,Dynamic,,,,No,No,,,
 BEYER_DT48,121,6,DT 48,Beyerdynamic DT 48,1937,,Discontinued,Headphone,Closed Back,Dynamic,,,,No,No,,,Among the oldest headphones in continuous production
 BEYER_DT831,121,6,DT 831,Beyerdynamic DT 831,1994,,Discontinued,Headphone,Closed Back,Dynamic,,,,No,No,,,
-BEYER_DT880_2005,17,6,DT 880 Edition (2005),Beyerdynamic DT 880 Edition (2005),2005,,Active,Headphone,Semi-Open,Dynamic,,,,No,No,BEYER_DT880,,Consumer Edition revision
+BEYER_DT880_2005,17,6,DT 880 Edition (2005),Beyerdynamic DT 880 Edition (2005),2005,,Active,Headphone,Semi-Open,Dynamic,45,250,96,No,No,BEYER_DT880,,Consumer Edition revision
 BEYER_DT150,121,6,DT 150,Beyerdynamic DT 150,1980,,Active,Studio,Closed Back,Dynamic,,,,No,No,,,Broadcast monitoring classic
 BEYER_DT100,121,6,DT 100,Beyerdynamic DT 100,1965,,Legacy Active,Studio,Closed Back,Dynamic,,,,No,No,,,Broadcast/studio staple
 ATECH_M50,10,4,ATH-M50,Audio-Technica ATH-M50,2007,,Discontinued,Studio,Closed Back,Dynamic,,,,No,No,,ATECH_M50X,"The original M50, fixed cable"
@@ -517,7 +517,7 @@ FINAL_SONOROUSX,127,29,Sonorous X,Final Audio Sonorous X,2015,,Discontinued,Head
 ABYSS_DIANATC,129,26,Diana TC,Abyss Diana TC,2021,,Active,Headphone,Open Back,Planar Magnetic,,,,No,No,,,Diana with TC driver tech
 ABYSS_DIANAMR,68,26,Diana MR,Abyss Diana MR,2023,,Active,Headphone,Open Back,Planar Magnetic,,,,No,No,,,
 SONY_MDRMA900,128,1,MDR-MA900,Sony MDR-MA900,2012,,Discontinued,Headphone,Open Back,Dynamic,,,,No,No,,,Lightweight 70mm open-back
-SONY_MDRMV1,128,1,MDR-MV1,Sony MDR-MV1,2023,,Active,Studio,Open Back,Dynamic,,,,No,No,,,Open-back studio reference
+SONY_MDRMV1,128,1,MDR-MV1,Sony MDR-MV1,2023,,Active,Studio,Open Back,Dynamic,40,24,100,No,No,,,Open-back studio reference
 SONY_MDRM1,128,1,MDR-M1,Sony MDR-M1,2024,,Active,Studio,Closed Back,Dynamic,,,,No,No,,,Modern studio monitor
 AUDEZE_LCD24,23,8,LCD-24,Audeze LCD-24 (Anniversary),2023,,Active,Headphone,Open Back,Planar Magnetic,,,,No,No,,,Limited anniversary LCD
 AUDEZE_PENROSE,25,8,Penrose,Audeze Penrose,2020,,Discontinued,Gaming,Closed Back,Planar Magnetic,,,,Yes,No,,,Wireless gaming predecessor to Maxwell

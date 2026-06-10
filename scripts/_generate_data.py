@@ -1104,11 +1104,52 @@ add("GRADO_S550","Grado","Statement","Signature S550","Grado Signature S550",202
 # ---------------------------------------------------------------------------
 # Resolve family ids and build lineage from predecessor/successor links
 # ---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+# SPECS backfill table — driver size (mm), impedance (ohms), sensitivity (dB)
+# Keyed by product_id. Sourced from manufacturer pages / reputable spec sheets.
+# Grown brand-by-brand over time; leave a field "" when not reliably published.
+# ---------------------------------------------------------------------------
+SPECS = {
+    # ---- Sennheiser (impedance & sensitivity well published; driver size rarely) ----
+    "SENN_HD600":   {"impedance": "300", "sensitivity": "97"},
+    "SENN_HD650":   {"impedance": "300", "sensitivity": "103"},
+    "SENN_HD660S":  {"impedance": "150", "sensitivity": "104"},
+    "SENN_HD660S2": {"impedance": "300", "sensitivity": "104", "driver_size": "38"},
+    "SENN_HD800":   {"impedance": "300", "sensitivity": "102", "driver_size": "56"},
+    "SENN_HD800S":  {"impedance": "300", "sensitivity": "102", "driver_size": "56"},
+    # ---- Beyerdynamic (impedance is the defining spec; DT series use 45mm drivers) ----
+    "BEYER_DT770_32":   {"impedance": "32",  "driver_size": "45"},
+    "BEYER_DT770_80":   {"impedance": "80",  "sensitivity": "96", "driver_size": "45"},
+    "BEYER_DT770_250":  {"impedance": "250", "sensitivity": "96", "driver_size": "45"},
+    "BEYER_DT880_250":  {"impedance": "250", "sensitivity": "96", "driver_size": "45"},
+    "BEYER_DT990_250":  {"impedance": "250", "sensitivity": "96", "driver_size": "45"},
+    "BEYER_DT880_2005": {"impedance": "250", "sensitivity": "96", "driver_size": "45"},
+    # ---- HiFiMan (planar) ----
+    "HIFIMAN_SUNDARA":  {"impedance": "37", "sensitivity": "94"},
+    "HIFIMAN_HE400SE":  {"impedance": "32", "sensitivity": "91"},
+    "HIFIMAN_ANANDA":   {"impedance": "25", "sensitivity": "103"},
+    # ---- Philips ----
+    "PHIL_X2HR":    {"impedance": "30", "sensitivity": "100", "driver_size": "50"},
+    "PHIL_SHP9500": {"impedance": "32", "sensitivity": "101", "driver_size": "50"},
+    "PHIL_X3":      {"impedance": "30", "sensitivity": "100", "driver_size": "50"},
+    # ---- Sony ----
+    "SONY_MDR7506":   {"impedance": "63", "sensitivity": "106", "driver_size": "40"},
+    "SONY_MDRV6":     {"impedance": "63", "sensitivity": "106", "driver_size": "40"},
+    "SONY_MDRZ1R":    {"impedance": "64", "sensitivity": "100", "driver_size": "70"},
+    "SONY_MDRMV1":    {"impedance": "24", "sensitivity": "100", "driver_size": "40"},
+    "SONY_WH1000XM5": {"driver_size": "30"},
+}
+
 products = []
 lineage_pairs = set()
 for row in P:
     (pid, mfr, fam, model, full, year, disc, status, cat, design, driver,
      dsize, imp, sens, wl, anc, pred, succ, notes) = row
+    if pid in SPECS:
+        s = SPECS[pid]
+        dsize = s.get("driver_size", dsize)
+        imp = s.get("impedance", imp)
+        sens = s.get("sensitivity", sens)
     fid = fam_id.get((mfr, fam), "")
     mid = mfr_id[mfr]
     products.append([pid, fid, mid, model, full, year, disc, status, cat,
