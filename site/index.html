@@ -66,12 +66,28 @@
     margin: 0 auto;
     padding: 0.75rem 2rem;
     display: flex;
-    gap: 2rem;
+    align-items: center;
+    gap: 1rem;
     flex-wrap: wrap;
     font-size: 0.8rem;
     border-bottom: 1px solid var(--line);
     color: var(--accent-2);
   }
+  #statnums { display: flex; gap: 2rem; flex-wrap: wrap; align-items: center; }
+  .suggest-btn {
+    margin-left: auto;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--paper);
+    background: var(--accent);
+    padding: 0.45rem 0.95rem;
+    text-decoration: none;
+    border-radius: 99px;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+  .suggest-btn:hover { background: var(--accent-2); }
   .stats-bar strong { font-weight: 600; }
 
   .controls {
@@ -237,7 +253,8 @@
 </header>
 
 <div class="stats-bar" id="statsbar">
-  <span>Loading catalog&hellip;</span>
+  <span id="statnums">Loading catalog&hellip;</span>
+  <a class="suggest-btn" href="suggest.html">Suggest an Edit &rarr;</a>
 </div>
 
 <div class="controls">
@@ -363,7 +380,7 @@ async function load() {
   } catch (e) {
     document.getElementById("tablewrap").innerHTML =
       '<div class="empty">Could not load the catalog. If you just updated the repo, give it a moment and refresh.</div>';
-    document.getElementById("statsbar").innerHTML = '<span>Catalog unavailable</span>';
+    document.getElementById("statnums").innerHTML = '<span>Catalog unavailable</span>';
   }
 }
 
@@ -383,7 +400,7 @@ function initFilters() {
 
   const brands = uniqueSorted("_brand").length;
   const years = state.rows.map(r => +r.release_year).filter(Boolean);
-  document.getElementById("statsbar").innerHTML =
+  document.getElementById("statnums").innerHTML =
     `<span><strong>${state.rows.length}</strong> headphones</span>` +
     `<span><strong>${brands}</strong> brands</span>` +
     `<span><strong>${Math.min(...years)}</strong>&ndash;<strong>${Math.max(...years)}</strong></span>`;

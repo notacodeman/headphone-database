@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suggest an Edit — The Headphone Archive</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,400&family=Spline+Sans+Mono:wght@400;500;600&display=swap');
+
+  :root {
+    --ink: #1a1714;
+    --paper: #f4f0e8;
+    --paper-2: #eae3d6;
+    --accent: #c2410c;
+    --accent-2: #1e3a2f;
+    --line: #d6cdbd;
+    --muted: #8a8071;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Spline Sans Mono', monospace;
+    line-height: 1.5;
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(0,0,0,0.02) 28px, rgba(0,0,0,0.02) 29px);
+  }
+  header {
+    border-bottom: 2px solid var(--ink);
+    padding: 2.5rem 2rem 1.5rem;
+    max-width: 760px; margin: 0 auto;
+  }
+  .back {
+    font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--accent-2); text-decoration: none; display: inline-block; margin-bottom: 1.2rem;
+  }
+  .back:hover { color: var(--accent); }
+  h1 {
+    font-family: 'Fraunces', serif; font-weight: 900;
+    font-size: clamp(2rem, 5vw, 3.2rem); line-height: 0.95; letter-spacing: -0.02em;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .lede {
+    max-width: 760px; margin: 1.5rem auto 0; padding: 0 2rem;
+    font-size: 0.9rem; color: var(--muted);
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 2rem; }
+
+  .group { margin-bottom: 1.6rem; }
+  .group-title {
+    font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 600;
+    margin: 2rem 0 0.5rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--line);
+  }
+  label {
+    display: block; font-size: 0.66rem; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--muted); margin-bottom: 0.35rem;
+  }
+  label .req { color: var(--accent); }
+  .hint { font-size: 0.72rem; color: var(--muted); margin-top: 0.3rem; text-transform: none; letter-spacing: 0; }
+  input, select, textarea {
+    width: 100%; padding: 0.65rem 0.75rem; border: 1px solid var(--ink);
+    background: var(--paper); font-family: inherit; font-size: 0.9rem; color: var(--ink); border-radius: 0;
+  }
+  input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+  textarea { resize: vertical; min-height: 90px; }
+  .row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; }
+  @media (max-width: 560px) { .row { grid-template-columns: 1fr; } }
+
+  .hp { position: absolute; left: -9999px; }  /* honeypot */
+
+  button[type=submit] {
+    margin-top: 1.5rem; background: var(--accent); color: var(--paper);
+    border: none; font-family: inherit; font-size: 0.8rem; text-transform: uppercase;
+    letter-spacing: 0.12em; padding: 0.85rem 1.8rem; cursor: pointer; border-radius: 99px;
+    transition: background 0.15s;
+  }
+  button[type=submit]:hover { background: var(--accent-2); }
+  button[type=submit]:disabled { opacity: 0.5; cursor: default; }
+
+  .msg { margin-top: 1.5rem; padding: 1rem 1.2rem; font-size: 0.88rem; border: 1px solid var(--ink); display: none; }
+  .msg.show { display: block; }
+  .msg.ok { border-color: var(--accent-2); color: var(--accent-2); }
+  .msg.err { border-color: var(--accent); color: var(--accent); }
+
+  footer {
+    max-width: 760px; margin: 0 auto; padding: 2rem;
+    border-top: 1px solid var(--line); font-size: 0.72rem; color: var(--muted);
+  }
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="index.html">&larr; Back to the Archive</a>
+  <h1>Suggest an <em>Edit</em></h1>
+</header>
+
+<p class="lede">
+  Spotted a missing spec or an error? Suggest a correction below. Every submission is
+  reviewed by hand before anything changes in the catalog &mdash; a source link makes that
+  much faster, so please include one where you can.
+</p>
+
+<main>
+  <form id="suggestForm">
+    <!-- honeypot: real people leave this empty -->
+    <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off">
+
+    <div class="group">
+      <label for="headphone">Headphone <span class="req">*</span></label>
+      <input type="text" id="headphone" name="headphone" list="hplist" required
+             placeholder="Start typing a brand or model&hellip;">
+      <datalist id="hplist"></datalist>
+      <div class="hint">Pick from the list, or type the full name if it&rsquo;s not in the catalog yet.</div>
+    </div>
+
+    <div class="group-title">Specs to add or correct</div>
+    <div class="hint" style="margin-bottom:0.9rem;">Fill in only the fields you have information for &mdash; leave the rest blank.</div>
+
+    <div class="row">
+      <div>
+        <label for="driver_size_mm">Driver Size (mm)</label>
+        <input type="text" id="driver_size_mm" name="driver_size_mm" placeholder="e.g. 40">
+      </div>
+      <div>
+        <label for="impedance_ohms">Impedance (&#937;)</label>
+        <input type="text" id="impedance_ohms" name="impedance_ohms" placeholder="e.g. 300">
+      </div>
+      <div>
+        <label for="sensitivity_db">Sensitivity (dB)</label>
+        <input type="text" id="sensitivity_db" name="sensitivity_db" placeholder="e.g. 97">
+      </div>
+    </div>
+
+    <div class="row" style="margin-top:0.9rem;">
+      <div>
+        <label for="connector">Connector Type</label>
+        <input type="text" id="connector" name="connector" placeholder="e.g. 3.5mm, XLR-4">
+      </div>
+      <div>
+        <label for="detachable">Detachable Cable</label>
+        <select id="detachable" name="detachable">
+          <option value="">&mdash;</option>
+          <option>Yes</option>
+          <option>No</option>
+        </select>
+      </div>
+      <div>
+        <label for="weight_g">Weight (g)</label>
+        <input type="text" id="weight_g" name="weight_g" placeholder="e.g. 260">
+      </div>
+    </div>
+
+    <div class="group" style="margin-top:1.5rem;">
+      <label for="notes">Other corrections / notes</label>
+      <textarea id="notes" name="notes" placeholder="Anything else &mdash; a wrong year, design, lineage, a new model to add&hellip;"></textarea>
+    </div>
+
+    <div class="group-title">Verification</div>
+    <div class="group">
+      <label for="source">Source / info link <span class="req">*</span></label>
+      <input type="url" id="source" name="source" required placeholder="https://manufacturer.com/product-specs">
+      <div class="hint">A manufacturer spec page is best. Reputable reviews/measurement sites are fine too.</div>
+    </div>
+
+    <div class="group">
+      <label for="submitter">Your name or handle (optional)</label>
+      <input type="text" id="submitter" name="submitter" placeholder="So you can be credited, if you like">
+    </div>
+
+    <button type="submit" id="submitBtn">Submit suggestion</button>
+    <div class="msg" id="msg"></div>
+  </form>
+</main>
+
+<footer>The Headphone Archive &middot; suggestions are reviewed before publishing</footer>
+
+<script>
+const RAW_BASE = "https://raw.githubusercontent.com/notacodeman/headphone-database/main/database";
+
+// ====== Where suggestions are delivered ======
+// Submissions POST to our own Cloudflare Pages Function at /api/suggest,
+// which stores them in the D1 database. No third-party service.
+const FORM_ENDPOINT = "/api/suggest";
+
+function parseCSV(text) {
+  const rows = []; let row = [], field = "", q = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) { if (c === '"') { if (text[i+1] === '"') { field += '"'; i++; } else q = false; } else field += c; }
+    else {
+      if (c === '"') q = true;
+      else if (c === ',') { row.push(field); field = ""; }
+      else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ""; }
+      else if (c === '\r') {}
+      else field += c;
+    }
+  }
+  if (field.length || row.length) { row.push(field); rows.push(row); }
+  const header = rows.shift();
+  return rows.filter(r => r.length > 1).map(r => { const o = {}; header.forEach((h, i) => o[h.trim()] = (r[i]||"").trim()); return o; });
+}
+
+// Populate the headphone picker from the live catalog
+(async function fillList() {
+  try {
+    const [p, m] = await Promise.all([
+      fetch(RAW_BASE + "/products.csv").then(r => r.text()),
+      fetch(RAW_BASE + "/manufacturers.csv").then(r => r.text())
+    ]);
+    const products = parseCSV(p), mfrs = parseCSV(m);
+    const name = {}; mfrs.forEach(x => name[x.manufacturer_id] = x.name);
+    const dl = document.getElementById("hplist");
+    products
+      .map(x => `${name[x.manufacturer_id] || ""} ${x.model_name}`.trim())
+      .sort()
+      .forEach(label => { const o = document.createElement("option"); o.value = label; dl.appendChild(o); });
+  } catch (e) { /* picker is optional; free text still works */ }
+})();
+
+const form = document.getElementById("suggestForm");
+const msg = document.getElementById("msg");
+const btn = document.getElementById("submitBtn");
+
+function show(type, text) { msg.className = "msg show " + type; msg.textContent = text; }
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  if (form._gotcha.value) return;             // bot trap
+  btn.disabled = true; btn.textContent = "Sending\u2026";
+  try {
+    const res = await fetch(FORM_ENDPOINT, {
+      method: "POST",
+      headers: { "Accept": "application/json" },
+      body: new FormData(form)
+    });
+    if (res.ok) {
+      form.reset();
+      show("ok", "Thank you \u2014 your suggestion was sent and will be reviewed before any change is made.");
+    } else {
+      show("err", "Something went wrong sending that. Please try again in a moment.");
+    }
+  } catch (err) {
+    show("err", "Couldn't reach the form service. Check your connection and try again.");
+  } finally {
+    btn.disabled = false; btn.textContent = "Submit suggestion";
+  }
+});
+</script>
+</body>
+</html>

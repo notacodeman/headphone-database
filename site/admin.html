@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Suggestions</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,900&family=Spline+Sans+Mono:wght@400;500;600&display=swap');
+  :root { --ink:#1a1714; --paper:#f4f0e8; --paper-2:#eae3d6; --accent:#c2410c; --accent-2:#1e3a2f; --line:#d6cdbd; --muted:#8a8071; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--paper); color:var(--ink); font-family:'Spline Sans Mono',monospace; line-height:1.5; padding:2rem; }
+  .wrap { max-width:1100px; margin:0 auto; }
+  h1 { font-family:'Fraunces',serif; font-weight:900; font-size:clamp(1.8rem,4vw,2.8rem); letter-spacing:-0.02em; }
+  h1 em { font-style:italic; color:var(--accent); }
+  .sub { color:var(--muted); font-size:0.8rem; margin:0.4rem 0 2rem; }
+  .back { font-size:0.72rem; text-transform:uppercase; letter-spacing:0.14em; color:var(--accent-2); text-decoration:none; }
+  .filterbar { display:flex; gap:1rem; align-items:center; margin-bottom:1.5rem; font-size:0.78rem; }
+  .filterbar button { font-family:inherit; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.1em;
+    background:none; border:1px solid var(--ink); padding:0.4rem 0.85rem; cursor:pointer; color:var(--ink); }
+  .filterbar button.active { background:var(--ink); color:var(--paper); }
+  .card { border:1px solid var(--ink); padding:1.2rem 1.3rem; margin-bottom:1rem; background:var(--paper-2); }
+  .card.reviewed { opacity:0.55; }
+  .card h3 { font-family:'Fraunces',serif; font-size:1.2rem; margin-bottom:0.5rem; }
+  .specs { display:flex; flex-wrap:wrap; gap:0.5rem 1.5rem; font-size:0.84rem; margin-bottom:0.6rem; }
+  .specs span b { color:var(--accent-2); font-weight:600; }
+  .notes { font-size:0.84rem; color:var(--ink); margin:0.5rem 0; }
+  .meta { font-size:0.72rem; color:var(--muted); margin-bottom:0.8rem; }
+  .meta a { color:var(--accent-2); word-break:break-all; }
+  .pill { display:inline-block; font-size:0.64rem; text-transform:uppercase; letter-spacing:0.1em;
+    border:1px solid var(--line); border-radius:99px; padding:0.1rem 0.5rem; }
+  .pill.pending { border-color:var(--accent); color:var(--accent); }
+  .pill.reviewed { border-color:var(--muted); color:var(--muted); }
+  .actions { display:flex; gap:0.6rem; margin-top:0.5rem; }
+  .actions button { font-family:inherit; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em;
+    padding:0.45rem 0.9rem; cursor:pointer; border:none; border-radius:99px; }
+  .btn-rev { background:var(--accent-2); color:var(--paper); }
+  .btn-del { background:var(--accent); color:var(--paper); }
+  .empty,.loading { text-align:center; color:var(--muted); padding:3rem 1rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">&larr; Back to the Archive</a>
+  <h1>Suggestion <em>Queue</em></h1>
+  <p class="sub" id="sub">Loading&hellip;</p>
+
+  <div class="filterbar">
+    <span>Show:</span>
+    <button data-f="pending" class="active">Pending</button>
+    <button data-f="reviewed">Reviewed</button>
+    <button data-f="all">All</button>
+  </div>
+
+  <div id="list"><div class="loading">Loading suggestions&hellip;</div></div>
+</div>
+
+<script>
+let all = [], filter = "pending";
+
+async function load() {
+  try {
+    const res = await fetch("/api/suggestions");
+    const data = await res.json();
+    if (!data.ok) throw new Error();
+    all = data.suggestions;
+    render();
+  } catch (e) {
+    document.getElementById("list").innerHTML =
+      '<div class="empty">Could not load suggestions. (If this page loaded but data didn\'t, check that the D1 binding and Access policy are set up.)</div>';
+    document.getElementById("sub").textContent = "";
+  }
+}
+
+function esc(s){ return (s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+function spec(label, v, unit){ return v ? `<span><b>${label}:</b> ${esc(v)}${unit||""}</span>` : ""; }
+
+function render() {
+  const rows = all.filter(s => filter === "all" ? true : s.status === filter);
+  const pending = all.filter(s => s.status === "pending").length;
+  document.getElementById("sub").textContent =
+    `${all.length} total \u00b7 ${pending} pending review`;
+
+  if (!rows.length) { document.getElementById("list").innerHTML = '<div class="empty">Nothing here.</div>'; return; }
+
+  document.getElementById("list").innerHTML = rows.map(s => `
+    <div class="card ${s.status}">
+      <h3>${esc(s.headphone)} <span class="pill ${s.status}">${s.status}</span></h3>
+      <div class="specs">
+        ${spec("Driver", s.driver_size_mm, " mm")}
+        ${spec("Impedance", s.impedance_ohms, " \u03A9")}
+        ${spec("Sensitivity", s.sensitivity_db, " dB")}
+        ${spec("Connector", s.connector)}
+        ${spec("Detachable", s.detachable)}
+        ${spec("Weight", s.weight_g, " g")}
+      </div>
+      ${s.notes ? `<div class="notes">${esc(s.notes)}</div>` : ""}
+      <div class="meta">
+        Source: <a href="${esc(s.source)}" target="_blank" rel="noopener">${esc(s.source)}</a><br>
+        ${s.submitter ? "By " + esc(s.submitter) + " \u00b7 " : ""}${esc(s.created_at)}
+      </div>
+      <div class="actions">
+        ${s.status === "pending" ? `<button class="btn-rev" onclick="act(${s.id},'reviewed')">Mark reviewed</button>` : ""}
+        <button class="btn-del" onclick="act(${s.id},'delete')">Delete</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+async function act(id, action) {
+  if (action === "delete" && !confirm("Delete this suggestion permanently?")) return;
+  try {
+    const res = await fetch("/api/suggestions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, action })
+    });
+    const data = await res.json();
+    if (!data.ok) throw new Error();
+    if (action === "delete") all = all.filter(s => s.id !== id);
+    else all = all.map(s => s.id === id ? { ...s, status: "reviewed" } : s);
+    render();
+  } catch (e) { alert("Action failed. Try again."); }
+}
+
+document.querySelectorAll(".filterbar button").forEach(b =>
+  b.addEventListener("click", () => {
+    document.querySelectorAll(".filterbar button").forEach(x => x.classList.remove("active"));
+    b.classList.add("active");
+    filter = b.dataset.f;
+    render();
+  }));
+
+load();
+</script>
+</body>
+</html>
