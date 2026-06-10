@@ -54,6 +54,9 @@ CREATE TABLE IF NOT EXISTS products (
     category            TEXT,
     design              TEXT,
     driver_type         TEXT,
+    driver_size_mm      TEXT,
+    impedance_ohms      TEXT,
+    sensitivity_db      TEXT,
     wireless            TEXT    CHECK(wireless IN ('Yes','No')),
     anc                 TEXT    CHECK(anc IN ('Yes','No')),
     predecessor         TEXT    REFERENCES products(product_id),
@@ -178,8 +181,9 @@ def load_products(conn, rows, verbose):
                 product_id, family_id, manufacturer_id,
                 model_name, full_name, release_year, discontinued_year,
                 status, category, design, driver_type,
+                driver_size_mm, impedance_ohms, sensitivity_db,
                 wireless, anc, predecessor, successor, notes
-            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
             ON CONFLICT(product_id) DO UPDATE SET
                 family_id=excluded.family_id,
                 manufacturer_id=excluded.manufacturer_id,
@@ -191,6 +195,9 @@ def load_products(conn, rows, verbose):
                 category=excluded.category,
                 design=excluded.design,
                 driver_type=excluded.driver_type,
+                driver_size_mm=excluded.driver_size_mm,
+                impedance_ohms=excluded.impedance_ohms,
+                sensitivity_db=excluded.sensitivity_db,
                 wireless=excluded.wireless,
                 anc=excluded.anc,
                 predecessor=excluded.predecessor,
@@ -208,6 +215,9 @@ def load_products(conn, rows, verbose):
             coerce_str(r.get("category")),
             coerce_str(r.get("design")),
             coerce_str(r.get("driver_type")),
+            coerce_str(r.get("driver_size_mm")),
+            coerce_str(r.get("impedance_ohms")),
+            coerce_str(r.get("sensitivity_db")),
             coerce_str(r.get("wireless")),
             coerce_str(r.get("anc")),
             coerce_str(r.get("predecessor")),

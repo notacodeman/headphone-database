@@ -268,9 +268,11 @@ for i, (mfr, fname, ftype) in enumerate(families_raw, start=1):
 # ---------------------------------------------------------------------------
 P = []
 def add(pid, mfr, fam, model, full, year, status, design, driver, wireless, anc,
-        pred="", succ="", notes="", disc="", category="Headphone"):
+        pred="", succ="", notes="", disc="", category="Headphone",
+        driver_size="", impedance="", sensitivity=""):
     P.append([pid, mfr, fam, model, full, year, disc, status, category,
-              design, driver, wireless, anc, pred, succ, notes])
+              design, driver, driver_size, impedance, sensitivity,
+              wireless, anc, pred, succ, notes])
 
 # ---- Sony ----
 add("SONY_MDR1R","Sony","MDR","MDR-1R","Sony MDR-1R",2012,"Discontinued","Closed Back","Dynamic","No","No",succ="SONY_MDR1A",notes="Premium closed-back")
@@ -1105,11 +1107,12 @@ add("GRADO_S550","Grado","Statement","Signature S550","Grado Signature S550",202
 products = []
 lineage_pairs = set()
 for row in P:
-    pid, mfr, fam, model, full, year, disc, status, cat, design, driver, wl, anc, pred, succ, notes = row
+    (pid, mfr, fam, model, full, year, disc, status, cat, design, driver,
+     dsize, imp, sens, wl, anc, pred, succ, notes) = row
     fid = fam_id.get((mfr, fam), "")
     mid = mfr_id[mfr]
     products.append([pid, fid, mid, model, full, year, disc, status, cat,
-                     design, driver, wl, anc, pred, succ, notes])
+                     design, driver, dsize, imp, sens, wl, anc, pred, succ, notes])
     if pred:
         lineage_pairs.add((pred, pid))
     if succ:
@@ -1130,7 +1133,8 @@ with open(OUT / "products.csv", "w", newline="", encoding="utf-8") as f:
     w = csv.writer(f)
     w.writerow(["product_id","family_id","manufacturer_id","model_name","full_name",
                 "release_year","discontinued_year","status","category","design",
-                "driver_type","wireless","anc","predecessor","successor","notes"])
+                "driver_type","driver_size_mm","impedance_ohms","sensitivity_db",
+                "wireless","anc","predecessor","successor","notes"])
     w.writerows(products)
 
 lineage = sorted(lineage_pairs, key=lambda x: (x[1], x[0]))

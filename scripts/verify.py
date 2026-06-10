@@ -41,6 +41,7 @@ CREATE TABLE products (
     product_id TEXT PRIMARY KEY, family_id INTEGER, manufacturer_id INTEGER,
     model_name TEXT, full_name TEXT, release_year INTEGER, discontinued_year INTEGER,
     status TEXT, category TEXT, design TEXT, driver_type TEXT,
+    driver_size_mm TEXT, impedance_ohms TEXT, sensitivity_db TEXT,
     wireless TEXT, anc TEXT, predecessor TEXT, successor TEXT, notes TEXT
 );
 CREATE TABLE lineage (lineage_id INTEGER PRIMARY KEY, predecessor_product_id TEXT, successor_product_id TEXT);

@@ -77,7 +77,7 @@
   .controls {
     max-width: 1300px;
     margin: 0 auto;
-    padding: 1.5rem 2rem;
+    padding: 1.5rem 2rem 0.5rem;
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
     gap: 0.75rem;
@@ -112,15 +112,52 @@
     color: var(--muted);
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    padding: 0.5rem 0 1rem;
+    padding: 1rem 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
   }
-  .sortbtn {
+  .meta-actions { display: flex; gap: 1.25rem; align-items: center; }
+  .linkbtn {
     background: none; border: none; font-family: inherit; cursor: pointer;
     color: var(--accent-2); font-size: 0.75rem; text-transform: uppercase;
     letter-spacing: 0.1em; text-decoration: underline; text-underline-offset: 3px;
+    padding: 0;
+  }
+  .linkbtn:hover { color: var(--accent); }
+
+  /* Columns panel */
+  .colpanel {
+    position: relative;
+    display: inline-block;
+  }
+  .colmenu {
+    position: absolute;
+    right: 0;
+    top: 1.8rem;
+    z-index: 20;
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    box-shadow: 4px 4px 0 rgba(26,23,20,0.12);
+    padding: 0.85rem 1rem;
+    min-width: 220px;
+    display: none;
+  }
+  .colmenu.open { display: block; }
+  .colmenu h4 {
+    font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--muted); margin-bottom: 0.6rem; font-weight: 600;
+  }
+  .colmenu label {
+    display: flex; align-items: center; gap: 0.55rem;
+    font-size: 0.82rem; padding: 0.28rem 0; cursor: pointer;
+    text-transform: none; letter-spacing: 0; color: var(--ink);
+  }
+  .colmenu input[type=checkbox] {
+    width: auto; margin: 0; accent-color: var(--accent);
+    border-radius: 0; cursor: pointer;
   }
 
   table { width: 100%; border-collapse: collapse; }
@@ -145,10 +182,11 @@
   tbody tr:hover { background: var(--paper-2); }
   tbody td { padding: 0.7rem 0.6rem; font-size: 0.86rem; vertical-align: top; }
 
-  .model { font-weight: 600; }
-  .model-name { font-family: 'Fraunces', serif; font-size: 1.02rem; }
+  .model-name { font-family: 'Fraunces', serif; font-size: 1.02rem; font-weight: 600; }
   .brand { color: var(--accent-2); font-weight: 500; }
   .year { font-variant-numeric: tabular-nums; }
+  .spec { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .spec.empty { color: var(--line); }
   .notes { color: var(--muted); font-size: 0.78rem; max-width: 280px; }
 
   .tag {
@@ -228,7 +266,16 @@
 <main>
   <div class="resultmeta">
     <span id="count"></span>
-    <button class="sortbtn" id="reset">Reset filters</button>
+    <span class="meta-actions">
+      <span class="colpanel">
+        <button class="linkbtn" id="coltoggle">Columns &#9662;</button>
+        <div class="colmenu" id="colmenu">
+          <h4>Show columns</h4>
+          <div id="colboxes"></div>
+        </div>
+      </span>
+      <button class="linkbtn" id="reset">Reset filters</button>
+    </span>
   </div>
   <div id="tablewrap">
     <div class="loading">Fetching the archive</div>
@@ -241,24 +288,45 @@
 </footer>
 
 <script>
-// ============================================================
-// CONFIG — point this at your GitHub raw CSV location.
-// ============================================================
 const RAW_BASE = "https://raw.githubusercontent.com/notacodeman/headphone-database/main/database";
 
-const state = { rows: [], filtered: [], sortKey: "release_year", sortDir: "descending" };
+// Column definitions. `on` is the default visibility.
+const COLS = [
+  { key: "_brand",         label: "Brand",       on: true,  sortable: true },
+  { key: "model_name",     label: "Model",       on: true,  sortable: true },
+  { key: "release_year",   label: "Year",        on: true,  sortable: true },
+  { key: "design",         label: "Design",      on: true,  sortable: true },
+  { key: "driver_type",    label: "Driver",      on: true,  sortable: true },
+  { key: "driver_size_mm", label: "Driver Size", on: true,  sortable: true },
+  { key: "impedance_ohms", label: "Impedance",   on: true,  sortable: true },
+  { key: "sensitivity_db", label: "Sensitivity", on: false, sortable: true },
+  { key: "status",         label: "Status",      on: true,  sortable: true },
+  { key: "_flags",         label: "Wireless/ANC",on: true,  sortable: false },
+  { key: "notes",          label: "Notes",       on: false, sortable: false }
+];
 
-// --- tiny CSV parser (handles quoted fields, commas, CRLF) ---
+const state = { rows: [], filtered: [], sortKey: "release_year", sortDir: "descending", visible: {} };
+
+// Load saved column prefs (works on the live site; falls back to defaults if unavailable)
+function loadColPrefs() {
+  COLS.forEach(c => state.visible[c.key] = c.on);
+  try {
+    const saved = JSON.parse(localStorage.getItem("archive_cols") || "null");
+    if (saved) COLS.forEach(c => { if (c.key in saved) state.visible[c.key] = !!saved[c.key]; });
+  } catch (e) {}
+}
+function saveColPrefs() {
+  try { localStorage.setItem("archive_cols", JSON.stringify(state.visible)); } catch (e) {}
+}
+
 function parseCSV(text) {
   const rows = [];
   let row = [], field = "", inQuotes = false;
   for (let i = 0; i < text.length; i++) {
     const c = text[i];
     if (inQuotes) {
-      if (c === '"') {
-        if (text[i+1] === '"') { field += '"'; i++; }
-        else inQuotes = false;
-      } else field += c;
+      if (c === '"') { if (text[i+1] === '"') { field += '"'; i++; } else inQuotes = false; }
+      else field += c;
     } else {
       if (c === '"') inQuotes = true;
       else if (c === ',') { row.push(field); field = ""; }
@@ -270,9 +338,7 @@ function parseCSV(text) {
   if (field.length || row.length) { row.push(field); rows.push(row); }
   const header = rows.shift();
   return rows.filter(r => r.length > 1).map(r => {
-    const o = {};
-    header.forEach((h, i) => o[h.trim()] = (r[i] || "").trim());
-    return o;
+    const o = {}; header.forEach((h, i) => o[h.trim()] = (r[i] || "").trim()); return o;
   });
 }
 
@@ -290,6 +356,7 @@ async function load() {
     products.forEach(p => p._brand = mfrName[p.manufacturer_id] || "Unknown");
     state.rows = products;
     initFilters();
+    buildColMenu();
     apply();
     document.getElementById("source").innerHTML =
       'Source: <a href="https://github.com/notacodeman/headphone-database">github.com/notacodeman/headphone-database</a>';
@@ -327,6 +394,30 @@ function initFilters() {
     ["q","brand","design","driver","status"].forEach(id => document.getElementById(id).value = "");
     apply();
   });
+
+  // Columns menu open/close
+  const toggle = document.getElementById("coltoggle");
+  const menu = document.getElementById("colmenu");
+  toggle.addEventListener("click", (e) => { e.stopPropagation(); menu.classList.toggle("open"); });
+  document.addEventListener("click", (e) => {
+    if (!menu.contains(e.target) && e.target !== toggle) menu.classList.remove("open");
+  });
+}
+
+function buildColMenu() {
+  const wrap = document.getElementById("colboxes");
+  wrap.innerHTML = "";
+  COLS.forEach(c => {
+    const id = "col_" + c.key;
+    const lab = document.createElement("label");
+    lab.innerHTML = `<input type="checkbox" id="${id}" ${state.visible[c.key] ? "checked" : ""}> ${c.label}`;
+    wrap.appendChild(lab);
+    lab.querySelector("input").addEventListener("change", (e) => {
+      state.visible[c.key] = e.target.checked;
+      saveColPrefs();
+      render();
+    });
+  });
 }
 
 function apply() {
@@ -353,24 +444,41 @@ function apply() {
 
 function sortRows() {
   const k = state.sortKey, dir = state.sortDir === "ascending" ? 1 : -1;
+  const numeric = ["release_year","driver_size_mm","impedance_ohms","sensitivity_db"];
   state.filtered.sort((a, b) => {
     let va = a[k], vb = b[k];
-    if (k === "release_year") { va = +va || 0; vb = +vb || 0; }
-    else { va = (va||"").toLowerCase(); vb = (vb||"").toLowerCase(); }
+    if (numeric.includes(k)) {
+      va = parseFloat(va) || 0; vb = parseFloat(vb) || 0;
+    } else { va = (va||"").toLowerCase(); vb = (vb||"").toLowerCase(); }
     return va < vb ? -dir : va > vb ? dir : 0;
   });
 }
 
-const COLS = [
-  { key: "_brand", label: "Brand" },
-  { key: "model_name", label: "Model" },
-  { key: "release_year", label: "Year" },
-  { key: "design", label: "Design" },
-  { key: "driver_type", label: "Driver" },
-  { key: "status", label: "Status" },
-  { key: "_flags", label: "Wireless/ANC" },
-  { key: "notes", label: "Notes" }
-];
+function cellValue(r, key) {
+  if (key === "_brand") return `<span class="brand">${esc(r._brand)}</span>`;
+  if (key === "model_name") return `<span class="model-name">${esc(r.model_name)}</span>`;
+  if (key === "release_year") return `<span class="year">${esc(r.release_year)}${r.discontinued_year ? "&ndash;" + esc(r.discontinued_year) : ""}</span>`;
+  if (key === "status") {
+    const cls = /disc/i.test(r.status) ? "disc" : "active";
+    return `<span class="tag ${cls}">${esc(r.status)}</span>`;
+  }
+  if (key === "driver_size_mm") return specCell(r.driver_size_mm, "mm");
+  if (key === "impedance_ohms") return specCell(r.impedance_ohms, "\u03A9");
+  if (key === "sensitivity_db") return specCell(r.sensitivity_db, "dB");
+  if (key === "_flags") {
+    const f = [];
+    if (r.wireless === "Yes") f.push("WL");
+    if (r.anc === "Yes") f.push("ANC");
+    return `<span class="flags">${f.join(" \u00b7 ") || "&mdash;"}</span>`;
+  }
+  if (key === "notes") return `<span class="notes">${esc(r.notes)}</span>`;
+  return esc(r[key]);
+}
+
+function specCell(val, unit) {
+  if (!val) return '<span class="spec empty">&mdash;</span>';
+  return `<span class="spec">${esc(val)}\u200a${unit}</span>`;
+}
 
 function render() {
   document.getElementById("count").textContent =
@@ -379,34 +487,23 @@ function render() {
     document.getElementById("tablewrap").innerHTML = '<div class="empty">No headphones match those filters.</div>';
     return;
   }
+  const cols = COLS.filter(c => state.visible[c.key]);
   let html = "<table><thead><tr>";
-  COLS.forEach(c => {
-    const sortAttr = state.sortKey === c.key ? ` aria-sort="${state.sortDir}"` : (c.key !== "_flags" && c.key !== "notes" ? ' aria-sort="none"' : "");
+  cols.forEach(c => {
+    const sortAttr = c.sortable ? (state.sortKey === c.key ? ` aria-sort="${state.sortDir}"` : ' aria-sort="none"') : "";
     html += `<th data-key="${c.key}"${sortAttr}><span>${c.label}</span></th>`;
   });
   html += "</tr></thead><tbody>";
   state.filtered.forEach(r => {
-    const flags = [];
-    if (r.wireless === "Yes") flags.push("WL");
-    if (r.anc === "Yes") flags.push("ANC");
-    const statusClass = /disc/i.test(r.status) ? "disc" : "active";
-    html += `<tr>
-      <td class="brand">${esc(r._brand)}</td>
-      <td class="model"><span class="model-name">${esc(r.model_name)}</span></td>
-      <td class="year">${esc(r.release_year)}${r.discontinued_year ? "&ndash;" + esc(r.discontinued_year) : ""}</td>
-      <td>${esc(r.design)}</td>
-      <td>${esc(r.driver_type)}</td>
-      <td><span class="tag ${statusClass}">${esc(r.status)}</span></td>
-      <td class="flags">${flags.join(" \u00b7 ") || "&mdash;"}</td>
-      <td class="notes">${esc(r.notes)}</td>
-    </tr>`;
+    html += "<tr>" + cols.map(c => `<td>${cellValue(r, c.key)}</td>`).join("") + "</tr>";
   });
   html += "</tbody></table>";
   document.getElementById("tablewrap").innerHTML = html;
 
   document.querySelectorAll("th[data-key]").forEach(th => {
     const key = th.getAttribute("data-key");
-    if (key === "_flags" || key === "notes") return;
+    const col = COLS.find(c => c.key === key);
+    if (!col || !col.sortable) return;
     th.addEventListener("click", () => {
       if (state.sortKey === key) state.sortDir = state.sortDir === "ascending" ? "descending" : "ascending";
       else { state.sortKey = key; state.sortDir = "ascending"; }
@@ -419,6 +516,7 @@ function esc(s) {
   return (s || "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 }
 
+loadColPrefs();
 load();
 </script>
 </body>
