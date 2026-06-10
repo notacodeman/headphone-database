@@ -59,7 +59,10 @@
   .card { background:var(--card); border:1px solid var(--ink); border-radius:12px; box-shadow:0 10px 30px -14px rgba(26,23,20,0.45); overflow-x:auto; }
   table { border-collapse:collapse; table-layout:fixed; }
   thead th { position:relative; text-align:left; font-size:0.6rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted);
-    padding:0.7rem 0.6rem; border-bottom:2px solid var(--ink); background:var(--card); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    padding:0.7rem 1.6rem 0.7rem 0.6rem; border-bottom:2px solid var(--ink); background:var(--card); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; cursor:pointer; user-select:none; }
+  thead th:hover { color:var(--ink); }
+  thead th[aria-sort="ascending"]::after  { content:" \u2191"; color:var(--accent); font-size:0.7rem; }
+  thead th[aria-sort="descending"]::after { content:" \u2193"; color:var(--accent); font-size:0.7rem; }
   .resizer { position:absolute; top:0; right:0; width:9px; height:100%; cursor:col-resize; user-select:none; }
   .resizer::before { content:""; position:absolute; right:3px; top:25%; height:50%; width:1px; background:var(--line); }
   .resizer:hover::before { right:3px; top:0; height:100%; width:2px; background:var(--accent); }
@@ -177,6 +180,22 @@
 
 <script>
 let all = [], mfrs = [], editingId = null, suggs = [], pendingSuggId = null, onlySuggestions = false;
+let sortKey = null, sortDir = "ascending";
+const NUMERIC = ["release_year","discontinued_year","driver_size_mm","impedance_ohms","sensitivity_db"];
+function sortRows(rows) {
+  if (!sortKey) return rows;
+  const num = NUMERIC.includes(sortKey);
+  const dir = sortDir === "ascending" ? 1 : -1;
+  return rows.slice().sort((a,b) => {
+    let av = a[sortKey], bv = b[sortKey];
+    if (num) {
+      av = av === "" || av == null ? -Infinity : parseFloat(av);
+      bv = bv === "" || bv == null ? -Infinity : parseFloat(bv);
+      return (av - bv) * dir;
+    }
+    return String(av||"").localeCompare(String(bv||""), undefined, {numeric:true}) * dir;
+  });
+}
 const FIELDS = ["product_id","manufacturer_id","model_name","full_name","release_year","discontinued_year","status","category","design","driver_type","driver_size_mm","impedance_ohms","sensitivity_db","wireless","anc","predecessor","successor","notes"];
 
 // Columns shown in the list (all of them), with default widths in px.
@@ -300,10 +319,11 @@ function render() {
   card.style.display = "";
 
   const q = document.getElementById("q").value.toLowerCase();
-  const rows = all.filter(p => !q || (`${p._brand} ${p.model_name} ${p.full_name} ${p.notes}`||"").toLowerCase().includes(q));
+  let rows = all.filter(p => !q || (`${p._brand} ${p.model_name} ${p.full_name} ${p.notes}`||"").toLowerCase().includes(q));
+  rows = sortRows(rows);
   const sCount = suggs.length;
   document.getElementById("sub").textContent =
-    `${all.length} headphones${sCount?` \u00b7 ${sCount} pending suggestion${sCount===1?"":"s"} above`:""}${q?` \u00b7 ${rows.length} shown`:""} \u00b7 click a row to edit`;
+    `${all.length} headphones${sCount?` \u00b7 ${sCount} pending suggestion${sCount===1?"":"s"} above`:""}${q?` \u00b7 ${rows.length} shown`:""} \u00b7 click a header to sort, a row to edit`;
 
   const cols = visibleCols();
   const total = cols.reduce((s,c)=>s+colW[c.key],0);
@@ -312,7 +332,8 @@ function render() {
 
   let html = `<table style="width:${total}px"><thead><tr>`;
   cols.forEach(c => {
-    html += `<th data-key="${c.key}" style="width:${colW[c.key]}px"><span>${esc(c.label)}</span><span class="resizer" data-key="${c.key}"></span></th>`;
+    const sa = sortKey === c.key ? ` aria-sort="${sortDir}"` : ' aria-sort="none"';
+    html += `<th data-key="${c.key}" style="width:${colW[c.key]}px"${sa}><span>${esc(c.label)}</span><span class="resizer" data-key="${c.key}"></span></th>`;
   });
   html += `</tr></thead><tbody>`;
   rows.forEach(p => {
@@ -325,6 +346,17 @@ function render() {
 
   document.querySelectorAll("tbody tr[data-id]").forEach(tr => {
     tr.addEventListener("click", () => openEdit(tr.getAttribute("data-id")));
+  });
+  document.querySelectorAll("th[data-key]").forEach(th => {
+    const key = th.getAttribute("data-key");
+    th.setAttribute("tabindex", "0");
+    const doSort = () => {
+      if (sortKey === key) sortDir = sortDir === "ascending" ? "descending" : "ascending";
+      else { sortKey = key; sortDir = "ascending"; }
+      render();
+    };
+    th.addEventListener("click", (e) => { if (e.target.closest(".resizer")) return; doSort(); });
+    th.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); doSort(); } });
   });
   document.querySelectorAll(".resizer").forEach(rz => {
     rz.addEventListener("mousedown", startResize);

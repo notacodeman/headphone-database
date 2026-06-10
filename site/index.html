@@ -665,7 +665,7 @@ function render() {
       else { state.sortKey = key; state.sortDir = "ascending"; }
       sortRows(); render();
     };
-    th.addEventListener("click", (e) => { if (e.target.classList.contains("resizer")) return; doSort(); });
+    th.addEventListener("click", (e) => { if (e.target.closest(".resizer")) return; doSort(); });
     th.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); doSort(); } });
   });
 }
