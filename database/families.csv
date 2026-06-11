@@ -158,3 +158,17 @@ family_id,manufacturer_id,family_name,family_type
 157,63,X-Series,Studio
 158,53,Wireless,Headphone
 159,53,On-Ear,Headphone
+160,64,Monolith,Headphone
+161,65,HD,Studio
+162,66,SR,Studio
+163,67,CB,Studio
+164,67,BT,Headphone
+165,68,Evolve2,Headphone
+166,69,FLY,Headphone
+167,69,SOHO,Headphone
+168,70,PM,Headphone
+169,71,Aurvana,Headphone
+170,72,NTH,Studio
+171,73,Heritage,Headphone
+172,73,Reference,Headphone
+173,74,Ribbon,Headphone

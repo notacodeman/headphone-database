@@ -78,6 +78,21 @@ manufacturers = [
     (61, "HEDD Audio",       "Germany",     "https://hedd.audio",              "Active"),
     (62, "Grell Audio",      "Germany",     "https://grell-audio.com",         "Active"),
     (63, "Ollo Audio",       "Slovenia",    "https://www.olloaudio.com",       "Active"),
+    # New brands — value / budget
+    (64, "Monoprice",       "USA",         "https://www.monoprice.com",       "Active"),
+    (65, "Superlux",        "Taiwan",      "https://www.superlux.com",        "Active"),
+    (66, "Samson",          "USA",         "https://samsontech.com",          "Active"),
+    (67, "Status Audio",    "USA",         "https://status.co",               "Active"),
+    # Office / professional
+    (68, "Jabra",           "Denmark",     "https://www.jabra.com",           "Active"),
+    # Consumer premium
+    (69, "Harman Kardon",  "USA",         "https://www.harmankardon.com",    "Active"),
+    # New brands from OPRA cross-reference
+    (70, "Oppo",           "USA",         "https://www.oppodigital.com",     "Discontinued"),
+    (71, "Creative",       "Singapore",   "https://us.creative.com",         "Active"),
+    (72, "Rode",           "Australia",   "https://rode.com",                "Active"),
+    (73, "Klipsch",        "USA",         "https://www.klipsch.com",         "Active"),
+    (74, "RAAL",           "USA",         "https://raalrequisite.com",       "Active"),
 ]
 mfr_id = {name: i for i, name, *_ in manufacturers}
 
@@ -254,6 +269,21 @@ families_raw = [
     ("Ollo Audio", "X-Series", "Studio"),
     ("Moondrop", "Wireless", "Headphone"),
     ("Moondrop", "On-Ear", "Headphone"),
+    # New brands
+    ("Monoprice", "Monolith", "Headphone"),
+    ("Superlux", "HD", "Studio"),
+    ("Samson", "SR", "Studio"),
+    ("Status Audio", "CB", "Studio"),
+    ("Status Audio", "BT", "Headphone"),
+    ("Jabra", "Evolve2", "Headphone"),
+    ("Harman Kardon", "FLY", "Headphone"),
+    ("Harman Kardon", "SOHO", "Headphone"),
+    ("Oppo", "PM", "Headphone"),
+    ("Creative", "Aurvana", "Headphone"),
+    ("Rode", "NTH", "Studio"),
+    ("Klipsch", "Heritage", "Headphone"),
+    ("Klipsch", "Reference", "Headphone"),
+    ("RAAL", "Ribbon", "Headphone"),
 ]
 families = []
 fam_id = {}
@@ -1104,6 +1134,155 @@ add("SENN_HD480PRO","Sennheiser","HD 200-series","HD 480 Pro","Sennheiser HD 480
 # ---- Grado: 2026 Signature ----
 add("GRADO_S550","Grado","Statement","Signature S550","Grado Signature S550",2026,"Active","Open Back","Dynamic","No","No",notes="Debuted CanJam NYC 2026")
 
+# ---- Sennheiser: HD 490 Pro ----
+add("SENN_HD490PRO","Sennheiser","HD","HD 490 PRO","Sennheiser HD 490 PRO",2024,"Active","Open Back","Dynamic","No","No",category="Studio",notes="Open-frame architecture; two swappable pad sets for mixing vs producing")
+
+# ---- AKG: K872, K175, K275 ----
+add("AKG_K872","AKG","K","K872","AKG K872",2016,"Active","Closed Back","Dynamic","No","No",category="Studio",notes="Flagship closed-back; 53mm 1.5 Tesla drivers")
+add("AKG_K175","AKG","K","K175","AKG K175",2018,"Active","Closed Back","Dynamic","No","No",category="Studio",notes="On-ear foldable; road-tough design")
+add("AKG_K275","AKG","K","K275","AKG K275",2018,"Active","Closed Back","Dynamic","No","No",category="Studio",notes="Over-ear foldable version of K175")
+
+# ---- Monoprice Monolith ----
+add("MONO_M1060","Monoprice","Monolith","M1060","Monoprice Monolith M1060",2017,"Discontinued","Open Back","Planar Magnetic","No","No",notes="Budget planar flagship; 106mm driver")
+add("MONO_M1060C","Monoprice","Monolith","M1060C","Monoprice Monolith M1060C",2018,"Discontinued","Closed Back","Planar Magnetic","No","No",notes="Closed-back variant of M1060")
+add("MONO_M1070","Monoprice","Monolith","M1070","Monoprice Monolith M1070",2019,"Active","Open Back","Planar Magnetic","No","No",succ="",notes="Updated M1060; 106mm driver, removable cable")
+add("MONO_M570","Monoprice","Monolith","M570","Monoprice Monolith M570",2019,"Active","Open Back","Planar Magnetic","No","No",notes="Mid-range planar; zebra wood cups")
+add("MONO_M650","Monoprice","Monolith","M650","Monoprice Monolith M650",2018,"Active","Open Back","Dynamic","No","No",notes="Budget open-back dynamic")
+add("MONO_M1570","Monoprice","Monolith","M1570","Monoprice Monolith M1570",2020,"Active","Open Back","Planar Magnetic","No","No",notes="Flagship planar; angled drivers")
+
+# ---- Superlux ----
+add("SUPERLUX_HD668B","Superlux","HD","HD668B","Superlux HD668B",2010,"Active","Semi-Open","Dynamic","No","No",category="Studio",notes="Budget studio icon; semi-open semi-AKG design")
+add("SUPERLUX_HD681","Superlux","HD","HD681","Superlux HD681",2008,"Active","Semi-Open","Dynamic","No","No",category="Studio",notes="Entry-level semi-open; popular for gaming and monitoring")
+add("SUPERLUX_HD681EVO","Superlux","HD","HD681 EVO","Superlux HD681 EVO",2014,"Active","Semi-Open","Dynamic","No","No",category="Studio",notes="Revised HD681 with velour pads")
+add("SUPERLUX_HD669","Superlux","HD","HD669","Superlux HD669",2010,"Active","Closed Back","Dynamic","No","No",category="Studio",notes="Closed-back counterpart to HD668B")
+add("SUPERLUX_HD662EVO","Superlux","HD","HD662 EVO","Superlux HD662 EVO",2014,"Active","Closed Back","Dynamic","No","No",category="Studio",notes="Improved HD662 with better pad comfort")
+add("SUPERLUX_HD330","Superlux","HD","HD330","Superlux HD330",2013,"Active","Open Back","Dynamic","No","No",notes="Music-tuned open-back; more relaxed than studio line")
+
+# ---- Samson ----
+add("SAMSON_SR850","Samson","SR","SR850","Samson SR850",2006,"Active","Semi-Open","Dynamic","No","No",category="Studio",notes="Budget semi-open classic; self-adjusting headband")
+add("SAMSON_SR950","Samson","SR","SR950","Samson SR950",2008,"Active","Closed Back","Dynamic","No","No",category="Studio",notes="Closed-back companion to SR850")
+
+# ---- Status Audio ----
+add("STATUS_CB1","Status Audio","CB","CB-1","Status Audio CB-1",2016,"Active","Closed Back","Dynamic","No","No",notes="Unbranded studio monitor; popular value pick")
+add("STATUS_BTONE","Status Audio","BT","BT One","Status Audio BT One",2019,"Active","Closed Back","Dynamic","Yes","No",notes="Wireless on-ear; no branding; portable focus")
+
+# ---- Jabra Evolve2 (professional UC headsets) ----
+add("JABRA_E230","Jabra","Evolve2","Evolve2 30","Jabra Evolve2 30",2021,"Active","Closed Back","Dynamic","No","No",category="Headphone",notes="Wired UC stereo headset; Teams/UC certified")
+add("JABRA_E240","Jabra","Evolve2","Evolve2 40","Jabra Evolve2 40",2021,"Active","Closed Back","Dynamic","No","No",category="Headphone",notes="Wired stereo headset with USB; pro-grade mic")
+add("JABRA_E255","Jabra","Evolve2","Evolve2 55","Jabra Evolve2 55",2022,"Active","Closed Back","Dynamic","Yes","Yes",category="Headphone",notes="Wireless UC headset; ANC; Teams certified")
+add("JABRA_E265","Jabra","Evolve2","Evolve2 65","Jabra Evolve2 65",2021,"Active","Closed Back","Dynamic","Yes","No",category="Headphone",notes="Wireless UC stereo headset; no ANC")
+add("JABRA_E275","Jabra","Evolve2","Evolve2 75","Jabra Evolve2 75",2021,"Active","Closed Back","Dynamic","Yes","Yes",category="Headphone",notes="8-mic ANC wireless; leading UC headset")
+add("JABRA_E285","Jabra","Evolve2","Evolve2 85","Jabra Evolve2 85",2021,"Active","Closed Back","Dynamic","Yes","Yes",category="Headphone",notes="Flagship wireless ANC; hidden boom arm")
+
+# ---- Harman Kardon ----
+add("HK_SOHO","Harman Kardon","SOHO","SOHO","Harman Kardon SOHO",2013,"Discontinued","Closed Back","Dynamic","No","No",notes="Stylish on-ear; premium build")
+add("HK_SOHOWL","Harman Kardon","SOHO","SOHO Wireless","Harman Kardon SOHO Wireless",2014,"Discontinued","Closed Back","Dynamic","Yes","No",notes="Wireless on-ear companion to SOHO")
+add("HK_SOHOWNC","Harman Kardon","SOHO","SOHO Wireless NC","Harman Kardon SOHO Wireless NC",2017,"Discontinued","Closed Back","Dynamic","Yes","Yes",notes="SOHO with active noise cancellation")
+add("HK_FLY","Harman Kardon","FLY","FLY","Harman Kardon FLY",2019,"Discontinued","Closed Back","Dynamic","Yes","No",notes="Lightweight travel wireless")
+add("HK_FLYANC","Harman Kardon","FLY","FLY ANC","Harman Kardon FLY ANC",2020,"Active","Closed Back","Dynamic","Yes","Yes",notes="Travel wireless with ANC; 40mm drivers")
+
+# ---- Oppo PM series (discontinued 2018; respected audiophile planars) ----
+add("OPPO_PM1","Oppo","PM","PM-1","Oppo PM-1",2014,"Discontinued","Open Back","Planar Magnetic","No","No",notes="Flagship planar; 85x69mm driver; genuine leather")
+add("OPPO_PM2","Oppo","PM","PM-2","Oppo PM-2",2014,"Discontinued","Open Back","Planar Magnetic","No","No",pred="OPPO_PM1",notes="PM-1 with OFC cable, slightly lighter")
+add("OPPO_PM3","Oppo","PM","PM-3","Oppo PM-3",2014,"Discontinued","Closed Back","Planar Magnetic","No","No",notes="World's first portable closed-back planar; 55mm driver")
+
+# ---- Creative (Aurvana Live! is a budget beloved classic) ----
+add("CREATIVE_AVLIVE","Creative","Aurvana","Aurvana Live!","Creative Aurvana Live!",2010,"Discontinued","Closed Back","Dynamic","No","No",notes="Budget cult classic; biodynamic driver from Denon AH-D1001")
+add("CREATIVE_AVLIVE2","Creative","Aurvana","Aurvana Live! 2","Creative Aurvana Live! 2",2012,"Discontinued","Closed Back","Dynamic","No","No",succ="CREATIVE_SXFLAIR",pred="CREATIVE_AVLIVE")
+add("CREATIVE_SXFLAIR","Creative","Aurvana","SXFI Air","Creative SXFI Air",2019,"Active","Closed Back","Dynamic","Yes","No",notes="Super X-Fi holographic audio; built-in DAC")
+
+# ---- Rode NTH-100 (popular studio headphone) ----
+add("RODE_NTH100","Rode","NTH","NTH-100","Rode NTH-100",2022,"Active","Closed Back","Dynamic","No","No",category="Studio",notes="40mm reference closed-back; rotating earcups; detachable cable")
+
+# ---- Klipsch ----
+add("KLIPSCH_HP3","Klipsch","Heritage","Heritage HP-3","Klipsch Heritage HP-3",2017,"Active","Open Back","Dynamic","No","No",notes="Walnut or cherry wood; 52mm driver; heritage aesthetic")
+add("KLIPSCH_REFONE","Klipsch","Reference","Reference ONE","Klipsch Reference ONE",2017,"Active","Closed Back","Dynamic","No","No",notes="Oval ear design; oval-shaped 40mm driver")
+
+# ---- RAAL (ribbon driver headphones) ----
+add("RAAL_SR1A","RAAL","Ribbon","SR1a","RAAL SR1a",2019,"Active","Open Back","Ribbon","No","No",notes="True ribbon driver headphone; requires interface box; speaker-like sound")
+add("RAAL_CA1A","RAAL","Ribbon","CA1a","RAAL CA1a",2022,"Active","Open Back","Ribbon","No","No",notes="CA version of SR1a; closed-able with included attachment")
+
+# ---- Fostex RP and TH additions ----
+add("FOSTEX_T20RPMK3","Fostex","RP","T20RP Mk3","Fostex T20RP MK3",2015,"Active","Open Back","Planar Magnetic","No","No",category="Studio",notes="Open-back RP studio; modding platform")
+add("FOSTEX_T40RPMK3","Fostex","RP","T40RP Mk3","Fostex T40RP MK3",2015,"Active","Closed Back","Planar Magnetic","No","No",category="Studio",notes="Closed-back RP studio; modding platform")
+add("FOSTEX_T50RPMK3","Fostex","RP","T50RP Mk3","Fostex T50RP MK3",2015,"Active","Semi-Open","Planar Magnetic","No","No",category="Studio",notes="The original headphone modding platform; RP driver")
+add("FOSTEX_T50RPMK4","Fostex","RP","T50RP Mk4","Fostex T50RP MK4",2022,"Active","Semi-Open","Planar Magnetic","No","No",category="Studio",pred="FOSTEX_T50RPMK3",notes="Updated RP driver; detachable cable added")
+add("FOSTEX_T60RP","Fostex","RP","T60RP","Fostex T60RP",2018,"Active","Semi-Open","Planar Magnetic","No","No",category="Studio",notes="Top of the RP studio line")
+add("FOSTEX_THXOO","Fostex","TH","TH-X00","Fostex TH-X00",2015,"Discontinued","Closed Back","Dynamic","No","No",notes="Massdrop collab; biodynamic 50mm; mahogany/purpleheart/ebony variants")
+add("FOSTEX_TH600","Fostex","TH","TH600","Fostex TH600",2012,"Discontinued","Closed Back","Dynamic","No","No",notes="Mid-tier lacquer closed-back; predecessor to TH900")
+add("FOSTEX_TH500RP","Fostex","TH","TH500RP","Fostex TH500RP",2014,"Discontinued","Open Back","Planar Magnetic","No","No",notes="Open planar from Fostex; RP driver in TH chassis")
+
+# ---- Yamaha additions ----
+add("YAMAHA_YH5000SE","Yamaha","YH","YH-5000SE","Yamaha YH-5000SE",2022,"Active","Open Back","Planar Magnetic","No","No",notes="Flagship orthodynamic; made in Japan; 5Hz-70kHz")
+add("YAMAHA_YH4000","Yamaha","YH","YH-4000","Yamaha YH-4000",2024,"Active","Open Back","Planar Magnetic","No","No",notes="Open orthodynamic; step below YH-5000SE")
+add("YAMAHA_HPHMT220","Yamaha","HPH","HPH-MT220","Yamaha HPH-MT220",2016,"Active","Closed Back","Dynamic","No","No",category="Studio",notes="Studio closed-back; flat reference tuning")
+
+# ---- Sony additions ----
+add("SONY_INZONEH3","Sony","INZONE","INZONE H3","Sony INZONE H3",2022,"Active","Closed Back","Dynamic","No","No",category="Gaming",notes="Wired gaming headset; 40mm drivers")
+add("SONY_INZONEH7","Sony","INZONE","INZONE H7","Sony INZONE H7",2022,"Active","Closed Back","Dynamic","Yes","No",category="Gaming",notes="Wireless gaming; no ANC")
+add("SONY_INZONEH9","Sony","INZONE","INZONE H9","Sony INZONE H9",2022,"Active","Closed Back","Dynamic","Yes","Yes",category="Gaming",notes="Wireless gaming with ANC; flagship INZONE")
+add("SONY_MDR7520","Sony","MDR","MDR-7520","Sony MDR-7520",2011,"Discontinued","Closed Back","Dynamic","No","No",category="Studio",notes="Pro studio closed-back; 50mm driver")
+
+# ---- Audeze additions ----
+add("AUDEZE_EL8O","Audeze","EL-8","EL-8 Open","Audeze EL-8 Open",2015,"Discontinued","Open Back","Planar Magnetic","No","No",notes="Entry-level Audeze planar; thin-film driver")
+add("AUDEZE_EL8C","Audeze","EL-8","EL-8 Closed","Audeze EL-8 Closed",2015,"Discontinued","Closed Back","Planar Magnetic","No","No",notes="Closed-back entry Audeze")
+add("AUDEZE_LCDMX4","Audeze","LCD","LCD-MX4","Audeze LCD-MX4",2017,"Active","Open Back","Planar Magnetic","No","No",notes="High efficiency 106mm planar; 1.5 Tesla Fluxor magnets")
+add("AUDEZE_MOBIUS","Audeze","Gaming","Mobius","Audeze Mobius",2018,"Active","Closed Back","Planar Magnetic","Yes","Yes",category="Gaming",notes="3D planar gaming headset; head tracking; Waves Nx audio")
+
+# ---- Beyerdynamic additions ----
+add("BEYER_DT1350","Beyerdynamic","DT","DT 1350","Beyerdynamic DT 1350",2011,"Active","Closed Back","Dynamic","No","No",notes="Premium on-ear; Tesla driver; high isolation")
+add("BEYER_DT177XGO","Beyerdynamic","DT","DT 177X Go","Beyerdynamic DT 177X Go",2020,"Active","Closed Back","Dynamic","No","No",notes="Drop + Beyerdynamic collab; DT 1770 driver; 250Ω")
+add("BEYER_DT250","Beyerdynamic","DT","DT 250","Beyerdynamic DT 250",1998,"Active","Closed Back","Dynamic","No","No",category="Studio",notes="Broadcast/monitoring classic; still in production")
+
+# ---- AKG additions ----
+add("AKG_Q701","AKG","K","Q701","AKG Q701",2010,"Active","Open Back","Dynamic","No","No",notes="Quincy Jones signature; K701 with bass boost port")
+add("AKG_K7XX","AKG","K","K7XX","AKG K7XX",2014,"Discontinued","Open Back","Dynamic","No","No",notes="Massdrop collab K702 with K712 bass port; beloved value pick")
+add("AKG_N60NC","AKG","N","N60 NC","AKG N60 NC",2016,"Discontinued","Closed Back","Dynamic","No","Yes",notes="Compact on-ear with ANC; folding")
+add("AKG_K267","AKG","K","K267 Tiesto","AKG K267 Tiesto",2012,"Discontinued","Closed Back","Dynamic","No","No",notes="DJ collaboration; three-position bass adjustment")
+
+# ---- Sennheiser gap fills ----
+add("SENN_AMPERIOR","Sennheiser","HD","Amperior","Sennheiser Amperior",2012,"Discontinued","Closed Back","Dynamic","No","No",notes="Aluminum-cup HD 25 variant; iPhone-compatible")
+add("SENN_HD201","Sennheiser","HD","HD 201","Sennheiser HD 201",2004,"Discontinued","Closed Back","Dynamic","No","No",notes="Entry-level budget closed-back")
+add("SENN_HD203","Sennheiser","HD","HD 203","Sennheiser HD 203",2006,"Discontinued","Closed Back","Dynamic","No","No",notes="DJ-oriented entry-level")
+add("SENN_HD219","Sennheiser","HD","HD 219","Sennheiser HD 219",2010,"Discontinued","Closed Back","Dynamic","No","No")
+add("SENN_HD229","Sennheiser","HD","HD 229","Sennheiser HD 229",2010,"Discontinued","Closed Back","Dynamic","No","No")
+add("SENN_HD238","Sennheiser","HD","HD 238","Sennheiser HD 238",2008,"Discontinued","Open Back","Dynamic","No","No",notes="Portable open-back; popular value pick in its era")
+add("SENN_GAMEONE","Sennheiser","HD","GAME ONE","Sennheiser GAME ONE",2014,"Active","Open Back","Dynamic","No","No",category="Gaming",notes="Open-back gaming headset; HD 558 driver")
+add("SENN_GSP600","Sennheiser","HD","GSP 600","Sennheiser GSP 600",2018,"Active","Closed Back","Dynamic","No","No",category="Gaming",notes="Pro closed-back gaming; broadcast-quality boom mic")
+add("SENN_GSP300","Sennheiser","HD","GSP 300","Sennheiser GSP 300",2017,"Active","Closed Back","Dynamic","No","No",category="Gaming",notes="Entry gaming closed-back")
+
+# ---- Koss additions ----
+add("KOSS_KPH40","Koss","KPH","KPH40 Utility","Koss KPH40 Utility",2022,"Active","Open Back","Dynamic","No","No",category="Headphone",notes="KPH30i successor; on-ear; wide soundstage for price")
+add("KOSS_KPH7","Koss","KPH","KPH7","Koss KPH7",1985,"Legacy Active","Open Back","Dynamic","No","No",category="Headphone",notes="Classic folding on-ear; budget favorite")
+
+# ---- Dan Clark Audio historical ----
+add("DCA_ETHERFLOW","Dan Clark Audio","Ether","Ether Flow","Dan Clark Audio Ether Flow",2016,"Discontinued","Open Back","Planar Magnetic","No","No",notes="Tuning filter system; MrSpeakers era")
+add("DCA_ETHERCFLOW","Dan Clark Audio","Ether","Ether C Flow","Dan Clark Audio Ether C Flow",2016,"Discontinued","Closed Back","Planar Magnetic","No","No",notes="Closed-back Ether Flow; MrSpeakers era")
+add("DCA_AEONOPEN","Dan Clark Audio","Aeon","Aeon Open","Dan Clark Audio Aeon Open",2018,"Discontinued","Open Back","Planar Magnetic","No","No",notes="Open-back Aeon; foldable planar")
+
+# ---- JBL gaming/consumer gap fill ----
+add("JBL_QUANTUM100","JBL","Quantum","Quantum 100","JBL Quantum 100",2020,"Active","Closed Back","Dynamic","No","No",category="Gaming",notes="Entry gaming wired headset")
+add("JBL_QUANTUM400","JBL","Quantum","Quantum 400","JBL Quantum 400",2020,"Active","Closed Back","Dynamic","No","No",category="Gaming",notes="Gaming headset with USB and RGB")
+add("JBL_QUANTUM800","JBL","Quantum","Quantum 800","JBL Quantum 800",2020,"Active","Closed Back","Dynamic","Yes","Yes",category="Gaming",notes="Wireless ANC gaming flagship")
+add("JBL_QUANTUMONE","JBL","Quantum","Quantum ONE","JBL Quantum ONE",2020,"Active","Closed Back","Dynamic","No","No",category="Gaming",notes="Top-tier JBL gaming; head-tracking surround")
+
+# ---- Denon historical ----
+add("DENON_D7000","Denon","AH-D","AH-D7000","Denon AH-D7000",2007,"Discontinued","Closed Back","Dynamic","No","No",notes="Mahogany flagship; biodynamic 50mm driver")
+add("DENON_D7100","Denon","AH-D","AH-D7100","Denon AH-D7100",2012,"Discontinued","Closed Back","Dynamic","No","No",succ="DENON_D7200",pred="DENON_D7000",notes="Successor to D7000; updated driver")
+add("DENON_D600","Denon","AH-D","AH-D600","Denon AH-D600",2012,"Discontinued","Closed Back","Dynamic","No","No",notes="Mid-tier closed; walnut wood")
+
+# ---- Yamaha YH-C3000 (new 2024 closed-back) ----
+add("YAMAHA_YHC3000","Yamaha","YH","YH-C3000","Yamaha YH-C3000",2024,"Active","Closed Back","Dynamic","No","No",notes="Beech wood closed-back; Armodynamic driver")
+
+# ---- Grado Heritage Series ----
+add("GRADO_GH1","Grado","Heritage","GH1","Grado GH1",2015,"Discontinued","Open Back","Dynamic","No","No",notes="Heritage Series 1; Brooklyn maple cups; limited edition")
+add("GRADO_GH2","Grado","Heritage","GH2","Grado GH2",2016,"Discontinued","Open Back","Dynamic","No","No",notes="Heritage Series 2; cocobolo wood cups; limited edition")
+add("GRADO_GH3","Grado","Heritage","GH3","Grado GH3",2018,"Discontinued","Open Back","Dynamic","No","No",notes="Heritage Series 3; Norwegian pine; on-ear S-cushions")
+add("GRADO_GH4","Grado","Heritage","GH4","Grado GH4",2018,"Discontinued","Open Back","Dynamic","No","No",pred="GRADO_GH2",notes="Heritage Series 4; Norwegian pine full-size; successor to GH2 line")
+
+# ---- ZMF Tessidera (2025 planar) ----
+add("ZMF_TESSIDERA","ZMF Headphones","Flagship","Tessidera","ZMF Tessidera",2025,"Active","Open Back","Planar Magnetic","No","No",notes="First ZMF planar with 1-micron diaphragm; CAMS magnet system")
+
 # ---------------------------------------------------------------------------
 # Resolve family ids and build lineage from predecessor/successor links
 # ---------------------------------------------------------------------------
@@ -1317,6 +1496,163 @@ SPECS = {
     "SONY_MDR1A":      {"impedance": "24", "sensitivity": "105", "driver_size": "40"},
     "SONY_CD900ST":    {"impedance": "63", "sensitivity": "106", "driver_size": "40"},
     "SONY_MDR7510":    {"impedance": "24", "sensitivity": "106", "driver_size": "40"},
+    # ---- Sennheiser HD 490 Pro ----
+    "SENN_HD490PRO":  {"impedance": "130", "sensitivity": "96", "driver_size": "38"},
+    # ---- AKG new models ----
+    "AKG_K872":  {"impedance": "36",  "sensitivity": "110", "driver_size": "53"},
+    "AKG_K175":  {"impedance": "32",  "sensitivity": "109", "driver_size": "40"},
+    "AKG_K275":  {"impedance": "32",  "sensitivity": "112", "driver_size": "50"},
+    # ---- Monoprice Monolith ----
+    "MONO_M1060": {"impedance": "50", "sensitivity": "96", "driver_size": "106"},
+    "MONO_M1060C":{"impedance": "50", "sensitivity": "96", "driver_size": "106"},
+    "MONO_M1070": {"impedance": "60", "sensitivity": "96", "driver_size": "106"},
+    "MONO_M570":  {"impedance": "32", "sensitivity": "96"},
+    "MONO_M650":  {"impedance": "32", "sensitivity": "98"},
+    "MONO_M1570": {"impedance": "60", "sensitivity": "96"},
+    # ---- Superlux ----
+    "SUPERLUX_HD668B":   {"impedance": "56", "sensitivity": "98", "driver_size": "50"},
+    "SUPERLUX_HD681":    {"impedance": "32", "sensitivity": "98", "driver_size": "50"},
+    "SUPERLUX_HD681EVO": {"impedance": "32", "sensitivity": "98", "driver_size": "50"},
+    "SUPERLUX_HD669":    {"impedance": "32", "sensitivity": "98", "driver_size": "50"},
+    "SUPERLUX_HD662EVO": {"impedance": "32", "sensitivity": "98", "driver_size": "50"},
+    "SUPERLUX_HD330":    {"impedance": "32", "sensitivity": "98", "driver_size": "50"},
+    # ---- Samson ----
+    "SAMSON_SR850": {"impedance": "32", "sensitivity": "98", "driver_size": "50"},
+    "SAMSON_SR950": {"impedance": "32", "sensitivity": "98", "driver_size": "50"},
+    # ---- Status Audio ----
+    "STATUS_CB1":   {"impedance": "32", "sensitivity": "97", "driver_size": "50"},
+    "STATUS_BTONE": {"impedance": "32", "sensitivity": "97", "driver_size": "40"},
+    # ---- Harman Kardon ----
+    "HK_FLYANC":   {"impedance": "32", "sensitivity": "104", "driver_size": "40"},
+    "HK_FLY":      {"impedance": "32", "sensitivity": "104", "driver_size": "40"},
+    # ---- Oppo ----
+    "OPPO_PM1": {"impedance": "32", "sensitivity": "102"},
+    "OPPO_PM2": {"impedance": "32", "sensitivity": "102"},
+    "OPPO_PM3": {"impedance": "26", "sensitivity": "102", "driver_size": "55"},
+    # ---- Creative ----
+    "CREATIVE_AVLIVE":  {"impedance": "32", "sensitivity": "111", "driver_size": "40"},
+    "CREATIVE_AVLIVE2": {"impedance": "32", "sensitivity": "103", "driver_size": "40"},
+    # ---- Rode ----
+    "RODE_NTH100": {"impedance": "32", "sensitivity": "96", "driver_size": "40"},
+    # ---- Klipsch ----
+    "KLIPSCH_HP3":    {"impedance": "50", "sensitivity": "99", "driver_size": "52"},
+    "KLIPSCH_REFONE": {"impedance": "26", "sensitivity": "114"},
+    # ---- Fostex RP additions ----
+    "FOSTEX_T20RPMK3": {"impedance": "50", "sensitivity": "98"},
+    "FOSTEX_T40RPMK3": {"impedance": "50", "sensitivity": "97"},
+    "FOSTEX_T50RPMK3": {"impedance": "50", "sensitivity": "92"},
+    "FOSTEX_T50RPMK4": {"impedance": "50", "sensitivity": "92"},
+    "FOSTEX_T60RP":    {"impedance": "50", "sensitivity": "97"},
+    "FOSTEX_THXOO":    {"impedance": "25", "sensitivity": "94", "driver_size": "50"},
+    "FOSTEX_TH600":    {"impedance": "25", "sensitivity": "100", "driver_size": "50"},
+    "FOSTEX_TH500RP":  {"impedance": "48", "sensitivity": "93"},
+    # ---- Yamaha additions ----
+    "YAMAHA_YH5000SE": {"impedance": "34", "sensitivity": "98"},
+    "YAMAHA_YH4000":   {"impedance": "34", "sensitivity": "97"},
+    "YAMAHA_HPHMT220": {"impedance": "48", "sensitivity": "102", "driver_size": "40"},
+    "YAMAHA_YHC3000":  {"impedance": "34", "sensitivity": "94"},
+    # ---- Sony additions ----
+    "SONY_MDR7520":    {"impedance": "24", "sensitivity": "106", "driver_size": "50"},
+    "SONY_INZONEH3":   {"impedance": "32", "sensitivity": "98", "driver_size": "40"},
+    "SONY_INZONEH9":   {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    # ---- Audeze additions ----
+    "AUDEZE_EL8O":   {"impedance": "30",  "sensitivity": "102", "driver_size": "100"},
+    "AUDEZE_EL8C":   {"impedance": "30",  "sensitivity": "102", "driver_size": "100"},
+    "AUDEZE_LCDMX4": {"impedance": "20",  "sensitivity": "103", "driver_size": "106"},
+    "AUDEZE_MOBIUS": {"impedance": "10",  "sensitivity": "111"},
+    # ---- Beyerdynamic additions ----
+    "BEYER_DT1350":   {"impedance": "80",  "sensitivity": "96",  "driver_size": "35"},
+    "BEYER_DT177XGO": {"impedance": "250", "sensitivity": "102", "driver_size": "45"},
+    "BEYER_DT250":    {"impedance": "250", "sensitivity": "96",  "driver_size": "45"},
+    # ---- AKG additions ----
+    "AKG_Q701":  {"impedance": "62", "sensitivity": "105", "driver_size": "50"},
+    "AKG_K7XX":  {"impedance": "62", "sensitivity": "105", "driver_size": "45"},
+    "AKG_N60NC": {"impedance": "32", "sensitivity": "116", "driver_size": "32"},
+    "AKG_K267":  {"impedance": "32", "sensitivity": "114", "driver_size": "50"},
+    # ---- Sennheiser gap fills ----
+    "SENN_AMPERIOR": {"impedance": "18", "sensitivity": "110", "driver_size": "30"},
+    "SENN_HD201":    {"impedance": "32", "sensitivity": "108", "driver_size": "40"},
+    "SENN_HD203":    {"impedance": "32", "sensitivity": "110", "driver_size": "40"},
+    "SENN_HD219":    {"impedance": "32", "sensitivity": "115", "driver_size": "40"},
+    "SENN_HD229":    {"impedance": "32", "sensitivity": "115", "driver_size": "40"},
+    "SENN_GAMEONE":  {"impedance": "50", "sensitivity": "110"},
+    "SENN_GSP600":   {"impedance": "28", "sensitivity": "112"},
+    "SENN_GSP300":   {"impedance": "28", "sensitivity": "113"},
+    # ---- Koss additions ----
+    "KOSS_KPH40": {"impedance": "60", "sensitivity": "101", "driver_size": "30"},
+    "KOSS_KPH7":  {"impedance": "60", "sensitivity": "101", "driver_size": "25"},
+    # ---- Dan Clark Audio historical ----
+    "DCA_ETHERFLOW":  {"impedance": "23", "sensitivity": "93"},
+    "DCA_ETHERCFLOW": {"impedance": "23", "sensitivity": "93"},
+    "DCA_AEONOPEN":   {"impedance": "13", "sensitivity": "93"},
+    # ---- Denon historical ----
+    "DENON_D7000": {"impedance": "25", "sensitivity": "106", "driver_size": "50"},
+    "DENON_D7100": {"impedance": "25", "sensitivity": "106", "driver_size": "50"},
+    "DENON_D600":  {"impedance": "25", "sensitivity": "98",  "driver_size": "50"},
+    # ---- Grado (32Ω across essentially the full line; sensitivity ~99 dB for standard drivers) ----
+    "GRADO_SR60":   {"impedance": "32", "sensitivity": "99"},
+    "GRADO_SR60X":  {"impedance": "32", "sensitivity": "99"},
+    "GRADO_SR80E":  {"impedance": "32", "sensitivity": "99"},
+    "GRADO_SR80X":  {"impedance": "32", "sensitivity": "99"},
+    "GRADO_SR125X": {"impedance": "32", "sensitivity": "99"},
+    "GRADO_SR225X": {"impedance": "32", "sensitivity": "99"},
+    "GRADO_SR325E": {"impedance": "32", "sensitivity": "99"},
+    "GRADO_SR325I": {"impedance": "32", "sensitivity": "99"},
+    "GRADO_SR325X": {"impedance": "32", "sensitivity": "99"},
+    "GRADO_RS1":    {"impedance": "32", "sensitivity": "99"},
+    "GRADO_RS1X":   {"impedance": "32", "sensitivity": "99"},
+    "GRADO_RS2E":   {"impedance": "32", "sensitivity": "99"},
+    "GRADO_RS2X":   {"impedance": "32", "sensitivity": "99"},
+    "GRADO_PS500E": {"impedance": "32", "sensitivity": "99"},
+    "GRADO_PS1000": {"impedance": "32", "sensitivity": "99"},
+    "GRADO_PS1000E":{"impedance": "32", "sensitivity": "99"},
+    "GRADO_PS2000E":{"impedance": "32", "sensitivity": "99"},
+    "GRADO_GS1000": {"impedance": "32", "sensitivity": "99"},
+    "GRADO_GS1000X":{"impedance": "32", "sensitivity": "99"},
+    "GRADO_GS3000X":{"impedance": "32", "sensitivity": "99"},
+    "GRADO_GH1":    {"impedance": "32", "sensitivity": "99"},
+    "GRADO_GH2":    {"impedance": "32", "sensitivity": "99"},
+    "GRADO_GH3":    {"impedance": "32", "sensitivity": "99"},
+    "GRADO_GH4":    {"impedance": "32", "sensitivity": "99"},
+    "GRADO_HEMP":   {"impedance": "32", "sensitivity": "99"},
+    "GRADO_GW100X": {"impedance": "32", "sensitivity": "99"},
+    # ---- ZMF (dynamic models: 300Ω biocellulose driver ~96 dB; planar: ~55Ω) ----
+    "ZMF_AUTEUR":       {"impedance": "300", "sensitivity": "96"},
+    "ZMF_AEOLUS":       {"impedance": "300", "sensitivity": "96"},
+    "ZMF_EIKON":        {"impedance": "300", "sensitivity": "96"},
+    "ZMF_ATTICUS":      {"impedance": "300", "sensitivity": "96"},
+    "ZMF_VERITEOPEN":   {"impedance": "300", "sensitivity": "96"},
+    "ZMF_VERITECLOSED": {"impedance": "300", "sensitivity": "96"},
+    "ZMF_ATRIUM":       {"impedance": "300", "sensitivity": "96"},
+    "ZMF_ATRIUMCLOSED": {"impedance": "300", "sensitivity": "96"},
+    "ZMF_CALDERA":      {"impedance": "55",  "sensitivity": "96"},
+    "ZMF_CALDERACLOSED":{"impedance": "55",  "sensitivity": "96"},
+    "ZMF_BOKEHOPEN":    {"impedance": "300", "sensitivity": "96"},
+    "ZMF_BOKEHCLOSED":  {"impedance": "300", "sensitivity": "96"},
+    "ZMF_TESSIDERA":    {"impedance": "35",  "sensitivity": "96"},
+    # ---- Dan Clark Audio ----
+    "DCA_AEONFLOW":   {"impedance": "13",  "sensitivity": "92"},
+    "DCA_AEON2":      {"impedance": "13",  "sensitivity": "92"},
+    "DCA_AEON2NOIRE": {"impedance": "13",  "sensitivity": "92"},
+    "DCA_ETHER2":     {"impedance": "16",  "sensitivity": "88"},
+    "DCA_STEALTH":    {"impedance": "23",  "sensitivity": "86"},
+    "DCA_E3":         {"impedance": "16",  "sensitivity": "92"},
+    "DCA_EXPANSE":    {"impedance": "23",  "sensitivity": "91"},
+    "DCA_CORINA":     {"impedance": "23",  "sensitivity": "93"},
+    # ---- Denon ----
+    "DENON_D5200":   {"impedance": "46", "sensitivity": "98", "driver_size": "50"},
+    "DENON_D7200":   {"impedance": "25", "sensitivity": "98", "driver_size": "50"},
+    "DENON_D9200":   {"impedance": "16", "sensitivity": "98", "driver_size": "50"},
+    "DENON_D2000":   {"impedance": "25", "sensitivity": "106", "driver_size": "50"},
+    "DENON_D5000":   {"impedance": "25", "sensitivity": "106", "driver_size": "50"},
+    # ---- Fostex ----
+    "FOSTEX_TH900":    {"impedance": "25",  "sensitivity": "100", "driver_size": "50"},
+    "FOSTEX_TH900MK2": {"impedance": "25",  "sensitivity": "100", "driver_size": "50"},
+    "FOSTEX_TH909":    {"impedance": "25",  "sensitivity": "100", "driver_size": "50"},
+    "FOSTEX_TH610":    {"impedance": "25",  "sensitivity": "96",  "driver_size": "50"},
+    # ---- Meze Audio (additional) ----
+    "MEZE_POET":         {"impedance": "40", "sensitivity": "112", "driver_size": "50"},
+    "MEZE_109PRODESC":   {"impedance": "40", "sensitivity": "112", "driver_size": "50"},
 }
 
 products = []
