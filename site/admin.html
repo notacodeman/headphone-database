@@ -229,7 +229,7 @@ function sortRows(rows) {
     return String(av||"").localeCompare(String(bv||""), undefined, {numeric:true}) * dir;
   });
 }
-const FIELDS = ["product_id","manufacturer_id","model_name","full_name","release_year","discontinued_year","status","category","design","driver_type","driver_size_mm","impedance_ohms","sensitivity_db","wireless","anc","predecessor","successor","notes"];
+const FIELDS = ["product_id","family_id","manufacturer_id","model_name","full_name","release_year","discontinued_year","status","category","design","driver_type","driver_size_mm","impedance_ohms","sensitivity_db","wireless","anc","predecessor","successor","notes","date_added"];
 
 // Columns shown in the list (all of them), with default widths in px.
 const COLS = [
@@ -287,8 +287,15 @@ async function load() {
       fetch("/api/admin/products?manufacturers=1"),
       fetch("/api/admin/suggestions")
     ]);
-    const pData = await pRes.json(), mData = await mRes.json(), sData = await sRes.json();
-    if (!pData.ok) throw new Error();
+
+    // Parse each response individually so we can pinpoint which one failed
+    let pData, mData, sData;
+    try { pData = await pRes.json(); } catch(e) { throw new Error(`/api/admin/products returned non-JSON (status ${pRes.status}). If you see a login page, your Access session may have expired — refresh and log in again.`); }
+    try { mData = await mRes.json(); } catch(e) { throw new Error(`/api/admin/products?manufacturers=1 returned non-JSON (status ${mRes.status}).`); }
+    try { sData = await sRes.json(); } catch(e) { throw new Error(`/api/admin/suggestions returned non-JSON (status ${sRes.status}).`); }
+
+    if (!pData.ok) throw new Error(`Products API error: ${pData.error || "(no message)"}`);
+
     all = pData.products;
     mfrs = (mData.ok && mData.manufacturers) ? mData.manufacturers : [];
     suggs = (sData.ok && sData.suggestions) ? sData.suggestions.filter(s=>s.status==="pending") : [];
@@ -296,7 +303,7 @@ async function load() {
       mfrs.map(m=>`<option value="${m.manufacturer_id}">${esc(m.name)}</option>`).join("");
     render();
   } catch(e) {
-    document.getElementById("tablewrap").innerHTML = '<div class="empty">Could not load the catalog from D1. Check the /api/admin/products binding and Access policy.</div>';
+    document.getElementById("tablewrap").innerHTML = `<div class="empty"><strong>Load failed:</strong> ${esc(e.message || String(e))}</div>`;
     document.getElementById("sub").textContent = "";
   }
 }
