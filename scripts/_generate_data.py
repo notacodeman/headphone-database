@@ -93,6 +93,10 @@ manufacturers = [
     (72, "Rode",           "Australia",   "https://rode.com",                "Active"),
     (73, "Klipsch",        "USA",         "https://www.klipsch.com",         "Active"),
     (74, "RAAL",           "USA",         "https://raalrequisite.com",       "Active"),
+    # More from OPRA gap-fill
+    (75, "HarmonicDyne",   "China",       "https://harmonicdyne.com",        "Active"),
+    (76, "PSB",            "Canada",      "https://www.psbspeakers.com",     "Active"),
+    (77, "E-Mu",           "USA",         "https://us.creative.com",         "Discontinued"),
 ]
 mfr_id = {name: i for i, name, *_ in manufacturers}
 
@@ -284,6 +288,10 @@ families_raw = [
     ("Klipsch", "Heritage", "Headphone"),
     ("Klipsch", "Reference", "Headphone"),
     ("RAAL", "Ribbon", "Headphone"),
+    ("HarmonicDyne", "Dynamic", "Headphone"),
+    ("HarmonicDyne", "Planar", "Headphone"),
+    ("PSB", "M4U", "Headphone"),
+    ("E-Mu", "Wood", "Headphone"),
 ]
 families = []
 fam_id = {}
@@ -1274,6 +1282,101 @@ add("DENON_D600","Denon","AH-D","AH-D600","Denon AH-D600",2012,"Discontinued","C
 # ---- Yamaha YH-C3000 (new 2024 closed-back) ----
 add("YAMAHA_YHC3000","Yamaha","YH","YH-C3000","Yamaha YH-C3000",2024,"Active","Closed Back","Dynamic","No","No",notes="Beech wood closed-back; Armodynamic driver")
 
+# ---- HarmonicDyne ----
+add("HD_HELIOS","HarmonicDyne","Dynamic","Helios","HarmonicDyne Helios",2019,"Active","Open Back","Dynamic","No","No",notes="Debut model; 50mm bio-film driver; wood cups")
+add("HD_ZEUS","HarmonicDyne","Dynamic","Zeus","HarmonicDyne Zeus",2020,"Active","Open Back","Dynamic","No","No",notes="Nickel-plated 50mm driver; walnut cups")
+add("HD_POSEIDON","HarmonicDyne","Dynamic","Poseidon","HarmonicDyne Poseidon",2021,"Active","Open Back","Dynamic","No","No",notes="Upgraded bio-film driver; flagship dynamic before G200")
+add("HD_BLACKHOLE","HarmonicDyne","Dynamic","Black Hole","HarmonicDyne Black Hole",2023,"Active","Semi-Open","Dynamic","No","No",notes="Carbon fiber bio-film diaphragm; accessible price")
+add("HD_G200","HarmonicDyne","Planar","G200","HarmonicDyne G200",2022,"Active","Open Back","Planar Magnetic","No","No",notes="First HarmonicDyne planar; 102mm driver; flagship")
+
+# ---- PSB (Canadian; RoomFeel psychoacoustic tuning) ----
+add("PSB_M4U1","PSB","M4U","M4U 1","PSB M4U 1",2012,"Discontinued","Closed Back","Dynamic","No","No",notes="Passive flagship; RoomFeel tuning; Harman-adjacent target")
+add("PSB_M4U2","PSB","M4U","M4U 2","PSB M4U 2",2012,"Discontinued","Closed Back","Dynamic","No","Yes",notes="ANC version of M4U 1; excellent measured performance")
+add("PSB_M4U8","PSB","M4U","M4U 8","PSB M4U 8",2017,"Active","Closed Back","Dynamic","Yes","Yes",notes="Wireless ANC; RoomFeel; Harman-inspired tuning")
+
+# ---- E-Mu (Creative sub-brand; Fostex T-X0 base with wood cups) ----
+add("EMU_TEAK","E-Mu","Wood","Teak","E-Mu Teak",2016,"Discontinued","Closed Back","Dynamic","No","No",notes="Fostex T-X0 driver; teak wood cups; biodynamic")
+add("EMU_PURPLEHEART","E-Mu","Wood","Purpleheart","E-Mu Purpleheart",2016,"Discontinued","Closed Back","Dynamic","No","No",notes="Fostex T-X0 driver; purpleheart wood cups; sister to Teak")
+
+# ---- Stax historical completeness ----
+add("STAX_SR1","Stax","Lambda","SR-1","Stax SR-1",1960,"Discontinued","Open Back","Electrostatic","No","No",notes="The first Stax headphone; launched electrostatic headphones")
+add("STAX_SR3","Stax","Lambda","SR-3","Stax SR-3",1966,"Discontinued","Open Back","Electrostatic","No","No",notes="Classic vintage electrostatic")
+add("STAX_SR5","Stax","Lambda","SR-5","Stax SR-5",1970,"Discontinued","Open Back","Electrostatic","No","No",notes="Normal-bias classic")
+add("STAX_SR84","Stax","Lambda","SR-84","Stax SR-84",1993,"Discontinued","Open Back","Electrostatic","No","No",notes="Budget Lambda Normal Bias")
+add("STAX_SR207","Stax","Lambda","SR-207","Stax SR-207",2007,"Discontinued","Open Back","Electrostatic","No","No",succ="STAX_SRL300",notes="Lambda Normal Bias entry; entry into the Stax world")
+add("STAX_SR507","Stax","Lambda","SR-507","Stax SR-507",2010,"Discontinued","Open Back","Electrostatic","No","No",succ="STAX_SRL500",notes="Lambda Pro Bias; mid-tier")
+add("STAX_SR4070","Stax","Lambda","SR-4070","Stax SR-4070",2009,"Discontinued","Closed Back","Electrostatic","No","No",notes="Rare closed-back Stax")
+add("STAX_LAMBDANOVA","Stax","Lambda","Lambda Nova Signature","Stax Lambda Nova Signature",1999,"Discontinued","Open Back","Electrostatic","No","No",notes="Pro-bias Lambda; precursor to SR-404")
+
+# ---- Grado older / missing models ----
+add("GRADO_SR125E","Grado","Prestige","SR125e","Grado SR125e",2014,"Discontinued","Open Back","Dynamic","No","No",succ="GRADO_SR125X")
+add("GRADO_SR125I","Grado","Prestige","SR125i","Grado SR125i",2008,"Discontinued","Open Back","Dynamic","No","No",succ="GRADO_SR125E")
+add("GRADO_SR225E","Grado","Prestige","SR225e","Grado SR225e",2014,"Discontinued","Open Back","Dynamic","No","No",succ="GRADO_SR225X")
+add("GRADO_SR225I","Grado","Prestige","SR225i","Grado SR225i",2008,"Discontinued","Open Back","Dynamic","No","No",succ="GRADO_SR225E")
+add("GRADO_GS3000E","Grado","Statement","GS3000e","Grado GS3000e",2015,"Discontinued","Open Back","Dynamic","No","No",succ="GRADO_GS3000X",notes="Cocobolo Statement flagship")
+add("GRADO_HF1","Grado","Heritage","HF1","Grado HF1",2005,"Discontinued","Open Back","Dynamic","No","No",notes="First Head-Fi collaboration; aluminum cups")
+add("GRADO_HF2","Grado","Heritage","HF2","Grado HF2",2009,"Discontinued","Open Back","Dynamic","No","No",notes="Second Head-Fi collaboration; mahogany cups")
+
+# ---- Beyerdynamic additions ----
+add("BEYER_DT770M","Beyerdynamic","DT","DT 770 M","Beyerdynamic DT 770 M",2020,"Active","Closed Back","Dynamic","No","No",category="Studio",notes="Monitor variant; limited bass response; 80Ω")
+add("BEYER_T50P","Beyerdynamic","T","T 50p","Beyerdynamic T 50p",2013,"Discontinued","Closed Back","Dynamic","No","No",notes="Portable Tesla; high-end on-ear for mobile use")
+add("BEYER_DT880_600","Beyerdynamic","DT","DT 880 Edition 600 Ohm","Beyerdynamic DT 880 Edition 600 Ohm",2005,"Active","Semi-Open","Dynamic","No","No",notes="High-impedance variant; intended for high-end sources/amps",pred="BEYER_DT880_2005")
+add("BEYER_DT860","Beyerdynamic","DT","DT 860","Beyerdynamic DT 860",2003,"Discontinued","Closed Back","Dynamic","No","No",notes="Reference closed-back monitoring; semi-open character")
+
+# ---- Audio-Technica A-series and other gaps ----
+add("ATECH_A700","Audio-Technica","A-Series","ATH-A700","Audio-Technica ATH-A700",2003,"Discontinued","Closed Back","Dynamic","No","No",notes="Air-dynamic wing support; 53mm driver; precursor to A700X")
+add("ATECH_A900X","Audio-Technica","A-Series","ATH-A900X","Audio-Technica ATH-A900X",2011,"Active","Closed Back","Dynamic","No","No",notes="53mm air dynamic; flagship A-series")
+add("ATECH_AWAS","Audio-Technica","W-Series","ATH-AWAS","Audio-Technica ATH-AWAS",2019,"Active","Closed Back","Dynamic","No","No",notes="Wenge/sakura wood; 58mm driver; flagship W-series")
+add("ATECH_L5000","Audio-Technica","W-Series","ATH-L5000","Audio-Technica ATH-L5000",2017,"Active","Closed Back","Dynamic","No","No",notes="Lambskin leather; 58mm driver; ultra-premium closed-back")
+add("ATECH_DSR9BT","Audio-Technica","W-Series","ATH-DSR9BT","Audio-Technica ATH-DSR9BT",2016,"Discontinued","Closed Back","Dynamic","Yes","No",notes="Full digital wireless; first to send digital signal to driver")
+add("ATECH_G1","Audio-Technica","M-Series","ATH-G1","Audio-Technica ATH-G1",2019,"Active","Closed Back","Dynamic","No","No",category="Gaming",notes="Wired gaming headset; lightweight; boom mic")
+
+# ---- Sony vintage and gap fills ----
+add("SONY_MDRV500","Sony","MDR","MDR-V500","Sony MDR-V500",2001,"Discontinued","Closed Back","Dynamic","No","No",notes="DJ classic; 50mm driver")
+add("SONY_MDRV700","Sony","MDR","MDR-V700","Sony MDR-V700",1999,"Discontinued","Closed Back","Dynamic","No","No",notes="Iconic DJ headphone; large 50mm driver")
+add("SONY_MDRSA3000","Sony","MDR","MDR-SA3000","Sony MDR-SA3000",2004,"Discontinued","Open Back","Dynamic","No","No",notes="Open-air premium; 50mm driver")
+add("SONY_MDRF1","Sony","MDR","MDR-F1","Sony MDR-F1",1998,"Discontinued","Open Back","Dynamic","No","No",notes="Radical open-air baffle design; 50mm driver; no earcup")
+add("SONY_MDRCD2000","Sony","MDR","MDR-CD2000","Sony MDR-CD2000",1995,"Discontinued","Open Back","Dynamic","No","No",notes="Reference flagship of its era")
+add("SONY_MDRXB1000","Sony","MDR","MDR-XB1000","Sony MDR-XB1000",2010,"Discontinued","Closed Back","Dynamic","No","No",notes="Extreme bass XB flagship; 70mm driver; sub-bass focused")
+
+# ---- Sennheiser consumer gap fills ----
+add("SENN_HD205","Sennheiser","HD","HD 205","Sennheiser HD 205",2003,"Discontinued","Closed Back","Dynamic","No","No",notes="DJ-style entry closed-back; rotatable cup")
+add("SENN_HD218","Sennheiser","HD","HD 218","Sennheiser HD 218",2010,"Discontinued","Closed Back","Dynamic","No","No",notes="Budget consumer closed")
+add("SENN_HD228","Sennheiser","HD","HD 228","Sennheiser HD 228",2010,"Discontinued","Closed Back","Dynamic","No","No",notes="Budget bass-heavy consumer")
+add("SENN_HD239","Sennheiser","HD","HD 239","Sennheiser HD 239",2013,"Discontinued","Open Back","Dynamic","No","No",notes="Semi-open budget; warm sound")
+add("SENN_HD419","Sennheiser","HD","HD 419","Sennheiser HD 419",2012,"Discontinued","Closed Back","Dynamic","No","No",notes="Budget closed; replaceable cable")
+add("SENN_HD424","Sennheiser","HD","HD 424","Sennheiser HD 424",1973,"Discontinued","Open Back","Dynamic","No","No",notes="Iconic vintage; one of Sennheiser's best-selling ever")
+add("SENN_HD428","Sennheiser","HD","HD 428","Sennheiser HD 428",2011,"Discontinued","Closed Back","Dynamic","No","No",notes="Budget closed consumer")
+add("SENN_HD438","Sennheiser","HD","HD 438","Sennheiser HD 438",2011,"Discontinued","Closed Back","Dynamic","No","No",notes="Folding closed consumer; tangle-free cable")
+
+# ---- JBL consumer gap fills ----
+add("JBL_E45BT","JBL","E-Series","E45BT","JBL E45BT",2016,"Discontinued","Closed Back","Dynamic","Yes","No",notes="Wireless on-ear; 40mm driver")
+add("JBL_E55BT","JBL","E-Series","E55BT","JBL E55BT",2016,"Discontinued","Closed Back","Dynamic","Yes","No",notes="Wireless over-ear; popular for value")
+add("JBL_LIVE650","JBL","Live","Live 650BTNC","JBL Live 650BTNC",2019,"Discontinued","Closed Back","Dynamic","Yes","Yes",notes="ANC wireless; precursor to Live 660NC",succ="JBL_LIVE660")
+add("JBL_LIVE400","JBL","Live","Live 400BT","JBL Live 400BT",2019,"Discontinued","Closed Back","Dynamic","Yes","No",notes="Budget wireless on-ear")
+add("JBL_LIVE460","JBL","Live","Live 460NC","JBL Live 460NC",2021,"Active","Closed Back","Dynamic","Yes","Yes",notes="ANC on-ear; successor to E45BT line")
+add("JBL_LIVE500","JBL","Live","Live 500BT","JBL Live 500BT",2019,"Discontinued","Closed Back","Dynamic","Yes","No",notes="Over-ear wireless; precursor to Live 660NC line")
+
+# ---- Denon historical ----
+add("DENON_D1001","Denon","AH-D","AH-D1001","Denon AH-D1001",2007,"Discontinued","Closed Back","Dynamic","No","No",notes="Biodynamic entry-level; cult favorite for the price")
+add("DENON_D1100","Denon","AH-D","AH-D1100","Denon AH-D1100",2010,"Discontinued","Closed Back","Dynamic","No","No",succ="DENON_D1001",notes="Successor to D1001; improved bio-cellulose driver")
+add("DENON_D400","Denon","AH-D","AH-D400","Denon AH-D400",2011,"Discontinued","Closed Back","Dynamic","No","No",notes="Entry audiophile closed-back")
+
+# ---- Dan Clark Audio (MrSpeakers era remaining) ----
+add("DCA_AEONCLOSED","Dan Clark Audio","Aeon","Aeon Closed","Dan Clark Audio Aeon Closed",2017,"Discontinued","Closed Back","Planar Magnetic","No","No",notes="Original Aeon; first compact folding DCA planar; MrSpeakers era")
+add("DCA_ETHERCX","Dan Clark Audio","Ether","Ether CX","Dan Clark Audio Ether CX",2017,"Discontinued","Closed Back","Planar Magnetic","No","No",notes="Closed version of Ether C with tuning filter system")
+
+# ---- Pioneer DJ and audiophile ----
+add("PIONEER_HDJ500","Pioneer","HDJ","HDJ-500","Pioneer DJ HDJ-500",2011,"Discontinued","Closed Back","Dynamic","No","No",category="Studio",notes="DJ entry; 40mm driver")
+add("PIONEER_HDJ1000","Pioneer","HDJ","HDJ-1000","Pioneer DJ HDJ-1000",2002,"Discontinued","Closed Back","Dynamic","No","No",category="Studio",notes="The DJ reference standard; 50mm driver")
+add("PIONEER_SEA1000","Pioneer","SE","SE-A1000","Pioneer SE-A1000",2001,"Discontinued","Open Back","Dynamic","No","No",notes="Open-back audiophile; 50mm driver; wide soundstage")
+add("PIONEER_HDJCUE1","Pioneer","HDJ","DJ HDJ-CUE1BT","Pioneer DJ HDJ-CUE1BT",2019,"Active","Closed Back","Dynamic","Yes","No",category="Studio",notes="Wireless DJ monitoring")
+
+# ---- AKG remaining notable models ----
+add("AKG_K240MKII","AKG","K","K240 MkII","AKG K240 MkII",2006,"Active","Semi-Open","Dynamic","No","No",notes="Updated K240 with improved driver and self-adjusting headband")
+add("AKG_K52","AKG","K","K52","AKG K52",2017,"Active","Closed Back","Dynamic","No","No",notes="Budget closed-back; 40mm driver; entry studio")
+add("AKG_K450","AKG","K","K450","AKG K450",2010,"Discontinued","Closed Back","Dynamic","No","No",notes="Portable on-ear; foldable; 30mm driver")
+
 # ---- Grado Heritage Series ----
 add("GRADO_GH1","Grado","Heritage","GH1","Grado GH1",2015,"Discontinued","Open Back","Dynamic","No","No",notes="Heritage Series 1; Brooklyn maple cups; limited edition")
 add("GRADO_GH2","Grado","Heritage","GH2","Grado GH2",2016,"Discontinued","Open Back","Dynamic","No","No",notes="Heritage Series 2; cocobolo wood cups; limited edition")
@@ -1551,6 +1654,57 @@ SPECS = {
     "YAMAHA_YH4000":   {"impedance": "34", "sensitivity": "97"},
     "YAMAHA_HPHMT220": {"impedance": "48", "sensitivity": "102", "driver_size": "40"},
     "YAMAHA_YHC3000":  {"impedance": "34", "sensitivity": "94"},
+    # ---- HarmonicDyne ----
+    "HD_HELIOS":    {"impedance": "32", "sensitivity": "104", "driver_size": "50"},
+    "HD_ZEUS":      {"impedance": "32", "sensitivity": "99",  "driver_size": "50"},
+    "HD_POSEIDON":  {"impedance": "32", "sensitivity": "104", "driver_size": "50"},
+    "HD_BLACKHOLE": {"impedance": "32", "sensitivity": "110", "driver_size": "50"},
+    "HD_G200":      {"impedance": "64", "sensitivity": "100", "driver_size": "102"},
+    # ---- PSB ----
+    "PSB_M4U1": {"impedance": "32", "sensitivity": "102", "driver_size": "40"},
+    "PSB_M4U2": {"impedance": "32", "sensitivity": "102", "driver_size": "40"},
+    "PSB_M4U8": {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    # ---- E-Mu ----
+    "EMU_TEAK":        {"impedance": "26", "sensitivity": "105", "driver_size": "50"},
+    "EMU_PURPLEHEART": {"impedance": "26", "sensitivity": "105", "driver_size": "50"},
+    # ---- Beyerdynamic additions ----
+    "BEYER_DT770M":   {"impedance": "80",  "sensitivity": "96",  "driver_size": "45"},
+    "BEYER_T50P":     {"impedance": "32",  "sensitivity": "102", "driver_size": "40"},
+    "BEYER_DT880_600":{"impedance": "600", "sensitivity": "96",  "driver_size": "45"},
+    "BEYER_DT860":    {"impedance": "250", "sensitivity": "96",  "driver_size": "45"},
+    # ---- Audio-Technica additions ----
+    "ATECH_A700":    {"impedance": "40", "sensitivity": "100", "driver_size": "53"},
+    "ATECH_A900X":   {"impedance": "40", "sensitivity": "100", "driver_size": "53"},
+    "ATECH_AWAS":    {"impedance": "42", "sensitivity": "100", "driver_size": "58"},
+    "ATECH_L5000":   {"impedance": "36", "sensitivity": "100", "driver_size": "58"},
+    "ATECH_DSR9BT":  {"impedance": "32", "sensitivity": "98"},
+    # ---- Sony additions ----
+    "SONY_MDRV500":    {"impedance": "24", "sensitivity": "106", "driver_size": "50"},
+    "SONY_MDRV700":    {"impedance": "24", "sensitivity": "106", "driver_size": "50"},
+    "SONY_MDRSA3000":  {"impedance": "32", "sensitivity": "100", "driver_size": "50"},
+    "SONY_MDRF1":      {"impedance": "24", "sensitivity": "100", "driver_size": "50"},
+    "SONY_MDRXB1000":  {"impedance": "24", "sensitivity": "108", "driver_size": "70"},
+    # ---- Dan Clark Audio MrSpeakers era ----
+    "DCA_AEONCLOSED": {"impedance": "13", "sensitivity": "92"},
+    "DCA_ETHERCX":    {"impedance": "23", "sensitivity": "93"},
+    # ---- Denon historical ----
+    "DENON_D1001": {"impedance": "25", "sensitivity": "104", "driver_size": "40"},
+    "DENON_D1100": {"impedance": "25", "sensitivity": "104", "driver_size": "40"},
+    # ---- Grado older ----
+    "GRADO_SR125E":  {"impedance": "32", "sensitivity": "99"},
+    "GRADO_SR125I":  {"impedance": "32", "sensitivity": "99"},
+    "GRADO_SR225E":  {"impedance": "32", "sensitivity": "99"},
+    "GRADO_SR225I":  {"impedance": "32", "sensitivity": "99"},
+    "GRADO_GS3000E": {"impedance": "32", "sensitivity": "99"},
+    "GRADO_HF1":     {"impedance": "32", "sensitivity": "99"},
+    "GRADO_HF2":     {"impedance": "32", "sensitivity": "99"},
+    # ---- AKG additions ----
+    "AKG_K240MKII": {"impedance": "55", "sensitivity": "91", "driver_size": "30"},
+    "AKG_K52":      {"impedance": "32", "sensitivity": "112", "driver_size": "40"},
+    "AKG_K450":     {"impedance": "32", "sensitivity": "118", "driver_size": "30"},
+    # ---- Pioneer additions ----
+    "PIONEER_HDJ1000": {"impedance": "40", "sensitivity": "106", "driver_size": "50"},
+    "PIONEER_HDJ500":  {"impedance": "32", "sensitivity": "102", "driver_size": "40"},
     # ---- Sony additions ----
     "SONY_MDR7520":    {"impedance": "24", "sensitivity": "106", "driver_size": "50"},
     "SONY_INZONEH3":   {"impedance": "32", "sensitivity": "98", "driver_size": "40"},

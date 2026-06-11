@@ -172,3 +172,7 @@ family_id,manufacturer_id,family_name,family_type
 171,73,Heritage,Headphone
 172,73,Reference,Headphone
 173,74,Ribbon,Headphone
+174,75,Dynamic,Headphone
+175,75,Planar,Headphone
+176,76,M4U,Headphone
+177,77,Wood,Headphone
