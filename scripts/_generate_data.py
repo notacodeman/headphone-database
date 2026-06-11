@@ -299,6 +299,7 @@ add("SENN_HD820","Sennheiser","HD","HD 820","Sennheiser HD 820",2018,"Active","C
 add("SENN_HD660S","Sennheiser","HD","HD 660S","Sennheiser HD 660S",2017,"Discontinued","Open Back","Dynamic","No","No",pred="SENN_HD650",succ="SENN_HD660S2")
 add("SENN_HD660S2","Sennheiser","HD","HD 660S2","Sennheiser HD 660S2",2023,"Active","Open Back","Dynamic","No","No",pred="SENN_HD660S")
 add("SENN_HD560S","Sennheiser","HD","HD 560S","Sennheiser HD 560S",2020,"Active","Open Back","Dynamic","No","No",notes="Reference value pick")
+add("SENN_HD400PRO","Sennheiser","HD","HD 400 Pro","Sennheiser HD 400 Pro",2021,"Active","Open Back","Dynamic","No","No",notes="Budget open-back reference; replaceable earpads")
 add("SENN_HD620S","Sennheiser","HD","HD 620S","Sennheiser HD 620S",2024,"Active","Closed Back","Dynamic","No","No",notes="Closed-back addition to 600 line")
 add("SENN_HD550","Sennheiser","HD","HD 550","Sennheiser HD 550",2025,"Active","Open Back","Dynamic","No","No")
 add("SENN_MOMENTUM","Sennheiser","Momentum","Momentum","Sennheiser Momentum",2013,"Discontinued","Closed Back","Dynamic","No","No",succ="SENN_MOMENTUM2",notes="Original Momentum over-ear")
@@ -679,6 +680,7 @@ add("BEYER_CUSTOMSTUDIO","Beyerdynamic","Custom","Custom Studio","Beyerdynamic C
 add("BEYER_LAGOONANC","Beyerdynamic","Custom","Lagoon ANC","Beyerdynamic Lagoon ANC",2019,"Discontinued","Closed Back","Dynamic","Yes","Yes")
 add("BEYER_MMX150","Beyerdynamic","MMX","MMX 150","Beyerdynamic MMX 150",2022,"Active","Closed Back","Dynamic","No","No",category="Gaming")
 add("BEYER_MMX300_2","Beyerdynamic","MMX","MMX 300 2nd Gen","Beyerdynamic MMX 300 (2nd Gen)",2019,"Active","Closed Back","Dynamic","No","No",category="Gaming",pred="BEYER_MMX300")
+add("BEYER_TYGR300R","Beyerdynamic","DT","TYGR 300 R","Beyerdynamic TYGR 300 R",2020,"Active","Open Back","Dynamic","No","No",notes="Gaming-focused open-back; popular with audiophiles")
 
 # ---- Bose: on-ear and earlier travel models ----
 add("BOSE_QC3","Bose","QuietComfort On-Ear","QuietComfort 3","Bose QuietComfort 3",2006,"Discontinued","Closed Back","Dynamic","No","Yes",notes="On-ear ANC")
@@ -969,6 +971,7 @@ add("MEZE_99CLASSICSWALNUT","Meze Audio","Classics","99 Classics Walnut Gold","M
 add("KOSS_PORTAPRO","Koss","Porta Pro","Porta Pro","Koss Porta Pro",1984,"Legacy Active","Open Back","Dynamic","No","No",category="Headphone",notes="Iconic on-ear, in production since 1984")
 add("KOSS_PORTAPROWL","Koss","Porta Pro","Porta Pro Wireless","Koss Porta Pro Wireless",2020,"Active","Open Back","Dynamic","Yes","No",category="Headphone")
 add("KOSS_KSC75","Koss","KSC","KSC75","Koss KSC75",1998,"Active","Open Back","Dynamic","No","No",category="Headphone",notes="Cult-favorite clip-on")
+add("KOSS_KPH30I","Koss","KPH","KPH30i","Koss KPH30i",2018,"Active","Open Back","Dynamic","No","No",category="Headphone",notes="Budget audiophile on-ear; wide soundstage")
 add("KOSS_PRO4AA","Koss","Pro","Pro4AA","Koss Pro4AA",1970,"Discontinued","Closed Back","Dynamic","No","No",category="Studio",notes="Vintage studio classic")
 add("KOSS_ESP95X","Koss","Pro","ESP/95X","Koss ESP/95X",2015,"Active","Open Back","Electrostatic","No","No",notes="Electrostatic system w/ energizer")
 
@@ -1110,41 +1113,217 @@ add("GRADO_S550","Grado","Statement","Signature S550","Grado Signature S550",202
 # Grown brand-by-brand over time; leave a field "" when not reliably published.
 # ---------------------------------------------------------------------------
 SPECS = {
-    # ---- Sennheiser (impedance & sensitivity well published; driver size rarely) ----
-    "SENN_HD600":   {"impedance": "300", "sensitivity": "97"},
-    "SENN_HD650":   {"impedance": "300", "sensitivity": "103"},
-    "SENN_HD660S":  {"impedance": "150", "sensitivity": "104"},
-    "SENN_HD660S2": {"impedance": "300", "sensitivity": "104", "driver_size": "38"},
-    "SENN_HD800":   {"impedance": "300", "sensitivity": "102", "driver_size": "56"},
-    "SENN_HD800S":  {"impedance": "300", "sensitivity": "102", "driver_size": "56"},
-    # ---- Beyerdynamic (impedance is the defining spec; DT series use 45mm drivers) ----
-    "BEYER_DT770_32":   {"impedance": "32",  "driver_size": "45"},
-    "BEYER_DT770_80":   {"impedance": "80",  "sensitivity": "96", "driver_size": "45"},
-    "BEYER_DT770_250":  {"impedance": "250", "sensitivity": "96", "driver_size": "45"},
-    "BEYER_DT880_250":  {"impedance": "250", "sensitivity": "96", "driver_size": "45"},
-    "BEYER_DT990_250":  {"impedance": "250", "sensitivity": "96", "driver_size": "45"},
-    "BEYER_DT880_2005": {"impedance": "250", "sensitivity": "96", "driver_size": "45"},
-    # ---- HiFiMan (planar) ----
-    "HIFIMAN_SUNDARA":  {"impedance": "37", "sensitivity": "94"},
-    "HIFIMAN_HE400SE":  {"impedance": "32", "sensitivity": "91"},
-    "HIFIMAN_ANANDA":   {"impedance": "25", "sensitivity": "103"},
+    # ---- Sennheiser (driver size rarely published officially; impedance & sensitivity well documented) ----
+    "SENN_HD600":    {"impedance": "300", "sensitivity": "97"},
+    "SENN_HD650":    {"impedance": "300", "sensitivity": "103"},
+    "SENN_HD660S":   {"impedance": "150", "sensitivity": "104"},
+    "SENN_HD660S2":  {"impedance": "300", "sensitivity": "104", "driver_size": "38"},
+    "SENN_HD700":    {"impedance": "150", "sensitivity": "103"},
+    "SENN_HD800":    {"impedance": "300", "sensitivity": "102", "driver_size": "56"},
+    "SENN_HD800S":   {"impedance": "300", "sensitivity": "102", "driver_size": "56"},
+    "SENN_HD820":    {"impedance": "300", "sensitivity": "103", "driver_size": "56"},
+    "SENN_HD560S":   {"impedance": "120", "sensitivity": "110"},
+    "SENN_HD580":    {"impedance": "300", "sensitivity": "97"},
+    "SENN_HD540":    {"impedance": "300", "sensitivity": "94"},
+    "SENN_HD518":    {"impedance": "50",  "sensitivity": "108"},
+    "SENN_HD555":    {"impedance": "50",  "sensitivity": "112"},
+    "SENN_HD558":    {"impedance": "50",  "sensitivity": "112"},
+    "SENN_HD598":    {"impedance": "50",  "sensitivity": "112"},
+    "SENN_HD599":    {"impedance": "50",  "sensitivity": "106"},
+    "SENN_HD569":    {"impedance": "23",  "sensitivity": "115"},
+    "SENN_HD579":    {"impedance": "50",  "sensitivity": "106"},
+    "SENN_HD595":    {"impedance": "50",  "sensitivity": "112"},
+    "SENN_HD280PRO": {"impedance": "64",  "sensitivity": "113", "driver_size": "40"},
+    "SENN_HD25":     {"impedance": "70",  "sensitivity": "120", "driver_size": "25"},
+    "SENN_HD25_1":   {"impedance": "70",  "sensitivity": "120", "driver_size": "25"},
+    "SENN_HD58X":    {"impedance": "150", "sensitivity": "104"},
+    "SENN_HD6XX":    {"impedance": "300", "sensitivity": "103"},
+    "SENN_HD8XX":    {"impedance": "300", "sensitivity": "102", "driver_size": "56"},
+    "SENN_HD620S":   {"impedance": "150", "sensitivity": "107"},
+    "SENN_MOMENTUM4":{"impedance": "18",  "sensitivity": "107", "driver_size": "42"},
+    "SENN_MOMENTUM3":{"impedance": "18",  "sensitivity": "106", "driver_size": "42"},
+    "SENN_MOMENTUM2":{"impedance": "18",  "sensitivity": "113", "driver_size": "42"},
+    "SENN_MOMENTUM": {"impedance": "18",  "sensitivity": "110", "driver_size": "42"},
+    "SENN_HD4_40BT": {"impedance": "18",  "sensitivity": "100", "driver_size": "40"},
+    "SENN_HD350BT":  {"impedance": "18",  "sensitivity": "108", "driver_size": "40"},
+    "SENN_HD450BT":  {"impedance": "18",  "sensitivity": "108", "driver_size": "38"},
+    "SENN_PXC550":   {"impedance": "150", "sensitivity": "105", "driver_size": "40"},
+    "SENN_PXC550II": {"impedance": "150", "sensitivity": "105", "driver_size": "40"},
+    "SENN_HD480PRO": {"impedance": "120", "sensitivity": "108"},
+    "SENN_HD400PRO": {"impedance": "120", "sensitivity": "110"},
+    # ---- Beyerdynamic (DT series all use 45mm drivers; Tesla driver prefix indicates premium line) ----
+    "BEYER_DT770_32":    {"impedance": "32",  "sensitivity": "102", "driver_size": "45"},
+    "BEYER_DT770_80":    {"impedance": "80",  "sensitivity": "96",  "driver_size": "45"},
+    "BEYER_DT770_250":   {"impedance": "250", "sensitivity": "96",  "driver_size": "45"},
+    "BEYER_DT770PRO":    {"impedance": "250", "sensitivity": "96",  "driver_size": "45"},
+    "BEYER_DT880":       {"impedance": "250", "sensitivity": "96",  "driver_size": "45"},
+    "BEYER_DT880_250":   {"impedance": "250", "sensitivity": "96",  "driver_size": "45"},
+    "BEYER_DT880_2005":  {"impedance": "250", "sensitivity": "96",  "driver_size": "45"},
+    "BEYER_DT990PRO":    {"impedance": "250", "sensitivity": "96",  "driver_size": "45"},
+    "BEYER_DT990_250":   {"impedance": "250", "sensitivity": "96",  "driver_size": "45"},
+    "BEYER_DT1770":      {"impedance": "250", "sensitivity": "102", "driver_size": "45"},
+    "BEYER_DT1990":      {"impedance": "250", "sensitivity": "102", "driver_size": "45"},
+    "BEYER_DT1990MK2":   {"impedance": "30",  "sensitivity": "94",  "driver_size": "45"},
+    "BEYER_DT700PROX":   {"impedance": "48",  "sensitivity": "100", "driver_size": "45"},
+    "BEYER_DT700PROX2":  {"impedance": "48",  "sensitivity": "100", "driver_size": "45"},
+    "BEYER_DT900PROX":   {"impedance": "48",  "sensitivity": "100", "driver_size": "45"},
+    "BEYER_T1":          {"impedance": "600", "sensitivity": "102", "driver_size": "45"},
+    "BEYER_T1_2":        {"impedance": "600", "sensitivity": "102", "driver_size": "45"},
+    "BEYER_T1_3":        {"impedance": "32",  "sensitivity": "100", "driver_size": "45"},
+    "BEYER_T5_3":        {"impedance": "32",  "sensitivity": "100", "driver_size": "45"},
+    "BEYER_AMIRON":      {"impedance": "250", "sensitivity": "102", "driver_size": "45"},
+    "BEYER_DT150":       {"impedance": "250", "sensitivity": "102", "driver_size": "45"},
+    "BEYER_DT100":       {"impedance": "400", "sensitivity": "115", "driver_size": "45"},
+    "BEYER_DT240PRO":    {"impedance": "16",  "sensitivity": "101", "driver_size": "45"},
+    "BEYER_TYGR300R":    {"impedance": "32",  "sensitivity": "102", "driver_size": "45"},
+    # ---- Audio-Technica ----
+    "ATECH_M20X":    {"impedance": "47", "sensitivity": "96",  "driver_size": "40"},
+    "ATECH_M30X":    {"impedance": "47", "sensitivity": "98",  "driver_size": "40"},
+    "ATECH_M40X":    {"impedance": "35", "sensitivity": "98",  "driver_size": "40"},
+    "ATECH_M50X":    {"impedance": "38", "sensitivity": "99",  "driver_size": "45"},
+    "ATECH_M50XBT":  {"impedance": "32", "sensitivity": "99",  "driver_size": "45"},
+    "ATECH_M50XBT2": {"impedance": "32", "sensitivity": "99",  "driver_size": "45"},
+    "ATECH_M60X":    {"impedance": "28", "sensitivity": "106", "driver_size": "45"},
+    "ATECH_M70X":    {"impedance": "35", "sensitivity": "97",  "driver_size": "45"},
+    "ATECH_R70X":    {"impedance": "470","sensitivity": "99"},
+    "ATECH_R70XA":   {"impedance": "470","sensitivity": "99"},
+    "ATECH_R50X":    {"impedance": "39", "sensitivity": "98"},
+    "ATECH_R30X":    {"impedance": "44", "sensitivity": "98"},
+    "ATECH_ADX5000": {"impedance": "420","sensitivity": "100", "driver_size": "58"},
+    "ATECH_AD700X":  {"impedance": "38", "sensitivity": "100", "driver_size": "53"},
+    "ATECH_AD900X":  {"impedance": "38", "sensitivity": "100", "driver_size": "53"},
+    "ATECH_AD1000X": {"impedance": "42", "sensitivity": "100", "driver_size": "53"},
+    "ATECH_MSR7":    {"impedance": "36", "sensitivity": "102", "driver_size": "45"},
+    "ATECH_MSR7B":   {"impedance": "36", "sensitivity": "102", "driver_size": "45"},
+    # ---- HiFiMan (planar magnetic; driver size not typically published) ----
+    "HIFIMAN_HE400":     {"impedance": "50",  "sensitivity": "92"},
+    "HIFIMAN_HE400I":    {"impedance": "35",  "sensitivity": "93"},
+    "HIFIMAN_HE400SE":   {"impedance": "32",  "sensitivity": "91"},
+    "HIFIMAN_HE400S":    {"impedance": "22",  "sensitivity": "98"},
+    "HIFIMAN_HE500":     {"impedance": "38",  "sensitivity": "89"},
+    "HIFIMAN_HE560":     {"impedance": "50",  "sensitivity": "90"},
+    "HIFIMAN_HE6":       {"impedance": "50",  "sensitivity": "83"},
+    "HIFIMAN_HE6SE":     {"impedance": "50",  "sensitivity": "86"},
+    "HIFIMAN_SUNDARA":   {"impedance": "37",  "sensitivity": "94"},
+    "HIFIMAN_SUNDARAC":  {"impedance": "20",  "sensitivity": "96"},
+    "HIFIMAN_ANANDA":    {"impedance": "25",  "sensitivity": "103"},
+    "HIFIMAN_ANANDANANO":{"impedance": "16",  "sensitivity": "103"},
+    "HIFIMAN_ARYA":      {"impedance": "35",  "sensitivity": "91"},
+    "HIFIMAN_ARYASTEALTH":{"impedance": "32", "sensitivity": "94"},
+    "HIFIMAN_HE1000":    {"impedance": "35",  "sensitivity": "90"},
+    "HIFIMAN_HE1000V2":  {"impedance": "35",  "sensitivity": "90"},
+    "HIFIMAN_HE1000SE":  {"impedance": "35",  "sensitivity": "96"},
+    "HIFIMAN_SUSVARA":   {"impedance": "60",  "sensitivity": "83"},
+    "HIFIMAN_EDITIONXS": {"impedance": "18",  "sensitivity": "92"},
+    "HIFIMAN_EDITIONX":  {"impedance": "25",  "sensitivity": "103"},
+    "HIFIMAN_EDITIONXV2":{"impedance": "25",  "sensitivity": "103"},
+    "HIFIMAN_HE4XX":     {"impedance": "35",  "sensitivity": "93"},
+    "HIFIMAN_HE5XX":     {"impedance": "18",  "sensitivity": "91"},
+    "HIFIMAN_DEVA":      {"impedance": "18",  "sensitivity": "93"},
+    "HIFIMAN_DEVAPRO":   {"impedance": "18",  "sensitivity": "94"},
+    # ---- AKG ----
+    "AKG_K240STUDIO": {"impedance": "55",  "sensitivity": "91",  "driver_size": "30"},
+    "AKG_K271MK2":    {"impedance": "55",  "sensitivity": "91",  "driver_size": "30"},
+    "AKG_K271":       {"impedance": "55",  "sensitivity": "91",  "driver_size": "30"},
+    "AKG_K361":       {"impedance": "32",  "sensitivity": "110", "driver_size": "50"},
+    "AKG_K371":       {"impedance": "32",  "sensitivity": "114", "driver_size": "50"},
+    "AKG_K550":       {"impedance": "32",  "sensitivity": "111", "driver_size": "50"},
+    "AKG_K553":       {"impedance": "32",  "sensitivity": "114", "driver_size": "50"},
+    "AKG_K612":       {"impedance": "120", "sensitivity": "101", "driver_size": "50"},
+    "AKG_K701":       {"impedance": "62",  "sensitivity": "105", "driver_size": "50"},
+    "AKG_K702":       {"impedance": "62",  "sensitivity": "105", "driver_size": "45"},
+    "AKG_K712":       {"impedance": "62",  "sensitivity": "105", "driver_size": "50"},
+    "AKG_K72":        {"impedance": "32",  "sensitivity": "112", "driver_size": "40"},
+    "AKG_K92":        {"impedance": "32",  "sensitivity": "110", "driver_size": "40"},
+    "AKG_K245":       {"impedance": "32",  "sensitivity": "109", "driver_size": "50"},
+    "AKG_K812":       {"impedance": "36",  "sensitivity": "110", "driver_size": "53"},
+    # ---- Focal (all flagship use 40mm drivers) ----
+    "FOCAL_UTOPIA":     {"impedance": "80", "sensitivity": "104", "driver_size": "40"},
+    "FOCAL_UTOPIA2022": {"impedance": "80", "sensitivity": "104", "driver_size": "40"},
+    "FOCAL_ELEAR":      {"impedance": "80", "sensitivity": "104", "driver_size": "40"},
+    "FOCAL_ELEX":       {"impedance": "80", "sensitivity": "104", "driver_size": "40"},
+    "FOCAL_CLEAR":      {"impedance": "55", "sensitivity": "104", "driver_size": "40"},
+    "FOCAL_CLEARMG":    {"impedance": "55", "sensitivity": "104", "driver_size": "40"},
+    "FOCAL_CLEARPRO":   {"impedance": "55", "sensitivity": "104", "driver_size": "40"},
+    "FOCAL_CLEARMGPRO": {"impedance": "55", "sensitivity": "104", "driver_size": "40"},
+    "FOCAL_ELEGIA":     {"impedance": "35", "sensitivity": "105", "driver_size": "40"},
+    "FOCAL_CELESTEE":   {"impedance": "35", "sensitivity": "105", "driver_size": "40"},
+    "FOCAL_STELLIA":    {"impedance": "35", "sensitivity": "106", "driver_size": "40"},
+    "FOCAL_RADIANCE":   {"impedance": "35", "sensitivity": "105", "driver_size": "40"},
+    "FOCAL_BATHYS":     {"impedance": "35", "sensitivity": "106", "driver_size": "40"},
+    "FOCAL_BATHYSMG":   {"impedance": "35", "sensitivity": "106", "driver_size": "40"},
+    "FOCAL_HADENYS":    {"impedance": "55", "sensitivity": "100", "driver_size": "40"},
+    "FOCAL_AZURYS":     {"impedance": "35", "sensitivity": "106", "driver_size": "40"},
+    "FOCAL_LISTEN":     {"impedance": "32", "sensitivity": "116", "driver_size": "40"},
+    # ---- Audeze (planar; most classic LCDs use 106mm drivers) ----
+    "AUDEZE_LCD1":    {"impedance": "16",  "sensitivity": "99",  "driver_size": "90"},
+    "AUDEZE_LCD2":    {"impedance": "70",  "sensitivity": "101", "driver_size": "106"},
+    "AUDEZE_LCD2C":   {"impedance": "70",  "sensitivity": "101", "driver_size": "106"},
+    "AUDEZE_LCD24":   {"impedance": "70",  "sensitivity": "101", "driver_size": "106"},
+    "AUDEZE_LCD3":    {"impedance": "110", "sensitivity": "102", "driver_size": "106"},
+    "AUDEZE_LCD4":    {"impedance": "200", "sensitivity": "97",  "driver_size": "106"},
+    "AUDEZE_LCD4Z":   {"impedance": "15",  "sensitivity": "98",  "driver_size": "106"},
+    "AUDEZE_LCD5":    {"impedance": "14",  "sensitivity": "90",  "driver_size": "90"},
+    "AUDEZE_LCD5S":   {"impedance": "14",  "sensitivity": "92",  "driver_size": "90"},
+    "AUDEZE_LCDX":    {"impedance": "20",  "sensitivity": "103", "driver_size": "106"},
+    "AUDEZE_LCDXC":   {"impedance": "20",  "sensitivity": "103", "driver_size": "106"},
+    "AUDEZE_LCDXC2021":{"impedance": "20", "sensitivity": "103", "driver_size": "106"},
+    "AUDEZE_MM100":   {"impedance": "16",  "sensitivity": "103"},
+    "AUDEZE_MM500":   {"impedance": "16",  "sensitivity": "100"},
+    # ---- Meze Audio ----
+    "MEZE_99CLASSICS":   {"impedance": "32",   "sensitivity": "103", "driver_size": "40"},
+    "MEZE_99NEO":        {"impedance": "26",   "sensitivity": "103", "driver_size": "40"},
+    "MEZE_109PRO":       {"impedance": "40",   "sensitivity": "112", "driver_size": "50"},
+    "MEZE_105AER":       {"impedance": "40",   "sensitivity": "112", "driver_size": "50"},
+    "MEZE_EMPYREAN":     {"impedance": "31.6", "sensitivity": "100"},
+    "MEZE_EMPYREAN2":    {"impedance": "31.6", "sensitivity": "101"},
+    "MEZE_ELITE":        {"impedance": "31.6", "sensitivity": "101"},
+    "MEZE_LIRIC":        {"impedance": "31.6", "sensitivity": "101"},
+    "MEZE_LIRIC2":       {"impedance": "31.6", "sensitivity": "102"},
+    # ---- Shure ----
+    "SHURE_SRH240A":  {"impedance": "44",  "sensitivity": "105", "driver_size": "40"},
+    "SHURE_SRH440":   {"impedance": "44",  "sensitivity": "105", "driver_size": "40"},
+    "SHURE_SRH440A":  {"impedance": "44",  "sensitivity": "105", "driver_size": "40"},
+    "SHURE_SRH840":   {"impedance": "44",  "sensitivity": "99",  "driver_size": "40"},
+    "SHURE_SRH840A":  {"impedance": "44",  "sensitivity": "99",  "driver_size": "40"},
+    "SHURE_SRH940":   {"impedance": "42",  "sensitivity": "100", "driver_size": "40"},
+    "SHURE_SRH1440":  {"impedance": "44",  "sensitivity": "100", "driver_size": "40"},
+    "SHURE_SRH1540":  {"impedance": "46",  "sensitivity": "99",  "driver_size": "46"},
+    "SHURE_SRH1840":  {"impedance": "65",  "sensitivity": "99",  "driver_size": "40"},
+    "SHURE_AONIC50":  {"impedance": "24",  "sensitivity": "96",  "driver_size": "40"},
+    "SHURE_AONIC50G2":{"impedance": "24",  "sensitivity": "96",  "driver_size": "40"},
+    "SHURE_AONIC40":  {"impedance": "18",  "sensitivity": "111", "driver_size": "40"},
     # ---- Philips ----
     "PHIL_X2HR":    {"impedance": "30", "sensitivity": "100", "driver_size": "50"},
     "PHIL_SHP9500": {"impedance": "32", "sensitivity": "101", "driver_size": "50"},
     "PHIL_X3":      {"impedance": "30", "sensitivity": "100", "driver_size": "50"},
+    "PHIL_X1":      {"impedance": "30", "sensitivity": "100", "driver_size": "50"},
+    "PHIL_X2":      {"impedance": "30", "sensitivity": "100", "driver_size": "50"},
+    # ---- Koss ----
+    "KOSS_PORTAPRO":  {"impedance": "60",  "sensitivity": "101", "driver_size": "25"},
+    "KOSS_KSC75":     {"impedance": "60",  "sensitivity": "101", "driver_size": "25"},
+    "KOSS_KPH30I":    {"impedance": "35",  "sensitivity": "101", "driver_size": "30"},
+    "KOSS_ESP95X":    {"impedance": "100", "sensitivity": "104"},
     # ---- Sony ----
-    "SONY_MDR7506":   {"impedance": "63", "sensitivity": "106", "driver_size": "40"},
-    "SONY_MDRV6":     {"impedance": "63", "sensitivity": "106", "driver_size": "40"},
-    "SONY_MDRZ1R":    {"impedance": "64", "sensitivity": "100", "driver_size": "70"},
-    "SONY_MDRMV1":    {"impedance": "24", "sensitivity": "100", "driver_size": "40"},
-    "SONY_WH1000XM5": {"driver_size": "30"},
+    "SONY_MDR7506":    {"impedance": "63", "sensitivity": "106", "driver_size": "40"},
+    "SONY_MDRV6":      {"impedance": "63", "sensitivity": "106", "driver_size": "40"},
+    "SONY_MDRZ1R":     {"impedance": "64", "sensitivity": "100", "driver_size": "70"},
+    "SONY_MDRMV1":     {"impedance": "24", "sensitivity": "100", "driver_size": "40"},
+    "SONY_WH1000XM5":  {"impedance": "48", "sensitivity": "101", "driver_size": "30"},
+    "SONY_WH1000XM4":  {"impedance": "48", "sensitivity": "101", "driver_size": "40"},
+    "SONY_WH1000XM3":  {"impedance": "47", "sensitivity": "104", "driver_size": "40"},
+    "SONY_MDRZ7":      {"impedance": "70", "sensitivity": "102", "driver_size": "70"},
+    "SONY_MDRZ7M2":    {"impedance": "70", "sensitivity": "102", "driver_size": "70"},
+    "SONY_MDR1A":      {"impedance": "24", "sensitivity": "105", "driver_size": "40"},
+    "SONY_CD900ST":    {"impedance": "63", "sensitivity": "106", "driver_size": "40"},
+    "SONY_MDR7510":    {"impedance": "24", "sensitivity": "106", "driver_size": "40"},
 }
 
 products = []
 lineage_pairs = set()
 for row in P:
     (pid, mfr, fam, model, full, year, disc, status, cat, design, driver,
-     dsize, imp, sens, wl, anc, pred, succ, notes) = row
+     dsize, imp, sens, wl, anc, pred, succ, notes, date_added) = row
     if pid in SPECS:
         s = SPECS[pid]
         dsize = s.get("driver_size", dsize)
@@ -1153,7 +1332,7 @@ for row in P:
     fid = fam_id.get((mfr, fam), "")
     mid = mfr_id[mfr]
     products.append([pid, fid, mid, model, full, year, disc, status, cat,
-                     design, driver, dsize, imp, sens, wl, anc, pred, succ, notes])
+                     design, driver, dsize, imp, sens, wl, anc, pred, succ, notes, date_added])
     if pred:
         lineage_pairs.add((pred, pid))
     if succ:
