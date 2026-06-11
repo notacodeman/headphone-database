@@ -649,7 +649,7 @@ add("NOTHING_HEADPHONE1","Nothing","Headphone","Headphone (1)","Nothing Headphon
 add("SENN_HD518","Sennheiser","HD 500-series","HD 518","Sennheiser HD 518",2010,"Discontinued","Open Back","Dynamic","No","No")
 add("SENN_HD558","Sennheiser","HD 500-series","HD 558","Sennheiser HD 558",2010,"Discontinued","Open Back","Dynamic","No","No",succ="SENN_HD559")
 add("SENN_HD598","Sennheiser","HD 500-series","HD 598","Sennheiser HD 598",2010,"Discontinued","Open Back","Dynamic","No","No",succ="SENN_HD599",notes="Popular mid-tier open-back")
-add("SENN_HD598CS","Sennheiser","HD 500-series","HD 598 Cs","Sennheiser HD 598 Cs",2016,"Discontinued","Closed Back","Dynamic","No","No",notes="Closed-back variant")
+add("SENN_HD598CS","Sennheiser","HD 500-series","HD 598 CS","Sennheiser HD 598 CS",2016,"Discontinued","Closed Back","Dynamic","No","No",notes="Closed-back 598; Amazon exclusive; 23Ω; uses 569 driver")
 add("SENN_HD559","Sennheiser","HD 500-series","HD 559","Sennheiser HD 559",2016,"Active","Open Back","Dynamic","No","No",pred="SENN_HD558")
 add("SENN_HD569","Sennheiser","HD 500-series","HD 569","Sennheiser HD 569",2016,"Active","Closed Back","Dynamic","No","No")
 add("SENN_HD579","Sennheiser","HD 500-series","HD 579","Sennheiser HD 579",2016,"Active","Open Back","Dynamic","No","No")
@@ -1398,9 +1398,6 @@ add("BWAVZ_HM5","Brainwavz","HM","HM5","Brainwavz HM5",2012,"Active","Closed Bac
 add("BEYER_T51P","Beyerdynamic","T","T 51p","Beyerdynamic T 51p",2013,"Discontinued","Closed Back","Dynamic","No","No",notes="Portable Tesla on-ear; 60Ω; premium portable")
 add("BEYER_T51I","Beyerdynamic","T","T 51i","Beyerdynamic T 51i",2013,"Discontinued","Closed Back","Dynamic","No","No",notes="T51p with 3-button iOS remote; 32Ω")
 add("BEYER_T90","Beyerdynamic","T","T 90","Beyerdynamic T 90",2012,"Discontinued","Open Back","Dynamic","No","No",notes="Open Tesla flagship; 250Ω; 102 dB sensitivity; 45mm Tesla driver")
-
-# ---- Sennheiser HD 598 CS ----
-add("SENN_HD598CS","Sennheiser","HD","HD 598 CS","Sennheiser HD 598 CS",2016,"Discontinued","Closed Back","Dynamic","No","No",notes="Closed-back 598; Amazon exclusive; 23Ω; uses 569 driver")
 
 # ---- Sennheiser Orpheus HE-1 ----
 add("SENN_HE1","Sennheiser","Orpheus","Orpheus HE-1","Sennheiser Orpheus HE-1",2016,"Active","Open Back","Electrostatic","No","No",notes="~€55,000 flagship electrostatic system; built-in amp/DAC; marble and glass construction")
