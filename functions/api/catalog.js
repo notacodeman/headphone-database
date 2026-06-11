@@ -11,7 +11,7 @@ export async function onRequestGet({ env }) {
     const { results } = await env.DB.prepare(
       `SELECT p.id, p.product_id, p.manufacturer_id, m.name AS _brand,
               p.model_name, p.full_name, p.release_year, p.discontinued_year,
-              p.status, p.category, p.design, p.driver_type,
+              p.status, p.category, p.design, p.fit, p.driver_type,
               p.driver_size_mm, p.impedance_ohms, p.sensitivity_db,
               p.wireless, p.anc, p.predecessor, p.successor, p.notes, p.date_added
        FROM products p

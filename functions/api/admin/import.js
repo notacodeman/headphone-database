@@ -43,7 +43,7 @@ export async function onRequestPost({ env }) {
       "CREATE TABLE IF NOT EXISTS manufacturers (manufacturer_id INTEGER PRIMARY KEY, name TEXT, country TEXT, website TEXT, status TEXT);"
     );
     await env.DB.exec(
-      "CREATE TABLE IF NOT EXISTS products (product_id TEXT PRIMARY KEY, id INTEGER UNIQUE, family_id TEXT, manufacturer_id INTEGER, model_name TEXT, full_name TEXT, release_year INTEGER, discontinued_year TEXT, status TEXT, category TEXT, design TEXT, driver_type TEXT, driver_size_mm TEXT, impedance_ohms TEXT, sensitivity_db TEXT, wireless TEXT, anc TEXT, predecessor TEXT, successor TEXT, notes TEXT, date_added TEXT);"
+      "CREATE TABLE IF NOT EXISTS products (product_id TEXT PRIMARY KEY, id INTEGER UNIQUE, family_id TEXT, manufacturer_id INTEGER, model_name TEXT, full_name TEXT, release_year INTEGER, discontinued_year TEXT, status TEXT, category TEXT, design TEXT, driver_type TEXT, driver_size_mm TEXT, impedance_ohms TEXT, sensitivity_db TEXT, wireless TEXT, anc TEXT, predecessor TEXT, successor TEXT, notes TEXT, date_added TEXT, fit TEXT DEFAULT 'Over-Ear');"
     );
 
     // Wipe and reload.
@@ -63,15 +63,16 @@ export async function onRequestPost({ env }) {
       `INSERT INTO products
        (product_id,id,family_id,manufacturer_id,model_name,full_name,release_year,discontinued_year,
         status,category,design,driver_type,driver_size_mm,impedance_ohms,sensitivity_db,
-        wireless,anc,predecessor,successor,notes,date_added)
-       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
+        wireless,anc,predecessor,successor,notes,date_added,fit)
+       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
     );
     const pBatch = products.map(p => pStmt.bind(
       p.product_id, parseInt(p.id, 10) || null, p.family_id,
       parseInt(p.manufacturer_id, 10) || null, p.model_name, p.full_name,
       parseInt(p.release_year, 10) || null, p.discontinued_year, p.status, p.category, p.design,
       p.driver_type, p.driver_size_mm, p.impedance_ohms, p.sensitivity_db,
-      p.wireless, p.anc, p.predecessor, p.successor, p.notes, p.date_added || ""));
+      p.wireless, p.anc, p.predecessor, p.successor, p.notes, p.date_added || "",
+      p.fit || "Over-Ear"));
     for (let i = 0; i < pBatch.length; i += 40) await env.DB.batch(pBatch.slice(i, i + 40));
 
     return json({ ok: true, manufacturers: manufacturers.length, products: products.length });

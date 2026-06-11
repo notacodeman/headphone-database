@@ -368,6 +368,9 @@
   <div class="field">
     <label for="design">Design</label>
     <select id="design"><option value="">All</option></select>
+
+    <label for="fit">Fit</label>
+    <select id="fit"><option value="">All</option></select>
   </div>
   <div class="field">
     <label for="driver">Driver</label>
@@ -431,6 +434,7 @@ const COLS = [
   { key: "model_name",     label: "Model",       on: true,  sortable: true,  w: 180 },
   { key: "release_year",   label: "Year",        on: true,  sortable: true,  w: 80 },
   { key: "design",         label: "Design",      on: true,  sortable: true,  w: 120 },
+  { key: "fit",            label: "Fit",         on: true,  sortable: true,  w: 100 },
   { key: "driver_type",    label: "Driver",      on: true,  sortable: true,  w: 130 },
   { key: "driver_size_mm", label: "Driver Size", on: true,  sortable: true,  w: 120 },
   { key: "impedance_ohms", label: "Impedance",   on: true,  sortable: true,  w: 90 },
@@ -599,6 +603,13 @@ async function loadFromCSV() {
   }
 }
 
+// Fixed valid values — must match _generate_data.py VALID_* constants exactly.
+// Hardcoding these means a data typo can never silently create a new filter option.
+const FILTER_DESIGN  = ["Closed Back", "Open Back", "Semi-Open"];
+const FILTER_DRIVER  = ["AMT", "Dynamic", "Electrostatic", "Hybrid", "Planar Magnetic", "Ribbon"];
+const FILTER_STATUS  = ["Active", "Discontinued", "Legacy Active"];
+const FILTER_FIT     = ["On-Ear", "Over-Ear"];
+
 function uniqueSorted(key) {
   return [...new Set(state.rows.map(r => r[key]).filter(Boolean))].sort();
 }
@@ -606,12 +617,17 @@ function uniqueSorted(key) {
 function initFilters() {
   const fill = (id, vals) => {
     const sel = document.getElementById(id);
+    // Remove any options added on a previous call (re-initialisation on CSV fallback)
+    while (sel.options.length > 1) sel.remove(1);
     vals.forEach(v => { const o = document.createElement("option"); o.value = v; o.textContent = v; sel.appendChild(o); });
   };
+  // Brand: dynamic (94+ brands — hardcoding would be unmaintainable)
   fill("brand", uniqueSorted("_brand"));
-  fill("design", uniqueSorted("design"));
-  fill("driver", uniqueSorted("driver_type"));
-  fill("status", uniqueSorted("status"));
+  // Design / driver / status: fixed sets — never drift with data
+  fill("design", FILTER_DESIGN);
+  fill("fit",    FILTER_FIT);
+  fill("driver", FILTER_DRIVER);
+  fill("status", FILTER_STATUS);
 
   const brands = uniqueSorted("_brand").length;
   const years = state.rows.map(r => +r.release_year).filter(Boolean);
@@ -620,10 +636,10 @@ function initFilters() {
     `<span><strong>${brands}</strong> brands</span>` +
     `<span><strong>${Math.min(...years)}</strong>&ndash;<strong>${Math.max(...years)}</strong></span>`;
 
-  ["q","brand","design","driver","status"].forEach(id =>
+  ["q","brand","design","fit","driver","status"].forEach(id =>
     document.getElementById(id).addEventListener("input", apply));
   document.getElementById("reset").addEventListener("click", () => {
-    ["q","brand","design","driver","status"].forEach(id => document.getElementById(id).value = "");
+    ["q","brand","design","fit","driver","status"].forEach(id => document.getElementById(id).value = "");
     apply();
   });
 }
@@ -645,17 +661,19 @@ function buildColMenu() {
 }
 
 function apply() {
-  const q = document.getElementById("q").value.toLowerCase();
-  const b = document.getElementById("brand").value;
-  const d = document.getElementById("design").value;
+  const q  = document.getElementById("q").value.toLowerCase();
+  const b  = document.getElementById("brand").value;
+  const d  = document.getElementById("design").value;
+  const ft = document.getElementById("fit").value;
   const dr = document.getElementById("driver").value;
-  const s = document.getElementById("status").value;
+  const s  = document.getElementById("status").value;
 
   state.filtered = state.rows.filter(r => {
-    if (b && r._brand !== b) return false;
-    if (d && r.design !== d) return false;
+    if (b  && r._brand      !== b)  return false;
+    if (d  && r.design      !== d)  return false;
+    if (ft && r.fit         !== ft) return false;
     if (dr && r.driver_type !== dr) return false;
-    if (s && r.status !== s) return false;
+    if (s  && r.status      !== s)  return false;
     if (q) {
       const hay = (r.full_name + " " + r._brand + " " + r.notes + " " + r.model_name).toLowerCase();
       if (!hay.includes(q)) return false;
@@ -718,6 +736,7 @@ function rowDetail(r) {
   add("Status", r.status);
   add("Category", r.category);
   add("Design", r.design);
+  add("Fit", r.fit || "Over-Ear");
   add("Driver type", r.driver_type);
   add("Driver size", r.driver_size_mm, "\u200amm");
   add("Impedance", r.impedance_ohms, "\u200a\u03A9");
@@ -869,6 +888,7 @@ const CMP_FIELDS = [
   { label: "Released",     key: "release_year" },
   { label: "Status",       key: "status" },
   { label: "Design",       key: "design" },
+  { label: "Fit",          key: "fit" },
   { label: "Driver type",  key: "driver_type" },
   { label: "Driver size",  key: "driver_size_mm",  unit: " mm" },
   { label: "Impedance",    key: "impedance_ohms",  unit: " \u03A9" },

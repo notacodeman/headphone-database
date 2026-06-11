@@ -164,7 +164,8 @@
         <div><label>Discontinued year</label><input id="f_discontinued_year"></div>
         <div><label>Status</label><input id="f_status" placeholder="Active / Discontinued / Legacy Active"></div>
         <div><label>Category</label><input id="f_category" placeholder="Headphone / Studio / Gaming"></div>
-        <div><label>Design</label><input id="f_design" placeholder="Open Back / Closed Back / Semi-Open / In-Ear"></div>
+        <div><label>Design</label><select id="f_design"><option value="Open Back">Open Back</option><option value="Closed Back">Closed Back</option><option value="Semi-Open">Semi-Open</option></select></div>
+        <div><label>Fit</label><select id="f_fit"><option value="Over-Ear">Over-Ear</option><option value="On-Ear">On-Ear</option></select></div>
         <div><label>Driver type</label><input id="f_driver_type" placeholder="Dynamic / Planar Magnetic / ..."></div>
         <div><label>Driver size (mm)</label><input id="f_driver_size_mm"></div>
         <div><label>Impedance (ohms)</label><input id="f_impedance_ohms"></div>
@@ -229,7 +230,7 @@ function sortRows(rows) {
     return String(av||"").localeCompare(String(bv||""), undefined, {numeric:true}) * dir;
   });
 }
-const FIELDS = ["product_id","family_id","manufacturer_id","model_name","full_name","release_year","discontinued_year","status","category","design","driver_type","driver_size_mm","impedance_ohms","sensitivity_db","wireless","anc","predecessor","successor","notes","date_added"];
+const FIELDS = ["product_id","id","family_id","manufacturer_id","model_name","full_name","release_year","discontinued_year","status","category","design","fit","driver_type","driver_size_mm","impedance_ohms","sensitivity_db","wireless","anc","predecessor","successor","notes","date_added"];
 
 // Columns shown in the list (all of them), with default widths in px.
 const COLS = [
@@ -241,6 +242,7 @@ const COLS = [
   {key:"status", label:"Status", w:120},
   {key:"category", label:"Category", w:100},
   {key:"design", label:"Design", w:120},
+  {key:"fit",    label:"Fit",    w:100},
   {key:"driver_type", label:"Driver", w:130},
   {key:"driver_size_mm", label:"Size", w:60},
   {key:"impedance_ohms", label:"Imp.", w:70},

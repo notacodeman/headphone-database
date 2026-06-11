@@ -63,7 +63,8 @@ CREATE TABLE IF NOT EXISTS products (
     predecessor         TEXT    REFERENCES products(product_id),
     successor           TEXT    REFERENCES products(product_id),
     notes               TEXT,
-    date_added          TEXT
+    date_added          TEXT,
+    fit                 TEXT    DEFAULT 'Over-Ear'
 );
 
 CREATE TABLE IF NOT EXISTS lineage (
@@ -184,51 +185,32 @@ def load_products(conn, rows, verbose):
                 model_name, full_name, release_year, discontinued_year,
                 status, category, design, driver_type,
                 driver_size_mm, impedance_ohms, sensitivity_db,
-                wireless, anc, predecessor, successor, notes, date_added
-            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+                wireless, anc, predecessor, successor, notes, date_added, fit
+            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
             ON CONFLICT(product_id) DO UPDATE SET
-                id=excluded.id,
-                family_id=excluded.family_id,
+                id=excluded.id, family_id=excluded.family_id,
                 manufacturer_id=excluded.manufacturer_id,
-                model_name=excluded.model_name,
-                full_name=excluded.full_name,
-                release_year=excluded.release_year,
-                discontinued_year=excluded.discontinued_year,
-                status=excluded.status,
-                category=excluded.category,
-                design=excluded.design,
-                driver_type=excluded.driver_type,
-                driver_size_mm=excluded.driver_size_mm,
-                impedance_ohms=excluded.impedance_ohms,
-                sensitivity_db=excluded.sensitivity_db,
-                wireless=excluded.wireless,
-                anc=excluded.anc,
-                predecessor=excluded.predecessor,
-                successor=excluded.successor,
-                notes=excluded.notes,
-                date_added=excluded.date_added
+                model_name=excluded.model_name, full_name=excluded.full_name,
+                release_year=excluded.release_year, discontinued_year=excluded.discontinued_year,
+                status=excluded.status, category=excluded.category,
+                design=excluded.design, driver_type=excluded.driver_type,
+                driver_size_mm=excluded.driver_size_mm, impedance_ohms=excluded.impedance_ohms,
+                sensitivity_db=excluded.sensitivity_db, wireless=excluded.wireless,
+                anc=excluded.anc, predecessor=excluded.predecessor,
+                successor=excluded.successor, notes=excluded.notes,
+                date_added=excluded.date_added, fit=excluded.fit
         """, (
-            coerce_str(r.get("product_id")),
-            coerce_int(r.get("id")),
-            coerce_int(r.get("family_id")),
-            coerce_int(r.get("manufacturer_id")),
-            coerce_str(r.get("model_name")),
-            coerce_str(r.get("full_name")),
-            coerce_int(r.get("release_year")),
-            coerce_int(r.get("discontinued_year")),
-            coerce_str(r.get("status")),
-            coerce_str(r.get("category")),
-            coerce_str(r.get("design")),
-            coerce_str(r.get("driver_type")),
-            coerce_str(r.get("driver_size_mm")),
-            coerce_str(r.get("impedance_ohms")),
-            coerce_str(r.get("sensitivity_db")),
-            coerce_str(r.get("wireless")),
-            coerce_str(r.get("anc")),
-            coerce_str(r.get("predecessor")),
-            coerce_str(r.get("successor")),
-            coerce_str(r.get("notes")),
-            coerce_str(r.get("date_added")),
+            coerce_str(r.get("product_id")), coerce_int(r.get("id")),
+            coerce_int(r.get("family_id")), coerce_int(r.get("manufacturer_id")),
+            coerce_str(r.get("model_name")), coerce_str(r.get("full_name")),
+            coerce_int(r.get("release_year")), coerce_int(r.get("discontinued_year")),
+            coerce_str(r.get("status")), coerce_str(r.get("category")),
+            coerce_str(r.get("design")), coerce_str(r.get("driver_type")),
+            coerce_str(r.get("driver_size_mm")), coerce_str(r.get("impedance_ohms")),
+            coerce_str(r.get("sensitivity_db")), coerce_str(r.get("wireless")),
+            coerce_str(r.get("anc")), coerce_str(r.get("predecessor")),
+            coerce_str(r.get("successor")), coerce_str(r.get("notes")),
+            coerce_str(r.get("date_added")), coerce_str(r.get("fit") or "Over-Ear"),
         ))
         n += 1
     if verbose:
