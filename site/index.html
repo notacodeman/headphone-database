@@ -25,8 +25,6 @@
     color: var(--ink);
     font-family: 'Spline Sans Mono', monospace;
     line-height: 1.5;
-    background-image:
-      repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(0,0,0,0.02) 28px, rgba(0,0,0,0.02) 29px);
   }
 
   header {
@@ -178,8 +176,9 @@
   }
 
   table { width: 100%; border-collapse: collapse; table-layout: fixed; }
-  #tablewrap { overflow-x: auto; }
-  thead th { position: relative; }
+  #tablewrap { overflow-x: auto; background: var(--paper); border-left: 1px solid var(--line); border-right: 1px solid var(--line); }
+  tbody tr.datarow { background: var(--paper); }
+  tbody tr.datarow.zebra { background: #ece4d4; }  thead th { position: relative; }
   thead th > span:first-child { display: inline-block; max-width: calc(100% - 10px); overflow: hidden; text-overflow: ellipsis; vertical-align: bottom; }
   tbody tr.datarow td { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .resizer { position: absolute; top: 0; right: 0; width: 9px; height: 100%; cursor: col-resize; user-select: none; }
@@ -310,7 +309,7 @@
   .cmpbar-clear:hover { color: var(--paper); }
 
   /* Compare modal */
-  #cmpOverlay { align-items: flex-start; padding: 2rem 1rem; overflow-y: auto; }
+  #cmpOverlay { align-items: flex-start; justify-content: center; padding: 2rem 1rem; overflow-y: auto; }
   #cmpOverlay:not([hidden]) { display: flex; }
   .cmpmodal { background: var(--card); border: 1px solid var(--ink); border-radius: 12px;
     max-width: 960px; width: 100%; padding: 0; overflow: hidden; }
@@ -331,10 +330,11 @@
     border-bottom: 1px solid var(--line); vertical-align: top; }
   .cmptable th { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em;
     color: var(--muted); width: 140px; background: var(--paper-2); }
-  .cmptable td { font-size: 0.88rem; }
+  .cmptable td { font-size: 0.88rem; background: var(--paper); }
+  .cmptable tbody tr:nth-child(even) td { background: #ece4d4; }
   .cmptable .cmp-label { font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 600; }
   .cmptable .cmp-brand { font-size: 0.72rem; color: var(--muted); }
-  .cmptable .cmp-diff { background: rgba(194,65,12,0.06); color: var(--accent); font-weight: 500; }
+  .cmptable .cmp-diff { color: var(--accent); font-weight: 500; }
   .cmptable .cmp-same { color: var(--muted); }
   .cmptable .cmp-empty { color: var(--line); font-style: italic; }
   @media (prefers-reduced-motion: reduce) {
