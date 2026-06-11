@@ -97,6 +97,10 @@ manufacturers = [
     (75, "HarmonicDyne",   "China",       "https://harmonicdyne.com",        "Active"),
     (76, "PSB",            "Canada",      "https://www.psbspeakers.com",     "Active"),
     (77, "E-Mu",           "USA",         "https://us.creative.com",         "Discontinued"),
+    # From spreadsheet verified additions
+    (78, "Audioquest",     "USA",         "https://www.audioquest.com",      "Active"),
+    (79, "NAD",            "Canada",      "https://nadelectronics.com",      "Active"),
+    (80, "Brainwavz",      "China",       "https://www.brainwavzaudio.com",  "Active"),
 ]
 mfr_id = {name: i for i, name, *_ in manufacturers}
 
@@ -292,6 +296,10 @@ families_raw = [
     ("HarmonicDyne", "Planar", "Headphone"),
     ("PSB", "M4U", "Headphone"),
     ("E-Mu", "Wood", "Headphone"),
+    ("Audioquest", "NightHawk", "Headphone"),
+    ("Audioquest", "NightOwl", "Headphone"),
+    ("NAD", "VISO", "Headphone"),
+    ("Brainwavz", "HM", "Studio"),
 ]
 families = []
 fam_id = {}
@@ -1372,6 +1380,47 @@ add("PIONEER_HDJ1000","Pioneer","HDJ","HDJ-1000","Pioneer DJ HDJ-1000",2002,"Dis
 add("PIONEER_SEA1000","Pioneer","SE","SE-A1000","Pioneer SE-A1000",2001,"Discontinued","Open Back","Dynamic","No","No",notes="Open-back audiophile; 50mm driver; wide soundstage")
 add("PIONEER_HDJCUE1","Pioneer","HDJ","DJ HDJ-CUE1BT","Pioneer DJ HDJ-CUE1BT",2019,"Active","Closed Back","Dynamic","Yes","No",category="Studio",notes="Wireless DJ monitoring")
 
+# ---- Audioquest (NightHawk/NightOwl family; discontinued 2019) ----
+# All four share: 25Ω, 99 dB/mW, 50mm biocellulose pistonic driver
+add("AQ_NIGHTHAWK","Audioquest","NightHawk","NightHawk","Audioquest NightHawk",2015,"Discontinued","Semi-Open","Dynamic","No","No",succ="AQ_NIGHTHAWKCARBON",notes="Liquid Wood cups; 50mm biocellulose; semi-open")
+add("AQ_NIGHTHAWKCARBON","Audioquest","NightHawk","NightHawk Carbon","Audioquest NightHawk Carbon",2016,"Discontinued","Semi-Open","Dynamic","No","No",pred="AQ_NIGHTHAWK",notes="Updated NightHawk; carbon finish; carbon-fabric earpads")
+add("AQ_NIGHTOWL","Audioquest","NightOwl","NightOwl","Audioquest NightOwl",2015,"Discontinued","Closed Back","Dynamic","No","No",succ="AQ_NIGHTOWLCARBON",notes="Closed-back companion to NightHawk; aperiodic damping")
+add("AQ_NIGHTOWLCARBON","Audioquest","NightOwl","NightOwl Carbon","Audioquest NightOwl Carbon",2016,"Discontinued","Closed Back","Dynamic","No","No",pred="AQ_NIGHTOWL",notes="Updated NightOwl; carbon finish; tighter tolerances")
+
+# ---- NAD ----
+# Designed by PSB's Paul Barton (same Lenbrook group); RoomFeel tuning
+add("NAD_HP50","NAD","VISO","VISO HP50","NAD VISO HP50",2014,"Discontinued","Closed Back","Dynamic","No","No",notes="Designed by PSB's Paul Barton; RoomFeel psychoacoustic tuning; Sound and Vision Top Pick 2014")
+
+# ---- Brainwavz ----
+add("BWAVZ_HM5","Brainwavz","HM","HM5","Brainwavz HM5",2012,"Active","Closed Back","Dynamic","No","No",category="Studio",notes="Budget studio reference; Sennheiser-inspired neutral tuning; popular pad-swapping base")
+
+# ---- Beyerdynamic T-series portable additions ----
+add("BEYER_T51P","Beyerdynamic","T","T 51p","Beyerdynamic T 51p",2013,"Discontinued","Closed Back","Dynamic","No","No",notes="Portable Tesla on-ear; 60Ω; premium portable")
+add("BEYER_T51I","Beyerdynamic","T","T 51i","Beyerdynamic T 51i",2013,"Discontinued","Closed Back","Dynamic","No","No",notes="T51p with 3-button iOS remote; 32Ω")
+add("BEYER_T90","Beyerdynamic","T","T 90","Beyerdynamic T 90",2012,"Discontinued","Open Back","Dynamic","No","No",notes="Open Tesla flagship; 250Ω; 102 dB sensitivity; 45mm Tesla driver")
+
+# ---- Sennheiser HD 598 CS ----
+add("SENN_HD598CS","Sennheiser","HD","HD 598 CS","Sennheiser HD 598 CS",2016,"Discontinued","Closed Back","Dynamic","No","No",notes="Closed-back 598; Amazon exclusive; 23Ω; uses 569 driver")
+
+# ---- Sennheiser Orpheus HE-1 ----
+add("SENN_HE1","Sennheiser","Orpheus","Orpheus HE-1","Sennheiser Orpheus HE-1",2016,"Active","Open Back","Electrostatic","No","No",notes="~€55,000 flagship electrostatic system; built-in amp/DAC; marble and glass construction")
+
+# ---- ZMF Ori (original; T50RP-based wood-cup closed planar) ----
+add("ZMF_ORI","ZMF Headphones","Flagship","Ori","ZMF Ori",2015,"Discontinued","Closed Back","Planar Magnetic","No","No",succ="ZMF_ORI3",notes="ZMF's first headphone; T50RP Mk2 driver in handcrafted wood cups")
+add("ZMF_ORI3","ZMF Headphones","Flagship","Ori 3.0","ZMF Ori 3.0",2025,"Active","Closed Back","Planar Magnetic","No","No",pred="ZMF_ORI",notes="Complete redesign; 80mm CAMS planar; torrefied Black Limba cups")
+
+# ---- AKG vintage 600Ω models ----
+add("AKG_K240DF","AKG","K","K240 DF","AKG K240 DF",1975,"Discontinued","Semi-Open","Dynamic","No","No",category="Studio",notes="Vienna-made 600Ω; diffuse-field compensation; audiophile vintage classic")
+add("AKG_K240M","AKG","K","K240M","AKG K240M",1975,"Discontinued","Semi-Open","Dynamic","No","No",category="Studio",notes="Vienna-made 600Ω monitor; sibling to K240 DF; highly regarded vintage")
+
+# ---- Monoprice M560 (distinct from M570 we have) ----
+add("MONO_M560","Monoprice","Monolith","M560","Monoprice Monolith M560",2018,"Active","Semi-Open","Planar Magnetic","No","No",notes="Semi-open planar; 42Ω; wood trim; different driver from M570")
+
+# ---- Status Audio additional models ----
+add("STATUS_HDONE","Status Audio","CB","HD One","Status Audio HD One",2020,"Active","Closed Back","Dynamic","No","No",notes="Wired closed-back; unbranded; flat reference tuning")
+add("STATUS_HDTWO","Status Audio","CB","HD Two","Status Audio HD Two",2021,"Active","Closed Back","Dynamic","No","No",notes="Updated HD One; detachable cable; 17Ω")
+add("STATUS_OB1","Status Audio","CB","OB-1","Status Audio OB-1",2019,"Active","Open Back","Dynamic","No","No",notes="Open-back from Status; 54Ω; flat reference tuning")
+
 # ---- AKG remaining notable models ----
 add("AKG_K240MKII","AKG","K","K240 MkII","AKG K240 MkII",2006,"Active","Semi-Open","Dynamic","No","No",notes="Updated K240 with improved driver and self-adjusting headband")
 add("AKG_K52","AKG","K","K52","AKG K52",2017,"Active","Closed Back","Dynamic","No","No",notes="Budget closed-back; 40mm driver; entry studio")
@@ -1807,6 +1856,34 @@ SPECS = {
     # ---- Meze Audio (additional) ----
     "MEZE_POET":         {"impedance": "40", "sensitivity": "112", "driver_size": "50"},
     "MEZE_109PRODESC":   {"impedance": "40", "sensitivity": "112", "driver_size": "50"},
+    # ---- Audioquest (verified from manufacturer page & multiple reviews) ----
+    "AQ_NIGHTHAWK":       {"impedance": "25", "sensitivity": "99", "driver_size": "50"},
+    "AQ_NIGHTHAWKCARBON": {"impedance": "25", "sensitivity": "99", "driver_size": "50"},
+    "AQ_NIGHTOWL":        {"impedance": "25", "sensitivity": "99", "driver_size": "50"},
+    "AQ_NIGHTOWLCARBON":  {"impedance": "25", "sensitivity": "99", "driver_size": "50"},
+    # ---- NAD (verified: 32Ω from Headfonics; ~106 dB from SoundStage measurements) ----
+    "NAD_HP50":    {"impedance": "32", "sensitivity": "106", "driver_size": "40"},
+    # ---- Brainwavz (64Ω verified from multiple retail listings) ----
+    "BWAVZ_HM5":   {"impedance": "64", "sensitivity": "98", "driver_size": "40"},
+    # ---- Beyerdynamic portable Tesla (verified from Adorama/manufacturer specs) ----
+    # T51p: 60Ω (Adorama listing); T51i: 32Ω (Adorama listing, iOS remote version); T90: 250Ω/102dB (Head-Fi/manufacturer)
+    "BEYER_T51P":  {"impedance": "60",  "sensitivity": "102", "driver_size": "40"},
+    "BEYER_T51I":  {"impedance": "32",  "sensitivity": "111", "driver_size": "40"},
+    "BEYER_T90":   {"impedance": "250", "sensitivity": "102", "driver_size": "45"},
+    # ---- Sennheiser HD 598 CS (verified: 23Ω/115dB confirmed by Major HiFi, Head-Fi, multiple reviews) ----
+    "SENN_HD598CS": {"impedance": "23", "sensitivity": "115"},
+    # ---- ZMF Ori (original T50RP-based closed planar: 50Ω) ----
+    "ZMF_ORI":   {"impedance": "50",  "sensitivity": "96"},
+    "ZMF_ORI3":  {"impedance": "35",  "sensitivity": "96", "driver_size": "80"},
+    # ---- AKG K240 vintage 600Ω (confirmed from multiple sources; ~88 dB sensitivity) ----
+    "AKG_K240DF": {"impedance": "600", "sensitivity": "88"},
+    "AKG_K240M":  {"impedance": "600", "sensitivity": "88"},
+    # ---- Monoprice M560 (42Ω per retailer spec sheets) ----
+    "MONO_M560":   {"impedance": "42", "sensitivity": "100"},
+    # ---- Status Audio additional (from status.co spec pages) ----
+    "STATUS_HDONE": {"impedance": "32", "sensitivity": "99",  "driver_size": "40"},
+    "STATUS_HDTWO": {"impedance": "17", "sensitivity": "115", "driver_size": "40"},
+    "STATUS_OB1":   {"impedance": "54", "sensitivity": "95",  "driver_size": "40"},
 }
 
 products = []

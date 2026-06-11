@@ -176,3 +176,7 @@ family_id,manufacturer_id,family_name,family_type
 175,75,Planar,Headphone
 176,76,M4U,Headphone
 177,77,Wood,Headphone
+178,78,NightHawk,Headphone
+179,78,NightOwl,Headphone
+180,79,VISO,Headphone
+181,80,HM,Studio
