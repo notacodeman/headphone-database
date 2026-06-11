@@ -44,6 +44,7 @@ CREATE TABLE IF NOT EXISTS families (
 
 CREATE TABLE IF NOT EXISTS products (
     product_id          TEXT    PRIMARY KEY,
+    id                  INTEGER UNIQUE,
     family_id           INTEGER REFERENCES families(family_id),
     manufacturer_id     INTEGER REFERENCES manufacturers(manufacturer_id),
     model_name          TEXT    NOT NULL,
@@ -179,13 +180,14 @@ def load_products(conn, rows, verbose):
     for r in rows:
         cur.execute("""
             INSERT INTO products(
-                product_id, family_id, manufacturer_id,
+                product_id, id, family_id, manufacturer_id,
                 model_name, full_name, release_year, discontinued_year,
                 status, category, design, driver_type,
                 driver_size_mm, impedance_ohms, sensitivity_db,
                 wireless, anc, predecessor, successor, notes, date_added
-            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
             ON CONFLICT(product_id) DO UPDATE SET
+                id=excluded.id,
                 family_id=excluded.family_id,
                 manufacturer_id=excluded.manufacturer_id,
                 model_name=excluded.model_name,
@@ -207,6 +209,7 @@ def load_products(conn, rows, verbose):
                 date_added=excluded.date_added
         """, (
             coerce_str(r.get("product_id")),
+            coerce_int(r.get("id")),
             coerce_int(r.get("family_id")),
             coerce_int(r.get("manufacturer_id")),
             coerce_str(r.get("model_name")),

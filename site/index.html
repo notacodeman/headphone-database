@@ -275,9 +275,68 @@
   .skip-link { position: absolute; left: -999px; top: 0; background: var(--ink); color: var(--paper); padding: 0.6rem 1rem; z-index: 100; }
   .skip-link:focus { left: 0; }
   a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible,
-  th[role="button"]:focus-visible, .expandbtn:focus-visible {
+  th[role="button"]:focus-visible, .expandbtn:focus-visible, .cmpbtn:focus-visible {
     outline: 2px solid var(--accent); outline-offset: 2px;
   }
+
+  /* Compare button in each row */
+  .cmpcol { width: 2rem; text-align: center; }
+  .cmpbtn { background: none; border: 1px solid var(--line); color: var(--muted); font-size: 1rem;
+    line-height: 1; width: 22px; height: 22px; border-radius: 4px; cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center; padding: 0; transition: all 0.1s; }
+  .cmpbtn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .cmpbtn--on { background: var(--accent); border-color: var(--accent); color: var(--paper); }
+  .cmpbtn--on::before { content: "\2212"; } /* minus sign when selected */
+  .cmpbtn:not(.cmpbtn--on)::before { content: "+"; }
+  .cmpbtn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  /* Compare bar */
+  .cmpbar { position: fixed; bottom: 0; left: 0; right: 0; background: var(--ink); color: var(--paper);
+    display: flex; align-items: center; gap: 1rem; padding: 0.8rem 1.5rem;
+    box-shadow: 0 -4px 20px rgba(26,23,20,0.3); z-index: 40;
+    transform: translateY(0); transition: transform 0.2s ease; }
+  .cmpbar[hidden] { display: none; }
+  .cmpbar-slots { display: flex; gap: 0.6rem; flex: 1; flex-wrap: wrap; }
+  .cmpbar-slot { display: flex; align-items: center; gap: 0.4rem; background: rgba(255,255,255,0.1);
+    border-radius: 99px; padding: 0.25rem 0.7rem; font-size: 0.78rem; white-space: nowrap; }
+  .cmpbar-slot button { background: none; border: none; color: inherit; cursor: pointer;
+    font-size: 1rem; line-height: 1; padding: 0; opacity: 0.7; }
+  .cmpbar-slot button:hover { opacity: 1; }
+  .cmpbar-btn { background: var(--accent); color: var(--paper); border: none; cursor: pointer;
+    font-family: inherit; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em;
+    padding: 0.6rem 1.2rem; border-radius: 99px; white-space: nowrap; }
+  .cmpbar-btn:hover { background: var(--accent-2); }
+  .cmpbar-clear { color: rgba(255,255,255,0.6); font-size: 0.72rem; }
+  .cmpbar-clear:hover { color: var(--paper); }
+
+  /* Compare modal */
+  #cmpOverlay { align-items: flex-start; padding: 2rem 1rem; overflow-y: auto; }
+  #cmpOverlay:not([hidden]) { display: flex; }
+  .cmpmodal { background: var(--card); border: 1px solid var(--ink); border-radius: 12px;
+    max-width: 960px; width: 100%; padding: 0; overflow: hidden; }
+  .cmpmodal-head { display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 1.5rem; border-bottom: 2px solid var(--ink); }
+  .cmpmodal-head h2 { font-family: 'Fraunces', serif; font-size: 1.4rem; }
+  .cmpclose { background: none; border: none; cursor: pointer; font-size: 1.5rem;
+    color: var(--muted); line-height: 1; padding: 0.2rem; }
+  .cmpclose:hover { color: var(--ink); }
+  .cmpmodal-body { overflow-x: auto; }
+  .cmpmodal-hint { font-size: 0.76rem; color: var(--muted); padding: 0.8rem 1.5rem;
+    border-top: 1px solid var(--line); }
+  .cmpmodal-hint a { color: var(--accent-2); word-break: break-all; }
+
+  /* Comparison table */
+  .cmptable { border-collapse: collapse; width: 100%; table-layout: fixed; }
+  .cmptable th, .cmptable td { padding: 0.65rem 1rem; text-align: left;
+    border-bottom: 1px solid var(--line); vertical-align: top; }
+  .cmptable th { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--muted); width: 140px; background: var(--paper-2); }
+  .cmptable td { font-size: 0.88rem; }
+  .cmptable .cmp-label { font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 600; }
+  .cmptable .cmp-brand { font-size: 0.72rem; color: var(--muted); }
+  .cmptable .cmp-diff { background: rgba(194,65,12,0.06); color: var(--accent); font-weight: 500; }
+  .cmptable .cmp-same { color: var(--muted); }
+  .cmptable .cmp-empty { color: var(--line); font-style: italic; }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
   }
@@ -339,6 +398,25 @@
   </div>
 </main>
 
+<!-- Compare bar — slides up when headphones are selected -->
+<div class="cmpbar" id="cmpbar" hidden aria-live="polite">
+  <div class="cmpbar-slots" id="cmpSlots"></div>
+  <button class="cmpbar-btn" id="cmpGo" aria-label="Open comparison">Compare</button>
+  <button class="cmpbar-clear linkbtn" id="cmpClear">Clear</button>
+</div>
+
+<!-- Compare modal -->
+<div class="overlay" id="cmpOverlay" role="dialog" aria-modal="true" aria-labelledby="cmpTitle" hidden>
+  <div class="cmpmodal">
+    <div class="cmpmodal-head">
+      <h2 id="cmpTitle">Compare Headphones</h2>
+      <button class="cmpclose" id="cmpClose" aria-label="Close comparison">&times;</button>
+    </div>
+    <div class="cmpmodal-body" id="cmpBody"></div>
+    <p class="cmpmodal-hint">Share this comparison: <a id="cmpShareLink" href="#"></a></p>
+  </div>
+</div>
+
 <footer>
   <span>Data: community-maintained CSV catalog</span>
   <span id="source"></span>
@@ -365,6 +443,54 @@ const COLS = [
 
 const state = { rows: [], filtered: [], sortKey: "release_year", sortDir: "descending", visible: {} };
 
+// ---- Compare state ----
+// compareSet holds integer IDs (up to 3). URL: ?compare=1,42,187
+const compareSet = new Set();
+const COMPARE_MAX = 3;
+
+function compareFromURL() {
+  const params = new URLSearchParams(location.search);
+  const ids = (params.get("compare") || "").split(",").map(s => parseInt(s, 10)).filter(n => n > 0);
+  compareSet.clear();
+  ids.slice(0, COMPARE_MAX).forEach(id => compareSet.add(id));
+}
+
+function compareToURL() {
+  const params = new URLSearchParams(location.search);
+  if (compareSet.size > 0) {
+    params.set("compare", [...compareSet].join(","));
+  } else {
+    params.delete("compare");
+  }
+  const newURL = params.toString() ? `${location.pathname}?${params}` : location.pathname;
+  history.replaceState(null, "", newURL);
+}
+
+function toggleCompare(intId) {
+  if (compareSet.has(intId)) {
+    compareSet.delete(intId);
+  } else {
+    if (compareSet.size >= COMPARE_MAX) return; // max reached
+    compareSet.add(intId);
+  }
+  compareToURL();
+  updateCompareBar();
+  // Update just the affected row's button without full re-render
+  document.querySelectorAll(`tr.datarow[data-id="${intId}"]`).forEach(tr => {
+    const btn = tr.querySelector(".cmpbtn");
+    if (btn) syncCompareBtnState(btn, intId);
+  });
+}
+
+function syncCompareBtnState(btn, intId) {
+  const selected = compareSet.has(intId);
+  const full = !selected && compareSet.size >= COMPARE_MAX;
+  btn.classList.toggle("cmpbtn--on", selected);
+  btn.setAttribute("aria-pressed", String(selected));
+  btn.setAttribute("title", selected ? "Remove from comparison" : (full ? "Maximum 3 selected" : "Add to comparison"));
+  btn.disabled = full;
+}
+
 // Load saved column prefs (works on the live site; falls back to defaults if unavailable)
 function loadColPrefs() {
   COLS.forEach(c => state.visible[c.key] = c.on);
@@ -378,10 +504,11 @@ function saveColPrefs() {
 }
 
 const CARET_W = 44;
+const COMPARE_COL_W = 44;
 const colW = {};
 function loadColW(){ COLS.forEach(c=>colW[c.key]=c.w); try{ const s=JSON.parse(localStorage.getItem("archive_colw")||"null"); if(s) Object.assign(colW,s);}catch(e){} }
 function saveColW(){ try{ localStorage.setItem("archive_colw",JSON.stringify(colW)); }catch(e){} }
-function visTotalW(){ return COLS.filter(c=>state.visible[c.key]).reduce((s,c)=>s+colW[c.key],0) + CARET_W; }
+function visTotalW(){ return COLS.filter(c=>state.visible[c.key]).reduce((s,c)=>s+colW[c.key],0) + CARET_W + COMPARE_COL_W; }
 
 let resizing = null;
 document.addEventListener("mousemove", e => {
@@ -434,6 +561,7 @@ async function load() {
         initFilters();
         buildColMenu();
         apply();
+        updateCompareBar();
         document.getElementById("source").innerHTML =
           'Source: <a href="https://github.com/notacodeman/headphone-database">github.com/notacodeman/headphone-database</a>';
         return;
@@ -461,6 +589,7 @@ async function loadFromCSV() {
     initFilters();
     buildColMenu();
     apply();
+    updateCompareBar();
     document.getElementById("source").innerHTML =
       'Source: <a href="https://github.com/notacodeman/headphone-database">github.com/notacodeman/headphone-database</a>';
   } catch (e) {
@@ -629,24 +758,38 @@ function render() {
     const sortAttr = c.sortable ? (state.sortKey === c.key ? ` aria-sort="${state.sortDir}"` : ' aria-sort="none"') : "";
     html += `<th scope="col" data-key="${c.key}" style="width:${colW[c.key]}px"${sortAttr}><span>${c.label}</span><span class="resizer" data-key="${c.key}"></span></th>`;
   });
+  const COMPARE_W = 44;
+  html += `<th scope="col" class="cmpcol" style="width:${COMPARE_W}px"><span class="vh">Compare</span></th>`;
   html += `<th scope="col" class="caretcol" style="width:${CARET_W}px"><span class="vh">Details</span></th>`;
   html += "</tr></thead><tbody>";
   state.filtered.forEach((r, i) => {
     const z = i % 2 ? " zebra" : "";
     const label = `${r._brand} ${r.model_name}`;
-    html += `<tr class="datarow${z}">` +
+    const intId = r.id ? parseInt(r.id, 10) : 0;
+    const selected = compareSet.has(intId);
+    const full = !selected && compareSet.size >= COMPARE_MAX;
+    html += `<tr class="datarow${z}" data-id="${intId}">` +
       cols.map(c => `<td>${cellValue(r, c.key)}</td>`).join("") +
+      `<td class="cmpcol"><button class="cmpbtn${selected?" cmpbtn--on":""}" data-cid="${intId}" aria-pressed="${selected}" ${full?"disabled":""} title="${selected?"Remove from comparison":(full?"Maximum 3 selected":"Add to comparison")}">+</button></td>` +
       `<td class="caretcol"><button class="expandbtn" aria-expanded="false" aria-label="Show details for ${esc(label)}"><span class="caret" aria-hidden="true">\u203A</span></button></td>` +
       `</tr>`;
-    html += `<tr class="detailrow${z}" hidden><td colspan="${cols.length + 1}"><div class="detailwrap">${rowDetail(r)}</div></td></tr>`;
+    html += `<tr class="detailrow${z}" hidden><td colspan="${cols.length + 2}"><div class="detailwrap">${rowDetail(r)}</div></td></tr>`;
   });
   html += "</tbody></table>";
   document.getElementById("tablewrap").innerHTML = html;
 
   document.querySelectorAll("tr.datarow").forEach(tr => {
     tr.addEventListener("click", (e) => {
-      if (e.target.closest("a")) return;       // let links work without toggling
+      if (e.target.closest("a") || e.target.closest(".cmpbtn")) return;
       toggleDetail(tr);
+    });
+  });
+
+  document.querySelectorAll(".cmpbtn").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const intId = parseInt(btn.getAttribute("data-cid"), 10);
+      if (intId) toggleCompare(intId);
     });
   });
 
@@ -700,7 +843,133 @@ loadColPrefs();
 loadColW();
 buildColMenu();
 wireColumnsMenu();
+compareFromURL();
 load();
+
+// ---- Compare bar ----
+function updateCompareBar() {
+  const bar = document.getElementById("cmpbar");
+  const slots = document.getElementById("cmpSlots");
+  if (compareSet.size === 0) { bar.hidden = true; return; }
+  bar.hidden = false;
+  slots.innerHTML = [...compareSet].map(intId => {
+    const r = state.rows.find(p => p.id == intId);
+    const label = r ? `${r._brand} ${r.model_name}` : `#${intId}`;
+    return `<span class="cmpbar-slot">${esc(label)}<button aria-label="Remove ${esc(label)}" data-cid="${intId}">&times;</button></span>`;
+  }).join("");
+  slots.querySelectorAll("button[data-cid]").forEach(b =>
+    b.addEventListener("click", () => { toggleCompare(parseInt(b.getAttribute("data-cid"),10)); })
+  );
+}
+
+// ---- Compare modal ----
+const CMP_FIELDS = [
+  { label: "Brand",        key: "_brand" },
+  { label: "Full name",    key: "full_name" },
+  { label: "Released",     key: "release_year" },
+  { label: "Status",       key: "status" },
+  { label: "Design",       key: "design" },
+  { label: "Driver type",  key: "driver_type" },
+  { label: "Driver size",  key: "driver_size_mm",  unit: " mm" },
+  { label: "Impedance",    key: "impedance_ohms",  unit: " \u03A9" },
+  { label: "Sensitivity",  key: "sensitivity_db",  unit: " dB" },
+  { label: "Wireless",     key: "wireless" },
+  { label: "ANC",          key: "anc" },
+  { label: "Predecessor",  key: "_pred_name" },
+  { label: "Successor",    key: "_succ_name" },
+  { label: "Notes",        key: "notes" },
+];
+
+function resolvedName(id) {
+  if (!id) return "";
+  const r = state.rows.find(p => p.product_id === id);
+  return r ? `${r._brand} ${r.model_name}` : id;
+}
+
+function openCompare() {
+  const selected = [...compareSet].map(id => state.rows.find(p => p.id == id)).filter(Boolean);
+  if (selected.length < 2) { alert("Select at least 2 headphones to compare."); return; }
+
+  // Augment with resolved lineage names
+  selected.forEach(r => {
+    r._pred_name = resolvedName(r.predecessor);
+    r._succ_name = resolvedName(r.successor);
+  });
+
+  const n = selected.length;
+  const colW = Math.floor((100 - 16) / n); // 16% for label col, rest split equally
+
+  let html = `<table class="cmptable"><thead><tr><th></th>`;
+  selected.forEach(r => {
+    html += `<td><div class="cmp-brand">${esc(r._brand)}</div><div class="cmp-label">${esc(r.model_name)}</div></td>`;
+  });
+  html += `</tr></thead><tbody>`;
+
+  CMP_FIELDS.forEach(f => {
+    const vals = selected.map(r => {
+      const v = r[f.key];
+      return (v !== undefined && v !== null && v !== "") ? String(v) : "";
+    });
+    // Skip rows where all values are empty
+    if (vals.every(v => !v)) return;
+
+    // Determine if values differ (ignoring empty cells)
+    const nonEmpty = vals.filter(v => v);
+    const allSame = nonEmpty.length > 1 && nonEmpty.every(v => v === nonEmpty[0]);
+
+    html += `<tr><th>${esc(f.label)}</th>`;
+    vals.forEach(v => {
+      if (!v) {
+        html += `<td class="cmp-empty">\u2014</td>`;
+      } else {
+        const cls = nonEmpty.length < 2 ? "" : allSame ? " cmp-same" : " cmp-diff";
+        html += `<td class="${cls}">${esc(v)}${v && f.unit ? esc(f.unit) : ""}</td>`;
+      }
+    });
+    html += `</tr>`;
+  });
+  html += `</tbody></table>`;
+
+  document.getElementById("cmpBody").innerHTML = html;
+
+  // Shareable URL
+  const shareURL = `${location.origin}${location.pathname}?compare=${[...compareSet].join(",")}`;
+  const linkEl = document.getElementById("cmpShareLink");
+  linkEl.href = shareURL;
+  linkEl.textContent = shareURL;
+
+  const overlay = document.getElementById("cmpOverlay");
+  overlay.removeAttribute("hidden");
+  document.getElementById("cmpClose").focus();
+}
+
+function closeCompare() {
+  document.getElementById("cmpOverlay").setAttribute("hidden", "");
+}
+
+document.getElementById("cmpGo").addEventListener("click", openCompare);
+document.getElementById("cmpClear").addEventListener("click", () => {
+  compareSet.clear();
+  compareToURL();
+  updateCompareBar();
+  document.querySelectorAll(".cmpbtn--on").forEach(b => {
+    b.classList.remove("cmpbtn--on");
+    b.setAttribute("aria-pressed", "false");
+    b.disabled = false;
+    b.title = "Add to comparison";
+  });
+  document.querySelectorAll(".cmpbtn:disabled").forEach(b => {
+    b.disabled = false;
+    b.title = "Add to comparison";
+  });
+});
+document.getElementById("cmpClose").addEventListener("click", closeCompare);
+document.getElementById("cmpOverlay").addEventListener("click", e => {
+  if (e.target.id === "cmpOverlay") closeCompare();
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") closeCompare();
+});
 </script>
 </body>
 </html>

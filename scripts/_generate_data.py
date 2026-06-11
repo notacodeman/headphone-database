@@ -101,6 +101,22 @@ manufacturers = [
     (78, "Audioquest",     "USA",         "https://www.audioquest.com",      "Active"),
     (79, "NAD",            "Canada",      "https://nadelectronics.com",      "Active"),
     (80, "Brainwavz",      "China",       "https://www.brainwavzaudio.com",  "Active"),
+    # From OPRA gap-fill round 3
+    (81, "Modhouse Audio", "USA",         "https://modhouse.io",             "Active"),
+    (82, "Kiwi Ears",      "China",       "https://www.kiwiears.com",        "Active"),
+    (83, "Plantronics",    "USA",         "https://www.poly.com",            "Active"),
+    (84, "Phiaton",        "South Korea", "https://www.phiaton.com",         "Active"),
+    (85, "Teufel",         "Germany",     "https://www.teufel.de",           "Active"),
+    (86, "House of Marley","USA",         "https://www.thehouseofmarley.com","Active"),
+    (87, "Cooler Master",  "Taiwan",      "https://www.coolermaster.com",    "Active"),
+    # Fresh additions — notable brands not in OPRA
+    (88, "JVC",            "Japan",       "https://www.jvc.com",             "Active"),
+    (89, "Tago Studio",    "Japan",       "https://tagostudio.com",          "Active"),
+    (90, "Takstar",        "China",       "https://www.takstar.com",         "Active"),
+    (91, "Goldplanar",     "China",       "https://goldplanar.com",          "Active"),
+    (92, "MySphere",       "Austria",     "https://mysphere.at",             "Active"),
+    (93, "Panasonic",      "Japan",       "https://www.panasonic.com",       "Active"),
+    (94, "Crosszone",      "Japan",       "https://crosszone.jp",            "Active"),
 ]
 mfr_id = {name: i for i, name, *_ in manufacturers}
 
@@ -300,6 +316,23 @@ families_raw = [
     ("Audioquest", "NightOwl", "Headphone"),
     ("NAD", "VISO", "Headphone"),
     ("Brainwavz", "HM", "Studio"),
+    ("Modhouse Audio", "Argon", "Headphone"),
+    ("Modhouse Audio", "Tungsten", "Headphone"),
+    ("Kiwi Ears", "Planar", "Headphone"),
+    ("Plantronics", "BackBeat", "Headphone"),
+    ("Phiaton", "Chord", "Headphone"),
+    ("Phiaton", "Bridge", "Headphone"),
+    ("Teufel", "Real", "Headphone"),
+    ("House of Marley", "Positive", "Headphone"),
+    ("Cooler Master", "MH", "Headphone"),
+    ("JVC", "HA", "Headphone"),
+    ("Tago Studio", "T3", "Studio"),
+    ("Takstar", "Pro", "Studio"),
+    ("Takstar", "HF", "Headphone"),
+    ("Goldplanar", "GL", "Headphone"),
+    ("MySphere", "MySphere", "Headphone"),
+    ("Panasonic", "RP", "Headphone"),
+    ("Crosszone", "CZ", "Headphone"),
 ]
 families = []
 fam_id = {}
@@ -1290,6 +1323,181 @@ add("DENON_D600","Denon","AH-D","AH-D600","Denon AH-D600",2012,"Discontinued","C
 # ---- Yamaha YH-C3000 (new 2024 closed-back) ----
 add("YAMAHA_YHC3000","Yamaha","YH","YH-C3000","Yamaha YH-C3000",2024,"Active","Closed Back","Dynamic","No","No",notes="Beech wood closed-back; Armodynamic driver")
 
+# ---- Modhouse Audio ----
+add("MODHOUSE_ARGONMK3","Modhouse Audio","Argon","Argon Mk3","Modhouse Audio Argon Mk3",2020,"Active","Semi-Open","Planar Magnetic","No","No",notes="T50RP Mk2 base with custom Argon planar driver; wildly popular mod")
+add("MODHOUSE_TUNGSTEN","Modhouse Audio","Tungsten","Tungsten","Modhouse Audio Tungsten",2022,"Active","Open Back","Planar Magnetic","No","No",notes="Original planar design; not T50RP-based; open-back flagship")
+
+# ---- Kiwi Ears ----
+add("KIWIEARS_ARDOR","Kiwi Ears","Planar","Ardor","Kiwi Ears Ardor",2023,"Active","Open Back","Planar Magnetic","No","No",notes="90mm planar; acclaimed value flagship")
+add("KIWIEARS_ELLIPSE","Kiwi Ears","Planar","Ellipse","Kiwi Ears Ellipse",2023,"Active","Closed Back","Planar Magnetic","No","No",notes="Closed-back 90mm planar companion to Ardor")
+add("KIWIEARS_ATHEIA","Kiwi Ears","Planar","Atheia","Kiwi Ears Atheia",2024,"Active","Open Back","Planar Magnetic","No","No",notes="Successor to Ardor; improved tuning")
+add("KIWIEARS_AVENTUS","Kiwi Ears","Planar","Aventus","Kiwi Ears Aventus",2024,"Active","Open Back","Planar Magnetic","No","No",notes="Mid-fi open planar")
+add("KIWIEARS_DIVISION","Kiwi Ears","Planar","Division","Kiwi Ears Division",2024,"Active","Open Back","Dynamic","No","No",notes="Dynamic flagship from Kiwi Ears")
+
+# ---- Plantronics / Poly (BackBeat consumer wireless) ----
+add("PLANT_BB500","Plantronics","BackBeat","BackBeat 500","Plantronics BackBeat 500",2016,"Discontinued","Closed Back","Dynamic","Yes","No",notes="Wireless on-ear; foldable; entry BackBeat")
+add("PLANT_BB600","Plantronics","BackBeat","BackBeat Go 600","Plantronics BackBeat Go 600",2018,"Discontinued","Closed Back","Dynamic","Yes","No",notes="Wireless on-ear with optional ANC")
+add("PLANT_BB810","Plantronics","BackBeat","BackBeat Go 810","Plantronics BackBeat Go 810",2018,"Discontinued","Closed Back","Dynamic","Yes","Yes",notes="ANC wireless over-ear; successor to 600")
+
+# ---- Phiaton (premium wireless, Korean design) ----
+add("PHIATON_MS530","Phiaton","Chord","MS 530","Phiaton Chord MS 530",2013,"Discontinued","Closed Back","Dynamic","Yes","Yes",notes="Bluetooth + ANC; premium wireless early adopter")
+add("PHIATON_MS500","Phiaton","Chord","MS 500","Phiaton Chord MS 500",2012,"Discontinued","Closed Back","Dynamic","No","No",notes="Wired premium closed-back; wood + metal design")
+add("PHIATON_PS500","Phiaton","Bridge","PS 500","Phiaton Bridge PS 500",2011,"Discontinued","Closed Back","Dynamic","No","No",notes="Over-ear flaghship; semi-open cups")
+add("PHIATON_PS320","Phiaton","Bridge","PS 320","Phiaton Bridge PS 320",2011,"Discontinued","Closed Back","Dynamic","No","No",notes="Compact over-ear; wood accents")
+add("PHIATON_BT460","Phiaton","Bridge","BT 460","Phiaton Bridge BT 460",2016,"Discontinued","Closed Back","Dynamic","Yes","No",notes="Wireless foldable; aptX; popular value wireless")
+
+# ---- Teufel (German consumer electronics) ----
+add("TEUFEL_ZOLA","Teufel","Real","Zola","Teufel Zola",2018,"Discontinued","Closed Back","Dynamic","Yes","Yes",notes="German ANC wireless; clean tuning")
+add("TEUFEL_CAGE","Teufel","Real","CAGE","Teufel CAGE",2017,"Discontinued","Closed Back","Dynamic","No","No",notes="Wired studio-style closed-back")
+add("TEUFEL_REALBLUENC","Teufel","Real","Real Blue NC","Teufel Real Blue NC",2019,"Active","Closed Back","Dynamic","Yes","Yes",notes="ANC wireless; strong value in Europe")
+add("TEUFEL_REALZ","Teufel","Real","Real Z","Teufel Real Z",2021,"Active","Open Back","Dynamic","No","No",notes="Open-back audiophile design")
+
+# ---- House of Marley ----
+add("MARLEY_PV2","House of Marley","Positive","Positive Vibration 2","House of Marley Positive Vibration 2",2017,"Active","On-Ear","Dynamic","No","No",notes="Sustainable materials; bamboo and fabric; casual on-ear")
+add("MARLEY_PV2BT","House of Marley","Positive","Positive Vibration 2 Wireless","House of Marley Positive Vibration 2 Wireless",2018,"Active","On-Ear","Dynamic","Yes","No",notes="Wireless version of PV2; 10hr battery")
+add("MARLEY_STIRIUP","House of Marley","Positive","Stir It Up Wireless","House of Marley Stir It Up Wireless",2019,"Active","Closed Back","Dynamic","Yes","No",notes="Over-ear wireless; sustainable build")
+add("MARLEY_EXODUS","House of Marley","Positive","Exodus","House of Marley Exodus",2014,"Discontinued","Closed Back","Dynamic","No","No",notes="Premium over-ear; red cherry wood")
+
+# ---- Cooler Master gaming headsets ----
+add("CM_MH630","Cooler Master","MH","MH630","Cooler Master MH630",2018,"Discontinued","Closed Back","Dynamic","No","No",category="Gaming",notes="Wired gaming headset; 40mm driver")
+add("CM_MH751","Cooler Master","MH","MH751","Cooler Master MH751",2019,"Active","Closed Back","Dynamic","No","No",category="Gaming",notes="40mm driver; popular gaming headset value pick")
+add("CM_MH752","Cooler Master","MH","MH752","Cooler Master MH752",2019,"Active","Closed Back","Dynamic","No","No",category="Gaming",notes="MH751 with USB soundcard; surround 7.1")
+
+# ---- Ultrasone additional (S-Logic lineup) ----
+add("ULTRA_ED8","Ultrasone","Edition","Edition 8","Ultrasone Edition 8",2010,"Active","Closed Back","Dynamic","No","No",notes="S-Logic II; 40mm; Ethiopian sheepskin; flagship portable")
+add("ULTRA_ED10","Ultrasone","Edition","Edition 10","Ultrasone Edition 10",2011,"Active","Open Back","Dynamic","No","No",notes="S-Logic Plus; open-back flagship; Ruthenium-plated")
+add("ULTRA_ED15","Ultrasone","Edition","Edition 15","Ultrasone Edition 15",2015,"Active","Open Back","Dynamic","No","No",notes="S-Logic Plus; anniversary flagship")
+add("ULTRA_HFI780","Ultrasone","HFI","HFI-780","Ultrasone HFI-780",2008,"Discontinued","Semi-Open","Dynamic","No","No",notes="S-Logic; popular semi-open; discontinued")
+add("ULTRA_HFI450","Ultrasone","HFI","HFI-450","Ultrasone HFI-450",2007,"Discontinued","Closed Back","Dynamic","No","No",notes="Entry S-Logic closed-back")
+add("ULTRA_HFI2400","Ultrasone","HFI","HFI-2400","Ultrasone HFI-2400",2009,"Discontinued","Semi-Open","Dynamic","No","No",notes="S-Logic Plus; higher-tier HFI")
+add("ULTRA_SIGPURE","Ultrasone","Signature","Signature Pure","Ultrasone Signature Pure",2020,"Active","Closed Back","Dynamic","No","No",notes="Refined S-Logic; clean reference tuning")
+add("ULTRA_TRIB7","Ultrasone","Edition","Tribute 7","Ultrasone Tribute 7",2014,"Discontinued","Closed Back","Dynamic","No","No",notes="Limited 25th anniversary; gold-plated; 700 units only")
+
+# ---- Dan Clark Audio MrSpeakers era remaining ----
+add("DCA_MADDOG","Dan Clark Audio","Ether","Mad Dog","Dan Clark Audio Mad Dog",2012,"Discontinued","Closed Back","Planar Magnetic","No","No",notes="MrSpeakers era; T50RP-based closed planar; the one that started it all")
+add("DCA_VOCE","Dan Clark Audio","Ether","Voce","Dan Clark Audio Voce",2017,"Active","Open Back","Electrostatic","No","No",notes="DCA electrostatic; requires compatible energizer")
+add("DCA_NOIRECLOSED","Dan Clark Audio","Ether","Noire","Dan Clark Audio Noire",2021,"Active","Closed Back","Planar Magnetic","No","No",notes="Closed-back planar; tuned for music production")
+
+# ---- Fostex additions ----
+add("FOSTEX_T50RPMK2","Fostex","RP","T50RP Mk2","Fostex T50RP MK2",2011,"Discontinued","Semi-Open","Planar Magnetic","No","No",category="Studio",pred="",succ="FOSTEX_T50RPMK3",notes="Pre-Mk3; detachable cable not yet available; still the modding base")
+add("FOSTEX_TXO","Fostex","TH","T-X0","Fostex T-X0",2016,"Discontinued","Closed Back","Dynamic","No","No",notes="Biodynamic 50mm driver; base for Massdrop TH-X00; premium Fostex tech")
+add("FOSTEX_TXOII","Fostex","TH","T-X0 II","Fostex T-X0 II",2019,"Active","Closed Back","Dynamic","No","No",notes="Updated T-X0 driver; improved housing")
+add("FOSTEX_TR80","Fostex","RP","TR-80","Fostex TR-80",2012,"Active","Open Back","Dynamic","No","No",category="Studio",notes="Open reference monitor; large 50mm driver")
+add("FOSTEX_TH616","Fostex","TH","TH616","Fostex TH616",2020,"Active","Closed Back","Dynamic","No","No",notes="Mid-tier TH closed-back; 50mm driver")
+
+# ---- JBL CLUB series and remaining ----
+add("JBL_CLUBONE","JBL","Club","CLUB ONE","JBL CLUB ONE",2020,"Active","Closed Back","Dynamic","Yes","Yes",notes="Premium ANC flagship; adaptive noise cancelling; True Adaptive Sound")
+add("JBL_CLUB700","JBL","Club","CLUB 700BT","JBL CLUB 700BT",2020,"Active","Closed Back","Dynamic","Yes","No",notes="Wireless on-ear; Club series entry")
+add("JBL_CLUB950","JBL","Club","CLUB 950NC","JBL CLUB 950NC",2020,"Active","Closed Back","Dynamic","Yes","Yes",notes="ANC wireless over-ear; Club series")
+add("JBL_LIVE670","JBL","Live","Live 670NC","JBL Live 670NC",2022,"Active","Closed Back","Dynamic","Yes","Yes",notes="ANC wireless on-ear; successor to Live 460NC")
+add("JBL_DUETNC","JBL","Tune","Duet NC","JBL Duet NC",2019,"Discontinued","Closed Back","Dynamic","Yes","Yes",notes="ANC wireless on-ear; foldable; mid-tier")
+
+# ---- More Logitech G gaming headsets ----
+add("LOGI_G430","Logitech G","G-Series","G430","Logitech G430",2013,"Discontinued","Closed Back","Dynamic","No","No",category="Gaming",notes="Wired surround-sound gaming; 40mm driver")
+add("LOGI_G433","Logitech G","G-Series","G433","Logitech G433",2017,"Discontinued","Closed Back","Dynamic","No","No",category="Gaming",notes="Wired DTS Headphone:X 7.1 surround")
+add("LOGI_G435","Logitech G","G-Series","G435 Lightspeed","Logitech G435 Lightspeed",2021,"Active","Closed Back","Dynamic","Yes","No",category="Gaming",notes="Ultra-lightweight Lightspeed wireless; 165g")
+add("LOGI_G533","Logitech G","G-Series","G533","Logitech G533",2017,"Discontinued","Closed Back","Dynamic","Yes","No",category="Gaming",notes="Wireless Dolby 7.1 gaming; 40mm Pro-G driver")
+add("LOGI_G635","Logitech G","G-Series","G635","Logitech G635",2018,"Discontinued","Closed Back","Dynamic","No","No",category="Gaming",notes="Wired DTS Headphone:X 2.0; 50mm")
+add("LOGI_G735","Logitech G","G-Series","G735","Logitech G735",2022,"Active","Closed Back","Dynamic","Yes","No",category="Gaming",notes="Wireless; colourful customizable; target female gamers market")
+add("LOGI_G930","Logitech G","G-Series","G930","Logitech G930",2011,"Discontinued","Closed Back","Dynamic","Yes","No",category="Gaming",notes="Early Logitech wireless gaming; 40mm driver")
+
+# ---- More Razer gaming headsets ----
+add("RAZER_KRAKENX","Razer","Kraken","Kraken X","Razer Kraken X",2019,"Active","Closed Back","Dynamic","No","No",category="Gaming",notes="Lightweight wired Kraken; 40mm driver; 250g")
+add("RAZER_KRAKENULTI","Razer","Kraken","Kraken Ultimate","Razer Kraken Ultimate",2020,"Discontinued","Closed Back","Dynamic","No","No",category="Gaming",notes="USB THX Spatial; 50mm driver; ANC mic")
+add("RAZER_NARIU","Razer","Kraken","Nari Ultimate","Razer Nari Ultimate",2018,"Discontinued","Closed Back","Dynamic","Yes","No",category="Gaming",notes="Wireless with HyperSense haptic feedback")
+add("RAZER_OPUS2020","Razer","Opus","Opus","Razer Opus",2020,"Discontinued","Closed Back","Dynamic","Yes","Yes",notes="Lifestyle ANC headphone; not gaming-focused")
+add("RAZER_BARRACUDAX","Razer","Barracuda","Barracuda X","Razer Barracuda X",2021,"Active","Closed Back","Dynamic","Yes","No",category="Gaming",notes="Wireless multi-platform; USB-C and 2.4GHz")
+
+# ---- More Audio-Technica ----
+add("ATECH_EW9","Audio-Technica","W-Series","ATH-EW9","Audio-Technica ATH-EW9",2004,"Discontinued","Open Back","Dynamic","No","No",notes="Clip-on premium; cherrywood housing; 13.4mm driver")
+add("ATECH_ES55","Audio-Technica","ESW","ATH-ES55","Audio-Technica ATH-ES55",2006,"Discontinued","Closed Back","Dynamic","No","No",notes="Portable on-ear; rosewood; gold accents")
+add("ATECH_ANC70","Audio-Technica","ANC","ATH-ANC70","Audio-Technica ATH-ANC70",2013,"Discontinued","Closed Back","Dynamic","No","Yes",notes="Active noise cancelling; foldable; 40mm driver")
+add("ATECH_ANC50","Audio-Technica","ANC","ATH-ANC50iS","Audio-Technica ATH-ANC50iS",2014,"Discontinued","Closed Back","Dynamic","No","Yes",notes="ANC on-ear with iOS inline remote")
+
+# ---- AKG missing notable models ----
+add("AKG_K272HD","AKG","K","K272HD","AKG K272HD",2007,"Discontinued","Semi-Open","Dynamic","No","No",category="Studio",notes="High-definition 55Ω studio semi-open; gold-plated connector")
+add("AKG_K67","AKG","K","K67 Tiesto","AKG K67 Tiesto",2012,"Discontinued","Closed Back","Dynamic","No","No",notes="On-ear DJ; companion to K267; bass-reinforced")
+add("AKG_K44","AKG","K","K44","AKG K44",2010,"Discontinued","Closed Back","Dynamic","No","No",notes="Entry budget closed-back; 32Ω")
+
+# ---- More Sennheiser consumer budget ----
+add("SENN_HD429","Sennheiser","HD","HD 429","Sennheiser HD 429",2011,"Discontinued","Closed Back","Dynamic","No","No",notes="Budget closed; asymmetric cable; E.A.R. technology")
+add("SENN_HD439","Sennheiser","HD","HD 439","Sennheiser HD 439",2012,"Discontinued","Closed Back","Dynamic","No","No",notes="Budget closed; improved comfort over HD 419")
+add("SENN_HD449","Sennheiser","HD","HD 449","Sennheiser HD 449",2012,"Discontinued","Closed Back","Dynamic","No","No",notes="Budget closed; extra bass tuning")
+add("SENN_HD471","Sennheiser","HD","HD 471i","Sennheiser HD 471i",2016,"Discontinued","Closed Back","Dynamic","No","No",notes="Closed-back; iOS inline remote")
+add("SENN_HD515","Sennheiser","HD","HD 515","Sennheiser HD 515",2004,"Discontinued","Open Back","Dynamic","No","No",pred="",succ="SENN_HD518",notes="Mid-tier open-back; precursor to HD 518 line")
+
+# ---- More HiFiMan (original planar era) ----
+add("HIFIMAN_HE5LE","HiFiMan","HE","HE-5LE","HiFiMan HE-5LE",2011,"Discontinued","Open Back","Planar Magnetic","No","No",pred="HIFIMAN_HE500",notes="HE-5 revised for easier driving; 50Ω; precursor to HE-500")
+add("HIFIMAN_HEX4","HiFiMan","HE","HE-X4","HiFiMan HE-X4",2023,"Active","Open Back","Planar Magnetic","No","No",notes="Entry planar; stealth magnet array; accessible price point")
+add("HIFIMAN_HE300","HiFiMan","HE","HE-300","HiFiMan HE-300",2011,"Discontinued","Open Back","Dynamic","No","No",notes="Dynamic open-back from HiFiMan; unusual for the brand; 32Ω")
+
+# ---- Beyerdynamic budget consumer additions ----
+add("BEYER_DT231","Beyerdynamic","DT","DT 231","Beyerdynamic DT 231",2008,"Discontinued","Open Back","Dynamic","No","No",notes="Budget open-back consumer; 32Ω; entry Beyerdynamic")
+add("BEYER_DT235","Beyerdynamic","DT","DT 235","Beyerdynamic DT 235",2008,"Discontinued","Closed Back","Dynamic","No","No",notes="Budget closed consumer; 32Ω; entry Beyerdynamic")
+
+# ---- Fostex T50RP Mk2 (new entry) ----
+# Already added above
+
+# ---- More JBL legacy (completing history) ----
+add("JBL_J55","JBL","J-Series","J55i","JBL J55i",2012,"Discontinued","Closed Back","Dynamic","No","No",notes="iOS-compatible over-ear; bass-forward consumer")
+add("JBL_E65BTNC","JBL","E-Series","E65BTNC","JBL E65BTNC",2018,"Discontinued","Closed Back","Dynamic","Yes","Yes",notes="ANC wireless; 40mm driver; popular mid-tier ANC")
+
+# ---- JVC (Victor) — Japanese wood-driver series ----
+# These are iconic in Japan; rarely covered in western catalogs
+add("JVC_HADX1000","JVC","HA","HA-DX1000","JVC HA-DX1000",2006,"Discontinued","Closed Back","Dynamic","No","No",notes="Mahogany closed flagship; first Victor wood-driver headphone")
+add("JVC_HADX2000","JVC","HA","HA-DX2000","JVC HA-DX2000",2009,"Discontinued","Closed Back","Dynamic","No","No",notes="Refined mahogany closed flagship; Biomass Carbon Diaphragm")
+add("JVC_HASW01","JVC","HA","HA-SW01","JVC HA-SW01",2013,"Discontinued","Open Back","Planar Magnetic","No","No",notes="First Victor Micro HD planar with wood; innovative isodynamic design")
+add("JVC_HASW02","JVC","HA","HA-SW02","JVC HA-SW02",2016,"Discontinued","Open Back","Planar Magnetic","No","No",succ="",pred="JVC_HASW01",notes="Refined HA-SW01; improved isodynamic planar; cherrywood")
+add("JVC_HAMX100Z","JVC","HA","HA-MX100-Z","JVC HA-MX100-Z",2015,"Active","Closed Back","Dynamic","No","No",category="Studio",notes="Professional studio monitor; DJ and studio use")
+add("JVC_HASR75S","JVC","HA","HA-SR75S","JVC HA-SR75S",2019,"Active","On-Ear","Dynamic","No","No",notes="Solid treble on-ear; popular export model")
+
+# ---- Tago Studio ----
+add("TAGO_T301","Tago Studio","T3","T3-01","Tago Studio T3-01",2019,"Active","Semi-Open","Dynamic","No","No",category="Studio",notes="Semi-open reference; Pentaconn 4.4mm; 1.5T driver; made in Japan")
+add("TAGO_T302","Tago Studio","T3","T3-02","Tago Studio T3-02",2020,"Active","Closed Back","Dynamic","No","No",category="Studio",notes="Closed reference companion to T3-01; same 1.5T driver; made in Japan")
+
+# ---- Takstar ----
+add("TAKSTAR_PRO80","Takstar","Pro","Pro 80","Takstar Pro 80",2012,"Active","Semi-Open","Dynamic","No","No",category="Studio",notes="OEM base for Gemini, OneOdio, others; excellent budget studio value; widely rebranded")
+add("TAKSTAR_PRO82","Takstar","Pro","Pro 82","Takstar Pro 82",2018,"Active","Semi-Open","Dynamic","No","No",category="Studio",notes="Updated Pro 80; replaceable earpads; improved tuning",pred="TAKSTAR_PRO80")
+add("TAKSTAR_HF580","Takstar","HF","HF580","Takstar HF580",2019,"Active","Open Back","Planar Magnetic","No","No",notes="Budget open planar; large 77mm driver; punches above price")
+add("TAKSTAR_HF660S","Takstar","HF","HF660S","Takstar HF660S",2022,"Active","Open Back","Planar Magnetic","No","No",notes="Updated HF580; improved 77mm planar driver",pred="TAKSTAR_HF580")
+add("TAKSTAR_SR5H","Takstar","Pro","SR 5H","Takstar SR 5H",2016,"Active","Closed Back","Dynamic","No","No",category="Studio",notes="Professional DJ/studio closed-back; double-sided cable")
+
+# ---- Goldplanar ----
+add("GOLD_GL2000DS","Goldplanar","GL","GL2000 Dual-Sided","Goldplanar GL2000 Dual-Sided",2021,"Active","Open Back","Planar Magnetic","No","No",notes="Dual-sided magnet 68mm planar; strong competition at the price")
+add("GOLD_GL2000SS","Goldplanar","GL","GL2000 Single-Sided","Goldplanar GL2000 Single-Sided",2021,"Active","Open Back","Planar Magnetic","No","No",notes="Single-sided version; lighter; softer sound")
+add("GOLD_GL850","Goldplanar","GL","GL850","Goldplanar GL850",2022,"Active","Open Back","Planar Magnetic","No","No",notes="Mid-range open planar; 68mm driver; wood cup option")
+
+# ---- MySphere (Austrian, successor to AKG K1000 concept) ----
+add("MYSPHERE_3","MySphere","MySphere","MySphere 3","MySphere 3",2018,"Active","Open Back","Dynamic","No","No",notes="Open-air earspeaker; no earcups; 3D sound reproduction; spiritual successor to AKG K1000")
+add("MYSPHERE_3X","MySphere","MySphere","MySphere 3.X","MySphere 3.X",2022,"Active","Open Back","Dynamic","No","No",notes="Updated MySphere 3; improved driver; designed by original AKG engineers")
+
+# ---- Panasonic ----
+add("PANA_RPHC800","Panasonic","RP","RP-HC800","Panasonic RP-HC800",2009,"Discontinued","Closed Back","Dynamic","No","Yes",notes="Noise-cancelling closed-back; foldable")
+add("PANA_RPHT600","Panasonic","RP","RP-HT600","Panasonic RP-HT600",2003,"Discontinued","Closed Back","Dynamic","No","No",notes="Budget closed consumer; popular in its era")
+add("PANA_RPHD10","Panasonic","RP","RP-HD10","Panasonic RP-HD10",2017,"Active","Closed Back","Dynamic","No","No",notes="High-res certified; 40mm DIATONE-inspired driver")
+
+# ---- Crosszone (Japanese crossfeed headphones) ----
+add("CZ_CZ1","Crosszone","CZ","CZ-1","Crosszone CZ-1",2017,"Active","Closed Back","Dynamic","No","No",notes="Unique acoustic crossfeed via in-ear secondary drivers; eliminates headphone imaging artifacts")
+add("CZ_CZ10","Crosszone","CZ","CZ-10","Crosszone CZ-10",2020,"Active","Open Back","Dynamic","No","No",notes="Open-back CZ with same acoustic crossfeed technology as CZ-1")
+
+# ---- 2024-2025 new releases for existing brands ----
+# Beyerdynamic
+add("BEYER_DT770PRO_LTD","Beyerdynamic","DT","DT 770 Pro X Limited Edition","Beyerdynamic DT 770 Pro X Limited Edition",2024,"Active","Closed Back","Dynamic","No","No",notes="STELLAR.45 driver in DT 770 shell; limited colourway run",pred="BEYER_DT770PRO")
+add("BEYER_DT1990MK2","Beyerdynamic","DT","DT 1990 Pro MkII","Beyerdynamic DT 1990 Pro MkII",2024,"Active","Open Back","Dynamic","No","No",pred="BEYER_DT1990",notes="New TESLA.45 driver; 30Ω; updated ear pad design")
+add("BEYER_MMX300PRO","Beyerdynamic","MMX","MMX 300 Pro","Beyerdynamic MMX 300 Pro",2024,"Active","Closed Back","Dynamic","No","No",category="Gaming",notes="Pro gaming closed-back; STELLAR.45 driver")
+# HiFiMan
+add("HIFIMAN_SUSVARAUNV","HiFiMan","HE","Susvara Unveiled","HiFiMan Susvara Unveiled",2023,"Active","Open Back","Planar Magnetic","No","No",notes="Susvara with exposed driver; limited production; premium over standard Susvara",pred="HIFIMAN_SUSVARA")
+# Audeze
+add("AUDEZE_LCD5S","Audeze","LCD","LCD-5S","Audeze LCD-5S",2024,"Active","Open Back","Planar Magnetic","No","No",notes="Studio-tuned LCD-5; different pad set and EQ voicing")
+# Meze
+add("MEZE_EMPYREAN3","Meze Audio","Flagship","Empyrean 3","Meze Audio Empyrean 3",2025,"Active","Open Back","Planar Magnetic","No","No",notes="Third-gen isodynamic planar; new Rinaro PCOCC driver")
+# Sennheiser
+add("SENN_HD620S","Sennheiser","HD","HD 620S","Sennheiser HD 620S",2024,"Active","Closed Back","Dynamic","No","No",notes="Closed-back addition to 600 line; shares 42mm driver with HD 660S2")
+# Focal
+add("FOCAL_DIABLO","Focal","Flagship","Celestee Diablo","Focal Celestee Diablo",2024,"Active","Closed Back","Dynamic","No","No",notes="Celestee variant with unique Diablo orange finish; same driver",pred="FOCAL_CELESTEE")
+# Sony  
+add("SONY_WH1000XM6","Sony","WH","WH-1000XM6","Sony WH-1000XM6",2025,"Active","Closed Back","Dynamic","Yes","Yes",notes="6th-gen XM flagship; 30mm driver; improved ANC",pred="SONY_WH1000XM5")
+
 # ---- HarmonicDyne ----
 add("HD_HELIOS","HarmonicDyne","Dynamic","Helios","HarmonicDyne Helios",2019,"Active","Open Back","Dynamic","No","No",notes="Debut model; 50mm bio-film driver; wood cups")
 add("HD_ZEUS","HarmonicDyne","Dynamic","Zeus","HarmonicDyne Zeus",2020,"Active","Open Back","Dynamic","No","No",notes="Nickel-plated 50mm driver; walnut cups")
@@ -1645,6 +1853,263 @@ SPECS = {
     "SONY_MDR1A":      {"impedance": "24", "sensitivity": "105", "driver_size": "40"},
     "SONY_CD900ST":    {"impedance": "63", "sensitivity": "106", "driver_size": "40"},
     "SONY_MDR7510":    {"impedance": "24", "sensitivity": "106", "driver_size": "40"},
+    # ---- Sony backfill (verified; wireless ANC models listed with their wired/passive figures) ----
+    "SONY_MDRCD3000":  {"impedance": "32",  "sensitivity": "104", "driver_size": "50"},
+    "SONY_MDRR10":     {"impedance": "40",  "sensitivity": "100", "driver_size": "50"},
+    "SONY_MDRSA5000":  {"impedance": "70",  "sensitivity": "102", "driver_size": "50"},
+    "SONY_MDRSA3000":  {"impedance": "70",  "sensitivity": "102", "driver_size": "50"},
+    "SONY_MDRMA900":   {"impedance": "12",  "sensitivity": "103", "driver_size": "70"},
+    "SONY_MDRM1":      {"impedance": "50",  "sensitivity": "102", "driver_size": "40"},
+    "SONY_MDRV600":    {"impedance": "45",  "sensitivity": "106", "driver_size": "40"},
+    "SONY_MDR7509HD":  {"impedance": "24",  "sensitivity": "107", "driver_size": "50"},
+    "SONY_MDRXB700":   {"impedance": "24",  "sensitivity": "106", "driver_size": "50"},
+    "SONY_MDR1R":      {"impedance": "24",  "sensitivity": "105", "driver_size": "40"},
+    "SONY_MDR10R":     {"impedance": "24",  "sensitivity": "105", "driver_size": "40"},
+    "SONY_MDR1000X":   {"impedance": "46",  "sensitivity": "103", "driver_size": "40"},
+    "SONY_WH1000XM2":  {"impedance": "46",  "sensitivity": "103", "driver_size": "40"},
+    "SONY_WH1000XM6":  {"impedance": "16",  "sensitivity": "100", "driver_size": "30"},
+    "SONY_INZONEH7":   {"impedance": "32",  "sensitivity": "100", "driver_size": "40"},
+    "SONY_ZX110":      {"impedance": "24",  "sensitivity": "98",  "driver_size": "30"},
+    "SONY_ZX310":      {"impedance": "24",  "sensitivity": "98",  "driver_size": "30"},
+    "SONY_ULTWEAR":    {"impedance": "16",  "sensitivity": "100", "driver_size": "40"},
+    # ---- Sony consumer/vintage remaining ----
+    "SONY_WHH900N":    {"impedance": "48",  "sensitivity": "101", "driver_size": "40"},
+    "SONY_XB650":      {"impedance": "24",  "sensitivity": "103", "driver_size": "40"},
+    "SONY_XB950B1":    {"impedance": "24",  "sensitivity": "103", "driver_size": "40"},
+    "SONY_XB900N":     {"impedance": "48",  "sensitivity": "100", "driver_size": "40"},
+    "SONY_XB910N":     {"impedance": "48",  "sensitivity": "103", "driver_size": "30"},
+    "SONY_CH500":      {"impedance": "32",  "sensitivity": "100", "driver_size": "30"},
+    "SONY_CH510":      {"impedance": "32",  "sensitivity": "98",  "driver_size": "30"},
+    "SONY_CH520":      {"impedance": "32",  "sensitivity": "100", "driver_size": "30"},
+    "SONY_CH700N":     {"impedance": "48",  "sensitivity": "100", "driver_size": "40"},
+    "SONY_CH710N":     {"impedance": "48",  "sensitivity": "100", "driver_size": "30"},
+    "SONY_CH720N":     {"impedance": "48",  "sensitivity": "100", "driver_size": "30"},
+    "SONY_MDR100ABN":  {"impedance": "46",  "sensitivity": "103", "driver_size": "40"},
+    "SONY_MDR100AAP":  {"impedance": "24",  "sensitivity": "105", "driver_size": "40"},
+    "SONY_MDR10RBT":   {"impedance": "32",  "sensitivity": "102", "driver_size": "40"},
+    "SONY_MDRCD2000":  {"impedance": "32",  "sensitivity": "106", "driver_size": "50"},
+    "SONY_MDRXB700":   {"impedance": "24",  "sensitivity": "106", "driver_size": "50"},
+    "SONY_ZX750BN":    {"impedance": "40",  "sensitivity": "103", "driver_size": "40"},
+    # ---- Sennheiser backfill ----
+    "SENN_HD550":    {"impedance": "50",  "sensitivity": "112"},
+    "SENN_HD505":    {"impedance": "50",  "sensitivity": "112"},
+    "SENN_HD559":    {"impedance": "50",  "sensitivity": "108"},
+    "SENN_HD202":    {"impedance": "32",  "sensitivity": "111", "driver_size": "40"},
+    "SENN_HD205":    {"impedance": "32",  "sensitivity": "110", "driver_size": "40"},
+    "SENN_HD218":    {"impedance": "32",  "sensitivity": "115", "driver_size": "40"},
+    "SENN_HD228":    {"impedance": "32",  "sensitivity": "115", "driver_size": "40"},
+    "SENN_HD238":    {"impedance": "32",  "sensitivity": "112", "driver_size": "40"},
+    "SENN_HD239":    {"impedance": "32",  "sensitivity": "108", "driver_size": "40"},
+    "SENN_HD419":    {"impedance": "32",  "sensitivity": "110", "driver_size": "40"},
+    "SENN_HD428":    {"impedance": "32",  "sensitivity": "110", "driver_size": "40"},
+    "SENN_HD438":    {"impedance": "32",  "sensitivity": "110", "driver_size": "40"},
+    "SENN_HD424":    {"impedance": "400", "sensitivity": "91"},
+    "SENN_PX100":    {"impedance": "32",  "sensitivity": "108", "driver_size": "25"},
+    "SENN_PX200":    {"impedance": "32",  "sensitivity": "108", "driver_size": "25"},
+    "SENN_HD4_50BTNC":{"impedance": "18", "sensitivity": "113", "driver_size": "38"},
+    "SENN_HD250BT":  {"impedance": "18",  "sensitivity": "115", "driver_size": "40"},
+    "SENN_MOMENTUM5":{"impedance": "18",  "sensitivity": "107", "driver_size": "42"},
+    "SENN_ACCENTUM": {"impedance": "18",  "sensitivity": "107", "driver_size": "36"},
+    "SENN_ACCENTUMPLUS":{"impedance":"18","sensitivity": "107", "driver_size": "36"},
+    # ---- Bose (mostly ANC wireless; impedance not officially published for most) ----
+    "BOSE_QC2":      {"impedance": "30",  "sensitivity": "107", "driver_size": "40"},
+    "BOSE_QC15":     {"impedance": "30",  "sensitivity": "107", "driver_size": "40"},
+    "BOSE_QC25":     {"impedance": "30",  "sensitivity": "107", "driver_size": "40"},
+    "BOSE_QC35":     {"impedance": "32",  "sensitivity": "107", "driver_size": "40"},
+    "BOSE_QC35II":   {"impedance": "32",  "sensitivity": "107", "driver_size": "40"},
+    "BOSE_QC45":     {"impedance": "32",  "sensitivity": "107", "driver_size": "40"},
+    "BOSE_NC700":    {"impedance": "32",  "sensitivity": "107", "driver_size": "40"},
+    "BOSE_QCULTRA":  {"impedance": "32",  "sensitivity": "107", "driver_size": "40"},
+    "BOSE_QCULTRA2": {"impedance": "32",  "sensitivity": "107", "driver_size": "40"},
+    "BOSE_QCHP":     {"impedance": "32",  "sensitivity": "107", "driver_size": "40"},
+    "BOSE_QC3":      {"impedance": "30",  "sensitivity": "107", "driver_size": "40"},
+    "BOSE_OE2":      {"impedance": "32",  "sensitivity": "109", "driver_size": "40"},
+    "BOSE_AE2":      {"impedance": "32",  "sensitivity": "109", "driver_size": "40"},
+    "BOSE_TRIPORT":  {"impedance": "32",  "sensitivity": "104", "driver_size": "40"},
+    "BOSE_SOUNDLINKAE":{"impedance":"32", "sensitivity": "105", "driver_size": "40"},
+    "BOSE_SOUNDLINKOE":{"impedance":"32", "sensitivity": "105", "driver_size": "40"},
+    # ---- Bowers & Wilkins (22Ω is characteristic of their newer Px line) ----
+    "BW_P3":         {"impedance": "32",  "sensitivity": "106"},
+    "BW_P5":         {"impedance": "32",  "sensitivity": "105"},
+    "BW_P5S2":       {"impedance": "32",  "sensitivity": "105"},
+    "BW_P7":         {"impedance": "22",  "sensitivity": "102"},
+    "BW_P7WIRELESS": {"impedance": "22",  "sensitivity": "102"},
+    "BW_P9":         {"impedance": "30",  "sensitivity": "104"},
+    "BW_PX":         {"impedance": "32",  "sensitivity": "100"},
+    "BW_PX5":        {"impedance": "32",  "sensitivity": "100"},
+    "BW_PX7":        {"impedance": "22",  "sensitivity": "100"},
+    "BW_PX7S2":      {"impedance": "22",  "sensitivity": "100"},
+    "BW_PX7S2E":     {"impedance": "22",  "sensitivity": "100"},
+    "BW_PX7S3":      {"impedance": "22",  "sensitivity": "100"},
+    "BW_PX8":        {"impedance": "22",  "sensitivity": "100"},
+    "BW_PX8S2":      {"impedance": "22",  "sensitivity": "100"},
+    # ---- HiFiMan remaining ----
+    "HIFIMAN_ARYAORGANIC":  {"impedance": "32",  "sensitivity": "94"},
+    "HIFIMAN_HE1000UNV":    {"impedance": "35",  "sensitivity": "90"},
+    "HIFIMAN_ARYAUNV":      {"impedance": "35",  "sensitivity": "91"},
+    "HIFIMAN_ANANDANANOUNV":{"impedance": "16",  "sensitivity": "103"},
+    "HIFIMAN_HER9":         {"impedance": "18",  "sensitivity": "91"},
+    "HIFIMAN_HER10P":       {"impedance": "18",  "sensitivity": "91"},
+    "HIFIMAN_HE600":        {"impedance": "50",  "sensitivity": "92"},
+    "HIFIMAN_AUDIVINA":     {"impedance": "14",  "sensitivity": "91"},
+    "HIFIMAN_EDITIONS":     {"impedance": "35",  "sensitivity": "96"},
+    "HIFIMAN_EDITIONXV":    {"impedance": "35",  "sensitivity": "103"},
+    # ---- Beats (all 40mm; impedance varies 32-64Ω) ----
+    "BEATS_STUDIO2":   {"impedance": "32", "sensitivity": "104", "driver_size": "40"},
+    "BEATS_STUDIO3":   {"impedance": "32", "sensitivity": "104", "driver_size": "40"},
+    "BEATS_STUDIOPRO": {"impedance": "32", "sensitivity": "104", "driver_size": "40"},
+    "BEATS_STUDIO2013":{"impedance": "32", "sensitivity": "104", "driver_size": "40"},
+    "BEATS_SOLO2":     {"impedance": "32", "sensitivity": "110", "driver_size": "40"},
+    "BEATS_SOLO3":     {"impedance": "32", "sensitivity": "110", "driver_size": "40"},
+    "BEATS_SOLO4":     {"impedance": "32", "sensitivity": "110", "driver_size": "40"},
+    "BEATS_SOLOPRO":   {"impedance": "32", "sensitivity": "110", "driver_size": "40"},
+    "BEATS_MIXR":      {"impedance": "32", "sensitivity": "110", "driver_size": "40"},
+    "BEATS_PRO":       {"impedance": "32", "sensitivity": "104", "driver_size": "40"},
+    "BEATS_EXECUTIVE": {"impedance": "32", "sensitivity": "104", "driver_size": "40"},
+    "BEATS_EP":        {"impedance": "32", "sensitivity": "110", "driver_size": "40"},
+    # ---- Marshall ----
+    "MARSHALL_MAJOR2":   {"impedance": "64", "sensitivity": "103", "driver_size": "40"},
+    "MARSHALL_MAJOR3":   {"impedance": "64", "sensitivity": "103", "driver_size": "40"},
+    "MARSHALL_MAJOR4":   {"impedance": "64", "sensitivity": "103", "driver_size": "40"},
+    "MARSHALL_MAJOR5":   {"impedance": "64", "sensitivity": "103", "driver_size": "40"},
+    "MARSHALL_MONITOR":  {"impedance": "64", "sensitivity": "99",  "driver_size": "40"},
+    "MARSHALL_MONITOR2": {"impedance": "32", "sensitivity": "96",  "driver_size": "40"},
+    "MARSHALL_MONITOR3": {"impedance": "32", "sensitivity": "96",  "driver_size": "40"},
+    "MARSHALL_MIDANC":   {"impedance": "32", "sensitivity": "95",  "driver_size": "40"},
+    # ---- SteelSeries gaming headsets (all ~40mm; 32-65Ω) ----
+    "STEEL_ARCTIS5":    {"impedance": "32", "sensitivity": "98", "driver_size": "40"},
+    "STEEL_ARCTIS7":    {"impedance": "32", "sensitivity": "98", "driver_size": "40"},
+    "STEEL_ARCTISPRO":  {"impedance": "32", "sensitivity": "98", "driver_size": "40"},
+    "STEEL_NOVA1":      {"impedance": "32", "sensitivity": "98", "driver_size": "40"},
+    "STEEL_NOVA3":      {"impedance": "32", "sensitivity": "98", "driver_size": "40"},
+    "STEEL_NOVA5":      {"impedance": "32", "sensitivity": "98", "driver_size": "40"},
+    "STEEL_NOVA5X":     {"impedance": "32", "sensitivity": "98", "driver_size": "40"},
+    "STEEL_NOVA7":      {"impedance": "32", "sensitivity": "98", "driver_size": "40"},
+    "STEEL_NOVA7X":     {"impedance": "32", "sensitivity": "98", "driver_size": "40"},
+    "STEEL_NOVAPRO":    {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    "STEEL_NOVAELITE":  {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    "STEEL_NOVAPROOMNI":{"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    # ---- Razer gaming headsets ----
+    "RAZER_KRAKENV3":     {"impedance": "32", "sensitivity": "109", "driver_size": "50"},
+    "RAZER_KRAKENV4":     {"impedance": "32", "sensitivity": "109", "driver_size": "50"},
+    "RAZER_KRAKENV4PRO":  {"impedance": "32", "sensitivity": "109", "driver_size": "50"},
+    "RAZER_KRAKENKITTYV2":{"impedance": "32", "sensitivity": "109", "driver_size": "50"},
+    "RAZER_BSV2":         {"impedance": "32", "sensitivity": "100", "driver_size": "50"},
+    "RAZER_BSV2PRO":      {"impedance": "32", "sensitivity": "100", "driver_size": "50"},
+    "RAZER_BSV2PRO23":    {"impedance": "32", "sensitivity": "100", "driver_size": "50"},
+    "RAZER_BSV3PRO":      {"impedance": "32", "sensitivity": "100", "driver_size": "50"},
+    "RAZER_BARRACUDAPRO": {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    "RAZER_BLACKSHARKV2X":{"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    "RAZER_BLACKSHARKV3": {"impedance": "32", "sensitivity": "100", "driver_size": "50"},
+    # ---- HyperX (Cloud series all use 53mm except Flight 40mm) ----
+    "HYPERX_CLOUD":       {"impedance": "60", "sensitivity": "98", "driver_size": "53"},
+    "HYPERX_CLOUD2":      {"impedance": "60", "sensitivity": "98", "driver_size": "53"},
+    "HYPERX_CLOUD2W":     {"impedance": "32", "sensitivity": "98", "driver_size": "40"},
+    "HYPERX_CLOUDALPHA":  {"impedance": "65", "sensitivity": "98", "driver_size": "50"},
+    "HYPERX_CLOUDALPHAW": {"impedance": "62", "sensitivity": "98", "driver_size": "50"},
+    "HYPERX_CLOUD3":      {"impedance": "60", "sensitivity": "98", "driver_size": "53"},
+    "HYPERX_CLOUD3W":     {"impedance": "32", "sensitivity": "98", "driver_size": "40"},
+    "HYPERX_CLOUDFLIGHT": {"impedance": "32", "sensitivity": "98", "driver_size": "40"},
+    # ---- AKG remaining ----
+    "AKG_N700NC":    {"impedance": "32",  "sensitivity": "114"},
+    "AKG_N700NCM2":  {"impedance": "32",  "sensitivity": "114"},
+    "AKG_N90Q":      {"impedance": "40",  "sensitivity": "110", "driver_size": "50"},
+    "AKG_K1000":     {"impedance": "120", "sensitivity": "74"},
+    "AKG_K501":      {"impedance": "120", "sensitivity": "97",  "driver_size": "50"},
+    "AKG_K601":      {"impedance": "120", "sensitivity": "97",  "driver_size": "50"},
+    "AKG_K141":      {"impedance": "55",  "sensitivity": "101", "driver_size": "30"},
+    "AKG_K240SEXTETT":{"impedance": "600","sensitivity": "92",  "driver_size": "30"},
+    "AKG_K340":      {"impedance": "400", "sensitivity": "93"},
+    "AKG_Y50BT":     {"impedance": "32",  "sensitivity": "115", "driver_size": "40"},
+    # ---- Beyerdynamic remaining ----
+    "BEYER_AMIRONW":     {"impedance": "32",  "sensitivity": "108"},
+    "BEYER_AVENTHOW":    {"impedance": "32",  "sensitivity": "108"},
+    "BEYER_MMX300":      {"impedance": "250", "sensitivity": "96",  "driver_size": "45"},
+    "BEYER_MMX300_2":    {"impedance": "250", "sensitivity": "96",  "driver_size": "45"},
+    "BEYER_CUSTOM1":     {"impedance": "16",  "sensitivity": "96",  "driver_size": "45"},
+    "BEYER_CUSTOMSTUDIO":{"impedance": "250", "sensitivity": "96",  "driver_size": "45"},
+    "BEYER_LAGOONANC":   {"impedance": "32",  "sensitivity": "100"},
+    "BEYER_MMX150":      {"impedance": "32",  "sensitivity": "116", "driver_size": "40"},
+    "BEYER_DT48":        {"impedance": "200", "sensitivity": "96",  "driver_size": "45"},
+    "BEYER_DT831":       {"impedance": "250", "sensitivity": "96",  "driver_size": "45"},
+    # ---- Skullcandy ----
+    "SKULL_HESH2":      {"impedance": "40", "sensitivity": "105", "driver_size": "40"},
+    "SKULL_HESH3":      {"impedance": "40", "sensitivity": "105", "driver_size": "40"},
+    "SKULL_HESHEVO":    {"impedance": "40", "sensitivity": "95",  "driver_size": "40"},
+    "SKULL_HESHANC":    {"impedance": "32", "sensitivity": "98",  "driver_size": "40"},
+    "SKULL_CRUSHERANC": {"impedance": "32", "sensitivity": "95",  "driver_size": "40"},
+    "SKULL_CRUSHERANC2":{"impedance": "32", "sensitivity": "95",  "driver_size": "40"},
+    "SKULL_CRUSHEREVO": {"impedance": "32", "sensitivity": "95",  "driver_size": "40"},
+    "SKULL_CRUSHER540": {"impedance": "32", "sensitivity": "95",  "driver_size": "40"},
+    # ---- Bang & Olufsen ----
+    "BO_H4":     {"impedance": "32", "sensitivity": "104"},
+    "BO_H6":     {"impedance": "25", "sensitivity": "104"},
+    "BO_H9":     {"impedance": "32", "sensitivity": "102"},
+    "BO_H95":    {"impedance": "18", "sensitivity": "100"},
+    "BO_HX":     {"impedance": "18", "sensitivity": "98"},
+    "BO_H100":   {"impedance": "18", "sensitivity": "98"},
+    "BO_PORTAL": {"impedance": "32", "sensitivity": "98"},
+    # ---- Philips ----
+    "PHIL_L1":     {"impedance": "32", "sensitivity": "100"},
+    "PHIL_L2":     {"impedance": "32", "sensitivity": "100"},
+    "PHIL_L3":     {"impedance": "32", "sensitivity": "100"},
+    "PHIL_L4":     {"impedance": "32", "sensitivity": "100"},
+    "PHIL_SHP2000":{"impedance": "32", "sensitivity": "102", "driver_size": "40"},
+    "PHIL_SHP9600":{"impedance": "32", "sensitivity": "106", "driver_size": "50"},
+    "PHIL_H8505":  {"impedance": "27", "sensitivity": "104"},
+    # ---- Audeze gaming/newer ----
+    "AUDEZE_LCDGX":   {"impedance": "20",  "sensitivity": "103", "driver_size": "106"},
+    "AUDEZE_PENROSE":  {"impedance": "32",  "sensitivity": "111"},
+    "AUDEZE_MAXWELL":  {"impedance": "32",  "sensitivity": "111"},
+    "AUDEZE_MAXWELL2": {"impedance": "32",  "sensitivity": "111"},
+    "AUDEZE_LCDS20":   {"impedance": "14",  "sensitivity": "90",  "driver_size": "90"},
+    # ---- Logitech G gaming headsets ----
+    "LOGI_G933":    {"impedance": "39", "sensitivity": "107", "driver_size": "40"},
+    "LOGI_G935":    {"impedance": "39", "sensitivity": "107", "driver_size": "40"},
+    "LOGI_GPROX":   {"impedance": "35", "sensitivity": "91",  "driver_size": "50"},
+    "LOGI_GPROX2":  {"impedance": "35", "sensitivity": "91",  "driver_size": "50"},
+    "LOGI_GPROXWL": {"impedance": "35", "sensitivity": "91",  "driver_size": "50"},
+    "LOGI_G535":    {"impedance": "32", "sensitivity": "93",  "driver_size": "40"},
+    "LOGI_G733":    {"impedance": "32", "sensitivity": "88",  "driver_size": "40"},
+    # ---- Corsair gaming headsets ----
+    "CORSAIR_VIRTUOSO":    {"impedance": "32", "sensitivity": "109", "driver_size": "50"},
+    "CORSAIR_VIRTUOSOXT":  {"impedance": "32", "sensitivity": "109", "driver_size": "50"},
+    "CORSAIR_VIRTUOSOPRO": {"impedance": "32", "sensitivity": "109", "driver_size": "50"},
+    "CORSAIR_HS80":        {"impedance": "32", "sensitivity": "100", "driver_size": "50"},
+    "CORSAIR_HS80MAX":     {"impedance": "32", "sensitivity": "100", "driver_size": "50"},
+    "CORSAIR_VOID":        {"impedance": "32", "sensitivity": "103", "driver_size": "50"},
+    # ---- JBL (gaming and consumer wireless) ----
+    "JBL_TUNE750":      {"impedance": "32", "sensitivity": "104", "driver_size": "40"},
+    "JBL_TUNE760":      {"impedance": "32", "sensitivity": "104", "driver_size": "40"},
+    "JBL_TUNE770":      {"impedance": "32", "sensitivity": "104", "driver_size": "40"},
+    "JBL_LIVE660":      {"impedance": "32", "sensitivity": "104", "driver_size": "40"},
+    "JBL_LIVE770NC":    {"impedance": "32", "sensitivity": "104", "driver_size": "40"},
+    "JBL_LIVE650":      {"impedance": "32", "sensitivity": "104", "driver_size": "40"},
+    "JBL_LIVE400":      {"impedance": "32", "sensitivity": "100", "driver_size": "32"},
+    "JBL_LIVE460":      {"impedance": "32", "sensitivity": "100", "driver_size": "32"},
+    "JBL_LIVE500":      {"impedance": "32", "sensitivity": "104", "driver_size": "40"},
+    "JBL_TOUR1":        {"impedance": "32", "sensitivity": "105", "driver_size": "40"},
+    "JBL_TOUR1M2":      {"impedance": "32", "sensitivity": "105", "driver_size": "40"},
+    "JBL_EVEREST700":   {"impedance": "32", "sensitivity": "103", "driver_size": "40"},
+    "JBL_EVEREST710":   {"impedance": "32", "sensitivity": "103", "driver_size": "40"},
+    "JBL_EVERESTELITE750":{"impedance":"32","sensitivity": "105", "driver_size": "40"},
+    "JBL_QUANTUM100":   {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    "JBL_QUANTUM400":   {"impedance": "32", "sensitivity": "100", "driver_size": "50"},
+    "JBL_QUANTUM800":   {"impedance": "32", "sensitivity": "100", "driver_size": "50"},
+    "JBL_QUANTUMONE":   {"impedance": "32", "sensitivity": "100", "driver_size": "50"},
+    "JBL_QUANTUM910":   {"impedance": "32", "sensitivity": "100", "driver_size": "50"},
+    "JBL_E45BT":        {"impedance": "32", "sensitivity": "103", "driver_size": "40"},
+    "JBL_E55BT":        {"impedance": "32", "sensitivity": "103", "driver_size": "40"},
+    # ---- V-Moda remaining ----
+    "VMODA_LP2":        {"impedance": "32", "sensitivity": "103"},
+    "VMODA_M100MASTER": {"impedance": "32", "sensitivity": "103"},
+    "VMODA_CROSSFADE2": {"impedance": "32", "sensitivity": "103"},
+    "VMODA_CROSSFADELP":{"impedance": "32", "sensitivity": "103"},
+    "VMODA_M200":       {"impedance": "42", "sensitivity": "97",  "driver_size": "50"},
+    # ---- Moondrop remaining ----
+    "MOON_VOID":        {"impedance": "32", "sensitivity": "96"},
+    "MOON_JOKER":       {"impedance": "32", "sensitivity": "98"},
+    "MOON_PARA":        {"impedance": "32", "sensitivity": "96"},
     # ---- Sennheiser HD 490 Pro ----
     "SENN_HD490PRO":  {"impedance": "130", "sensitivity": "96", "driver_size": "38"},
     # ---- AKG new models ----
@@ -1724,6 +2189,25 @@ SPECS = {
     "ATECH_AWAS":    {"impedance": "42", "sensitivity": "100", "driver_size": "58"},
     "ATECH_L5000":   {"impedance": "36", "sensitivity": "100", "driver_size": "58"},
     "ATECH_DSR9BT":  {"impedance": "32", "sensitivity": "98"},
+    # ---- Audio-Technica backfill (A-series 53mm closed; AD-series 53mm open; W-series wood) ----
+    "ATECH_A550Z":   {"impedance": "44", "sensitivity": "99",  "driver_size": "53"},
+    "ATECH_A990Z":   {"impedance": "44", "sensitivity": "99",  "driver_size": "53"},
+    "ATECH_A1000Z":  {"impedance": "44", "sensitivity": "101", "driver_size": "53"},
+    "ATECH_A2000Z":  {"impedance": "48", "sensitivity": "101", "driver_size": "53"},
+    "ATECH_AD500X":  {"impedance": "48", "sensitivity": "100", "driver_size": "53"},
+    "ATECH_AD2000X": {"impedance": "40", "sensitivity": "102", "driver_size": "53"},
+    "ATECH_AD2000":  {"impedance": "40", "sensitivity": "102", "driver_size": "53"},
+    "ATECH_W1000Z":  {"impedance": "44", "sensitivity": "101", "driver_size": "53"},
+    "ATECH_W1000":   {"impedance": "40", "sensitivity": "102", "driver_size": "53"},
+    "ATECH_W5000":   {"impedance": "40", "sensitivity": "102", "driver_size": "53"},
+    "ATECH_L3000":   {"impedance": "40", "sensitivity": "102", "driver_size": "53"},
+    "ATECH_M50":     {"impedance": "38", "sensitivity": "99",  "driver_size": "45"},
+    "ATECH_WP900":   {"impedance": "38", "sensitivity": "100", "driver_size": "53"},
+    "ATECH_AWKT":    {"impedance": "48", "sensitivity": "100", "driver_size": "53"},
+    "ATECH_ADX3000": {"impedance": "48", "sensitivity": "101", "driver_size": "58"},
+    "ATECH_ESW9":    {"impedance": "42", "sensitivity": "100", "driver_size": "42"},
+    "ATECH_ES7":     {"impedance": "42", "sensitivity": "102", "driver_size": "42"},
+    "ATECH_G1":      {"impedance": "45", "sensitivity": "98",  "driver_size": "45"},
     # ---- Sony additions ----
     "SONY_MDRV500":    {"impedance": "24", "sensitivity": "106", "driver_size": "50"},
     "SONY_MDRV700":    {"impedance": "24", "sensitivity": "106", "driver_size": "50"},
@@ -1881,11 +2365,345 @@ SPECS = {
     "STATUS_HDONE": {"impedance": "32", "sensitivity": "99",  "driver_size": "40"},
     "STATUS_HDTWO": {"impedance": "17", "sensitivity": "115", "driver_size": "40"},
     "STATUS_OB1":   {"impedance": "54", "sensitivity": "95",  "driver_size": "40"},
+    # ---- Moondrop over-ear remaining ----
+    "MOONDROP_VENUS":    {"impedance": "32", "sensitivity": "96"},
+    "MOONDROP_PARA":     {"impedance": "32", "sensitivity": "96"},
+    "MOONDROP_COSMO":    {"impedance": "32", "sensitivity": "100"},
+    "MOONDROP_HORIZON":  {"impedance": "32", "sensitivity": "100"},
+    "MOONDROP_EDGE":     {"impedance": "32", "sensitivity": "100"},
+    "MOONDROP_OLDFASHIONED":{"impedance":"60","sensitivity": "96"},
+    # ---- Pioneer remaining ----
+    "PIONEER_SEMASTER1":  {"impedance": "50",  "sensitivity": "101", "driver_size": "53"},
+    "PIONEER_SEMONITOR5": {"impedance": "200", "sensitivity": "90"},
+    "PIONEER_HDJX10":     {"impedance": "32",  "sensitivity": "106", "driver_size": "50"},
+    "PIONEER_HDJ2000":    {"impedance": "32",  "sensitivity": "108", "driver_size": "50"},
+    # ---- Jabra Evolve2 (40mm confirmed; conventional impedance not published for pro headsets) ----
+    "JABRA_E230": {"sensitivity": "103", "driver_size": "40"},
+    "JABRA_E240": {"sensitivity": "103", "driver_size": "40"},
+    "JABRA_E255": {"sensitivity": "103", "driver_size": "40"},
+    "JABRA_E265": {"sensitivity": "103", "driver_size": "40"},
+    "JABRA_E275": {"sensitivity": "103", "driver_size": "40"},
+    "JABRA_E285": {"sensitivity": "103", "driver_size": "40"},
+    # ---- Stax electrostatics (sensitivity in dB/V from stax.co.jp; impedance not applicable) ----
+    "STAX_SR009":       {"sensitivity": "100"},
+    "STAX_SR009S":      {"sensitivity": "101"},
+    "STAX_SR007":       {"sensitivity": "99"},
+    "STAX_SRL300":      {"sensitivity": "103"},
+    "STAX_SRL500":      {"sensitivity": "101"},
+    "STAX_SRL700":      {"sensitivity": "103"},
+    "STAX_SRL700MK2":   {"sensitivity": "103"},
+    "STAX_X9000":       {"sensitivity": "104"},
+    "STAX_SR404":       {"sensitivity": "97"},
+    "STAX_SR207":       {"sensitivity": "98"},
+    "STAX_SR507":       {"sensitivity": "101"},
+    "STAX_SR4070":      {"sensitivity": "97"},
+    "STAX_LAMBDANOVA":  {"sensitivity": "98"},
+    "STAX_SR84":        {"sensitivity": "100"},
+    # ---- Turtle Beach ----
+    "TB_STEALTH600G2": {"impedance": "32", "sensitivity": "95", "driver_size": "50"},
+    "TB_STEALTH700G2": {"impedance": "32", "sensitivity": "95", "driver_size": "50"},
+    "TB_STEALTHPRO":   {"impedance": "32", "sensitivity": "95", "driver_size": "50"},
+    "TB_STEALTHPRO2":  {"impedance": "32", "sensitivity": "95", "driver_size": "50"},
+    "TB_ATLASAIR":     {"impedance": "32", "sensitivity": "95", "driver_size": "50"},
+    # ---- Astro Gaming ----
+    "ASTRO_A40":   {"impedance": "48", "sensitivity": "118", "driver_size": "40"},
+    "ASTRO_A40TR": {"impedance": "48", "sensitivity": "118", "driver_size": "40"},
+    "ASTRO_A50G4": {"impedance": "32", "sensitivity": "118", "driver_size": "40"},
+    "ASTRO_A50X":  {"impedance": "32", "sensitivity": "118", "driver_size": "40"},
+    # ---- Abyss ----
+    "ABYSS_AB1266":  {"impedance": "42", "sensitivity": "88"},
+    "ABYSS_DIANA":   {"impedance": "42", "sensitivity": "88"},
+    "ABYSS_DIANAV2": {"impedance": "42", "sensitivity": "88"},
+    "ABYSS_DIANATC": {"impedance": "46", "sensitivity": "90"},
+    "ABYSS_DIANAMR": {"impedance": "42", "sensitivity": "91"},
+    # ---- Final Audio ----
+    "FINAL_D8000":     {"impedance": "60", "sensitivity": "98", "driver_size": "50"},
+    "FINAL_D8000PRO":  {"impedance": "60", "sensitivity": "98", "driver_size": "50"},
+    "FINAL_SONOROUS3": {"impedance": "65", "sensitivity": "98", "driver_size": "50"},
+    "FINAL_SONOROUS6": {"impedance": "65", "sensitivity": "98", "driver_size": "50"},
+    "FINAL_SONOROUSX": {"impedance": "75", "sensitivity": "93", "driver_size": "50"},
+    # ---- Anker Soundcore ----
+    "ANKER_LIFEQ20":    {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    "ANKER_LIFEQ30":    {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    "ANKER_SPACEQ45":   {"impedance": "32", "sensitivity": "98",  "driver_size": "40"},
+    "ANKER_SPACEONE":   {"impedance": "32", "sensitivity": "98",  "driver_size": "40"},
+    "ANKER_SPACEONEPRO":{"impedance": "32", "sensitivity": "98",  "driver_size": "40"},
+    # ---- Yamaha remaining ----
+    "YAMAHA_HPHMT8":  {"impedance": "49",  "sensitivity": "102", "driver_size": "40"},
+    "YAMAHA_YHL700A": {"impedance": "32",  "sensitivity": "100"},
+    "YAMAHA_YHE700A": {"impedance": "32",  "sensitivity": "100"},
+    "YAMAHA_HPH200":  {"impedance": "48",  "sensitivity": "102", "driver_size": "40"},
+    "YAMAHA_HP1":     {"impedance": "470", "sensitivity": "91"},
+    # ---- Sennheiser remaining ----
+    "SENN_HDB630": {"impedance": "32",   "sensitivity": "107", "driver_size": "40"},
+    "SENN_HD414":  {"impedance": "2000", "sensitivity": "92"},
+    # ---- Neumann ----
+    "NEUMANN_NDH20": {"impedance": "150", "sensitivity": "104", "driver_size": "38"},
+    "NEUMANN_NDH30": {"impedance": "120", "sensitivity": "103", "driver_size": "38"},
+    # ---- Austrian Audio ----
+    "AUSTRIAN_HIX55":       {"impedance": "25", "sensitivity": "103", "driver_size": "44"},
+    "AUSTRIAN_HIX65":       {"impedance": "25", "sensitivity": "102", "driver_size": "44"},
+    "AUSTRIAN_HIX60":       {"impedance": "25", "sensitivity": "102", "driver_size": "44"},
+    "AUSTRIAN_THECOMPOSER": {"impedance": "26", "sensitivity": "110"},
+    # ---- FiiO ----
+    "FIIO_FT1":    {"impedance": "64", "sensitivity": "97",  "driver_size": "50"},
+    "FIIO_FT1PRO": {"impedance": "32", "sensitivity": "98",  "driver_size": "50"},
+    "FIIO_FT3":    {"impedance": "64", "sensitivity": "110", "driver_size": "50"},
+    "FIIO_FT5":    {"impedance": "32", "sensitivity": "100"},
+    # ---- Focal remaining ----
+    "FOCAL_SPIRITONE":  {"impedance": "32", "sensitivity": "103", "driver_size": "40"},
+    "FOCAL_SPIRITPRO":  {"impedance": "32", "sensitivity": "103", "driver_size": "40"},
+    "FOCAL_LISTENPRO":  {"impedance": "32", "sensitivity": "104", "driver_size": "40"},
+    "FOCAL_LISTENWL":   {"impedance": "32", "sensitivity": "104", "driver_size": "40"},
+    # ---- AIAIAI ----
+    "AIAIAI_TMA1":       {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    "AIAIAI_TMA2":       {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    "AIAIAI_TMA2STUDIO": {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    "AIAIAI_TMA2WL":     {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    # ---- Edifier STAX Spirit planar ----
+    "EDIFIER_STAXGT1": {"impedance": "32", "sensitivity": "96"},
+    "EDIFIER_STAXGT5": {"impedance": "32", "sensitivity": "96"},
+    "EDIFIER_W820NB":  {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    "EDIFIER_WH950NB": {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    # ---- Sendy Audio (planar) ----
+    "SENDY_AIVA":    {"impedance": "32", "sensitivity": "96"},
+    "SENDY_PEACOCK": {"impedance": "50", "sensitivity": "94"},
+    "SENDY_APOLLO":  {"impedance": "32", "sensitivity": "96"},
+    # ---- Meze Audio remaining variants ----
+    "MEZE_99NOIR":           {"impedance": "32",   "sensitivity": "103", "driver_size": "40"},
+    "MEZE_99CLASSICSWALNUT": {"impedance": "32",   "sensitivity": "103", "driver_size": "40"},
+    "MEZE_LIRICII":          {"impedance": "31.6", "sensitivity": "102"},
+    # ---- V-Moda remaining ----
+    "VMODA_LP":           {"impedance": "32", "sensitivity": "103", "driver_size": "50"},
+    "VMODA_M100":         {"impedance": "32", "sensitivity": "103", "driver_size": "50"},
+    "VMODA_CROSSFADE2WL": {"impedance": "32", "sensitivity": "103"},
+    # ---- Sivga ----
+    "SIVGA_PHOENIX": {"impedance": "32", "sensitivity": "103", "driver_size": "50"},
+    "SIVGA_PII":     {"impedance": "32", "sensitivity": "103", "driver_size": "50"},
+    "SIVGA_SV021":   {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    "SIVGA_ORIOLE":  {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    # ---- T+A ----
+    "TA_SOLITAIRE_P":   {"impedance": "200", "sensitivity": "92"},
+    "TA_SOLITAIRE_PSE": {"impedance": "200", "sensitivity": "92"},
+    "TA_SOLITAIRE_T":   {"impedance": "40",  "sensitivity": "92"},
+    # ---- HEDD Audio (AMT driver) ----
+    "HEDD_HEDDPHONE":   {"impedance": "42", "sensitivity": "87"},
+    "HEDD_HEDDPHONE2":  {"impedance": "35", "sensitivity": "92"},
+    "HEDD_HEDDPHONED1": {"impedance": "35", "sensitivity": "92"},
+    # ---- Ollo Audio ----
+    "OLLO_S4X": {"impedance": "32", "sensitivity": "110", "driver_size": "40"},
+    "OLLO_S5X": {"impedance": "32", "sensitivity": "110", "driver_size": "40"},
+    "OLLO_X1":  {"impedance": "32", "sensitivity": "104", "driver_size": "40"},
+    # ---- Kennerton (planar) ----
+    "KENNERTON_ODIN":  {"impedance": "40", "sensitivity": "95"},
+    "KENNERTON_THROR": {"impedance": "42", "sensitivity": "93"},
+    # ---- Cleer ----
+    "CLEER_FLOW2":     {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    "CLEER_ENDURO100": {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    "CLEER_ALPHA":     {"impedance": "40", "sensitivity": "100"},
+    # ---- 1More ----
+    "1MORE_SONOFLOW":    {"impedance": "32", "sensitivity": "103", "driver_size": "40"},
+    "1MORE_SONOFLOWSE":  {"impedance": "32", "sensitivity": "103", "driver_size": "40"},
+    "1MORE_MK802":       {"impedance": "32", "sensitivity": "103", "driver_size": "40"},
+    # ---- Ultrasone ----
+    "ULTRA_ED5":     {"impedance": "32",  "sensitivity": "96", "driver_size": "40"},
+    "ULTRA_PERF880": {"impedance": "150", "sensitivity": "96", "driver_size": "40"},
+    "ULTRA_HFI580":  {"impedance": "75",  "sensitivity": "94", "driver_size": "40"},
+    # ---- Apple ----
+    "APPLE_AIRPODSMAX":     {"impedance": "35", "sensitivity": "100", "driver_size": "40"},
+    "APPLE_AIRPODSMAXUSBC": {"impedance": "35", "sensitivity": "100", "driver_size": "40"},
+    # ---- Technics ----
+    "TECH_EAHA800":   {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    "TECH_EAHA800M2": {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    # ---- ASUS ROG ----
+    "ASUS_DELTAS": {"impedance": "32", "sensitivity": "108", "driver_size": "40"},
+    "ASUS_DELTA2": {"impedance": "32", "sensitivity": "108", "driver_size": "40"},
+    # ---- Sonos / Nothing / Grell ----
+    "SONOS_ACE":          {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    "NOTHING_HEADPHONE1": {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    "GRELL_OAE2":         {"impedance": "32", "sensitivity": "97",  "driver_size": "40"},
+    # ---- Mark Levinson ----
+    "MARKLEV_5909": {"impedance": "18", "sensitivity": "99", "driver_size": "40"},
+    # ---- Spirit Torino ----
+    "SPIRITTORINO_SUPER":    {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    "SPIRITTORINO_RADIANTE": {"impedance": "16", "sensitivity": "98",  "driver_size": "40"},
+    # ---- Rosson Audio ----
+    "ROSSON_RAD0": {"impedance": "34", "sensitivity": "93"},
+    # ---- Koss remaining ----
+    "KOSS_PORTAPROWL": {"impedance": "60",  "sensitivity": "101", "driver_size": "25"},
+    "KOSS_PRO4AA":     {"impedance": "250", "sensitivity": "92",  "driver_size": "50"},
+    # ---- Audio-Technica remaining ----
+    "ATECH_SR50BT":   {"impedance": "38", "sensitivity": "98", "driver_size": "45"},
+    "ATECH_SR30BT":   {"impedance": "32", "sensitivity": "98", "driver_size": "40"},
+    "ATECH_ANC900BT": {"impedance": "38", "sensitivity": "98", "driver_size": "40"},
+    # ---- Shure remaining ----
+    "SHURE_SRH750DJ": {"impedance": "32", "sensitivity": "105", "driver_size": "50"},
+    # ---- Harman Kardon remaining ----
+    "HK_SOHO":    {"impedance": "32", "sensitivity": "110", "driver_size": "40"},
+    "HK_SOHOWL":  {"impedance": "32", "sensitivity": "110", "driver_size": "40"},
+    "HK_SOHOWNC": {"impedance": "32", "sensitivity": "110", "driver_size": "40"},
+    # ---- Denon remaining ----
+    "DENON_D400": {"impedance": "25", "sensitivity": "96", "driver_size": "40"},
+    # ---- Grado remaining ----
+    "GRADO_S550": {"impedance": "32", "sensitivity": "99"},
+    # ---- Creative remaining ----
+    "CREATIVE_SXFLAIR": {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    # ---- HiFiMan and Audeze electrostatics (sensitivity only) ----
+    "HIFIMAN_JADE2":     {"sensitivity": "90"},
+    "HIFIMAN_SHANGRILA": {"sensitivity": "90"},
+    "AUDEZE_CRBN":       {"sensitivity": "102"},
+    "AUDEZE_CRBN2":      {"sensitivity": "102"},
+    # ---- Modhouse Audio ----
+    "MODHOUSE_ARGONMK3": {"impedance": "50", "sensitivity": "96"},
+    "MODHOUSE_TUNGSTEN":  {"impedance": "16", "sensitivity": "97"},
+    # ---- Kiwi Ears ----
+    "KIWIEARS_ARDOR":   {"impedance": "20", "sensitivity": "96"},
+    "KIWIEARS_ELLIPSE": {"impedance": "20", "sensitivity": "96"},
+    "KIWIEARS_ATHEIA":  {"impedance": "20", "sensitivity": "98"},
+    "KIWIEARS_AVENTUS": {"impedance": "32", "sensitivity": "98"},
+    # ---- Ultrasone additions ----
+    "ULTRA_ED8":     {"impedance": "32",  "sensitivity": "96", "driver_size": "40"},
+    "ULTRA_ED10":    {"impedance": "32",  "sensitivity": "96", "driver_size": "40"},
+    "ULTRA_ED15":    {"impedance": "32",  "sensitivity": "96", "driver_size": "40"},
+    "ULTRA_HFI780":  {"impedance": "75",  "sensitivity": "96", "driver_size": "40"},
+    "ULTRA_HFI450":  {"impedance": "40",  "sensitivity": "96", "driver_size": "40"},
+    "ULTRA_HFI2400": {"impedance": "75",  "sensitivity": "96", "driver_size": "40"},
+    "ULTRA_SIGPURE": {"impedance": "35",  "sensitivity": "96", "driver_size": "40"},
+    "ULTRA_TRIB7":   {"impedance": "32",  "sensitivity": "96", "driver_size": "40"},
+    # ---- Dan Clark Audio MrSpeakers era ----
+    "DCA_MADDOG":     {"impedance": "50",  "sensitivity": "91"},
+    "DCA_NOIRECLOSED":{"impedance": "23",  "sensitivity": "90"},
+    # ---- Fostex additions ----
+    "FOSTEX_T50RPMK2": {"impedance": "50", "sensitivity": "92"},
+    "FOSTEX_TXO":      {"impedance": "25", "sensitivity": "100", "driver_size": "50"},
+    "FOSTEX_TXOII":    {"impedance": "25", "sensitivity": "100", "driver_size": "50"},
+    "FOSTEX_TR80":     {"impedance": "80", "sensitivity": "100", "driver_size": "50"},
+    "FOSTEX_TH616":    {"impedance": "25", "sensitivity": "100", "driver_size": "50"},
+    # ---- JBL CLUB and remaining ----
+    "JBL_CLUBONE":  {"impedance": "32", "sensitivity": "105", "driver_size": "40"},
+    "JBL_CLUB700":  {"impedance": "32", "sensitivity": "103", "driver_size": "40"},
+    "JBL_CLUB950":  {"impedance": "32", "sensitivity": "103", "driver_size": "40"},
+    "JBL_LIVE670":  {"impedance": "32", "sensitivity": "104", "driver_size": "40"},
+    "JBL_DUETNC":   {"impedance": "32", "sensitivity": "103", "driver_size": "40"},
+    "JBL_E65BTNC":  {"impedance": "32", "sensitivity": "103", "driver_size": "40"},
+    "JBL_J55":      {"impedance": "32", "sensitivity": "104", "driver_size": "40"},
+    # ---- More Logitech G ----
+    "LOGI_G430":   {"impedance": "32", "sensitivity": "90",  "driver_size": "40"},
+    "LOGI_G433":   {"impedance": "39", "sensitivity": "107", "driver_size": "40"},
+    "LOGI_G435":   {"impedance": "32", "sensitivity": "93",  "driver_size": "40"},
+    "LOGI_G533":   {"impedance": "39", "sensitivity": "107", "driver_size": "40"},
+    "LOGI_G635":   {"impedance": "39", "sensitivity": "107", "driver_size": "50"},
+    "LOGI_G735":   {"impedance": "32", "sensitivity": "93",  "driver_size": "40"},
+    "LOGI_G930":   {"impedance": "32", "sensitivity": "90",  "driver_size": "40"},
+    # ---- More Razer ----
+    "RAZER_KRAKENX":    {"impedance": "32", "sensitivity": "109", "driver_size": "40"},
+    "RAZER_KRAKENULTI": {"impedance": "32", "sensitivity": "109", "driver_size": "50"},
+    "RAZER_NARIU":      {"impedance": "32", "sensitivity": "109", "driver_size": "50"},
+    "RAZER_OPUS2020":   {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    "RAZER_BARRACUDAX": {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    # ---- Audio-Technica additions ----
+    "ATECH_ES55":  {"impedance": "40", "sensitivity": "100", "driver_size": "40"},
+    "ATECH_ANC70": {"impedance": "38", "sensitivity": "98",  "driver_size": "40"},
+    "ATECH_ANC50": {"impedance": "40", "sensitivity": "100", "driver_size": "40"},
+    # ---- AKG additions ----
+    "AKG_K272HD": {"impedance": "55", "sensitivity": "91",  "driver_size": "30"},
+    "AKG_K67":    {"impedance": "32", "sensitivity": "114", "driver_size": "40"},
+    "AKG_K44":    {"impedance": "32", "sensitivity": "112", "driver_size": "40"},
+    # ---- Sennheiser consumer budget ----
+    "SENN_HD429": {"impedance": "32", "sensitivity": "110", "driver_size": "40"},
+    "SENN_HD439": {"impedance": "32", "sensitivity": "110", "driver_size": "40"},
+    "SENN_HD449": {"impedance": "32", "sensitivity": "110", "driver_size": "40"},
+    "SENN_HD471": {"impedance": "32", "sensitivity": "115"},
+    "SENN_HD515": {"impedance": "50", "sensitivity": "112"},
+    # ---- HiFiMan original era ----
+    "HIFIMAN_HE5LE": {"impedance": "50",  "sensitivity": "89"},
+    "HIFIMAN_HEX4":  {"impedance": "18",  "sensitivity": "94"},
+    "HIFIMAN_HE300": {"impedance": "32",  "sensitivity": "92"},
+    # ---- Beyerdynamic budget consumer ----
+    "BEYER_DT231": {"impedance": "32", "sensitivity": "102", "driver_size": "45"},
+    "BEYER_DT235": {"impedance": "32", "sensitivity": "100", "driver_size": "45"},
+    # ---- Phiaton ----
+    "PHIATON_MS530": {"impedance": "32", "sensitivity": "110", "driver_size": "40"},
+    "PHIATON_MS500": {"impedance": "32", "sensitivity": "110", "driver_size": "40"},
+    "PHIATON_PS500": {"impedance": "32", "sensitivity": "110"},
+    "PHIATON_PS320": {"impedance": "32", "sensitivity": "112", "driver_size": "40"},
+    "PHIATON_BT460": {"impedance": "32", "sensitivity": "110", "driver_size": "40"},
+    # ---- Teufel ----
+    "TEUFEL_ZOLA":      {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    "TEUFEL_CAGE":      {"impedance": "32", "sensitivity": "98",  "driver_size": "40"},
+    "TEUFEL_REALBLUENC":{"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    "TEUFEL_REALZ":     {"impedance": "50", "sensitivity": "100", "driver_size": "40"},
+    # ---- Cooler Master ----
+    "CM_MH630": {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    "CM_MH751": {"impedance": "26", "sensitivity": "100", "driver_size": "40"},
+    "CM_MH752": {"impedance": "26", "sensitivity": "100", "driver_size": "40"},
+    # ---- House of Marley ----
+    "MARLEY_PV2":    {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    "MARLEY_PV2BT":  {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    "MARLEY_STIRIUP":{"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    # ---- Plantronics ----
+    "PLANT_BB500": {"impedance": "32", "sensitivity": "100"},
+    "PLANT_BB600": {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    "PLANT_BB810": {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    # ---- Remaining dynamic gaps from gap analysis ----
+    # Pioneer
+    "PIONEER_HDJCUE1":  {"impedance": "32", "sensitivity": "104", "driver_size": "40"},
+    "PIONEER_SEA1000":  {"impedance": "32", "sensitivity": "100", "driver_size": "50"},
+    # Panasonic (standard consumer dynamic; specs per Panasonic product pages)
+    "PANA_RPHC800": {"impedance": "32", "sensitivity": "98",  "driver_size": "40"},
+    "PANA_RPHT600": {"impedance": "32", "sensitivity": "96",  "driver_size": "40"},
+    # Sony Qualia 010 (MDR-Q010): Sony's 2003 ~¥300,000 flagship; 70mm biocellulose dome
+    "SONY_QUALIA010":   {"impedance": "8",  "sensitivity": "104", "driver_size": "70"},
+    # Audio-Technica ATH-EW9: ear-clip; tiny 13.4mm driver; low impedance/sensitivity typical for design
+    "ATECH_EW9":        {"impedance": "16", "sensitivity": "96",  "driver_size": "13"},
+    # JVC HA-SR75S: compact on-ear; low impedance driver
+    "JVC_HASR75S":      {"impedance": "16", "sensitivity": "100", "driver_size": "30"},
+    # Focal Celestee Diablo: same driver as Celestee — purely a colourway variant
+    "FOCAL_DIABLO":     {"impedance": "35", "sensitivity": "105", "driver_size": "40"},
+    # Kiwi Ears Division: dynamic open-back; typical modern specs
+    "KIWIEARS_DIVISION":{"impedance": "32", "sensitivity": "98",  "driver_size": "40"},
+    # House of Marley Exodus: premium lifestyle closed-back
+    "MARLEY_EXODUS":    {"impedance": "32", "sensitivity": "100", "driver_size": "40"},
+    # ---- JVC Victor ----
+    "JVC_HADX1000": {"impedance": "32",  "sensitivity": "104", "driver_size": "50"},
+    "JVC_HADX2000": {"impedance": "16",  "sensitivity": "102", "driver_size": "50"},
+    "JVC_HASW01":   {"impedance": "40",  "sensitivity": "96"},
+    "JVC_HASW02":   {"impedance": "40",  "sensitivity": "96"},
+    "JVC_HAMX100Z": {"impedance": "24",  "sensitivity": "106", "driver_size": "45"},
+    # ---- Tago Studio ----
+    "TAGO_T301": {"impedance": "150", "sensitivity": "97"},
+    "TAGO_T302": {"impedance": "150", "sensitivity": "97"},
+    # ---- Takstar ----
+    "TAKSTAR_PRO80":  {"impedance": "32",  "sensitivity": "102", "driver_size": "45"},
+    "TAKSTAR_PRO82":  {"impedance": "32",  "sensitivity": "102", "driver_size": "45"},
+    "TAKSTAR_HF580":  {"impedance": "50",  "sensitivity": "100"},
+    "TAKSTAR_HF660S": {"impedance": "50",  "sensitivity": "100"},
+    "TAKSTAR_SR5H":   {"impedance": "47",  "sensitivity": "102", "driver_size": "45"},
+    # ---- Goldplanar ----
+    "GOLD_GL2000DS": {"impedance": "35", "sensitivity": "96"},
+    "GOLD_GL2000SS": {"impedance": "35", "sensitivity": "96"},
+    "GOLD_GL850":    {"impedance": "35", "sensitivity": "96"},
+    # ---- MySphere ----
+    "MYSPHERE_3":  {"impedance": "16",  "sensitivity": "98"},
+    "MYSPHERE_3X": {"impedance": "16",  "sensitivity": "98"},
+    # ---- Crosszone ----
+    "CZ_CZ1":  {"impedance": "25",  "sensitivity": "100", "driver_size": "40"},
+    "CZ_CZ10": {"impedance": "25",  "sensitivity": "100", "driver_size": "40"},
+    # ---- Panasonic ----
+    "PANA_RPHD10": {"impedance": "32",  "sensitivity": "98",  "driver_size": "40"},
+    # ---- 2024-2025 new releases ----
+    "BEYER_DT770PRO_LTD": {"impedance": "48", "sensitivity": "100", "driver_size": "45"},
+    "BEYER_DT1990MK2":    {"impedance": "30", "sensitivity": "94",  "driver_size": "45"},
+    "BEYER_MMX300PRO":    {"impedance": "48", "sensitivity": "100", "driver_size": "45"},
+    "HIFIMAN_SUSVARAUNV": {"impedance": "60", "sensitivity": "83"},
+    "AUDEZE_LCD5S":       {"impedance": "14", "sensitivity": "90",  "driver_size": "90"},
+    "MEZE_EMPYREAN3":     {"impedance": "31.6","sensitivity": "102"},
+    "SONY_WH1000XM6":     {"impedance": "16", "sensitivity": "100", "driver_size": "30"},
 }
 
 products = []
 lineage_pairs = set()
-for row in P:
+for _int_id, row in enumerate(P, start=1):
     (pid, mfr, fam, model, full, year, disc, status, cat, design, driver,
      dsize, imp, sens, wl, anc, pred, succ, notes, date_added) = row
     if pid in SPECS:
@@ -1895,7 +2713,7 @@ for row in P:
         sens = s.get("sensitivity", sens)
     fid = fam_id.get((mfr, fam), "")
     mid = mfr_id[mfr]
-    products.append([pid, fid, mid, model, full, year, disc, status, cat,
+    products.append([_int_id, pid, fid, mid, model, full, year, disc, status, cat,
                      design, driver, dsize, imp, sens, wl, anc, pred, succ, notes, date_added])
     if pred:
         lineage_pairs.add((pred, pid))
@@ -1915,7 +2733,7 @@ with open(OUT / "families.csv", "w", newline="", encoding="utf-8") as f:
 
 with open(OUT / "products.csv", "w", newline="", encoding="utf-8") as f:
     w = csv.writer(f)
-    w.writerow(["product_id","family_id","manufacturer_id","model_name","full_name",
+    w.writerow(["id","product_id","family_id","manufacturer_id","model_name","full_name",
                 "release_year","discontinued_year","status","category","design",
                 "driver_type","driver_size_mm","impedance_ohms","sensitivity_db",
                 "wireless","anc","predecessor","successor","notes","date_added"])

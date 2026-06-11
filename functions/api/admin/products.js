@@ -8,7 +8,7 @@ const json = (o, s = 200) =>
   new Response(JSON.stringify(o), { status: s, headers: { "Content-Type": "application/json" } });
 
 const FIELDS = [
-  "product_id", "family_id", "manufacturer_id", "model_name", "full_name",
+  "product_id", "id", "family_id", "manufacturer_id", "model_name", "full_name",
   "release_year", "discontinued_year", "status", "category", "design", "driver_type",
   "driver_size_mm", "impedance_ohms", "sensitivity_db", "wireless", "anc",
   "predecessor", "successor", "notes", "date_added",
@@ -59,7 +59,7 @@ export async function onRequestPost({ request, env }) {
     const vals = FIELDS.map(f => {
       let v = p[f];
       if (v === undefined || v === null) v = "";
-      if (f === "manufacturer_id" || f === "release_year") {
+      if (f === "id" || f === "manufacturer_id" || f === "release_year") {
         const n = parseInt(v, 10);
         return Number.isFinite(n) ? n : null;
       }
