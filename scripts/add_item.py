@@ -283,12 +283,17 @@ def sync_csv_products(conn):
     rows = conn.execute(
         "SELECT product_id, family_id, manufacturer_id, model_name, full_name, "
         "release_year, discontinued_year, status, category, design, driver_type, "
-        "wireless, anc, predecessor, successor, notes FROM products ORDER BY product_id"
+        "driver_size_mm, impedance_ohms, sensitivity_db, wireless, anc, "
+        "predecessor, successor, notes, date_added, fit, "
+        "msrp_usd, sound_signature, connector_type, detachable_cable, weight_g "
+        "FROM products ORDER BY product_id"
     ).fetchall()
     _write_csv(CSV_DIR / "products.csv", [
         "product_id","family_id","manufacturer_id","model_name","full_name",
         "release_year","discontinued_year","status","category","design","driver_type",
-        "wireless","anc","predecessor","successor","notes"
+        "driver_size_mm","impedance_ohms","sensitivity_db","wireless","anc",
+        "predecessor","successor","notes","date_added","fit",
+        "msrp_usd","sound_signature","connector_type","detachable_cable","weight_g"
     ], rows)
 
 

@@ -200,6 +200,9 @@ const OPT_FIT=['Over-Ear','On-Ear'];
 const OPT_DRIVER=['Dynamic','Planar Magnetic','Electrostatic','Ribbon','AMT','Hybrid'];
 const OPT_WIRELESS=['Yes','No'];
 const OPT_CATEGORY=['Headphone','Studio','Gaming'];
+const OPT_SIGNATURE=['Neutral','Balanced','Warm','Bright','V-Shaped','Bass-Heavy','Dark'];
+const OPT_CONNECTOR=['3.5mm','6.35mm','3.5mm + 6.35mm','XLR','USB-C','Lightning','Proprietary','Wireless'];
+const OPT_DETACHABLE=['Yes','No'];
 
 const FIELDS=[
   {key:'product_id',     label:'Product ID',      type:'input',    span:1, disabled:true},
@@ -216,6 +219,11 @@ const FIELDS=[
   {key:'driver_size_mm', label:'Driver size (mm)',type:'input',    span:1},
   {key:'impedance_ohms', label:'Impedance (\u03A9)',type:'input', span:1},
   {key:'sensitivity_db', label:'Sensitivity (dB)',type:'input',    span:1},
+  {key:'msrp_usd',       label:'MSRP at release (USD)',type:'input',span:1},
+  {key:'weight_g',       label:'Weight (g)',      type:'input',    span:1},
+  {key:'sound_signature',label:'Sound signature', type:'select',   span:1, opts:OPT_SIGNATURE, blank:true},
+  {key:'connector_type', label:'Connector',       type:'select',   span:1, opts:OPT_CONNECTOR, blank:true},
+  {key:'detachable_cable',label:'Detachable cable',type:'select',  span:1, opts:OPT_DETACHABLE, blank:true},
   {key:'wireless',       label:'Wireless',        type:'select',   span:1, opts:OPT_WIRELESS},
   {key:'anc',            label:'ANC',             type:'select',   span:1, opts:OPT_WIRELESS},
   {key:'predecessor',    label:'Predecessor ID',  type:'input',    span:2},
@@ -227,6 +235,8 @@ const HIST_LABELS={model_name:'Model',full_name:'Full name',release_year:'Year',
   discontinued_year:'Disc. year',status:'Status',category:'Category',design:'Design',fit:'Fit',
   driver_type:'Driver',driver_size_mm:'Driver size',impedance_ohms:'Impedance',
   sensitivity_db:'Sensitivity',wireless:'Wireless',anc:'ANC',
+  msrp_usd:'MSRP (USD)',weight_g:'Weight',sound_signature:'Sound signature',
+  connector_type:'Connector',detachable_cable:'Detachable cable',
   predecessor:'Predecessor',successor:'Successor',notes:'Notes'};
 
 function cellVal(p,key){
@@ -340,8 +350,9 @@ function populateEditWrap(wrap,p){
       const opts=mfrs.map(m=>'<option value="'+m.manufacturer_id+'"'+(String(m.manufacturer_id)===String(p.manufacturer_id)?' selected':'')+'>'+esc(m.name)+'</option>').join('');
       ctrl='<select id="ef_'+f.key+'">'+opts+'</select>';
     }else if(f.type==='select'){
+      const blank=f.blank?'<option value=""'+(val===''?' selected':'')+'>\u2014</option>':'';
       const opts=(f.opts||[]).map(o=>'<option'+(o===val?' selected':'')+'>'+esc(o)+'</option>').join('');
-      ctrl='<select id="ef_'+f.key+'">'+opts+'</select>';
+      ctrl='<select id="ef_'+f.key+'">'+blank+opts+'</select>';
     }else{ctrl='<input id="ef_'+f.key+'" value="'+esc(val)+'"'+dis+'>';}
     html+='<div class="'+spanCls+'"><label for="ef_'+f.key+'">'+esc(f.label)+'</label>'+ctrl+'</div>';
   });

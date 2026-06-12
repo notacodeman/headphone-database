@@ -176,42 +176,10 @@
     border-radius: 0; cursor: pointer;
   }
 
-  table { width: 100%; border-collapse: collapse; table-layout: fixed; }
-  #tablewrap {
-    overflow-x: auto;
-    overflow-y: auto;
-    max-height: calc(100vh - 230px);
-    background: var(--paper);
-    border-left: 1px solid var(--line);
-    border-right: 1px solid var(--line);
-  }
-  thead th { position: sticky; top: 0; z-index: 10; background: var(--paper-2); }
-  tbody tr.datarow { background: var(--paper); }
-  tbody tr.datarow.zebra { background: #ece4d4; }  thead th { position: relative; }
-  thead th > span:first-child { display: inline-block; max-width: calc(100% - 10px); overflow: hidden; text-overflow: ellipsis; vertical-align: bottom; }
-  tbody tr.datarow td { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .resizer { position: absolute; top: 0; right: 0; width: 9px; height: 100%; cursor: col-resize; user-select: none; }
-  .resizer::before { content: ""; position: absolute; right: 3px; top: 25%; height: 50%; width: 1px; background: var(--line); }
-  .resizer:hover::before { right: 3px; top: 0; height: 100%; width: 2px; background: var(--accent); }
-  thead th {
-    text-align: left;
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--muted);
-    padding: 0.5rem 0.6rem;
-    border-bottom: 2px solid var(--ink);
-    cursor: pointer;
-    user-select: none;
-    white-space: nowrap;
-  }
-  thead th:hover { color: var(--accent); }
-  thead th[aria-sort="ascending"]::after  { content: ' \2191'; color: var(--accent); font-size: 0.7rem; }
-  thead th[aria-sort="descending"]::after { content: ' \2193'; color: var(--accent); font-size: 0.7rem; }
-
+  /* Table layout, header, resizer, cell, and sort-indicator rules live in the
+     "Table (desktop)" block further down. Only the rules unique to this spot remain here. */
+  thead th { position: relative; }            /* positioning context for .resizer */
   tbody tr { border-bottom: 1px solid var(--line); transition: background 0.12s; }
-  tbody tr:hover { background: var(--paper-2); }
-  tbody td { padding: 0.7rem 0.6rem; font-size: 0.86rem; vertical-align: top; }
 
   .model-name { font-family: 'Fraunces', serif; font-size: 1.02rem; font-weight: 600; }
   .brand { color: var(--accent-2); font-weight: 500; }
@@ -997,7 +965,7 @@ function apply() {
     if (dr && r.driver_type !== dr) return false;
     if (s  && r.status      !== s)  return false;
     if (q) {
-      const hay = (r.full_name + " " + r._brand + " " + r.notes + " " + r.model_name).toLowerCase();
+      const hay = [r.full_name, r._brand, r.notes, r.model_name].map(x => x || "").join(" ").toLowerCase();
       if (!hay.includes(q)) return false;
     }
     return true;
@@ -1155,7 +1123,7 @@ function render() {
 }
 
 function esc(s) {
-  return (s || "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  return String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 }
 
 function wireColumnsMenu() {
