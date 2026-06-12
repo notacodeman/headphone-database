@@ -7,6 +7,9 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,400&family=Spline+Sans+Mono:wght@400;500;600&display=swap');
 
+  /* ---- Design tokens ----
+     CSS custom properties for the neon-noir palette (paper/ink/amber accents), fonts, and
+     spacing. Centralising them here means the whole site re-themes from this one block. */
   :root {
     --ink: #1a1714;
     --paper: #f4f0e8;
@@ -20,6 +23,9 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { background: var(--paper); }
 
+  /* ---- Base layout: body, header, controls ----
+     Page-level typography and the sticky header that holds the title, stat bar, and filter
+     controls. The controls use a responsive CSS grid reflowed by the media queries below. */
   body {
     background: var(--paper);
     color: var(--ink);
@@ -145,6 +151,9 @@
   .linkbtn:hover { color: var(--accent); }
 
   /* Columns panel */
+  /* ---- Column show/hide menu ----
+     The popover listing each column as a checkbox. .colmenu is absolutely positioned under
+     its toggle button and only displayed when .open is present. */
   .colpanel {
     position: relative;
     display: inline-block;
@@ -188,6 +197,9 @@
   .spec.empty { color: var(--line); }
   .notes { color: var(--muted); font-size: 0.78rem; max-width: 280px; }
 
+  /* ---- Status tags & wireless/ANC flags ----
+     Pill-style badges in the Status column (active vs discontinued get different accents)
+     and the compact WL/ANC text flags. Kept small so they don't crowd the row. */
   .tag {
     display: inline-block;
     font-size: 0.68rem;
@@ -238,6 +250,9 @@
   tr.datarow.expanded .caret { transform: rotate(90deg); color: var(--accent); }
   tr.detailrow > td { padding: 0; border-bottom: 1px solid var(--line); }
   tr.detailrow.zebra > td { background: #ece4d4; }
+  /* ---- Expanded row detail panel ----
+     The drawer revealed when a row is clicked: a responsive grid of every spec plus notes
+     and review links. The amber left border ties it visually to its parent row. */
   .detailwrap { padding: 1.1rem 1.4rem; border-left: 3px solid var(--accent); }
   .detail-specs { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.6rem 1.5rem; margin: 0; }
   .detail-specs dt { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
@@ -287,6 +302,9 @@
   .cmpbar-clear:hover { color: var(--paper); }
 
   /* Compare modal */
+  /* ---- Compare modal ----
+     Full-screen overlay that shows 2-3 selected headphones side by side. Hidden by default
+     via the [hidden] attribute and switched to a flex layout only when opened. */
   #cmpOverlay { align-items: flex-start; justify-content: center; padding: 2rem 1rem; overflow-y: auto; }
   #cmpOverlay:not([hidden]) { display: flex; }
   .cmpmodal { background: var(--card); border: 1px solid var(--ink); border-radius: 12px;
@@ -315,6 +333,9 @@
   .cmptable .cmp-diff { color: var(--accent); font-weight: 500; }
   .cmptable .cmp-same { color: var(--muted); }
   .cmptable .cmp-empty { color: var(--line); font-style: italic; }
+  /* ---- Accessibility & responsive ----
+     Honours reduced-motion preferences and reflows the layout for tablet/phone widths.
+     The small-screen rules also bump input font-size to 16px to stop iOS auto-zoom. */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
   /* ── Variables & base ────────────────────────────────── */
@@ -408,6 +429,9 @@
     accent-color: var(--accent); border-radius: 0; cursor: pointer; }
 
   /* ── Table (desktop) ─────────────────────────────────── */
+  /* ---- Table (desktop) ----
+     The authoritative table styling: full-width fixed layout, sticky header, resizer handles,
+     and sort indicators. The auto-fit rules let columns fill the container without overflow. */
   table { width: 100%; border-collapse: collapse; table-layout: fixed; }
   #tablewrap {
     overflow-x: hidden;
