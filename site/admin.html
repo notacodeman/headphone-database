@@ -55,7 +55,7 @@
   thead th:hover { color:var(--accent); }
   thead th[aria-sort="ascending"]::after  { content:' \2191'; color:var(--accent); }
   thead th[aria-sort="descending"]::after { content:' \2193'; color:var(--accent); }
-  thead th[aria-sort="ascending"],thead th[aria-sort="descending"] { color:var(--accent); background:rgba(194,65,12,.07); }
+  thead th[aria-sort="ascending"], thead th[aria-sort="descending"] { color: var(--accent); box-shadow: inset 0 -3px 0 var(--accent); }
   thead th > span:first-child { display:inline-block; max-width:calc(100% - 10px);
     overflow:hidden; text-overflow:ellipsis; vertical-align:bottom; }
   .resizer { position:absolute; top:0; right:0; width:9px; height:100%; cursor:col-resize; user-select:none; }
