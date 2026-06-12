@@ -74,6 +74,8 @@ PRODUCT_SELECT = """
 
 
 def search_products(conn, args) -> list[sqlite3.Row]:
+    """Build and run a filtered product query from the CLI args (brand, design, driver, year, etc.).
+    Returns matching rows so the print/export helpers can format them for the terminal or a file."""
     where = []
     params = []
 
@@ -131,6 +133,8 @@ def search_products(conn, args) -> list[sqlite3.Row]:
 
 
 def get_lineage(conn, product_id: str):
+    """Walk the predecessor/successor chain for one product to assemble its full ancestry and
+    descendants. Used to print a model's place in its family line."""
     """Return the full chain: ancestors → product → descendants."""
     ancestors = []
     descendants = []
@@ -165,6 +169,8 @@ def get_lineage(conn, product_id: str):
 
 
 def get_stats(conn) -> dict:
+    """Compute summary statistics across the whole catalog (counts by brand, driver, status, year).
+    Returns a dict the stats printer turns into the overview shown with the --stats flag."""
     stats = {}
     stats["total_products"] = conn.execute("SELECT COUNT(*) FROM products").fetchone()[0]
     stats["total_manufacturers"] = conn.execute("SELECT COUNT(*) FROM manufacturers").fetchone()[0]
@@ -303,6 +309,8 @@ def export_csv(rows: list[sqlite3.Row], path: str):
 # ---------------------------------------------------------------------------
 
 def main():
+    """CLI entry point: parse the query/stats/lineage/export flags and dispatch to the matching
+    helper, then print or save the results. This is what runs when query.py is invoked directly."""
     parser = argparse.ArgumentParser(description="Query the headphone database")
     parser.add_argument("--db", default=DEFAULT_DB)
 

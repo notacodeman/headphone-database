@@ -172,6 +172,9 @@
 
 <script>
 const esc = s => String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+// ---- State ----
+// Module-level state for the admin editor: all products, the brand list, the suggestion
+// queue, the active sort, and which row (if any) is expanded for inline editing.
 let all=[], mfrs=[], suggs=[], sortKey='release_year', sortDir='descending', expandedId=null;
 let openHistIdx={};
 
@@ -194,6 +197,9 @@ function loadColW(){COLS.forEach(c=>colW[c.key]=c.w);try{const s=JSON.parse(loca
 function saveColW(){try{localStorage.setItem('admin_colw',JSON.stringify(colW));}catch(e){}}
 function visTotalW(){return COLS.reduce((s,c)=>s+colW[c.key],0)+CARET_W;}
 
+// ---- Dropdown option sets ----
+// Allowed values for each categorical field, kept in sync with the VALID_* constants in
+// _generate_data.py so the editor can only ever produce values the data pipeline accepts.
 const OPT_STATUS=['Active','Discontinued','Legacy Active'];
 const OPT_DESIGN=['Open Back','Closed Back','Semi-Open'];
 const OPT_FIT=['Over-Ear','On-Ear'];
@@ -204,6 +210,10 @@ const OPT_SIGNATURE=['Neutral','Balanced','Warm','Bright','V-Shaped','Bass-Heavy
 const OPT_CONNECTOR=['3.5mm','6.35mm','3.5mm + 6.35mm','XLR','USB-C','Lightning','Proprietary','Wireless'];
 const OPT_DETACHABLE=['Yes','No'];
 
+// ---- Edit-form field definitions ----
+// Declarative description of every field in the inline editor: key, label, control type,
+// grid span, and (for selects) its option set. render and save both iterate this list, so
+// adding an editable field means adding one entry here and nothing else.
 const FIELDS=[
   {key:'product_id',     label:'Product ID',      type:'input',    span:1, disabled:true},
   {key:'manufacturer_id',label:'Brand',           type:'mfr',      span:1},
@@ -231,6 +241,8 @@ const FIELDS=[
   {key:'notes',          label:'Notes',           type:'textarea', span:4},
 ];
 
+// Human-readable labels for the version-history diff view, mapping raw column keys to the
+// names shown when comparing a product's current values against a historical snapshot.
 const HIST_LABELS={model_name:'Model',full_name:'Full name',release_year:'Year',
   discontinued_year:'Disc. year',status:'Status',category:'Category',design:'Design',fit:'Fit',
   driver_type:'Driver',driver_size_mm:'Driver size',impedance_ohms:'Impedance',
@@ -239,6 +251,9 @@ const HIST_LABELS={model_name:'Model',full_name:'Full name',release_year:'Year',
   connector_type:'Connector',detachable_cable:'Detachable cable',
   predecessor:'Predecessor',successor:'Successor',notes:'Notes'};
 
+// ---- Cell rendering ----
+// Returns the display HTML for one table cell, with special formatting for brand, year,
+// status, wireless flags, and spec columns; everything else is escaped plain text.
 function cellVal(p,key){
   if(key==='_brand')return esc(p._brand||'');
   if(key==='model_name')return '<span class="model-cell">'+esc(p.model_name)+'</span>';
@@ -250,6 +265,8 @@ function cellVal(p,key){
   return esc(p[key]??'');
 }
 
+// Sorts rows by the active column, comparing numerically when both values parse as numbers
+// and falling back to locale-aware string comparison otherwise. Direction follows sortDir.
 function sortRows(rows){
   return [...rows].sort((a,b)=>{
     let av=a[sortKey]??'',bv=b[sortKey]??'';
@@ -261,6 +278,9 @@ function sortRows(rows){
 }
 
 let resizing=null;
+// ---- Main table render ----
+// Rebuilds the admin table from state, including the inline-expanded edit row when one is
+// open. Re-attaches all row/resizer/button handlers since the markup is regenerated wholesale.
 function render(){
   const q=document.getElementById('q').value.toLowerCase();
   let rows=all.filter(p=>p._isNew||(!(q)||(p._brand+' '+p.model_name+' '+p.full_name+' '+(p.notes||'')).toLowerCase().includes(q)));
@@ -365,6 +385,8 @@ function populateEditWrap(wrap,p){
   if(!isNew)loadInlineHistory(pid);
 }
 
+// Lazily fetches and renders a product's edit history into its expanded row, only when the
+// history section is opened. Keeps the initial table load light by deferring this call.
 async function loadInlineHistory(pid){
   const list=document.getElementById('hl_'+pid);if(!list)return;
   try{
@@ -445,6 +467,9 @@ async function toggleConf(pid){
   }catch(e){toast('Error: '+e.message);}
 }
 
+// ---- Suggestion queue ----
+// Renders the pending community-suggestion list shown alongside the catalog, with controls
+// to accept, reject, mark reviewed, or delete each one via the admin suggestions endpoint.
 function renderSuggestions(){
   const area=document.getElementById('suggArea');
   const pending=suggs.filter(s=>s.status==='pending');
@@ -482,6 +507,9 @@ function confirm2(msg,onYes){
   yes.onclick=()=>{cleanup();onYes();};no.onclick=cleanup;
 }
 
+// ---- Bootstrap ----
+// Initial load: fetches products, manufacturers, and suggestions in parallel, seeds state,
+// and kicks off the first render. This is the entry point run once when the page opens.
 async function load(){
   try{
     const [pRes,mRes,sRes]=await Promise.all([fetch('/api/admin/products'),fetch('/api/admin/products?manufacturers=1'),fetch('/api/admin/suggestions')]);

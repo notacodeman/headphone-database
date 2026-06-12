@@ -1,8 +1,10 @@
-// /api/suggestions  — admin endpoint, protected by Cloudflare Access.
-//   GET                -> list all suggestions (newest first)
-//   POST {id, action}  -> action "delete" removes a row; "reviewed" marks it reviewed
-// env.DB is the bound D1 database.
+// /api/admin/suggestions — admin-only, protected by Cloudflare Access. Manages the
+// queue of community edit suggestions submitted through the public suggest form.
+//   GET                -> list every suggestion, newest first, for the review UI
+//   POST {id, action}  -> change one suggestion's state (delete / reviewed / pending /
+//                         accept / reject); env.DB is the bound D1 database.
 
+// JSON helper; same-origin admin use only, so no CORS header is set.
 const json = (obj, status = 200) =>
   new Response(JSON.stringify(obj), {
     status,
@@ -11,6 +13,8 @@ const json = (obj, status = 200) =>
 
 export async function onRequestGet({ env }) {
   try {
+    // Return the whole queue ordered by submission time (newest first) so the
+    // reviewer sees the most recent suggestions at the top of the list.
     const { results } = await env.DB.prepare(
       `SELECT id, headphone, driver_size_mm, impedance_ohms, sensitivity_db,
               connector, detachable, weight_g, notes, source, submitter, status, created_at
@@ -24,10 +28,14 @@ export async function onRequestGet({ env }) {
 
 export async function onRequestPost({ request, env }) {
   try {
+    // Every action targets one suggestion by numeric id; reject anything missing it.
     const body = await request.json();
     const id = parseInt(body.id, 10);
     if (!id) return json({ ok: false, error: "Missing id." }, 400);
 
+    // Dispatch on the action string. "delete" removes the row entirely; the rest are
+    // status transitions that keep the row but move it through the review workflow.
+    // An unrecognised action is rejected rather than silently ignored.
     if (body.action === "delete") {
       await env.DB.prepare(`DELETE FROM suggestions WHERE id = ?`).bind(id).run();
     } else if (body.action === "reviewed") {

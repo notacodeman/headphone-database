@@ -181,6 +181,8 @@ def load_families(conn, rows, verbose):
 
 
 def load_products(conn, rows, verbose):
+    """Insert/upsert every product row into the SQLite products table, coercing types to match
+    the schema. Uses ON CONFLICT so re-running updates existing rows rather than erroring."""
     cur = conn.cursor()
     n = 0
     for r in rows:
@@ -288,6 +290,8 @@ def load_sources(conn, rows, verbose):
 # ---------------------------------------------------------------------------
 
 def build(csv_dir: Path, db_path: Path, verbose: bool = False):
+    """Top-level builder: create the schema, then load every table (manufacturers, families,
+    products, lineage, sources) from the CSVs in dependency order. Produces the headphones.db file."""
     print(f"Building {db_path} from CSVs in {csv_dir}/")
 
     conn = sqlite3.connect(db_path)

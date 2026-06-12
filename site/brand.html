@@ -141,8 +141,13 @@
 <script>
 const esc = s => String(s ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 
+// ---- Small formatting helpers ----
+// pct() turns a count into a whole-number percentage of a total, guarding divide-by-zero.
+// It feeds the "Brand DNA" segmented bars that show each brand's mix of designs/drivers.
 function pct(n, total) { return total ? Math.round(n / total * 100) : 0; }
 
+// Renders one horizontal "DNA" bar from an array of {label,count,pct} segments, used to
+// visualise how a brand's catalog breaks down (e.g. open- vs closed-back) at a glance.
 function dnaBar(segments) {
   // segments: [{cls, label, count, total}]
   const total = segments.reduce((s, x) => s + x.count, 0);
@@ -178,6 +183,9 @@ function specStr(p) {
   return parts.join(' · ');
 }
 
+// ---- Data load ----
+// Reads the brand id from the URL query string and fetches that brand plus its products
+// from /api/brands. On failure it shows an inline error rather than a blank page.
 async function load() {
   const params = new URLSearchParams(location.search);
   const brandId = params.get('id');
@@ -196,6 +204,9 @@ async function load() {
   }
 }
 
+// ---- Page render ----
+// Builds the whole brand page: header, the DNA breakdown bars, a per-decade timeline, and
+// the product list. Computes all the aggregate stats from the product array passed in.
 function render(brand, products) {
   document.title = `${brand.name} — The Headphone Archive`;
 

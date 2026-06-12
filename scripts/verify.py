@@ -82,6 +82,9 @@ def to_int(v):
 
 
 def build_memory_db(source: str) -> tuple[sqlite3.Connection, dict]:
+    """Build a throwaway in-memory SQLite DB from the CSVs and load every row into it.
+    Returning the connection plus row counts lets the integrity checks run against real
+    SQL without touching the on-disk database."""
     conn = sqlite3.connect(":memory:")
     conn.row_factory = sqlite3.Row
     conn.executescript(SCHEMA)
@@ -106,6 +109,9 @@ def build_memory_db(source: str) -> tuple[sqlite3.Connection, dict]:
 
 
 def run_checks(conn: sqlite3.Connection, counts: dict) -> bool:
+    """Run every data-integrity check (orphan foreign keys, bad categoricals, duplicate ids,
+    lineage consistency) against the in-memory DB. Returns True only if all checks pass, which
+    is what gates the "ALL CHECKS PASSED" banner."""
     print(f"\n  {'Table':<16}{'Rows':>6}")
     print(f"  {DIM}{'-'*22}{RESET}")
     for name in CSV_FILES:
@@ -179,6 +185,8 @@ def run_checks(conn: sqlite3.Connection, counts: dict) -> bool:
 
 
 def show_sample(conn: sqlite3.Connection, search: str | None):
+    """Print a small sample of rows (or search matches) so a human can eyeball the data.
+    Purely informational — it has no effect on whether verification passes or fails."""
     if search:
         rows = conn.execute("""
             SELECT p.full_name, m.name AS mfr, p.release_year, p.design, p.status
@@ -204,6 +212,8 @@ def show_sample(conn: sqlite3.Connection, search: str | None):
 
 
 def main():
+    """CLI entry point: parse --source/--remote/--search flags, build the in-memory DB, run
+    the checks, and exit non-zero if any fail so CI or a pre-push hook can catch bad data."""
     parser = argparse.ArgumentParser(description="Verify the headphone data is present and intact")
     parser.add_argument("--remote", metavar="BASE_URL",
                         help="GitHub raw base URL of the /database folder")

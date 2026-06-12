@@ -45,6 +45,8 @@ VALID_YESNO    = {"Yes", "No"}
 
 
 def validate_product(data: dict, conn: sqlite3.Connection) -> list[str]:
+    """Validate one product dict against the categorical rules and foreign-key references before
+    it is written. Returns a list of human-readable error strings (empty means the row is valid)."""
     errors = []
     if not data.get("product_id"):
         errors.append("product_id is required")
@@ -196,6 +198,8 @@ def prompt_source() -> dict:
 # ---------------------------------------------------------------------------
 
 def upsert_product(conn, data: dict):
+    """Insert or update a single product in the local SQLite DB, keyed by product_id. This is the
+    write half of add_item; sync_csv_products mirrors the result back out to the CSV afterwards."""
     errors = validate_product(data, conn)
     if errors:
         print("\n  ✗ Validation errors:")
@@ -280,6 +284,8 @@ def upsert_source(conn, data: dict):
 # ---------------------------------------------------------------------------
 
 def sync_csv_products(conn):
+    """Export the products table back to products.csv with the full canonical column set, in the
+    same column order _generate_data.py uses. Keeps the CSV backup in step with local DB edits."""
     rows = conn.execute(
         "SELECT product_id, family_id, manufacturer_id, model_name, full_name, "
         "release_year, discontinued_year, status, category, design, driver_type, "

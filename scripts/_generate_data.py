@@ -1,8 +1,16 @@
 #!/usr/bin/env python3
-"""One-off generator: builds the expanded CSVs from researched headphone data."""
+"""Canonical data generator for the headphone archive.
+
+This script is the single source of truth for the catalog *content*: every headphone,
+brand, family, and lineage link is hand-entered here as Python, then written out to the
+CSVs in database/. Those CSVs seed the live D1 database (via the admin import endpoint)
+and act as the backup/version-controlled record. Re-run it after editing the data below
+to regenerate all CSVs; the verify.py script then checks the output for integrity.
+"""
 import csv
 from pathlib import Path
 
+# All generated CSVs are written into the database/ directory next to this script.
 OUT = Path("database")
 
 # ---------------------------------------------------------------------------
@@ -364,7 +372,12 @@ def add(pid, mfr, fam, model, full, year, status, design, driver, wireless, anc,
         pred="", succ="", notes="", disc="", category="Headphone",
         driver_size="", impedance="", sensitivity="", date_added="", fit="Over-Ear",
         msrp_usd="", sound_signature="", connector_type="", detachable_cable="", weight_g=""):
-    # Validate categorical fields — fail loudly, never silently
+    # Append one fully-specified headphone to the global product list P. Every brand
+    # block below is just a sequence of add() calls, so this is the single choke point
+    # where each row is built and validated before it can enter the dataset.
+    # Validate categorical fields — fail loudly, never silently. A bad value (typo in a
+    # design/driver/status, etc.) raises here at generation time rather than producing a
+    # subtly broken CSV that would only fail later at D1 import or in the front-end.
     assert design   in VALID_DESIGN,   f"{pid}: invalid design={design!r}"
     assert driver   in VALID_DRIVER,   f"{pid}: invalid driver={driver!r}"
     assert status   in VALID_STATUS,   f"{pid}: invalid status={status!r}"
@@ -2712,6 +2725,10 @@ SPECS = {
 
 products = []
 lineage_pairs = set()
+# Transform pass: turn each raw add() row into a final product record. The SPECS dict
+# above is an optional overlay of researched measurements (impedance, driver size, MSRP,
+# etc.) keyed by product_id — when present it fills in fields the inline add() call left
+# blank. Family and manufacturer names are also resolved to their numeric ids here.
 for _int_id, row in enumerate(P, start=1):
     (pid, mfr, fam, model, full, year, disc, status, cat, design, driver,
      dsize, imp, sens, wl, anc, pred, succ, notes, date_added, fit,
@@ -2738,6 +2755,9 @@ for _int_id, row in enumerate(P, start=1):
 
 # ---------------------------------------------------------------------------
 # Write CSVs
+# Serialise every table to its CSV. Each writer emits an explicit header row so the
+# column order is fixed and matches what build_db.py and the import endpoint expect;
+# changing a column here means updating those consumers too.
 # ---------------------------------------------------------------------------
 with open(OUT / "manufacturers.csv", "w", newline="", encoding="utf-8") as f:
     w = csv.writer(f); w.writerow(["manufacturer_id","name","country","website","status","founded_year"])
@@ -2756,7 +2776,9 @@ with open(OUT / "products.csv", "w", newline="", encoding="utf-8") as f:
                 "msrp_usd","sound_signature","connector_type","detachable_cable","weight_g"])
     w.writerows(products)
 
-# Guard: catch duplicate product_ids before they cause D1 import failures
+# Guard: catch duplicate product_ids before they cause D1 import failures.
+# product_id is the primary key in D1, so a duplicate here would crash the import
+# halfway through. Asserting now turns that into an immediate, named error at generation.
 _pids = [p[1] for p in products]  # index 1 = product_id
 _dupes = [pid for pid, n in __import__('collections').Counter(_pids).items() if n > 1]
 assert not _dupes, f"DUPLICATE product_ids found — fix before importing: {_dupes}"

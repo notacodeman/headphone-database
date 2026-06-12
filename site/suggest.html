@@ -181,6 +181,9 @@ const RAW_BASE = "https://raw.githubusercontent.com/notacodeman/headphone-databa
 // which stores them in the D1 database. No third-party service.
 const FORM_ENDPOINT = "/api/suggest";
 
+// ---- CSV parser (for the live spec preview) ----
+// Quote-aware CSV parser, used to pull existing specs so the form can show what's already
+// on record for a headphone. Mirrors the parsers elsewhere so behaviour stays consistent.
 function parseCSV(text) {
   const rows = []; let row = [], field = "", q = false;
   for (let i = 0; i < text.length; i++) {
@@ -220,6 +223,8 @@ const form = document.getElementById("suggestForm");
 const msg = document.getElementById("msg");
 const btn = document.getElementById("submitBtn");
 
+// Shows a status message (success/error) above the form. The type becomes a CSS class so
+// the banner can be styled differently for confirmations versus validation errors.
 function show(type, text) { msg.className = "msg show " + type; msg.textContent = text; }
 
 form.addEventListener("submit", async (e) => {

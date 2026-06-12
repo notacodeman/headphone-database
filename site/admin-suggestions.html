@@ -84,10 +84,16 @@
 </div>
 
 <script>
+// ---- State ----
+// `all` holds every suggestion fetched from the admin API; `filter` is the active status
+// filter (all/pending/reviewed/etc.). render() derives the visible list from these two.
 let all = [], filter = "all";
 
 function esc(s){ return (s||"").toString().replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
 
+// ---- Data load ----
+// Fetches the full suggestion queue from the protected admin endpoint and triggers a render.
+// Runs behind Cloudflare Access, so an unauthenticated visitor never reaches this code.
 async function load() {
   try {
     const res = await fetch("/api/admin/suggestions");
@@ -103,6 +109,8 @@ async function load() {
 
 function spec(label, v, unit){ return v ? `<div><dt>${label}</dt><dd>${esc(v)}${unit||""}</dd></div>` : ""; }
 
+// Builds the expandable detail block for one suggestion, listing every submitted spec plus
+// the source link and submitter. Empty fields are omitted so the panel stays compact.
 function detail(s){
   return `
     <dl class="detail-specs">
@@ -121,6 +129,9 @@ function detail(s){
     </div>`;
 }
 
+// ---- Render ----
+// Rebuilds the suggestion list filtered by the active status, wiring each row's action
+// buttons (accept/reject/reviewed/delete) to POST back to the admin endpoint.
 function render() {
   const q = document.getElementById("q").value.toLowerCase();
   let rows = all.filter(s => filter === "all" ? true : s.status === filter);

@@ -719,6 +719,9 @@
 </footer>
 
 <script>
+// ---- Config & data source ----
+// RAW_BASE points at the GitHub raw CSVs, which are the fallback data source. The
+// site normally reads the live D1 catalog API and only drops to these CSVs if that fails.
 const RAW_BASE = "https://raw.githubusercontent.com/notacodeman/headphone-database/main/database";
 
 // Column definitions. `on` is the default visibility.
@@ -737,6 +740,9 @@ const COLS = [
   { key: "notes",          label: "Notes",       on: false, sortable: false, w: 280 }
 ];
 
+// ---- Application state ----
+// Single source of truth for the table: all rows, the filtered subset, current sort,
+// and per-column visibility. render() reads only from here, never from the DOM.
 const state = { rows: [], filtered: [], sortKey: "release_year", sortDir: "descending", visible: {} };
 
 // ---- Compare state ----
@@ -818,38 +824,51 @@ document.addEventListener("mousemove", e => {
   if (!resizing) return;
   const tbl = document.querySelector("#tablewrap table");
   if (!tbl) return;
-  // Convert the pixel drag into a weight delta relative to the table's pixel width.
+  // Translate the pixel drag into a change in this column's weight, measured
+  // against the table's pixel width so a 100px drag feels like 100px on screen.
   const dataCols = COLS.filter(c=>state.visible[c.key]);
-  const idx = dataCols.findIndex(c=>c.key===resizing.key);
-  const neighbor = dataCols[idx+1];
-  if (!neighbor) return;                       // last column has no neighbor to borrow from
-  const totalWeight = resizing.startTotal;
-  const pxPerWeight = tbl.clientWidth / totalWeight;
+  const others = dataCols.filter(c=>c.key!==resizing.key);
+  if (!others.length) return;                  // only one column visible; nothing to trade against
+  const pxPerWeight = tbl.clientWidth / resizing.startTotal;
   let deltaW = (e.clientX - resizing.startX) / pxPerWeight;
-  // Clamp so neither column drops below a small minimum weight.
+  // Clamp: the dragged column can't shrink below MINW, and can't grow so far
+  // that the remaining columns would each be pushed below MINW.
   const MINW = 30;
-  deltaW = Math.max(-(resizing.startW - MINW), Math.min(resizing.startNeighborW - MINW, deltaW));
+  const minOthersTotal = others.length * MINW;
+  const maxGrow = resizing.startOthersTotal - minOthersTotal;
+  deltaW = Math.max(-(resizing.startW - MINW), Math.min(maxGrow, deltaW));
+  // Grow/shrink the dragged column, then scale every OTHER column proportionally
+  // to absorb the opposite change. The grand total stays constant, so all columns
+  // visibly reflow together and the table always fills the container.
   colW[resizing.key] = resizing.startW + deltaW;
-  colW[neighbor.key] = resizing.startNeighborW - deltaW;
-  // Apply new percentages to just the two affected columns.
-  const thA = tbl.querySelector(`th[data-key="${resizing.key}"]`);
-  const thB = tbl.querySelector(`th[data-key="${neighbor.key}"]`);
-  if (thA) thA.style.width = colPct(resizing.key) + "%";
-  if (thB) thB.style.width = colPct(neighbor.key) + "%";
+  const scale = (resizing.startOthersTotal - deltaW) / resizing.startOthersTotal;
+  others.forEach(c => { colW[c.key] = resizing.startOtherW[c.key] * scale; });
+  // Re-apply percentage widths to every visible column so the whole row reflows,
+  // not just the two columns nearest the divider.
+  dataCols.forEach(c => {
+    const th = tbl.querySelector(`th[data-key="${c.key}"]`);
+    if (th) th.style.width = colPct(c.key) + "%";
+  });
 });
 document.addEventListener("mouseup", () => { if (resizing){ resizing=null; document.body.style.userSelect=""; saveColW(); } });
 function startResize(e){
   const key = e.target.getAttribute("data-key");
   const dataCols = COLS.filter(c=>state.visible[c.key]);
-  const idx = dataCols.findIndex(c=>c.key===key);
-  const neighbor = dataCols[idx+1];
-  if (!neighbor) { e.preventDefault(); e.stopPropagation(); return; }  // can't resize the last column
+  const others = dataCols.filter(c=>c.key!==key);
+  if (!others.length) { e.preventDefault(); e.stopPropagation(); return; }
+  // Snapshot every starting weight so the whole drag is computed from the state
+  // at mousedown; this avoids cumulative drift from reading values mid-drag.
+  const startOtherW = {}; others.forEach(c=>startOtherW[c.key]=colW[c.key]);
+  const startOthersTotal = others.reduce((s,c)=>s+colW[c.key],0);
   resizing = { key, startX:e.clientX, startW:colW[key],
-               startNeighborW:colW[neighbor.key], startTotal:visibleWeight() };
+               startTotal:visibleWeight(), startOthersTotal, startOtherW };
   document.body.style.userSelect = "none";
   e.preventDefault(); e.stopPropagation();
 }
 
+// ---- CSV fallback parser ----
+// Quote-aware CSV parser used only on the fallback path. It mirrors the server's parser
+// so the site renders identically whether data came from the API or the raw CSVs.
 function parseCSV(text) {
   const rows = [];
   let row = [], field = "", inQuotes = false;
@@ -873,6 +892,9 @@ function parseCSV(text) {
   });
 }
 
+// ---- Data loading ----
+// Primary load path: fetch the live D1 catalog. On any failure (network, empty, or a
+// server error) it delegates to loadFromCSV() so the archive still renders something.
 async function load() {
   // Prefer the live D1 catalog; fall back to the GitHub CSVs so the site never breaks.
   try {
@@ -896,6 +918,8 @@ async function load() {
   }
 }
 
+// Fallback loader: fetch both CSVs from GitHub, join brand names client-side, and
+// populate state. If even this fails it shows an inline "catalog unavailable" message.
 async function loadFromCSV() {
   try {
     const [pRes, mRes] = await Promise.all([
@@ -933,6 +957,9 @@ function uniqueSorted(key) {
   return [...new Set(state.rows.map(r => r[key]).filter(Boolean))].sort();
 }
 
+// ---- Filters ----
+// Populates the filter dropdowns and the header stat counts, then wires every filter
+// control to re-run apply() on change. Called once after data loads (and on CSV refallback).
 function initFilters() {
   const fill = (id, vals) => {
     const sel = document.getElementById(id);
@@ -963,6 +990,8 @@ function initFilters() {
   });
 }
 
+// Builds the show/hide-columns checkbox menu from COLS, reflecting current visibility
+// and persisting any toggle to localStorage before re-rendering the table.
 function buildColMenu() {
   const wrap = document.getElementById("colboxes");
   wrap.innerHTML = "";
@@ -979,6 +1008,9 @@ function buildColMenu() {
   });
 }
 
+// ---- Filter + sort pipeline ----
+// Reads every filter control, narrows state.rows into state.filtered, then sorts and
+// renders. This is the single entry point re-run whenever any filter or search changes.
 function apply() {
   const q  = document.getElementById("q").value.toLowerCase();
   const b  = document.getElementById("brand").value;
@@ -1003,6 +1035,8 @@ function apply() {
   render();
 }
 
+// Sorts state.filtered in place by the active column. Numeric spec columns are compared
+// as numbers (blank treated as 0); everything else is compared case-insensitively as text.
 function sortRows() {
   const k = state.sortKey, dir = state.sortDir === "ascending" ? 1 : -1;
   const numeric = ["release_year","driver_size_mm","impedance_ohms","sensitivity_db"];
@@ -1015,6 +1049,9 @@ function sortRows() {
   });
 }
 
+// ---- Cell rendering ----
+// Returns the inner HTML for one table cell, with per-column formatting (brand links,
+// status tags, spec units, wireless/ANC flags). All user-visible strings pass through esc().
 function cellValue(r, key) {
   if (key === "_brand") return `<a class="brand" href="brand.html?id=${esc(r.manufacturer_id)}">${esc(r._brand)}</a>`;
   if (key === "model_name") return `<span class="model-name">${esc(r.model_name)}</span>`;
@@ -1046,6 +1083,8 @@ function modelById(id) {
   return r ? `${r._brand} ${r.model_name}` : id;
 }
 
+// Builds the expandable detail panel shown when a row is clicked, listing every spec
+// as a definition list plus predecessor/successor links and a review-search shortcut.
 function rowDetail(r) {
   const parts = [];
   const add = (label, val, unit = "") => { if (val) parts.push(`<div><dt>${esc(label)}</dt><dd>${esc(val)}${unit}</dd></div>`); };
@@ -1082,6 +1121,9 @@ function toggleDetail(tr) {
   if (btn) btn.setAttribute("aria-expanded", String(opening));
 }
 
+// ---- Table render ----
+// Rebuilds the entire table from state: header cells with sort + resizer handles, data
+// rows, the compare button, and the expand caret. Pure and idempotent — safe to call anytime.
 function render() {
   document.getElementById("count").textContent =
     `${state.filtered.length} result${state.filtered.length === 1 ? "" : "s"}`;
@@ -1157,6 +1199,8 @@ function esc(s) {
   return String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 }
 
+// Wires the columns-menu open/close button and its outside-click dismissal. Kept separate
+// from buildColMenu() because the toggle button is static while the checkboxes are rebuilt.
 function wireColumnsMenu() {
   const toggle = document.getElementById("coltoggle");
   const menu = document.getElementById("colmenu");
