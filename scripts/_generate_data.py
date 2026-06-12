@@ -356,10 +356,14 @@ VALID_STATUS   = {"Active", "Discontinued", "Legacy Active"}
 VALID_WIRELESS = {"Yes", "No"}
 VALID_CATEGORY = {"Headphone", "Studio", "Gaming"}
 VALID_FIT      = {"Over-Ear", "On-Ear"}
+VALID_SOUND_SIGNATURE = {"Neutral", "Balanced", "Warm", "Bright", "V-Shaped", "Bass-Heavy", "Dark", ""}
+VALID_CONNECTOR  = {"3.5mm", "6.35mm", "3.5mm + 6.35mm", "XLR", "USB-C", "Lightning", "Proprietary", "Wireless", ""}
+VALID_DETACHABLE = {"Yes", "No", ""}
 
 def add(pid, mfr, fam, model, full, year, status, design, driver, wireless, anc,
         pred="", succ="", notes="", disc="", category="Headphone",
-        driver_size="", impedance="", sensitivity="", date_added="", fit="Over-Ear"):
+        driver_size="", impedance="", sensitivity="", date_added="", fit="Over-Ear",
+        msrp_usd="", sound_signature="", connector_type="", detachable_cable="", weight_g=""):
     # Validate categorical fields — fail loudly, never silently
     assert design   in VALID_DESIGN,   f"{pid}: invalid design={design!r}"
     assert driver   in VALID_DRIVER,   f"{pid}: invalid driver={driver!r}"
@@ -368,9 +372,13 @@ def add(pid, mfr, fam, model, full, year, status, design, driver, wireless, anc,
     assert anc      in VALID_WIRELESS, f"{pid}: invalid anc={anc!r}"
     assert category in VALID_CATEGORY, f"{pid}: invalid category={category!r}"
     assert fit      in VALID_FIT,      f"{pid}: invalid fit={fit!r}"
+    assert sound_signature in VALID_SOUND_SIGNATURE, f"{pid}: invalid sound_signature={sound_signature!r}"
+    assert connector_type  in VALID_CONNECTOR,       f"{pid}: invalid connector_type={connector_type!r}"
+    assert detachable_cable in VALID_DETACHABLE,     f"{pid}: invalid detachable_cable={detachable_cable!r}"
     P.append([pid, mfr, fam, model, full, year, disc, status, category,
               design, driver, driver_size, impedance, sensitivity,
-              wireless, anc, pred, succ, notes, date_added, fit])
+              wireless, anc, pred, succ, notes, date_added, fit,
+              msrp_usd, sound_signature, connector_type, detachable_cable, weight_g])
 
 # ---- Sony ----
 add("SONY_MDR1R","Sony","MDR","MDR-1R","Sony MDR-1R",2012,"Discontinued","Closed Back","Dynamic","No","No",succ="SONY_MDR1A",notes="Premium closed-back")
@@ -2690,28 +2698,39 @@ SPECS = {
     "PANA_RPHD10": {"impedance": "32",  "sensitivity": "98",  "driver_size": "40"},
     # ---- 2024-2025 new releases ----
     "BEYER_DT770PRO_LTD": {"impedance": "48", "sensitivity": "100", "driver_size": "45"},
-    "BEYER_DT1990MK2":    {"impedance": "30", "sensitivity": "94",  "driver_size": "45"},
+    "BEYER_DT1990MK2":    {"impedance": "30", "sensitivity": "94",  "driver_size": "45",
+                           "msrp_usd": "600", "sound_signature": "Bright", "connector_type": "3.5mm + 6.35mm",
+                           "detachable_cable": "Yes", "weight_g": "402"},
     "BEYER_MMX300PRO":    {"impedance": "48", "sensitivity": "100", "driver_size": "45"},
     "HIFIMAN_SUSVARAUNV": {"impedance": "60", "sensitivity": "83"},
     "AUDEZE_LCD5S":       {"impedance": "14", "sensitivity": "90",  "driver_size": "90"},
     "MEZE_EMPYREAN3":     {"impedance": "31.6","sensitivity": "102"},
-    "SONY_WH1000XM6":     {"impedance": "16", "sensitivity": "100", "driver_size": "30"},
+    "SONY_WH1000XM6":     {"impedance": "16", "sensitivity": "100", "driver_size": "30",
+                           "msrp_usd": "450", "sound_signature": "V-Shaped", "connector_type": "Wireless",
+                           "detachable_cable": "", "weight_g": "254"},
 }
 
 products = []
 lineage_pairs = set()
 for _int_id, row in enumerate(P, start=1):
     (pid, mfr, fam, model, full, year, disc, status, cat, design, driver,
-     dsize, imp, sens, wl, anc, pred, succ, notes, date_added, fit) = row
+     dsize, imp, sens, wl, anc, pred, succ, notes, date_added, fit,
+     msrp, sig, conn, detach, weight) = row
     if pid in SPECS:
         s = SPECS[pid]
         dsize = s.get("driver_size", dsize)
         imp = s.get("impedance", imp)
         sens = s.get("sensitivity", sens)
+        msrp = s.get("msrp_usd", msrp)
+        sig = s.get("sound_signature", sig)
+        conn = s.get("connector_type", conn)
+        detach = s.get("detachable_cable", detach)
+        weight = s.get("weight_g", weight)
     fid = fam_id.get((mfr, fam), "")
     mid = mfr_id[mfr]
     products.append([_int_id, pid, fid, mid, model, full, year, disc, status, cat,
-                     design, driver, dsize, imp, sens, wl, anc, pred, succ, notes, date_added, fit])
+                     design, driver, dsize, imp, sens, wl, anc, pred, succ, notes, date_added, fit,
+                     msrp, sig, conn, detach, weight])
     if pred:
         lineage_pairs.add((pred, pid))
     if succ:
@@ -2733,7 +2752,8 @@ with open(OUT / "products.csv", "w", newline="", encoding="utf-8") as f:
     w.writerow(["id","product_id","family_id","manufacturer_id","model_name","full_name",
                 "release_year","discontinued_year","status","category","design",
                 "driver_type","driver_size_mm","impedance_ohms","sensitivity_db",
-                "wireless","anc","predecessor","successor","notes","date_added","fit"])
+                "wireless","anc","predecessor","successor","notes","date_added","fit",
+                "msrp_usd","sound_signature","connector_type","detachable_cable","weight_g"])
     w.writerows(products)
 
 # Guard: catch duplicate product_ids before they cause D1 import failures

@@ -43,7 +43,7 @@ export async function onRequestPost({ env }) {
       "CREATE TABLE IF NOT EXISTS manufacturers (manufacturer_id INTEGER PRIMARY KEY, name TEXT, country TEXT, website TEXT, status TEXT, founded_year INTEGER);"
     );
     await env.DB.exec(
-      "CREATE TABLE IF NOT EXISTS products (product_id TEXT PRIMARY KEY, id INTEGER UNIQUE, family_id TEXT, manufacturer_id INTEGER, model_name TEXT, full_name TEXT, release_year INTEGER, discontinued_year TEXT, status TEXT, category TEXT, design TEXT, driver_type TEXT, driver_size_mm TEXT, impedance_ohms TEXT, sensitivity_db TEXT, wireless TEXT, anc TEXT, predecessor TEXT, successor TEXT, notes TEXT, date_added TEXT, fit TEXT DEFAULT 'Over-Ear', date_updated TEXT, spec_confidence TEXT DEFAULT 'Estimated');"
+      "CREATE TABLE IF NOT EXISTS products (product_id TEXT PRIMARY KEY, id INTEGER UNIQUE, family_id TEXT, manufacturer_id INTEGER, model_name TEXT, full_name TEXT, release_year INTEGER, discontinued_year TEXT, status TEXT, category TEXT, design TEXT, driver_type TEXT, driver_size_mm TEXT, impedance_ohms TEXT, sensitivity_db TEXT, wireless TEXT, anc TEXT, predecessor TEXT, successor TEXT, notes TEXT, date_added TEXT, fit TEXT DEFAULT 'Over-Ear', date_updated TEXT, spec_confidence TEXT DEFAULT 'Estimated', msrp_usd TEXT, sound_signature TEXT, connector_type TEXT, detachable_cable TEXT, weight_g TEXT);"
     );
 
     await env.DB.exec("DELETE FROM products;");
@@ -62,8 +62,9 @@ export async function onRequestPost({ env }) {
       `INSERT INTO products
        (product_id,id,family_id,manufacturer_id,model_name,full_name,release_year,discontinued_year,
         status,category,design,driver_type,driver_size_mm,impedance_ohms,sensitivity_db,
-        wireless,anc,predecessor,successor,notes,date_added,fit,date_updated,spec_confidence)
-       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
+        wireless,anc,predecessor,successor,notes,date_added,fit,date_updated,spec_confidence,
+        msrp_usd,sound_signature,connector_type,detachable_cable,weight_g)
+       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
     );
     const pBatch = products.map(p => pStmt.bind(
       p.product_id, parseInt(p.id, 10) || null, p.family_id,
@@ -72,7 +73,8 @@ export async function onRequestPost({ env }) {
       p.driver_type, p.driver_size_mm, p.impedance_ohms, p.sensitivity_db,
       p.wireless, p.anc, p.predecessor, p.successor, p.notes,
       p.date_added || importedAt,   // use import date as baseline if blank
-      p.fit || "Over-Ear", importedAt, p.spec_confidence || "Estimated"));
+      p.fit || "Over-Ear", importedAt, p.spec_confidence || "Estimated",
+      p.msrp_usd, p.sound_signature, p.connector_type, p.detachable_cable, p.weight_g));
     for (let i = 0; i < pBatch.length; i += 40) await env.DB.batch(pBatch.slice(i, i + 40));
 
     return json({ ok: true, manufacturers: manufacturers.length, products: products.length });

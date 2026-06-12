@@ -12,6 +12,7 @@ const FIELDS = [
   "release_year", "discontinued_year", "status", "category", "design", "fit", "driver_type",
   "driver_size_mm", "impedance_ohms", "sensitivity_db", "wireless", "anc",
   "predecessor", "successor", "notes", "date_added", "spec_confidence",
+  "msrp_usd", "sound_signature", "connector_type", "detachable_cable", "weight_g",
 ];
 
 export async function onRequestGet({ request, env }) {

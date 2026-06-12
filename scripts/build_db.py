@@ -67,7 +67,12 @@ CREATE TABLE IF NOT EXISTS products (
     date_added          TEXT,
     fit                 TEXT    DEFAULT 'Over-Ear',
     date_updated        TEXT,
-    spec_confidence     TEXT    DEFAULT 'Estimated'
+    spec_confidence     TEXT    DEFAULT 'Estimated',
+    msrp_usd            TEXT,
+    sound_signature     TEXT,
+    connector_type      TEXT,
+    detachable_cable    TEXT,
+    weight_g            TEXT
 );
 
 CREATE TABLE IF NOT EXISTS lineage (
@@ -185,8 +190,9 @@ def load_products(conn, rows, verbose):
                 model_name, full_name, release_year, discontinued_year,
                 status, category, design, driver_type,
                 driver_size_mm, impedance_ohms, sensitivity_db,
-                wireless, anc, predecessor, successor, notes, date_added, fit, date_updated, spec_confidence
-            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+                wireless, anc, predecessor, successor, notes, date_added, fit, date_updated, spec_confidence,
+                msrp_usd, sound_signature, connector_type, detachable_cable, weight_g
+            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
             ON CONFLICT(product_id) DO UPDATE SET
                 id=excluded.id, family_id=excluded.family_id,
                 manufacturer_id=excluded.manufacturer_id,
@@ -199,7 +205,10 @@ def load_products(conn, rows, verbose):
                 anc=excluded.anc, predecessor=excluded.predecessor,
                 successor=excluded.successor, notes=excluded.notes,
                 date_added=excluded.date_added, fit=excluded.fit,
-                date_updated=excluded.date_updated, spec_confidence=excluded.spec_confidence
+                date_updated=excluded.date_updated, spec_confidence=excluded.spec_confidence,
+                msrp_usd=excluded.msrp_usd, sound_signature=excluded.sound_signature,
+                connector_type=excluded.connector_type, detachable_cable=excluded.detachable_cable,
+                weight_g=excluded.weight_g
         """, (
             coerce_str(r.get("product_id")), coerce_int(r.get("id")),
             coerce_int(r.get("family_id")), coerce_int(r.get("manufacturer_id")),
@@ -213,6 +222,9 @@ def load_products(conn, rows, verbose):
             coerce_str(r.get("successor")), coerce_str(r.get("notes")),
             coerce_str(r.get("date_added")), coerce_str(r.get("fit") or "Over-Ear"),
             coerce_str(r.get("date_updated") or ""), coerce_str(r.get("spec_confidence") or "Estimated"),
+            coerce_str(r.get("msrp_usd")), coerce_str(r.get("sound_signature")),
+            coerce_str(r.get("connector_type")), coerce_str(r.get("detachable_cable")),
+            coerce_str(r.get("weight_g")),
         ))
         n += 1
     if verbose:

@@ -43,7 +43,8 @@ CREATE TABLE products (
     status TEXT, category TEXT, design TEXT, driver_type TEXT,
     driver_size_mm TEXT, impedance_ohms TEXT, sensitivity_db TEXT,
     wireless TEXT, anc TEXT, predecessor TEXT, successor TEXT, notes TEXT,
-    date_added TEXT, id INTEGER UNIQUE, fit TEXT, date_updated TEXT
+    date_added TEXT, id INTEGER UNIQUE, fit TEXT, date_updated TEXT,
+    msrp_usd TEXT, sound_signature TEXT, connector_type TEXT, detachable_cable TEXT, weight_g TEXT
 );
 CREATE TABLE lineage (lineage_id INTEGER PRIMARY KEY, predecessor_product_id TEXT, successor_product_id TEXT);
 CREATE TABLE sources (source_id INTEGER PRIMARY KEY, product_id TEXT, source_type TEXT, title TEXT, url TEXT);
