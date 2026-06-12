@@ -485,7 +485,7 @@ add("AUDEZE_LCDXC","Audeze","LCD","LCD-XC","Audeze LCD-XC",2013,"Active","Closed
 add("AUDEZE_LCD4","Audeze","LCD","LCD-4","Audeze LCD-4",2015,"Discontinued","Open Back","Planar Magnetic","No","No",notes="Former flagship")
 add("AUDEZE_LCD1","Audeze","LCD","LCD-1","Audeze LCD-1",2020,"Active","Open Back","Planar Magnetic","No","No",notes="Lightweight portable planar")
 add("AUDEZE_LCD5","Audeze","LCD","LCD-5","Audeze LCD-5",2021,"Discontinued","Open Back","Planar Magnetic","No","No",succ="AUDEZE_LCD5S",disc="2026",notes="Flagship planar; replaced by LCD-5s")
-add("AUDEZE_LCD5S","Audeze","LCD","LCD-5s","Audeze LCD-5s",2026,"Active","Open Back","Planar Magnetic","No","No",pred="AUDEZE_LCD5",notes="SLAM acoustic tech")
+add("AUDEZE_LCD5S","Audeze","LCD","LCD-5S","Audeze LCD-5S",2024,"Active","Open Back","Planar Magnetic","No","No",pred="AUDEZE_LCD5",notes="Studio-tuned LCD-5; different pad set and EQ voicing")
 add("AUDEZE_MM500","Audeze","MM","MM-500","Audeze MM-500",2022,"Active","Open Back","Planar Magnetic","No","No",category="Studio",notes="Co-developed with Manny Marroquin")
 add("AUDEZE_MM100","Audeze","MM","MM-100","Audeze MM-100",2023,"Active","Open Back","Planar Magnetic","No","No",category="Studio")
 add("AUDEZE_CRBN","Audeze","CRBN","CRBN","Audeze CRBN",2022,"Active","Open Back","Electrostatic","No","No",notes="Carbon-nanotube electrostatic")
@@ -1488,20 +1488,16 @@ add("CZ_CZ10","Crosszone","CZ","CZ-10","Crosszone CZ-10",2020,"Active","Open Bac
 # ---- 2024-2025 new releases for existing brands ----
 # Beyerdynamic
 add("BEYER_DT770PRO_LTD","Beyerdynamic","DT","DT 770 Pro X Limited Edition","Beyerdynamic DT 770 Pro X Limited Edition",2024,"Active","Closed Back","Dynamic","No","No",notes="STELLAR.45 driver in DT 770 shell; limited colourway run",pred="BEYER_DT770PRO")
-add("BEYER_DT1990MK2","Beyerdynamic","DT","DT 1990 Pro MkII","Beyerdynamic DT 1990 Pro MkII",2024,"Active","Open Back","Dynamic","No","No",pred="BEYER_DT1990",notes="New TESLA.45 driver; 30Ω; updated ear pad design")
 add("BEYER_MMX300PRO","Beyerdynamic","MMX","MMX 300 Pro","Beyerdynamic MMX 300 Pro",2024,"Active","Closed Back","Dynamic","No","No",category="Gaming",notes="Pro gaming closed-back; STELLAR.45 driver")
 # HiFiMan
 add("HIFIMAN_SUSVARAUNV","HiFiMan","HE","Susvara Unveiled","HiFiMan Susvara Unveiled",2023,"Active","Open Back","Planar Magnetic","No","No",notes="Susvara with exposed driver; limited production; premium over standard Susvara",pred="HIFIMAN_SUSVARA")
 # Audeze
-add("AUDEZE_LCD5S","Audeze","LCD","LCD-5S","Audeze LCD-5S",2024,"Active","Open Back","Planar Magnetic","No","No",notes="Studio-tuned LCD-5; different pad set and EQ voicing")
 # Meze
 add("MEZE_EMPYREAN3","Meze Audio","Flagship","Empyrean 3","Meze Audio Empyrean 3",2025,"Active","Open Back","Planar Magnetic","No","No",notes="Third-gen isodynamic planar; new Rinaro PCOCC driver")
 # Sennheiser
-add("SENN_HD620S","Sennheiser","HD","HD 620S","Sennheiser HD 620S",2024,"Active","Closed Back","Dynamic","No","No",notes="Closed-back addition to 600 line; shares 42mm driver with HD 660S2")
 # Focal
 add("FOCAL_DIABLO","Focal","Flagship","Celestee Diablo","Focal Celestee Diablo",2024,"Active","Closed Back","Dynamic","No","No",notes="Celestee variant with unique Diablo orange finish; same driver",pred="FOCAL_CELESTEE")
 # Sony  
-add("SONY_WH1000XM6","Sony","WH","WH-1000XM6","Sony WH-1000XM6",2025,"Active","Closed Back","Dynamic","Yes","Yes",notes="6th-gen XM flagship; 30mm driver; improved ANC",pred="SONY_WH1000XM5")
 
 # ---- HarmonicDyne ----
 add("HD_HELIOS","HarmonicDyne","Dynamic","Helios","HarmonicDyne Helios",2019,"Active","Open Back","Dynamic","No","No",notes="Debut model; 50mm bio-film driver; wood cups")
@@ -2739,6 +2735,11 @@ with open(OUT / "products.csv", "w", newline="", encoding="utf-8") as f:
                 "driver_type","driver_size_mm","impedance_ohms","sensitivity_db",
                 "wireless","anc","predecessor","successor","notes","date_added","fit"])
     w.writerows(products)
+
+# Guard: catch duplicate product_ids before they cause D1 import failures
+_pids = [p[1] for p in products]  # index 1 = product_id
+_dupes = [pid for pid, n in __import__('collections').Counter(_pids).items() if n > 1]
+assert not _dupes, f"DUPLICATE product_ids found — fix before importing: {_dupes}"
 
 lineage = sorted(lineage_pairs, key=lambda x: (x[1], x[0]))
 with open(OUT / "lineage.csv", "w", newline="", encoding="utf-8") as f:

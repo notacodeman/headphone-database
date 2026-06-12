@@ -112,6 +112,33 @@
     font-weight:600; letter-spacing:0.04em; text-transform:uppercase; }
   .conf-verified { background:#d1fae5; color:#065f46; }
   .conf-est { background:#fef3c7; color:#92400e; }
+  /* Mini history */
+  .mini-hist { margin-top:0.9rem; border:1px solid var(--border); border-radius:4px; overflow:hidden; }
+  .mini-hist-head { display:flex; justify-content:space-between; align-items:center;
+    padding:0.45rem 0.75rem; background:var(--row-alt); border-bottom:1px solid var(--border);
+    font-size:0.68rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); }
+  .mini-hist-list { list-style:none; margin:0; padding:0; max-height:180px; overflow-y:auto; }
+  .mini-hist-item { padding:0.4rem 0.75rem; border-bottom:1px solid var(--border);
+    font-size:0.74rem; cursor:pointer; display:flex; justify-content:space-between;
+    align-items:center; gap:0.5rem; transition:background 0.1s; }
+  .mini-hist-item:last-child { border-bottom:none; }
+  .mini-hist-item:hover { background:var(--row-alt); }
+  .mini-hist-item .mh-when { color:var(--ink); font-family:monospace; }
+  .mini-hist-item .mh-badge { color:var(--muted); font-size:0.68rem; }
+  .mini-hist-item .mh-arrow { color:var(--muted); }
+  /* History detail sub-panel */
+  .mini-hist-detail { padding:0.75rem; border-top:2px solid var(--accent);
+    background:var(--card); display:none; }
+  .mini-hist-detail.open { display:block; }
+  .mini-hist-detail .mhd-when { font-size:0.68rem; color:var(--muted); margin-bottom:0.5rem; }
+  .mini-hist-fields { display:grid; grid-template-columns:1fr 1fr; gap:0.2rem 1rem;
+    font-size:0.72rem; max-height:200px; overflow-y:auto; }
+  .mini-hist-fields .mhf { padding:0.15rem 0; }
+  .mini-hist-fields .mhf dt { font-size:0.6rem; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--muted); }
+  .mini-hist-fields .mhf dd { color:var(--ink); }
+  .mini-hist-fields .mhf.changed dt { color:var(--accent); }
+  .mini-hist-fields .mhf.changed dd { color:var(--accent); font-weight:600; }
 
   /* Small confirm modal */
   .confirm-box { background:var(--card); border:2px solid var(--ink); border-radius:12px; max-width:440px; width:100%; padding:1.6rem 1.7rem; align-self:center; }
@@ -193,6 +220,14 @@
             <td><button class="linkbtn" id="confToggleBtn" style="font-size:0.7rem">Toggle</button></td></tr>
         </tbody>
       </table>
+
+      <div class="mini-hist" id="miniHistWrap" hidden>
+        <div class="mini-hist-head">
+          <span id="miniHistTitle">Change history</span>
+          <button class="linkbtn" id="miniHistExpandBtn" style="font-size:0.68rem">View full history &rarr;</button>
+        </div>
+        <ul class="mini-hist-list" id="miniHistList"></ul>
+      </div>
 
       <div class="modal-actions">
         <button class="btn btn-ghost" id="deleteBtn" style="border-color:var(--accent);color:var(--accent);">Delete</button>
@@ -390,7 +425,7 @@ function render() {
 
   if (!rows.length) { document.getElementById("tablewrap").innerHTML='<div class="empty">No matches.</div>'; return; }
 
-  let html = `<table style="width:${total}px"><thead><tr>`;
+  let html = `<table style="min-width:${total}px"><thead><tr>`;
   cols.forEach(c => {
     const sa = sortKey === c.key ? ` aria-sort="${sortDir}"` : ' aria-sort="none"';
     html += `<th data-key="${c.key}" style="width:${colW[c.key]}px"${sa}><span>${esc(c.label)}</span><span class="resizer" data-key="${c.key}"></span></th>`;
@@ -469,7 +504,7 @@ document.addEventListener("mousemove", e => {
   const th = document.querySelector(`th[data-key="${resizing.key}"]`);
   if (th) th.style.width = colW[resizing.key] + "px";
   const tbl = document.querySelector("table");
-  if (tbl) tbl.style.width = visibleCols().reduce((s,c)=>s+colW[c.key],0) + "px";
+  if (tbl) tbl.style.minWidth = visibleCols().reduce((s,c)=>s+colW[c.key],0) + "px";
 });
 document.addEventListener("mouseup", () => { if(resizing){ resizing=null; document.body.style.userSelect=""; saveColW(); } });
 
@@ -482,7 +517,67 @@ function setForm(p) {
   const badge = document.getElementById("meta_spec_confidence");
   badge.innerHTML = `<span class="conf-badge ${conf==="Verified"?"conf-verified":"conf-est"}">${conf}</span>`;
   badge._conf = conf;
+  // Reset mini-history
+  document.getElementById("miniHistWrap").hidden = true;
+  document.getElementById("miniHistList").innerHTML = "";
 }
+
+async function loadMiniHistory(pid) {
+  const wrap = document.getElementById("miniHistWrap");
+  const list = document.getElementById("miniHistList");
+  try {
+    const res = await fetch(`/api/admin/history?product_id=${encodeURIComponent(pid)}`);
+    const d = await res.json();
+    if (!d.ok || !d.history.length) return;
+    const hist = d.history;
+    document.getElementById("miniHistTitle").textContent = `Change history \u00b7 ${hist.length} edit${hist.length===1?"":"s"}`;
+    wrap.hidden = false;
+
+    let openIdx = -1;  // which entry is currently expanded
+    function buildItems() {
+      list.innerHTML = hist.map((entry, i) => {
+        const prev = i + 1 < hist.length ? hist[i+1].snapshot : null;
+        const when = (entry.edited_at||"").slice(0,16).replace("T"," ");
+        const changedCount = prev
+          ? Object.keys(HIST_LABELS).filter(k => String(prev[k]??"") !== String(entry.snapshot[k]??"")).length
+          : 0;
+        const badge = prev ? `${changedCount} field${changedCount===1?"":"s"} changed` : "initial state";
+        const isOpen = openIdx === i;
+        const detailHtml = isOpen ? buildDetail(entry, prev) : "";
+        return `<li class="mini-hist-item" data-idx="${i}" aria-expanded="${isOpen}">
+          <span class="mh-when">${esc(when)}</span>
+          <span class="mh-badge">${badge}</span>
+          <span class="mh-arrow">${isOpen ? "\u25be" : "\u25b8"}</span>
+          ${detailHtml ? `<div class="mini-hist-detail open" style="grid-column:1/-1">${detailHtml}</div>` : ""}
+        </li>`;
+      }).join("");
+
+      list.querySelectorAll(".mini-hist-item").forEach(li => {
+        li.addEventListener("click", () => {
+          const idx = parseInt(li.getAttribute("data-idx"), 10);
+          openIdx = openIdx === idx ? -1 : idx;
+          buildItems();
+        });
+      });
+    }
+
+    function buildDetail(entry, prev) {
+      const when = (entry.edited_at||"").slice(0,16).replace("T"," ");
+      const fields = Object.keys(HIST_LABELS).map(k => {
+        const val = entry.snapshot[k] ?? "";
+        const changed = prev && String(prev[k]??"") !== String(val);
+        return `<div class="mhf${changed?" changed":""}"><dt>${HIST_LABELS[k]}</dt><dd>${esc(val||"\u2014")}</dd></div>`;
+      }).join("");
+      return `<div class="mhd-when">State before edit on ${esc(when)}</div><div class="mini-hist-fields">${fields}</div>`;
+    }
+
+    buildItems();
+  } catch(e) { /* silently skip — history is non-critical */ }
+}
+
+document.getElementById("miniHistExpandBtn").addEventListener("click", () => {
+  if (editingId) { showTab("history"); loadHistory(editingId); }
+});
 // Toggle spec_confidence via the admin API
 document.getElementById("confToggleBtn").addEventListener("click", async () => {
   if (!editingId) return;
@@ -511,6 +606,7 @@ function openEdit(id) {
   setForm(p);
   showTab("edit");
   document.getElementById("overlay").classList.add("open");
+  loadMiniHistory(id);  // load history into the edit tab's bottom section
 }
 function openAdd() {
   editingId = null;
