@@ -407,7 +407,7 @@
   input, select { width: 100%; padding: 0.6rem 0.7rem; border: 1px solid var(--ink);
     background: var(--paper); font-family: inherit; font-size: 0.9rem;
     color: var(--ink); border-radius: 0; }
-  input:focus, select:focus { outline: none; box-shadow: 0 0 0 2px var(--accent); border-color: var(--accent); }
+  input:focus, select:focus { outline: none; box-shadow: 0 0 0 1px var(--accent); border-color: var(--accent); }
   @media (max-width: 600px) { input, select { font-size: 1rem; } } /* prevent iOS zoom */
 
   /* ── Main + table ────────────────────────────────────── */
@@ -457,8 +457,7 @@
     overflow: hidden; text-overflow: ellipsis; vertical-align: bottom; }
   thead th[aria-sort="ascending"]::after  { content: ' \2191'; color: var(--accent); font-size: 0.7rem; }
   thead th[aria-sort="descending"]::after { content: ' \2193'; color: var(--accent); font-size: 0.7rem; }
-
-  tbody tr { border-bottom: 1px solid var(--line); transition: background 0.12s; }
+  thead th[aria-sort="ascending"], thead th[aria-sort="descending"] { color: var(--accent); background: rgba(194,65,12,0.07); } transition: background 0.12s; }
   tbody tr:hover { background: var(--paper-2); }
   tbody td { padding: 0.7rem 0.6rem; font-size: 0.86rem; vertical-align: top;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -1028,10 +1027,7 @@ function cellValue(r, key) {
     const cls = /disc/i.test(r.status) ? "disc" : "active";
     return `<span class="tag ${cls}">${esc(r.status)}</span>`;
   }
-  if (key === "driver_size_mm") {
-    if (!r.driver_size_mm) return '<span class="spec empty">&mdash;</span>';
-    return `<span class="flags">${esc(r.driver_size_mm)}\u200amm</span>`;
-  }
+  if (key === "driver_size_mm") return specCell(r.driver_size_mm, "mm");
   if (key === "impedance_ohms") return specCell(r.impedance_ohms, "\u03A9");
   if (key === "sensitivity_db") return specCell(r.sensitivity_db, "dB");
   if (key === "_flags") {
