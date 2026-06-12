@@ -70,14 +70,16 @@ export async function onRequestPost({ request, env }) {
       return v.toString();
     });
 
-    const placeholders = FIELDS.map(() => "?").join(",");
-    const updates = FIELDS.filter(f => f !== "product_id")
+    const placeholders = FIELDS.map(() => "?").join(",") + ",?";
+    const allFields = [...FIELDS, "date_updated"];
+    const updates = allFields.filter(f => f !== "product_id")
       .map(f => `${f}=excluded.${f}`).join(",");
+    const today = new Date().toISOString().slice(0, 10);
 
     await env.DB.prepare(
-      `INSERT INTO products (${FIELDS.join(",")}) VALUES (${placeholders})
+      `INSERT INTO products (${allFields.join(",")}) VALUES (${placeholders})
        ON CONFLICT(product_id) DO UPDATE SET ${updates}`
-    ).bind(...vals).run();
+    ).bind(...vals, today).run();
 
     return json({ ok: true });
   } catch (err) {

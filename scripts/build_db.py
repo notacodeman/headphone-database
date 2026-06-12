@@ -64,7 +64,8 @@ CREATE TABLE IF NOT EXISTS products (
     successor           TEXT    REFERENCES products(product_id),
     notes               TEXT,
     date_added          TEXT,
-    fit                 TEXT    DEFAULT 'Over-Ear'
+    fit                 TEXT    DEFAULT 'Over-Ear',
+    date_updated        TEXT
 );
 
 CREATE TABLE IF NOT EXISTS lineage (
@@ -185,8 +186,8 @@ def load_products(conn, rows, verbose):
                 model_name, full_name, release_year, discontinued_year,
                 status, category, design, driver_type,
                 driver_size_mm, impedance_ohms, sensitivity_db,
-                wireless, anc, predecessor, successor, notes, date_added, fit
-            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+                wireless, anc, predecessor, successor, notes, date_added, fit, date_updated
+            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
             ON CONFLICT(product_id) DO UPDATE SET
                 id=excluded.id, family_id=excluded.family_id,
                 manufacturer_id=excluded.manufacturer_id,
@@ -198,7 +199,8 @@ def load_products(conn, rows, verbose):
                 sensitivity_db=excluded.sensitivity_db, wireless=excluded.wireless,
                 anc=excluded.anc, predecessor=excluded.predecessor,
                 successor=excluded.successor, notes=excluded.notes,
-                date_added=excluded.date_added, fit=excluded.fit
+                date_added=excluded.date_added, fit=excluded.fit,
+                date_updated=excluded.date_updated
         """, (
             coerce_str(r.get("product_id")), coerce_int(r.get("id")),
             coerce_int(r.get("family_id")), coerce_int(r.get("manufacturer_id")),
@@ -211,6 +213,7 @@ def load_products(conn, rows, verbose):
             coerce_str(r.get("anc")), coerce_str(r.get("predecessor")),
             coerce_str(r.get("successor")), coerce_str(r.get("notes")),
             coerce_str(r.get("date_added")), coerce_str(r.get("fit") or "Over-Ear"),
+            coerce_str(r.get("date_updated") or ""),
         ))
         n += 1
     if verbose:
