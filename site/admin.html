@@ -42,12 +42,18 @@
   .btn-danger:hover { background:var(--accent); color:var(--paper); }
   .sub { font-size:.72rem; color:var(--muted); padding:.3rem var(--pad); max-width:1400px; margin:0 auto; }
   .sugg-area { max-width:1400px; margin:0 auto; padding:0 var(--pad) .5rem; }
-  .sugg-card { border:1px solid var(--line); border-left:3px solid var(--accent);
-    margin-bottom:.5rem; padding:.7rem 1rem; background:var(--card);
-    display:grid; grid-template-columns:1fr auto; gap:.5rem; align-items:start; }
-  .sugg-info strong { display:block; font-size:.82rem; margin-bottom:.2rem; }
-  .sugg-meta { font-size:.68rem; color:var(--muted); }
-  .sugg-actions { display:flex; gap:.4rem; }
+  /* Suggestion rows live in the main table but are tinted amber so they read as pending
+     community input, not confirmed catalog entries. The badge replaces the Brand cell and
+     the actions row sits inside the expanded review panel. */
+  tr.suggrow td { background:rgba(194,65,12,0.07); }
+  tr.datarow.suggrow:hover td { background:rgba(194,65,12,0.13); }
+  tr.suggrow.expanded td { background:rgba(194,65,12,0.13); }
+  .sugg-badge { display:inline-block; font-size:.6rem; text-transform:uppercase; letter-spacing:.08em;
+    color:var(--accent); border:1px solid var(--accent); border-radius:99px; padding:.05rem .4rem; }
+  .sugg-actions { display:flex; gap:.4rem; margin-top:.8rem; }
+  .sugg-src { font-size:.76rem; margin-top:.6rem; word-break:break-all; }
+  .sugg-src a { color:var(--accent-2); }
+  .sugg-note { font-size:.82rem; margin-top:.5rem; color:var(--muted); }
   .tablewrap { max-width:1400px; margin:0 auto;
     border-left:1px solid var(--line); border-right:1px solid var(--line);
     overflow-x:auto; overflow-y:auto; max-height:calc(100vh - 200px); }
@@ -158,7 +164,6 @@
 </div>
 <p class="sub" id="sub">Loading&hellip;</p>
 
-<div class="sugg-area" id="suggArea"></div>
 
 <div class="tablewrap" id="tablewrap"><div class="loading">Fetching catalog&hellip;</div></div>
 
@@ -180,6 +185,9 @@ const esc = s => String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replac
 // Module-level state for the admin editor: all products, the brand list, the suggestion
 // queue, the active sort, and which row (if any) is expanded for inline editing.
 let all=[], mfrs=[], suggs=[], sortKey='release_year', sortDir='descending', expandedId=null;
+// Tracks which suggestion row (by suggestion id) is currently expanded. Kept separate
+// from expandedId (products) so opening a suggestion doesn't disturb an open product edit.
+let expandedSugg=null;
 let openHistIdx={};
 
 const COLS=[
@@ -290,7 +298,7 @@ function render(){
   let rows=all.filter(p=>p._isNew||(!(q)||(p._brand+' '+p.model_name+' '+p.full_name+' '+(p.notes||'')).toLowerCase().includes(q)));
   rows=sortRows(rows);
   document.getElementById('sub').textContent=all.filter(p=>!p._isNew).length+' headphones \u00b7 '+rows.filter(p=>!p._isNew).length+' shown \u00b7 click a row to edit';
-  if(!rows.length){document.getElementById('tablewrap').innerHTML='<div class="empty">No matches.</div>';renderSuggestions();return;}
+  if(!rows.length && !suggs.some(s=>s.status==='pending')){document.getElementById('tablewrap').innerHTML='<div class="empty">No matches.</div>';return;}
   const tw=visTotalW();
   let html='<table style="min-width:'+tw+'px"><thead><tr>';
   COLS.forEach(c=>{
@@ -298,6 +306,25 @@ function render(){
     html+='<th style="width:'+colW[c.key]+'px" data-key="'+c.key+'"'+sa+'><span>'+esc(c.label)+'</span><span class="resizer" data-key="'+c.key+'" tabindex="-1"></span></th>';
   });
   html+='<th style="width:'+CARET_W+'px" class="caretcol"><span class="vh">Edit</span></th></tr></thead><tbody>';
+  // Pending community suggestions are pinned to the top of the same table, tinted via the
+  // .suggrow class so they read as distinct from real catalog rows. The suggestion's free-text
+  // name fills the Model cell; whatever specs it included show in their columns, rest blank.
+  const pendingSuggs=suggs.filter(s=>s.status==='pending');
+  pendingSuggs.forEach(s=>{
+    const isExp=expandedSugg===s.id;
+    html+='<tr class="datarow suggrow'+(isExp?' expanded':'')+'" data-sugg="'+s.id+'">';
+    COLS.forEach(c=>{
+      let v='';
+      if(c.key==='_brand') v='<span class="sugg-badge">Suggestion</span>';
+      else if(c.key==='model_name') v=esc(s.headphone||'');
+      else if(c.key==='impedance_ohms') v=esc(s.impedance_ohms||'');
+      else if(c.key==='sensitivity_db') v=esc(s.sensitivity_db||'');
+      else if(c.key==='id') v='';
+      html+='<td>'+v+'</td>';
+    });
+    html+='<td class="caretcol"><button class="expandbtn" aria-label="Review suggestion"><span class="caret">&#x203A;</span></button></td></tr>';
+    html+='<tr class="editrow suggrow"'+(isExp?'':' hidden')+' data-sugg-detail="'+s.id+'"><td colspan="'+(COLS.length+1)+'"><div class="editwrap">'+suggDetail(s)+'</div></td></tr>';
+  });
   rows.forEach((p,i)=>{
     const z=i%2?' zebra':'';
     const pid=p.product_id;
@@ -320,6 +347,15 @@ function render(){
 
   // Wire row expand
   document.querySelectorAll('tr.datarow').forEach(tr=>{
+    const sid=tr.getAttribute('data-sugg');
+    if(sid!==null){
+      // Suggestion row: clicking it (but not its action buttons) toggles the review panel.
+      const handler=e=>{if(e.target.closest('button')||e.target.tagName==='A')return;toggleSugg(parseInt(sid,10));};
+      tr.addEventListener('click',handler);
+      const btn=tr.querySelector('.expandbtn');
+      if(btn)btn.addEventListener('click',e=>{e.stopPropagation();toggleSugg(parseInt(sid,10));});
+      return;
+    }
     const pid=tr.getAttribute('data-id');
     const handler=e=>{if(e.target.closest('button')||e.target.tagName==='A')return;toggleEdit(pid);};
     tr.addEventListener('click',handler);
@@ -339,7 +375,6 @@ function render(){
     const ew=document.getElementById('ew_'+expandedId);
     if(p&&ew&&!ew.innerHTML)populateEditWrap(ew,p);
   }
-  renderSuggestions();
 }
 
 // Global resize handlers
@@ -474,19 +509,34 @@ async function toggleConf(pid){
 // ---- Suggestion queue ----
 // Renders the pending community-suggestion list shown alongside the catalog, with controls
 // to accept, reject, mark reviewed, or delete each one via the admin suggestions endpoint.
-function renderSuggestions(){
-  const area=document.getElementById('suggArea');
-  const pending=suggs.filter(s=>s.status==='pending');
-  if(!pending.length){area.innerHTML='';return;}
-  area.innerHTML='<div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);padding:.75rem var(--pad) .25rem">'+pending.length+' pending suggestion'+(pending.length===1?'':'s')+'</div>'+
-    pending.map(s=>'<div class="sugg-card"><div class="sugg-info"><strong>'+esc(s.brand||'')+' '+esc(s.model_name||'')+'</strong><span class="sugg-meta">'+esc(s.notes||'')+' \u00b7 '+esc((s.submitted_at||'').slice(0,10))+'</span></div><div class="sugg-actions"><button class="btn btn-ghost" onclick="actSugg('+s.id+',\'reject\')">Reject</button><button class="btn btn-primary" onclick="actSugg('+s.id+',\'accept\')">Accept</button></div></div>').join('');
+// Builds the expanded review panel for one suggestion: every submitted field as a
+// definition list, the source link, the submitter, and inline Accept/Reject buttons.
+// Empty fields are omitted so a sparse suggestion stays compact.
+function suggDetail(s){
+  const row=(label,v,unit)=> v ? '<div><dt>'+esc(label)+'</dt><dd>'+esc(v)+(unit||'')+'</dd></div>' : '';
+  const specs=row('Driver size',s.driver_size_mm,' mm')+row('Impedance',s.impedance_ohms,' \u03A9')+
+    row('Sensitivity',s.sensitivity_db,' dB')+row('Connector',s.connector)+
+    row('Detachable cable',s.detachable)+row('Weight',s.weight_g,' g')+
+    row('Submitted by',s.submitter)+row('Submitted',(s.created_at||'').slice(0,10));
+  const src= s.source ? '<p class="sugg-src"><strong>Source:</strong> <a href="'+esc(s.source)+'" target="_blank" rel="noopener">'+esc(s.source)+'</a></p>' : '';
+  const note= s.notes ? '<p class="sugg-note">'+esc(s.notes)+'</p>' : '';
+  return '<dl class="detail-specs">'+specs+'</dl>'+note+src+
+    '<div class="sugg-actions"><button class="btn btn-ghost" onclick="actSugg('+s.id+',\'reject\')">Reject</button>'+
+    '<button class="btn btn-primary" onclick="actSugg('+s.id+',\'accept\')">Accept</button></div>';
+}
+
+// Toggles the expanded review panel for a suggestion row, mirroring toggleEdit() for
+// products but tracked in its own expandedSugg variable so the two don't interfere.
+function toggleSugg(id){
+  expandedSugg = (expandedSugg===id) ? null : id;
+  render();
 }
 
 async function actSugg(id,action){
   try{
     const res=await fetch('/api/admin/suggestions',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id,action})});
     const d=await res.json();if(!d.ok)throw new Error(d.error||'');
-    suggs=suggs.filter(s=>s.id!==id);toast(action==='accept'?'Accepted':'Rejected');renderSuggestions();
+    suggs=suggs.filter(s=>s.id!==id);toast(action==='accept'?'Accepted':'Rejected');render();
   }catch(e){toast('Error: '+e.message);}
 }
 
