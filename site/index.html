@@ -410,13 +410,15 @@
   /* ── Table (desktop) ─────────────────────────────────── */
   table { width: 100%; border-collapse: collapse; table-layout: fixed; }
   #tablewrap {
-    overflow-x: auto;
+    overflow-x: hidden;
     overflow-y: auto;
     max-height: calc(100vh - 230px);
     background: var(--paper);
     border-left: 1px solid var(--line);
     border-right: 1px solid var(--line);
   }
+  table.autofit { width: 100%; table-layout: fixed; }
+  table.autofit th, table.autofit td { overflow: hidden; text-overflow: ellipsis; }
   thead th { position: sticky; top: 0; z-index: 10; background: var(--paper-2);
     text-align: left; font-size: 0.65rem; text-transform: uppercase;
     letter-spacing: 0.12em; color: var(--muted); padding: 0.5rem 0.6rem;
@@ -799,24 +801,51 @@ function saveColPrefs() {
 
 const CARET_W = 44;
 const COMPARE_COL_W = 44;
+// Column widths are now proportional *weights*, not absolute pixels. The data
+// columns split 100% of the available width by weight, so the table always
+// fills the container exactly and never overflows. Dragging a divider moves
+// weight from that column to its right neighbor, keeping the total constant.
 const colW = {};
-function loadColW(){ COLS.forEach(c=>colW[c.key]=c.w); try{ const s=JSON.parse(localStorage.getItem("archive_colw")||"null"); if(s) Object.assign(colW,s);}catch(e){} }
+function loadColW(){ COLS.forEach(c=>colW[c.key]=c.w); try{ const s=JSON.parse(localStorage.getItem("archive_colw")||"null"); if(s) COLS.forEach(c=>{ if(typeof s[c.key]==="number") colW[c.key]=s[c.key]; });}catch(e){} }
 function saveColW(){ try{ localStorage.setItem("archive_colw",JSON.stringify(colW)); }catch(e){} }
-function visTotalW(){ return COLS.filter(c=>state.visible[c.key]).reduce((s,c)=>s+colW[c.key],0) + CARET_W + COMPARE_COL_W; }
+// Sum of weights for currently-visible data columns.
+function visibleWeight(){ return COLS.filter(c=>state.visible[c.key]).reduce((s,c)=>s+colW[c.key],0); }
+// Percentage width for one column = its share of the visible weight.
+function colPct(key){ const t=visibleWeight(); return t>0 ? (colW[key]/t*100) : 0; }
 
 let resizing = null;
 document.addEventListener("mousemove", e => {
   if (!resizing) return;
-  colW[resizing.key] = Math.max(50, resizing.startW + (e.clientX - resizing.startX));
-  const th = document.querySelector(`th[data-key="${resizing.key}"]`);
-  if (th) th.style.width = colW[resizing.key] + "px";
   const tbl = document.querySelector("#tablewrap table");
-  if (tbl) tbl.style.minWidth = visTotalW() + "px";
+  if (!tbl) return;
+  // Convert the pixel drag into a weight delta relative to the table's pixel width.
+  const dataCols = COLS.filter(c=>state.visible[c.key]);
+  const idx = dataCols.findIndex(c=>c.key===resizing.key);
+  const neighbor = dataCols[idx+1];
+  if (!neighbor) return;                       // last column has no neighbor to borrow from
+  const totalWeight = resizing.startTotal;
+  const pxPerWeight = tbl.clientWidth / totalWeight;
+  let deltaW = (e.clientX - resizing.startX) / pxPerWeight;
+  // Clamp so neither column drops below a small minimum weight.
+  const MINW = 30;
+  deltaW = Math.max(-(resizing.startW - MINW), Math.min(resizing.startNeighborW - MINW, deltaW));
+  colW[resizing.key] = resizing.startW + deltaW;
+  colW[neighbor.key] = resizing.startNeighborW - deltaW;
+  // Apply new percentages to just the two affected columns.
+  const thA = tbl.querySelector(`th[data-key="${resizing.key}"]`);
+  const thB = tbl.querySelector(`th[data-key="${neighbor.key}"]`);
+  if (thA) thA.style.width = colPct(resizing.key) + "%";
+  if (thB) thB.style.width = colPct(neighbor.key) + "%";
 });
 document.addEventListener("mouseup", () => { if (resizing){ resizing=null; document.body.style.userSelect=""; saveColW(); } });
 function startResize(e){
   const key = e.target.getAttribute("data-key");
-  resizing = { key, startX:e.clientX, startW:colW[key] };
+  const dataCols = COLS.filter(c=>state.visible[c.key]);
+  const idx = dataCols.findIndex(c=>c.key===key);
+  const neighbor = dataCols[idx+1];
+  if (!neighbor) { e.preventDefault(); e.stopPropagation(); return; }  // can't resize the last column
+  resizing = { key, startX:e.clientX, startW:colW[key],
+               startNeighborW:colW[neighbor.key], startTotal:visibleWeight() };
   document.body.style.userSelect = "none";
   e.preventDefault(); e.stopPropagation();
 }
@@ -1061,13 +1090,15 @@ function render() {
     return;
   }
   const cols = COLS.filter(c => state.visible[c.key]);
-  let html = `<table style="min-width:${visTotalW()}px"><thead><tr>`;
+  let html = `<table class="autofit"><thead><tr>`;
   cols.forEach(c => {
     const sortAttr = c.sortable ? (state.sortKey === c.key ? ` aria-sort="${state.sortDir}"` : ' aria-sort="none"') : "";
-    html += `<th scope="col" data-key="${c.key}" style="width:${colW[c.key]}px"${sortAttr}><span>${c.label}</span><span class="resizer" data-key="${c.key}"></span></th>`;
+    const last = c.key === cols[cols.length-1].key;
+    // Last data column gets no resizer (nothing to its right to borrow from).
+    const rz = last ? "" : `<span class="resizer" data-key="${c.key}"></span>`;
+    html += `<th scope="col" data-key="${c.key}" style="width:${colPct(c.key)}%"${sortAttr}><span>${c.label}</span>${rz}</th>`;
   });
-  const COMPARE_W = 44;
-  html += `<th scope="col" class="cmpcol" style="width:${COMPARE_W}px"><span class="vh">Compare</span></th>`;
+  html += `<th scope="col" class="cmpcol" style="width:${COMPARE_COL_W}px"><span class="vh">Compare</span></th>`;
   html += `<th scope="col" class="caretcol" style="width:${CARET_W}px"><span class="vh">Details</span></th>`;
   html += "</tr></thead><tbody>";
   state.filtered.forEach((r, i) => {
