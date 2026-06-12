@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brand — The Headphone Archive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Spline+Sans+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #1a1714;
+      --paper: #f4f0e8;
+      --paper-2: #eae3d6;
+      --accent: #c2410c;
+      --accent-2: #1e3a2f;
+      --line: #d6cdbd;
+      --muted: #8a8071;
+      --card: #ede7d9;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { background: var(--paper); color: var(--ink);
+      font-family: 'Spline Sans Mono', monospace; line-height: 1.5; }
+
+    /* ---- NAV ---- */
+    .sitenav { border-bottom: 2px solid var(--ink); padding: 1rem 2rem;
+      max-width: 1300px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center; }
+    .sitenav a { color: var(--ink); text-decoration: none; font-size: 0.7rem;
+      text-transform: uppercase; letter-spacing: 0.12em; }
+    .sitenav a:hover { color: var(--accent); }
+    .sitenav .sitename { font-family: 'Fraunces', serif; font-size: 1.1rem;
+      font-weight: 700; text-transform: none; letter-spacing: 0; }
+
+    /* ---- HERO ---- */
+    .brand-hero { max-width: 1300px; margin: 0 auto;
+      padding: 3.5rem 2rem 2rem; border-bottom: 1px solid var(--line); }
+    .brand-eyebrow { font-size: 0.65rem; text-transform: uppercase;
+      letter-spacing: 0.14em; color: var(--muted); margin-bottom: 0.6rem; }
+    .brand-name { font-family: 'Fraunces', serif; font-weight: 900;
+      font-size: clamp(3rem, 8vw, 6.5rem); line-height: 0.9;
+      letter-spacing: -0.03em; margin-bottom: 1.2rem; }
+    .brand-meta-row { display: flex; flex-wrap: wrap; gap: 1.5rem;
+      align-items: center; font-size: 0.75rem; color: var(--muted); }
+    .brand-meta-row .pill { background: var(--paper-2); border: 1px solid var(--line);
+      padding: 0.25rem 0.75rem; border-radius: 99px; color: var(--ink); }
+    .brand-meta-row .pill.active { border-color: var(--accent-2);
+      background: #d1fae5; color: #065f46; }
+    .brand-meta-row .pill.discontinued { background: #fef3c7; color: #92400e; border-color: #fcd34d; }
+    .brand-meta-row a { color: var(--accent-2); }
+    .brand-meta-row a:hover { color: var(--accent); }
+
+    /* ---- LAYOUT ---- */
+    .brand-body { max-width: 1300px; margin: 0 auto;
+      padding: 2.5rem 2rem 4rem;
+      display: grid; grid-template-columns: 280px 1fr; gap: 3rem; align-items: start; }
+    @media (max-width: 860px) { .brand-body { grid-template-columns: 1fr; } }
+
+    /* ---- DNA PANEL ---- */
+    .dna-panel { position: sticky; top: 1.5rem; }
+    .dna-panel h2 { font-family: 'Fraunces', serif; font-size: 1.1rem;
+      margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--ink); }
+    .stat-nums { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;
+      margin-bottom: 2rem; }
+    .stat-num { background: var(--card); border: 1px solid var(--line);
+      padding: 0.75rem; border-radius: 6px; }
+    .stat-num strong { display: block; font-family: 'Fraunces', serif;
+      font-size: 1.8rem; font-weight: 700; line-height: 1; color: var(--ink); }
+    .stat-num span { font-size: 0.6rem; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--muted); }
+    .dna-section { margin-bottom: 1.8rem; }
+    .dna-label { font-size: 0.6rem; text-transform: uppercase;
+      letter-spacing: 0.12em; color: var(--muted); margin-bottom: 0.5rem; }
+    .dna-bar { height: 28px; display: flex; border-radius: 4px;
+      overflow: hidden; background: var(--line); }
+    .dna-seg { display: flex; align-items: center; padding: 0 0.5rem;
+      font-size: 0.6rem; white-space: nowrap; overflow: hidden;
+      transition: width 0.4s ease; min-width: 0; }
+    .dna-seg span { overflow: hidden; text-overflow: ellipsis; }
+    .seg-open    { background: #d1fae5; color: #065f46; }
+    .seg-closed  { background: #e0e7ff; color: #3730a3; }
+    .seg-semi    { background: #fef3c7; color: #92400e; }
+    .seg-dynamic   { background: #fee2e2; color: #991b1b; }
+    .seg-planar    { background: #ede9fe; color: #5b21b6; }
+    .seg-electro   { background: #d1fae5; color: #065f46; }
+    .seg-other     { background: var(--paper-2); color: var(--muted); }
+    .seg-over  { background: #e0f2fe; color: #0369a1; }
+    .seg-onear { background: #fce7f3; color: #9d174d; }
+
+    /* ---- TIMELINE ---- */
+    .timeline-panel h2 { font-family: 'Fraunces', serif; font-size: 1.1rem;
+      margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--ink); }
+    .decade-group { margin-bottom: 2.5rem; }
+    .decade-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.14em;
+      color: var(--muted); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.75rem; }
+    .decade-label::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+    .decade-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.6rem; }
+    .prod-card { background: var(--card); border: 1px solid var(--line);
+      border-radius: 6px; padding: 0.7rem 0.8rem; cursor: default;
+      transition: border-color 0.15s, transform 0.15s; position: relative; }
+    .prod-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+    .prod-card.active-prod { border-left: 3px solid var(--accent-2); }
+    .prod-card.discontinued-prod { opacity: 0.7; }
+    .prod-year { font-size: 0.58rem; color: var(--muted); margin-bottom: 0.2rem;
+      text-transform: uppercase; letter-spacing: 0.1em; }
+    .prod-model { font-family: 'Fraunces', serif; font-size: 0.9rem;
+      font-weight: 600; line-height: 1.2; margin-bottom: 0.35rem; }
+    .prod-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.4rem; }
+    .prod-tag { font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 0.1rem 0.4rem; border-radius: 99px; background: var(--paper-2);
+      color: var(--muted); border: 1px solid var(--line); }
+    .prod-tag.tag-open    { background: #d1fae5; color: #065f46; border-color: #a7f3d0; }
+    .prod-tag.tag-closed  { background: #e0e7ff; color: #3730a3; border-color: #c7d2fe; }
+    .prod-tag.tag-semi    { background: #fef3c7; color: #92400e; border-color: #fde68a; }
+    .prod-tag.tag-planar  { background: #ede9fe; color: #5b21b6; border-color: #ddd6fe; }
+    .prod-tag.tag-estat   { background: #d1fae5; color: #065f46; border-color: #a7f3d0; }
+    .prod-tag.tag-on      { background: #fce7f3; color: #9d174d; border-color: #fbcfe8; }
+    .prod-lineage { font-size: 0.6rem; color: var(--muted); margin-top: 0.4rem;
+      font-style: italic; }
+    .prod-lineage a { color: var(--accent-2); text-decoration: none; }
+    .prod-lineage a:hover { color: var(--accent); }
+    .prod-specs { font-size: 0.6rem; color: var(--muted); margin-top: 0.3rem; }
+
+    .loading-state { padding: 4rem 2rem; text-align: center;
+      font-size: 0.75rem; color: var(--muted); }
+    .error-state { padding: 4rem 2rem; text-align: center;
+      color: var(--accent); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <a href="index.html" class="sitename">The Headphone Archive</a>
+  <a href="index.html">&larr; Back to archive</a>
+</nav>
+
+<div id="heroArea"><div class="loading-state">Loading brand&hellip;</div></div>
+
+<div id="bodyArea"></div>
+
+<script>
+const esc = s => String(s ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+
+function pct(n, total) { return total ? Math.round(n / total * 100) : 0; }
+
+function dnaBar(segments) {
+  // segments: [{cls, label, count, total}]
+  const total = segments.reduce((s, x) => s + x.count, 0);
+  if (!total) return '<div class="dna-bar"></div>';
+  return '<div class="dna-bar">' +
+    segments.filter(s => s.count > 0).map(s => {
+      const p = pct(s.count, total);
+      return `<div class="dna-seg ${s.cls}" style="width:${p}%"><span>${p >= 12 ? s.label + ' ' + p + '%' : ''}</span></div>`;
+    }).join('') + '</div>';
+}
+
+function designTag(design) {
+  if (!design) return '';
+  const cls = design === 'Open Back' ? 'tag-open' : design === 'Closed Back' ? 'tag-closed' : 'tag-semi';
+  const short = design === 'Open Back' ? 'Open' : design === 'Closed Back' ? 'Closed' : 'Semi';
+  return `<span class="prod-tag ${cls}">${short}</span>`;
+}
+function driverTag(driver) {
+  if (!driver || driver === 'Dynamic') return '';
+  const cls = driver === 'Planar Magnetic' ? 'tag-planar' : driver === 'Electrostatic' ? 'tag-estat' : '';
+  const short = driver === 'Planar Magnetic' ? 'Planar' : driver === 'Electrostatic' ? 'Electrostatic' : driver;
+  return `<span class="prod-tag ${cls}">${short}</span>`;
+}
+function fitTag(fit) {
+  if (!fit || fit === 'Over-Ear') return '';
+  return `<span class="prod-tag tag-on">On-Ear</span>`;
+}
+
+function specStr(p) {
+  const parts = [];
+  if (p.impedance_ohms) parts.push(p.impedance_ohms + '\u03A9');
+  if (p.sensitivity_db) parts.push(p.sensitivity_db + '\u200adB');
+  return parts.join(' · ');
+}
+
+async function load() {
+  const params = new URLSearchParams(location.search);
+  const brandId = params.get('id');
+  if (!brandId) {
+    document.getElementById('heroArea').innerHTML = '<div class="error-state">No brand specified. <a href="index.html">Return to archive.</a></div>';
+    return;
+  }
+
+  try {
+    const res = await fetch(`/api/brands?id=${encodeURIComponent(brandId)}`);
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.error || 'Not found');
+    render(data.brand, data.products);
+  } catch (e) {
+    document.getElementById('heroArea').innerHTML = `<div class="error-state">Could not load brand: ${esc(e.message)}</div>`;
+  }
+}
+
+function render(brand, products) {
+  document.title = `${brand.name} — The Headphone Archive`;
+
+  // ---- DNA stats ----
+  const total = products.length;
+  const active = products.filter(p => p.status === 'Active').length;
+  const years = products.map(p => +p.release_year).filter(Boolean);
+  const minYear = years.length ? Math.min(...years) : null;
+  const maxYear = years.length ? Math.max(...years) : null;
+
+  const designCount = { open: 0, closed: 0, semi: 0 };
+  const driverCount = { dynamic: 0, planar: 0, electrostatic: 0, other: 0 };
+  const fitCount = { over: 0, on: 0 };
+  products.forEach(p => {
+    if (p.design === 'Open Back') designCount.open++;
+    else if (p.design === 'Closed Back') designCount.closed++;
+    else designCount.semi++;
+    if (p.driver_type === 'Dynamic') driverCount.dynamic++;
+    else if (p.driver_type === 'Planar Magnetic') driverCount.planar++;
+    else if (p.driver_type === 'Electrostatic') driverCount.electrostatic++;
+    else driverCount.other++;
+    if (p.fit === 'On-Ear') fitCount.on++;
+    else fitCount.over++;
+  });
+
+  const statusCls = brand.status === 'Active' ? 'active' : 'discontinued';
+
+  // ---- Hero ----
+  document.getElementById('heroArea').innerHTML = `
+    <div class="brand-hero">
+      <div class="brand-eyebrow">Brand Study</div>
+      <div class="brand-name">${esc(brand.name)}</div>
+      <div class="brand-meta-row">
+        <span class="pill">${esc(brand.country)}</span>
+        ${brand.founded_year ? `<span class="pill">Est. ${brand.founded_year}</span>` : ''}
+        <span class="pill ${statusCls}">${esc(brand.status)}</span>
+        ${brand.website ? `<a href="${esc(brand.website)}" target="_blank" rel="noopener">${esc(brand.website.replace(/^https?:\/\//,''))} &nearr;</a>` : ''}
+      </div>
+    </div>`;
+
+  // ---- Build decade groups ----
+  const byDecade = {};
+  products.forEach(p => {
+    const yr = +p.release_year;
+    if (!yr) return;
+    const dec = Math.floor(yr / 10) * 10;
+    if (!byDecade[dec]) byDecade[dec] = [];
+    byDecade[dec].push(p);
+  });
+  const decades = Object.keys(byDecade).map(Number).sort((a,b) => b - a);
+
+  // Build a lookup for lineage names
+  const byPid = {};
+  products.forEach(p => { byPid[p.product_id] = p; });
+  function nameOf(pid) {
+    const p = byPid[pid];
+    return p ? p.model_name : pid;
+  }
+
+  const timelineHtml = decades.map(dec => {
+    const prods = byDecade[dec].sort((a,b) => +a.release_year - +b.release_year);
+    const cards = prods.map(p => {
+      const isActive = p.status === 'Active';
+      const specs = specStr(p);
+      const lineageLinks = [
+        p.predecessor ? `<a href="index.html" title="Replaces ${esc(nameOf(p.predecessor))}">↑ ${esc(nameOf(p.predecessor))}</a>` : '',
+        p.successor   ? `<a href="index.html" title="Succeeded by ${esc(nameOf(p.successor))}">↓ ${esc(nameOf(p.successor))}</a>` : '',
+      ].filter(Boolean).join(' &middot; ');
+      return `
+        <div class="prod-card ${isActive ? 'active-prod' : 'discontinued-prod'}">
+          <div class="prod-year">${p.release_year}${p.discontinued_year ? '–' + p.discontinued_year : isActive ? '–present' : ''}</div>
+          <div class="prod-model">${esc(p.model_name)}</div>
+          <div class="prod-tags">
+            ${designTag(p.design)}${driverTag(p.driver_type)}${fitTag(p.fit)}
+          </div>
+          ${specs ? `<div class="prod-specs">${esc(specs)}</div>` : ''}
+          ${lineageLinks ? `<div class="prod-lineage">${lineageLinks}</div>` : ''}
+        </div>`;
+    }).join('');
+    const decLabel = dec === Math.floor(new Date().getFullYear()/10)*10
+      ? `${dec}s (present)` : `${dec}s`;
+    return `
+      <div class="decade-group">
+        <div class="decade-label">${decLabel} &mdash; ${prods.length} model${prods.length===1?'':'s'}</div>
+        <div class="decade-grid">${cards}</div>
+      </div>`;
+  }).join('');
+
+  // ---- DNA panel ----
+  const dnaHtml = `
+    <div class="dna-panel">
+      <h2>Brand DNA</h2>
+      <div class="stat-nums">
+        <div class="stat-num"><strong>${total}</strong><span>Total models</span></div>
+        <div class="stat-num"><strong>${active}</strong><span>Active now</span></div>
+        <div class="stat-num"><strong>${minYear||'—'}</strong><span>First model</span></div>
+        <div class="stat-num"><strong>${maxYear||'—'}</strong><span>Latest model</span></div>
+      </div>
+
+      <div class="dna-section">
+        <div class="dna-label">Acoustic design</div>
+        ${dnaBar([
+          { cls: 'seg-closed', label: 'Closed', count: designCount.closed },
+          { cls: 'seg-open',   label: 'Open',   count: designCount.open   },
+          { cls: 'seg-semi',   label: 'Semi',   count: designCount.semi   },
+        ])}
+      </div>
+
+      <div class="dna-section">
+        <div class="dna-label">Driver technology</div>
+        ${dnaBar([
+          { cls: 'seg-dynamic',  label: 'Dynamic',    count: driverCount.dynamic       },
+          { cls: 'seg-planar',   label: 'Planar',     count: driverCount.planar        },
+          { cls: 'seg-electro',  label: 'Electro',    count: driverCount.electrostatic },
+          { cls: 'seg-other',    label: 'Other',      count: driverCount.other         },
+        ])}
+      </div>
+
+      <div class="dna-section">
+        <div class="dna-label">Form factor</div>
+        ${dnaBar([
+          { cls: 'seg-over',  label: 'Over-Ear', count: fitCount.over },
+          { cls: 'seg-onear', label: 'On-Ear',   count: fitCount.on   },
+        ])}
+      </div>
+    </div>`;
+
+  document.getElementById('bodyArea').innerHTML = `
+    <div class="brand-body">
+      <aside>${dnaHtml}</aside>
+      <main>
+        <div class="timeline-panel">
+          <h2>Product history &mdash; ${total} headphone${total===1?'':'s'}</h2>
+          ${timelineHtml || '<p style="color:var(--muted);font-size:0.8rem">No products found.</p>'}
+        </div>
+      </main>
+    </div>`;
+}
+
+load();
+</script>
+</body>
+</html>

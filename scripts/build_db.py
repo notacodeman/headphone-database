@@ -32,7 +32,8 @@ CREATE TABLE IF NOT EXISTS manufacturers (
     name             TEXT    NOT NULL UNIQUE,
     country          TEXT,
     website          TEXT,
-    status           TEXT    CHECK(status IN ('Active','Legacy','Defunct'))
+    status           TEXT    CHECK(status IN ('Active','Legacy','Defunct','Discontinued')),
+    founded_year     INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS families (
@@ -65,7 +66,8 @@ CREATE TABLE IF NOT EXISTS products (
     notes               TEXT,
     date_added          TEXT,
     fit                 TEXT    DEFAULT 'Over-Ear',
-    date_updated        TEXT
+    date_updated        TEXT,
+    spec_confidence     TEXT    DEFAULT 'Estimated'
 );
 
 CREATE TABLE IF NOT EXISTS lineage (
@@ -135,19 +137,16 @@ def load_manufacturers(conn, rows, verbose):
     n = 0
     for r in rows:
         cur.execute("""
-            INSERT INTO manufacturers(manufacturer_id, name, country, website, status)
-            VALUES (?,?,?,?,?)
+            INSERT INTO manufacturers(manufacturer_id, name, country, website, status, founded_year)
+            VALUES (?,?,?,?,?,?)
             ON CONFLICT(manufacturer_id) DO UPDATE SET
-                name=excluded.name,
-                country=excluded.country,
-                website=excluded.website,
-                status=excluded.status
+                name=excluded.name, country=excluded.country,
+                website=excluded.website, status=excluded.status,
+                founded_year=excluded.founded_year
         """, (
-            coerce_int(r.get("manufacturer_id")),
-            coerce_str(r.get("name")),
-            coerce_str(r.get("country")),
-            coerce_str(r.get("website")),
-            coerce_str(r.get("status")),
+            coerce_int(r.get("manufacturer_id")), coerce_str(r.get("name")),
+            coerce_str(r.get("country")), coerce_str(r.get("website")),
+            coerce_str(r.get("status")), coerce_int(r.get("founded_year")),
         ))
         n += 1
     if verbose:
@@ -186,8 +185,8 @@ def load_products(conn, rows, verbose):
                 model_name, full_name, release_year, discontinued_year,
                 status, category, design, driver_type,
                 driver_size_mm, impedance_ohms, sensitivity_db,
-                wireless, anc, predecessor, successor, notes, date_added, fit, date_updated
-            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+                wireless, anc, predecessor, successor, notes, date_added, fit, date_updated, spec_confidence
+            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
             ON CONFLICT(product_id) DO UPDATE SET
                 id=excluded.id, family_id=excluded.family_id,
                 manufacturer_id=excluded.manufacturer_id,
@@ -200,7 +199,7 @@ def load_products(conn, rows, verbose):
                 anc=excluded.anc, predecessor=excluded.predecessor,
                 successor=excluded.successor, notes=excluded.notes,
                 date_added=excluded.date_added, fit=excluded.fit,
-                date_updated=excluded.date_updated
+                date_updated=excluded.date_updated, spec_confidence=excluded.spec_confidence
         """, (
             coerce_str(r.get("product_id")), coerce_int(r.get("id")),
             coerce_int(r.get("family_id")), coerce_int(r.get("manufacturer_id")),
@@ -213,7 +212,7 @@ def load_products(conn, rows, verbose):
             coerce_str(r.get("anc")), coerce_str(r.get("predecessor")),
             coerce_str(r.get("successor")), coerce_str(r.get("notes")),
             coerce_str(r.get("date_added")), coerce_str(r.get("fit") or "Over-Ear"),
-            coerce_str(r.get("date_updated") or ""),
+            coerce_str(r.get("date_updated") or ""), coerce_str(r.get("spec_confidence") or "Estimated"),
         ))
         n += 1
     if verbose:

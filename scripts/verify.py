@@ -35,7 +35,7 @@ except Exception:
 CSV_FILES = ["manufacturers", "families", "products", "lineage", "sources"]
 
 SCHEMA = """
-CREATE TABLE manufacturers (manufacturer_id INTEGER PRIMARY KEY, name TEXT, country TEXT, website TEXT, status TEXT);
+CREATE TABLE manufacturers (manufacturer_id INTEGER PRIMARY KEY, name TEXT, country TEXT, website TEXT, status TEXT, founded_year INTEGER);
 CREATE TABLE families (family_id INTEGER PRIMARY KEY, manufacturer_id INTEGER, family_name TEXT, family_type TEXT);
 CREATE TABLE products (
     product_id TEXT PRIMARY KEY, family_id INTEGER, manufacturer_id INTEGER,

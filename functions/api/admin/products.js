@@ -9,9 +9,9 @@ const json = (o, s = 200) =>
 
 const FIELDS = [
   "product_id", "id", "family_id", "manufacturer_id", "model_name", "full_name",
-  "release_year", "discontinued_year", "status", "category", "design", "driver_type",
+  "release_year", "discontinued_year", "status", "category", "design", "fit", "driver_type",
   "driver_size_mm", "impedance_ohms", "sensitivity_db", "wireless", "anc",
-  "predecessor", "successor", "notes", "date_added", "fit",
+  "predecessor", "successor", "notes", "date_added", "spec_confidence",
 ];
 
 export async function onRequestGet({ request, env }) {

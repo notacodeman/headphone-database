@@ -108,6 +108,10 @@
   .meta-table th, .meta-table td { padding:0.4rem 0.75rem; text-align:left; border:1px solid var(--border); }
   .meta-table th { background:var(--row-alt); color:var(--muted); font-weight:500; width:8rem; white-space:nowrap; }
   .meta-table td { color:var(--muted); font-family:monospace; }
+  .conf-badge { font-size:0.68rem; font-family:inherit; padding:0.15rem 0.5rem; border-radius:99px;
+    font-weight:600; letter-spacing:0.04em; text-transform:uppercase; }
+  .conf-verified { background:#d1fae5; color:#065f46; }
+  .conf-est { background:#fef3c7; color:#92400e; }
 
   /* Small confirm modal */
   .confirm-box { background:var(--card); border:2px solid var(--ink); border-radius:12px; max-width:440px; width:100%; padding:1.6rem 1.7rem; align-self:center; }
@@ -185,6 +189,8 @@
         <tbody>
           <tr><th>Date added</th><td id="meta_date_added">&mdash;</td></tr>
           <tr><th>Last updated</th><td id="meta_date_updated">&mdash;</td></tr>
+          <tr><th>Spec confidence</th><td id="meta_spec_confidence"><span class="conf-badge conf-est">Estimated</span></td>
+            <td><button class="linkbtn" id="confToggleBtn" style="font-size:0.7rem">Toggle</button></td></tr>
         </tbody>
       </table>
 
@@ -470,10 +476,32 @@ document.addEventListener("mouseup", () => { if(resizing){ resizing=null; docume
 function setForm(p) {
   FIELDS.forEach(f => { const el=document.getElementById("f_"+f); if(!el) return;
     el.value = (p[f]!==undefined && p[f]!==null) ? p[f] : (f==="wireless"||f==="anc"?"No":""); });
-  // Populate read-only metadata table
   document.getElementById("meta_date_added").textContent   = p.date_added   || "\u2014";
   document.getElementById("meta_date_updated").textContent = p.date_updated || "\u2014";
+  const conf = p.spec_confidence || "Estimated";
+  const badge = document.getElementById("meta_spec_confidence");
+  badge.innerHTML = `<span class="conf-badge ${conf==="Verified"?"conf-verified":"conf-est"}">${conf}</span>`;
+  badge._conf = conf;
 }
+// Toggle spec_confidence via the admin API
+document.getElementById("confToggleBtn").addEventListener("click", async () => {
+  if (!editingId) return;
+  const p = all.find(x => x.product_id === editingId); if (!p) return;
+  const next = (p.spec_confidence || "Estimated") === "Verified" ? "Estimated" : "Verified";
+  try {
+    const updated = { ...p, spec_confidence: next };
+    const res = await fetch("/api/admin/products", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updated)
+    });
+    const d = await res.json();
+    if (!d.ok) throw new Error(d.error || "");
+    p.spec_confidence = next;
+    const badge = document.getElementById("meta_spec_confidence");
+    badge.innerHTML = `<span class="conf-badge ${next==="Verified"?"conf-verified":"conf-est"}">${next}</span>`;
+    toast(`Marked as ${next}`);
+  } catch(e) { toast("Failed: " + e.message); }
+});
 function openEdit(id) {
   const p = all.find(x => x.product_id === id); if (!p) return;
   editingId = id;
