@@ -50,10 +50,15 @@
   tr.suggrow.expanded td { background:rgba(194,65,12,0.13); }
   .sugg-badge { display:inline-block; font-size:.6rem; text-transform:uppercase; letter-spacing:.08em;
     color:var(--accent); border:1px solid var(--accent); border-radius:99px; padding:.05rem .4rem; }
-  .sugg-actions { display:flex; gap:.4rem; margin-top:.8rem; }
-  .sugg-src { font-size:.76rem; margin-top:.6rem; word-break:break-all; }
-  .sugg-src a { color:var(--accent-2); }
-  .sugg-note { font-size:.82rem; margin-top:.5rem; color:var(--muted); }
+  /* Suggestion review grid mirrors .edit-grid so an expanded suggestion looks like the product
+     editor — same label styling and density — but the values are read-only, not form inputs. */
+  .sugg-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:.4rem .6rem; margin-bottom:.8rem; }
+  @media (max-width:1100px) { .sugg-grid { grid-template-columns:repeat(4,1fr); } }
+  @media (max-width:760px)  { .sugg-grid { grid-template-columns:repeat(2,1fr); } }
+  .sugg-field.span-all { grid-column:1/-1; }
+  .sugg-field label { display:block; font-size:.55rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin-bottom:.1rem; }
+  .sugg-val { font-size:.78rem; color:var(--ink); padding:.28rem .4rem; border:1px solid var(--line); background:var(--paper-2); min-height:1.4rem; word-break:break-word; }
+  .sugg-val a { color:var(--accent-2); }
   .tablewrap { max-width:1400px; margin:0 auto;
     border-left:1px solid var(--line); border-right:1px solid var(--line);
     overflow-x:auto; overflow-y:auto; max-height:calc(100vh - 200px); }
@@ -89,20 +94,21 @@
   .flags { color:var(--accent); }
   tr.editrow > td { padding:0; border-bottom:2px solid var(--ink); }
   tr.editrow.zebra > td { background:#ece4d4; }
-  .editwrap { padding:1.25rem 1.5rem; border-left:3px solid var(--accent); }
-  .editwrap h3 { font-family:'Fraunces',serif; font-size:1rem; margin-bottom:1rem;
+  .editwrap { padding:1rem 1.25rem; border-left:3px solid var(--accent); }
+  .editwrap h3 { font-family:'Fraunces',serif; font-size:1rem; margin-bottom:.7rem;
     padding-bottom:.4rem; border-bottom:1px solid var(--line); color:var(--accent); }
-  .edit-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:.65rem; margin-bottom:1rem; }
-  @media (max-width:900px) { .edit-grid { grid-template-columns:repeat(2,1fr); } }
+  .edit-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:.4rem .6rem; margin-bottom:.8rem; }
+  @media (max-width:1100px) { .edit-grid { grid-template-columns:repeat(4,1fr); } }
+  @media (max-width:760px)  { .edit-grid { grid-template-columns:repeat(2,1fr); } }
   .edit-grid .span2 { grid-column:span 2; }
-  .edit-grid .span4 { grid-column:1/-1; }
-  .edit-grid label { display:block; font-size:.58rem; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-bottom:.2rem; }
+  .edit-grid .span4 { grid-column:span 3; }
+  .edit-grid label { display:block; font-size:.55rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin-bottom:.1rem; }
   .edit-grid input,.edit-grid select,.edit-grid textarea {
-    width:100%; padding:.4rem .5rem; border:1px solid var(--line); background:var(--paper);
-    font-family:inherit; font-size:.8rem; color:var(--ink); }
+    width:100%; padding:.28rem .4rem; border:1px solid var(--line); background:var(--paper);
+    font-family:inherit; font-size:.76rem; color:var(--ink); }
   .edit-grid input:focus,.edit-grid select:focus,.edit-grid textarea:focus { outline:none; border-color:var(--accent); }
   .edit-grid input:disabled { background:var(--paper-2); color:var(--muted); cursor:not-allowed; }
-  .edit-grid textarea { resize:vertical; min-height:60px; }
+  .edit-grid textarea { resize:vertical; min-height:42px; }
   .edit-meta { display:flex; flex-wrap:wrap; gap:.6rem 1.5rem; margin-bottom:.85rem;
     font-size:.72rem; color:var(--muted); align-items:center; }
   .edit-meta strong { color:var(--ink); }
@@ -513,16 +519,26 @@ async function toggleConf(pid){
 // definition list, the source link, the submitter, and inline Accept/Reject buttons.
 // Empty fields are omitted so a sparse suggestion stays compact.
 function suggDetail(s){
-  const row=(label,v,unit)=> v ? '<div><dt>'+esc(label)+'</dt><dd>'+esc(v)+(unit||'')+'</dd></div>' : '';
-  const specs=row('Driver size',s.driver_size_mm,' mm')+row('Impedance',s.impedance_ohms,' \u03A9')+
-    row('Sensitivity',s.sensitivity_db,' dB')+row('Connector',s.connector)+
-    row('Detachable cable',s.detachable)+row('Weight',s.weight_g,' g')+
-    row('Submitted by',s.submitter)+row('Submitted',(s.created_at||'').slice(0,10));
-  const src= s.source ? '<p class="sugg-src"><strong>Source:</strong> <a href="'+esc(s.source)+'" target="_blank" rel="noopener">'+esc(s.source)+'</a></p>' : '';
-  const note= s.notes ? '<p class="sugg-note">'+esc(s.notes)+'</p>' : '';
-  return '<dl class="detail-specs">'+specs+'</dl>'+note+src+
-    '<div class="sugg-actions"><button class="btn btn-ghost" onclick="actSugg('+s.id+',\'reject\')">Reject</button>'+
-    '<button class="btn btn-primary" onclick="actSugg('+s.id+',\'accept\')">Accept</button></div>';
+  // Mirror the product edit panel's structure: a Fraunces heading, a read-only grid of the
+  // submitted fields laid out exactly like the editable fields, then a meta line and actions.
+  const field=(label,v,unit)=>'<div class="sugg-field"><label>'+esc(label)+'</label><div class="sugg-val">'+(v?esc(v)+(unit||''):'\u2014')+'</div></div>';
+  const grid='<div class="sugg-grid">'+
+    field('Headphone',s.headphone)+
+    field('Driver size',s.driver_size_mm,' mm')+
+    field('Impedance',s.impedance_ohms,' \u03A9')+
+    field('Sensitivity',s.sensitivity_db,' dB')+
+    field('Connector',s.connector)+
+    field('Detachable cable',s.detachable)+
+    field('Weight',s.weight_g,' g')+
+    '</div>';
+  const note= s.notes ? '<div class="sugg-field span-all"><label>Notes</label><div class="sugg-val">'+esc(s.notes)+'</div></div>' : '';
+  const src= s.source ? '<div class="sugg-field span-all"><label>Source</label><div class="sugg-val"><a href="'+esc(s.source)+'" target="_blank" rel="noopener">'+esc(s.source)+'</a></div></div>' : '';
+  const noteSrc = (note||src) ? '<div class="sugg-grid">'+note+src+'</div>' : '';
+  const meta='<div class="edit-meta"><span>Submitted by: <strong>'+esc(s.submitter||'\u2014')+'</strong></span><span>Submitted: <strong>'+esc((s.created_at||'').slice(0,10)||'\u2014')+'</strong></span></div>';
+  return '<h3>Reviewing suggestion: '+esc(s.headphone||'\u2014')+'</h3>'+grid+noteSrc+meta+
+    '<div class="edit-actions"><span></span><div class="edit-actions-right">'+
+    '<button class="btn btn-ghost" onclick="actSugg('+s.id+',\'reject\')">Reject</button>'+
+    '<button class="btn btn-primary" onclick="actSugg('+s.id+',\'accept\')">Accept</button></div></div>';
 }
 
 // Toggles the expanded review panel for a suggestion row, mirroring toggleEdit() for
