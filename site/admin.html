@@ -3,759 +3,491 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin — Catalog Editor</title>
+<title>Admin — The Headphone Archive</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,900&family=Spline+Sans+Mono:wght@400;500;600&display=swap');
-  :root { --ink:#1a1714; --paper:#f4f0e8; --paper-2:#e3dac9; --card:#fbf9f4; --accent:#c2410c; --accent-2:#1e3a2f; --line:#d6cdbd; --muted:#8a8071; }
+  :root { --ink:#1a1714; --paper:#f4f0e8; --paper-2:#eae3d6; --accent:#c2410c;
+    --accent-2:#1e3a2f; --line:#d6cdbd; --muted:#8a8071; --card:#ede7d9;
+    --pad: clamp(1rem, 3vw, 2rem); }
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:var(--paper-2); color:var(--ink); font-family:'Spline Sans Mono',monospace; line-height:1.5; padding:2rem 1.5rem 4rem; }
-  .wrap { max-width:1300px; margin:0 auto; }
-
-  .quicklinks { display:flex; gap:0.6rem; flex-wrap:wrap; margin-bottom:1.5rem; }
-  .qlink { display:inline-flex; align-items:center; gap:0.4rem; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.1em;
-    text-decoration:none; color:var(--ink); background:var(--card); border:1px solid var(--ink); border-radius:99px; padding:0.4rem 0.85rem; transition:background 0.15s,color 0.15s; }
+  html,body { background:var(--paper); color:var(--ink);
+    font-family:'Spline Sans Mono',monospace; line-height:1.5; }
+  .admin-header { border-bottom:2px solid var(--ink); padding:1.2rem var(--pad);
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:.75rem; }
+  .admin-title { font-family:'Fraunces',serif; font-size:1.5rem; font-weight:700; }
+  .admin-title span { color:var(--muted); font-size:.75rem; font-family:'Spline Sans Mono',monospace;
+    font-weight:400; display:block; text-transform:uppercase; letter-spacing:.1em; }
+  .quicklinks { display:flex; gap:.5rem; flex-wrap:wrap; }
+  .qlink { font-size:.65rem; text-transform:uppercase; letter-spacing:.1em; text-decoration:none;
+    color:var(--ink); border:1px solid var(--line); border-radius:99px; padding:.3rem .75rem; transition:background .12s; }
   .qlink:hover { background:var(--ink); color:var(--paper); }
-  .qlink.accent { border-color:var(--accent-2); color:var(--accent-2); }
-  .qlink.accent:hover { background:var(--accent-2); color:var(--paper); }
-
-  h1 { font-family:'Fraunces',serif; font-weight:900; font-size:clamp(1.7rem,4vw,2.6rem); letter-spacing:-0.02em; }
-  h1 em { font-style:italic; color:var(--accent); }
-  .sub { color:var(--muted); font-size:0.8rem; margin:0.3rem 0 1.3rem; }
-
-  .toolbar { display:flex; gap:0.75rem; flex-wrap:wrap; align-items:center; margin-bottom:1rem; }
-  .toolbar input.search { flex:1; min-width:220px; padding:0.6rem 0.8rem; border:1px solid var(--ink); background:var(--card); font-family:inherit; font-size:0.9rem; color:var(--ink); border-radius:6px; }
-  .btn { font-family:inherit; text-transform:uppercase; letter-spacing:0.1em; cursor:pointer; border:none; border-radius:99px; white-space:nowrap; }
-  .btn-primary { background:var(--accent); color:var(--paper); font-size:0.72rem; padding:0.6rem 1.1rem; }
-  .btn-primary:hover { background:var(--accent-2); }
-  .btn-2 { background:var(--accent-2); color:var(--paper); font-size:0.72rem; padding:0.6rem 1.1rem; }
-  .btn-ghost { background:none; border:1px solid var(--ink); color:var(--ink); font-size:0.72rem; padding:0.55rem 1rem; }
-  .btn-reset { background:none; border:1px solid var(--line); color:var(--muted); font-size:0.6rem; padding:0.35rem 0.7rem; margin-left:auto; }
-  .btn-reset:hover { border-color:var(--accent); color:var(--accent); }
-  .colwrap { position:relative; display:inline-block; }
-  .colmenu { position:absolute; left:0; top:2.4rem; z-index:30; background:var(--card); border:1px solid var(--ink); border-radius:8px; box-shadow:4px 4px 0 rgba(26,23,20,0.12); padding:0.85rem 1rem; min-width:180px; display:none; }
-  .colmenu.open { display:block; }
-  .colmenu h4 { font-size:0.6rem; text-transform:uppercase; letter-spacing:0.14em; color:var(--muted); margin-bottom:0.5rem; }
-  .colmenu label { display:flex; align-items:center; gap:0.5rem; font-size:0.8rem; padding:0.22rem 0; cursor:pointer; text-transform:none; letter-spacing:0; color:var(--ink); margin:0; }
-  .colmenu input[type=checkbox]{ width:auto; accent-color:var(--accent); cursor:pointer; }
-  .btn-ghost.active { background:var(--ink); color:var(--paper); }
-  #suggwrap { margin-bottom:1.5rem; }
-  .sugg-head { font-size:0.66rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--accent); margin-bottom:0.6rem; }
-  .sugg-card { display:flex; gap:1rem; align-items:flex-start; background:#fbeee6; border:1px solid var(--accent); border-radius:10px; padding:0.9rem 1.1rem; margin-bottom:0.7rem; }
-  .sugg-date { flex:0 0 110px; font-size:0.66rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); line-height:1.4; }
-  .sugg-date strong { font-size:0.84rem; color:var(--ink); text-transform:none; letter-spacing:0; }
-  .sugg-body { flex:1; min-width:0; }
-  .sugg-hp { font-family:'Fraunces',serif; font-size:1.1rem; font-weight:600; }
-  .sugg-specs { font-size:0.82rem; color:var(--accent-2); margin-top:0.2rem; }
-  .sugg-note { font-size:0.8rem; color:var(--ink); margin-top:0.45rem; }
-  .sugg-src { font-size:0.74rem; color:var(--muted); margin-top:0.45rem; }
-  .sugg-src a { color:var(--accent-2); }
-  .sugg-actions { flex:0 0 auto; display:flex; flex-direction:column; gap:0.5rem; }
-  .sugg-actions button { border:none; cursor:pointer; border-radius:99px; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.08em; padding:0.5rem 0.9rem; white-space:nowrap; }
-  .sugg-good { background:var(--accent-2); color:var(--paper); }
-  .sugg-bad { background:#b4361f; color:var(--paper); }
-  @media (max-width:600px){ .sugg-card { flex-wrap:wrap; } .sugg-actions { flex-direction:row; } }
-
-  /* The list as an elevated card, clearly separate from the page */
-  .card { background:var(--card); border:1px solid var(--ink); border-radius:12px; box-shadow:0 10px 30px -14px rgba(26,23,20,0.45); overflow-x:auto; }
-  table { border-collapse:collapse; table-layout:fixed; }
-  thead th { position:relative; text-align:left; font-size:0.6rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted);
-    padding:0.7rem 1.6rem 0.7rem 0.6rem; border-bottom:2px solid var(--ink); background:var(--card); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; cursor:pointer; user-select:none; }
-  thead th:hover { color:var(--ink); }
-  thead th[aria-sort="ascending"]::after  { content:" \u2191"; color:var(--accent); font-size:0.7rem; }
-  thead th[aria-sort="descending"]::after { content:" \u2193"; color:var(--accent); font-size:0.7rem; }
+  .qlink.warn { border-color:var(--accent); color:var(--accent); }
+  .qlink.warn:hover { background:var(--accent); color:var(--paper); }
+  .controls { display:flex; gap:.6rem; align-items:center; flex-wrap:wrap;
+    padding:1rem var(--pad) .5rem; max-width:1400px; margin:0 auto; }
+  .controls input { flex:1; min-width:160px; padding:.55rem .7rem;
+    border:1px solid var(--ink); background:var(--paper); font-family:inherit; font-size:.85rem; color:var(--ink); }
+  .controls input:focus { outline:none; border-color:var(--accent); }
+  .btn { font-family:inherit; font-size:.72rem; text-transform:uppercase; letter-spacing:.1em;
+    cursor:pointer; padding:.55rem 1rem; border-radius:2px; border:1px solid var(--ink); transition:background .12s,color .12s; }
+  .btn-primary { background:var(--ink); color:var(--paper); }
+  .btn-primary:hover { background:var(--accent-2); border-color:var(--accent-2); }
+  .btn-ghost { background:none; color:var(--ink); }
+  .btn-ghost:hover { background:var(--paper-2); }
+  .btn-danger { border-color:var(--accent); color:var(--accent); background:none; }
+  .btn-danger:hover { background:var(--accent); color:var(--paper); }
+  .sub { font-size:.72rem; color:var(--muted); padding:.3rem var(--pad); max-width:1400px; margin:0 auto; }
+  .sugg-area { max-width:1400px; margin:0 auto; padding:0 var(--pad) .5rem; }
+  .sugg-card { border:1px solid var(--line); border-left:3px solid var(--accent);
+    margin-bottom:.5rem; padding:.7rem 1rem; background:var(--card);
+    display:grid; grid-template-columns:1fr auto; gap:.5rem; align-items:start; }
+  .sugg-info strong { display:block; font-size:.82rem; margin-bottom:.2rem; }
+  .sugg-meta { font-size:.68rem; color:var(--muted); }
+  .sugg-actions { display:flex; gap:.4rem; }
+  .tablewrap { max-width:1400px; margin:0 auto;
+    border-left:1px solid var(--line); border-right:1px solid var(--line);
+    overflow-x:auto; overflow-y:auto; max-height:calc(100vh - 200px); }
+  table { width:100%; min-width:0; border-collapse:collapse; table-layout:fixed; }
+  thead th { position:sticky; top:0; z-index:10; background:var(--paper-2);
+    text-align:left; font-size:.62rem; text-transform:uppercase; letter-spacing:.12em;
+    color:var(--muted); padding:.45rem .55rem; border-bottom:2px solid var(--ink);
+    cursor:pointer; user-select:none; white-space:nowrap; }
+  thead th:hover { color:var(--accent); }
+  thead th[aria-sort="ascending"]::after  { content:' \2191'; color:var(--accent); }
+  thead th[aria-sort="descending"]::after { content:' \2193'; color:var(--accent); }
+  thead th[aria-sort="ascending"],thead th[aria-sort="descending"] { color:var(--accent); background:rgba(194,65,12,.07); }
+  thead th > span:first-child { display:inline-block; max-width:calc(100% - 10px);
+    overflow:hidden; text-overflow:ellipsis; vertical-align:bottom; }
   .resizer { position:absolute; top:0; right:0; width:9px; height:100%; cursor:col-resize; user-select:none; }
   .resizer::before { content:""; position:absolute; right:3px; top:25%; height:50%; width:1px; background:var(--line); }
-  .resizer:hover::before { right:3px; top:0; height:100%; width:2px; background:var(--accent); }
-  tbody tr { border-bottom:1px solid var(--line); cursor:pointer; }
-  tbody tr:nth-child(even) td { background:rgba(26,23,20,0.03); }
-  tbody tr:hover td { background:var(--paper-2); }
-  tbody td { padding:0.55rem 0.6rem; font-size:0.82rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  td.b { color:var(--accent-2); font-weight:500; }
-  td.mn { font-family:'Fraunces',serif; font-size:0.95rem; }
-  td.notes { white-space:normal; color:var(--muted); font-size:0.76rem; }
-  .muted { color:var(--muted); }
-  .loading,.empty { text-align:center; color:var(--muted); padding:3rem 1rem; }
-
-  /* Edit modal */
-  .overlay { position:fixed; inset:0; background:rgba(26,23,20,0.55); display:none; align-items:flex-start; justify-content:center; padding:3rem 1rem; overflow-y:auto; z-index:50; }
-  .overlay.open { display:flex; }
-  .modal { background:var(--card); border:2px solid var(--ink); border-radius:12px; max-width:680px; width:100%; padding:1.6rem 1.8rem; }
-  .modal h2 { font-family:'Fraunces',serif; font-size:1.4rem; margin-bottom:1rem; }
-  .modal-tabs { display:flex; gap:0; border-bottom:2px solid var(--ink); margin-bottom:1.2rem; }
-  .mtab { font-family:inherit; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.1em; background:none; border:none; cursor:pointer; padding:0.55rem 1rem; color:var(--muted); border-bottom:2px solid transparent; margin-bottom:-2px; }
-  .mtab:hover { color:var(--ink); }
-  .mtab.active { color:var(--ink); border-bottom-color:var(--accent); font-weight:600; }
-  .hist-sub { font-size:0.76rem; color:var(--muted); margin-bottom:1rem; }
-  .hist-entry { border:1px solid var(--line); border-radius:8px; margin-bottom:0.8rem; overflow:hidden; }
-  .hist-header { display:flex; justify-content:space-between; align-items:center; padding:0.55rem 0.8rem; background:var(--paper-2); font-size:0.72rem; color:var(--muted); }
-  .hist-header strong { color:var(--ink); font-size:0.8rem; }
-  .hist-fields { padding:0.6rem 0.8rem; display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:0.4rem 1rem; }
-  .hist-field { font-size:0.76rem; }
-  .hist-field dt { font-size:0.56rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); }
-  .hist-field dd { color:var(--ink); }
-  .hist-field.changed dt { color:var(--accent); }
-  .hist-field.changed dd { color:var(--accent); font-weight:500; }
-  .hist-none { font-size:0.84rem; color:var(--muted); text-align:center; padding:2rem 0; }
-  .grid { display:grid; grid-template-columns:1fr 1fr; gap:0.8rem 1rem; }
-  .grid .full { grid-column:1 / -1; }
-  @media (max-width:560px){ .grid { grid-template-columns:1fr; } }
-  label { display:block; font-size:0.62rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:0.25rem; }
-  .modal input, .modal select, .modal textarea { width:100%; padding:0.5rem 0.6rem; border:1px solid var(--ink); background:var(--paper); font-family:inherit; font-size:0.86rem; color:var(--ink); border-radius:5px; }
-  .modal textarea { resize:vertical; min-height:60px; }
-  .modal-actions { display:flex; justify-content:space-between; align-items:center; margin-top:1.4rem; gap:0.75rem; }
-  .modal-actions .right { display:flex; gap:0.6rem; }
-  .meta-table { width:100%; border-collapse:collapse; margin:1rem 0 0; font-size:0.75rem; }
-  .meta-table th, .meta-table td { padding:0.4rem 0.75rem; text-align:left; border:1px solid var(--border); }
-  .meta-table th { background:var(--row-alt); color:var(--muted); font-weight:500; width:8rem; white-space:nowrap; }
-  .meta-table td { color:var(--muted); font-family:monospace; }
-  .conf-badge { font-size:0.68rem; font-family:inherit; padding:0.15rem 0.5rem; border-radius:99px;
-    font-weight:600; letter-spacing:0.04em; text-transform:uppercase; }
+  .resizer:hover::before { top:0; height:100%; width:2px; background:var(--accent); }
+  tbody tr { border-bottom:1px solid var(--line); }
+  tbody tr.datarow { background:var(--paper); cursor:pointer; transition:background .1s; }
+  tbody tr.datarow.zebra { background:#ece4d4; }
+  tbody tr.datarow:hover, tbody tr.datarow.zebra:hover { background:#d6cebc; }
+  tbody td { padding:.55rem .55rem; font-size:.82rem; vertical-align:top; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .caretcol { width:2rem; text-align:center; }
+  .expandbtn { background:none; border:none; cursor:pointer; color:var(--muted); font-size:1.1rem; line-height:1; padding:.2rem .4rem; }
+  .caret { display:inline-block; transition:transform .15s ease; }
+  tr.datarow.expanded .caret { transform:rotate(90deg); color:var(--accent); }
+  .model-cell { font-family:'Fraunces',serif; font-size:.95rem; font-weight:600; }
+  .tag { font-size:.65rem; padding:.1rem .4rem; border:1px solid var(--line); border-radius:99px; white-space:nowrap; }
+  .tag.active { border-color:var(--accent-2); color:var(--accent-2); }
+  .tag.disc { color:var(--muted); }
+  .spec-val { font-variant-numeric:tabular-nums; }
+  .spec-empty { color:var(--line); }
+  .flags { color:var(--accent); }
+  tr.editrow > td { padding:0; border-bottom:2px solid var(--ink); }
+  tr.editrow.zebra > td { background:#ece4d4; }
+  .editwrap { padding:1.25rem 1.5rem; border-left:3px solid var(--accent); }
+  .editwrap h3 { font-family:'Fraunces',serif; font-size:1rem; margin-bottom:1rem;
+    padding-bottom:.4rem; border-bottom:1px solid var(--line); color:var(--accent); }
+  .edit-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:.65rem; margin-bottom:1rem; }
+  @media (max-width:900px) { .edit-grid { grid-template-columns:repeat(2,1fr); } }
+  .edit-grid .span2 { grid-column:span 2; }
+  .edit-grid .span4 { grid-column:1/-1; }
+  .edit-grid label { display:block; font-size:.58rem; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-bottom:.2rem; }
+  .edit-grid input,.edit-grid select,.edit-grid textarea {
+    width:100%; padding:.4rem .5rem; border:1px solid var(--line); background:var(--paper);
+    font-family:inherit; font-size:.8rem; color:var(--ink); }
+  .edit-grid input:focus,.edit-grid select:focus,.edit-grid textarea:focus { outline:none; border-color:var(--accent); }
+  .edit-grid input:disabled { background:var(--paper-2); color:var(--muted); cursor:not-allowed; }
+  .edit-grid textarea { resize:vertical; min-height:60px; }
+  .edit-meta { display:flex; flex-wrap:wrap; gap:.6rem 1.5rem; margin-bottom:.85rem;
+    font-size:.72rem; color:var(--muted); align-items:center; }
+  .edit-meta strong { color:var(--ink); }
+  .conf-badge { font-size:.65rem; padding:.15rem .5rem; border-radius:99px; font-weight:600;
+    letter-spacing:.04em; text-transform:uppercase; }
   .conf-verified { background:#d1fae5; color:#065f46; }
   .conf-est { background:#fef3c7; color:#92400e; }
-  /* Mini history */
-  .mini-hist { margin-top:0.9rem; border:1px solid var(--border); border-radius:4px; overflow:hidden; }
-  .mini-hist-head { display:flex; justify-content:space-between; align-items:center;
-    padding:0.45rem 0.75rem; background:var(--row-alt); border-bottom:1px solid var(--border);
-    font-size:0.68rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); }
-  .mini-hist-list { list-style:none; margin:0; padding:0; max-height:180px; overflow-y:auto; }
-  .mini-hist-item { padding:0.4rem 0.75rem; border-bottom:1px solid var(--border);
-    font-size:0.74rem; cursor:pointer; display:flex; justify-content:space-between;
-    align-items:center; gap:0.5rem; transition:background 0.1s; }
-  .mini-hist-item:last-child { border-bottom:none; }
-  .mini-hist-item:hover { background:var(--row-alt); }
-  .mini-hist-item .mh-when { color:var(--ink); font-family:monospace; }
-  .mini-hist-item .mh-badge { color:var(--muted); font-size:0.68rem; }
-  .mini-hist-item .mh-arrow { color:var(--muted); }
-  /* History detail sub-panel */
-  .mini-hist-detail { padding:0.75rem; border-top:2px solid var(--accent);
-    background:var(--card); display:none; }
-  .mini-hist-detail.open { display:block; }
-  .mini-hist-detail .mhd-when { font-size:0.68rem; color:var(--muted); margin-bottom:0.5rem; }
-  .mini-hist-fields { display:grid; grid-template-columns:1fr 1fr; gap:0.2rem 1rem;
-    font-size:0.72rem; max-height:200px; overflow-y:auto; }
-  .mini-hist-fields .mhf { padding:0.15rem 0; }
-  .mini-hist-fields .mhf dt { font-size:0.6rem; text-transform:uppercase;
-    letter-spacing:0.08em; color:var(--muted); }
-  .mini-hist-fields .mhf dd { color:var(--ink); }
-  .mini-hist-fields .mhf.changed dt { color:var(--accent); }
-  .mini-hist-fields .mhf.changed dd { color:var(--accent); font-weight:600; }
-
-  /* Small confirm modal */
-  .confirm-box { background:var(--card); border:2px solid var(--ink); border-radius:12px; max-width:440px; width:100%; padding:1.6rem 1.7rem; align-self:center; }
-  .confirm-box h3 { font-family:'Fraunces',serif; font-size:1.25rem; margin-bottom:0.6rem; }
-  .confirm-box p { font-size:0.85rem; color:var(--ink); margin-bottom:1.3rem; }
-  .confirm-box .row { display:flex; justify-content:flex-end; gap:0.6rem; }
-
-  .toast { position:fixed; bottom:1.5rem; left:50%; transform:translateX(-50%); background:var(--ink); color:var(--paper); padding:0.7rem 1.3rem; font-size:0.82rem; border-radius:99px; opacity:0; transition:opacity 0.25s; pointer-events:none; z-index:70; }
-  .toast.show { opacity:1; }
+  .edit-actions { display:flex; justify-content:space-between; align-items:center;
+    gap:.5rem; padding-bottom:1rem; border-bottom:1px solid var(--line); }
+  .edit-actions-right { display:flex; gap:.5rem; }
+  .edit-hist { margin-top:1rem; }
+  .edit-hist-head { font-size:.6rem; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-bottom:.5rem; }
+  .hist-list { list-style:none; border:1px solid var(--line); border-radius:4px; overflow:hidden; }
+  .hist-item { padding:.4rem .75rem; border-bottom:1px solid var(--line);
+    font-size:.73rem; cursor:pointer; display:flex; gap:.75rem; align-items:center; transition:background .1s; }
+  .hist-item:last-child { border-bottom:none; }
+  .hist-item:hover { background:var(--paper-2); }
+  .hist-when { font-family:monospace; flex-shrink:0; }
+  .hist-badge { color:var(--muted); }
+  .hist-item .arrow { margin-left:auto; color:var(--muted); font-size:.8rem; }
+  .hist-detail { padding:.75rem; background:var(--paper-2); border-top:2px solid var(--accent); display:none; }
+  .hist-detail.open { display:block; }
+  .hist-detail-when { font-size:.68rem; color:var(--muted); margin-bottom:.5rem; }
+  .hist-fields { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+    gap:.3rem 1rem; max-height:200px; overflow-y:auto; font-size:.71rem; }
+  .hf { padding:.1rem 0; }
+  .hf dt { font-size:.58rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); }
+  .hf dd { color:var(--ink); }
+  .hf.changed dt,.hf.changed dd { color:var(--accent); font-weight:600; }
+  .hist-none { padding:.75rem; font-size:.75rem; color:var(--muted); }
+  #toast { position:fixed; bottom:1.5rem; left:50%; transform:translateX(-50%) translateY(60px);
+    background:var(--ink); color:var(--paper); font-size:.8rem; padding:.6rem 1.2rem;
+    border-radius:4px; opacity:0; transition:all .25s ease; z-index:99; pointer-events:none; }
+  #toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+  .empty,.loading { text-align:center; padding:3rem 1rem; color:var(--muted); font-size:.85rem; }
+  footer { padding:1.5rem var(--pad); border-top:1px solid var(--line); font-size:.7rem; color:var(--muted); max-width:1400px; margin:0 auto; }
+  .confirm-overlay { position:fixed; inset:0; background:rgba(26,23,20,.55);
+    display:flex; align-items:center; justify-content:center; z-index:50; }
+  .confirm-overlay[hidden] { display:none; }
+  .confirm-box { background:var(--paper); border:2px solid var(--ink); padding:1.5rem 2rem; max-width:380px; width:90%; }
+  .confirm-box p { margin-bottom:1.2rem; font-size:.9rem; }
+  .confirm-box .btns { display:flex; gap:.5rem; justify-content:flex-end; }
   .vh { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
-  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
-  @media (prefers-reduced-motion: reduce){ *,*::before,*::after{ transition-duration:0.01ms !important; } }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <nav class="quicklinks" aria-label="Quick links">
-    <a class="qlink" href="index.html">&larr; View Archive</a>
-    <a class="qlink accent" href="admin-suggestions.html">Review Suggestions &rarr;</a>
-    <a class="qlink" href="https://dash.cloudflare.com" target="_blank" rel="noopener">Cloudflare Dashboard &#8599;</a>
-    <a class="qlink" href="https://github.com/notacodeman/headphone-database" target="_blank" rel="noopener">GitHub Repo &#8599;</a>
+<header class="admin-header">
+  <div class="admin-title">The Headphone Archive<span>Catalog Editor</span></div>
+  <nav class="quicklinks">
+    <a class="qlink" href="index.html" target="_blank">&#8599; Public site</a>
+    <a class="qlink" href="admin-suggestions.html">Suggestion log</a>
+    <span class="qlink warn" id="importBtn" style="cursor:pointer">Reset from CSV</span>
   </nav>
+</header>
 
-  <h1>Catalog <em>Editor</em></h1>
-  <p class="sub" id="sub">Loading&hellip;</p>
-
-  <div class="toolbar">
-    <input type="text" class="search" id="q" placeholder="Search by brand, model, keyword&hellip;" autocomplete="off" aria-label="Search the catalog">
-    <button class="btn btn-primary" id="addBtn">+ Add headphone</button>
-    <span class="colwrap">
-      <button class="btn btn-ghost" id="coltoggle" aria-haspopup="true" aria-expanded="false">Columns &#9662;</button>
-      <div class="colmenu" id="colmenu"><h4>Show columns</h4><div id="colboxes"></div></div>
-    </span>
-    <button class="btn btn-ghost" id="suggToggle">Only suggestions</button>
-    <button class="btn btn-reset" id="importBtn" title="Wipe and reload the catalog from the GitHub CSVs">Reset from CSV</button>
-  </div>
-
-  <div id="suggwrap"></div>
-  <div class="card" id="catalogcard"><div id="tablewrap"><div class="loading">Loading catalog&hellip;</div></div></div>
+<div class="controls">
+  <input type="text" id="q" placeholder="Search model, brand, keyword&hellip;" autocomplete="off">
+  <button class="btn btn-primary" id="addBtn">+ Add headphone</button>
 </div>
+<p class="sub" id="sub">Loading&hellip;</p>
 
-<!-- Edit modal -->
-<div class="overlay" id="overlay">
-  <div class="modal">
-    <div class="modal-tabs">
-      <button class="mtab active" id="tabEdit">Edit</button>
-      <button class="mtab" id="tabHistory">History</button>
-    </div>
+<div class="sugg-area" id="suggArea"></div>
 
-    <div id="panelEdit">
-      <h2 id="modalTitle">Edit headphone</h2>
-      <div class="grid">
-        <div><label>Product ID *</label><input id="f_product_id" placeholder="BRAND_MODEL"></div>
-        <div><label>Brand</label><select id="f_manufacturer_id"></select></div>
-        <div><label>Model name *</label><input id="f_model_name"></div>
-        <div><label>Full name</label><input id="f_full_name"></div>
-        <div><label>Release year</label><input id="f_release_year"></div>
-        <div><label>Discontinued year</label><input id="f_discontinued_year"></div>
-        <div><label>Status</label><input id="f_status" placeholder="Active / Discontinued / Legacy Active"></div>
-        <div><label>Category</label><input id="f_category" placeholder="Headphone / Studio / Gaming"></div>
-        <div><label>Design</label><select id="f_design"><option value="Open Back">Open Back</option><option value="Closed Back">Closed Back</option><option value="Semi-Open">Semi-Open</option></select></div>
-        <div><label>Fit</label><select id="f_fit"><option value="Over-Ear">Over-Ear</option><option value="On-Ear">On-Ear</option></select></div>
-        <div><label>Driver type</label><input id="f_driver_type" placeholder="Dynamic / Planar Magnetic / ..."></div>
-        <div><label>Driver size (mm)</label><input id="f_driver_size_mm"></div>
-        <div><label>Impedance (ohms)</label><input id="f_impedance_ohms"></div>
-        <div><label>Sensitivity (dB)</label><input id="f_sensitivity_db"></div>
-        <div><label>Wireless</label><select id="f_wireless"><option>No</option><option>Yes</option></select></div>
-        <div><label>ANC</label><select id="f_anc"><option>No</option><option>Yes</option></select></div>
-        <div><label>Predecessor (product_id)</label><input id="f_predecessor"></div>
-        <div><label>Successor (product_id)</label><input id="f_successor"></div>
-        <div class="full"><label>Comments / notes</label><textarea id="f_notes"></textarea></div>
-      </div>
+<div class="tablewrap" id="tablewrap"><div class="loading">Fetching catalog&hellip;</div></div>
 
-      <table class="meta-table">
-        <tbody>
-          <tr><th>Date added</th><td id="meta_date_added">&mdash;</td></tr>
-          <tr><th>Last updated</th><td id="meta_date_updated">&mdash;</td></tr>
-          <tr><th>Spec confidence</th><td id="meta_spec_confidence"><span class="conf-badge conf-est">Estimated</span></td>
-            <td><button class="linkbtn" id="confToggleBtn" style="font-size:0.7rem">Toggle</button></td></tr>
-        </tbody>
-      </table>
-
-      <div class="mini-hist" id="miniHistWrap" hidden>
-        <div class="mini-hist-head">
-          <span id="miniHistTitle">Change history</span>
-          <button class="linkbtn" id="miniHistExpandBtn" style="font-size:0.68rem">View full history &rarr;</button>
-        </div>
-        <ul class="mini-hist-list" id="miniHistList"></ul>
-      </div>
-
-      <div class="modal-actions">
-        <button class="btn btn-ghost" id="deleteBtn" style="border-color:var(--accent);color:var(--accent);">Delete</button>
-        <span class="right">
-          <button class="btn btn-ghost" id="cancelBtn">Cancel</button>
-          <button class="btn btn-2" id="saveBtn">Save</button>
-        </span>
-      </div>
-    </div>
-
-    <div id="panelHistory" hidden>
-      <h2>Edit History</h2>
-      <p class="hist-sub" id="histSub"></p>
-      <div id="histList"><div class="loading">Loading history&hellip;</div></div>
-      <div class="modal-actions">
-        <span></span>
-        <button class="btn btn-ghost" id="histCancelBtn">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Confirm modal -->
-<div class="overlay" id="confirmOverlay">
+<footer><span id="source"></span></footer>
+<div id="toast"></div>
+<div class="confirm-overlay" id="confirmOverlay" hidden>
   <div class="confirm-box">
-    <h3 id="confirmTitle">Are you sure?</h3>
-    <p id="confirmMsg"></p>
-    <div class="row">
-      <button class="btn btn-ghost" id="confirmCancel">Cancel</button>
-      <button class="btn btn-primary" id="confirmOk">Confirm</button>
+    <p id="confirmMsg">Are you sure?</p>
+    <div class="btns">
+      <button class="btn btn-ghost" id="confirmNo">Cancel</button>
+      <button class="btn btn-danger" id="confirmYes">Confirm</button>
     </div>
   </div>
 </div>
-
-<div class="toast" id="toast"></div>
 
 <script>
-let all = [], mfrs = [], editingId = null, suggs = [], pendingSuggId = null, onlySuggestions = false;
-let sortKey = null, sortDir = "ascending";
-const NUMERIC = ["release_year","discontinued_year","driver_size_mm","impedance_ohms","sensitivity_db"];
-function sortRows(rows) {
-  if (!sortKey) return rows;
-  const num = NUMERIC.includes(sortKey);
-  const dir = sortDir === "ascending" ? 1 : -1;
-  return rows.slice().sort((a,b) => {
-    let av = a[sortKey], bv = b[sortKey];
-    if (num) {
-      av = av === "" || av == null ? -Infinity : parseFloat(av);
-      bv = bv === "" || bv == null ? -Infinity : parseFloat(bv);
-      return (av - bv) * dir;
-    }
-    return String(av||"").localeCompare(String(bv||""), undefined, {numeric:true}) * dir;
-  });
-}
-const FIELDS = ["product_id","id","family_id","manufacturer_id","model_name","full_name","release_year","discontinued_year","status","category","design","fit","driver_type","driver_size_mm","impedance_ohms","sensitivity_db","wireless","anc","predecessor","successor","notes"];
+const esc = s => String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+let all=[], mfrs=[], suggs=[], sortKey='release_year', sortDir='descending', expandedId=null;
+let openHistIdx={};
 
-// Columns shown in the list (all of them), with default widths in px.
-const COLS = [
-  {key:"_brand", label:"Brand", w:120, cls:"b"},
-  {key:"model_name", label:"Model", w:160, cls:"mn"},
-  {key:"full_name", label:"Full name", w:200},
-  {key:"release_year", label:"Year", w:60},
-  {key:"discontinued_year", label:"Disc.", w:60},
-  {key:"status", label:"Status", w:120},
-  {key:"category", label:"Category", w:100},
-  {key:"design", label:"Design", w:120},
-  {key:"fit",    label:"Fit",    w:100},
-  {key:"driver_type", label:"Driver", w:130},
-  {key:"driver_size_mm", label:"Size", w:60},
-  {key:"impedance_ohms", label:"Imp.", w:70},
-  {key:"sensitivity_db", label:"Sens.", w:70},
-  {key:"wireless", label:"WL", w:55},
-  {key:"anc", label:"ANC", w:55},
-  {key:"predecessor", label:"Predecessor", w:150},
-  {key:"successor", label:"Successor", w:150},
-  {key:"notes", label:"Comments", w:300, cls:"notes"},
-  {key:"date_added", label:"Date Added", w:100},
+const COLS=[
+  {key:'id',           label:'ID',       w:55},
+  {key:'_brand',       label:'Brand',    w:130},
+  {key:'model_name',   label:'Model',    w:200},
+  {key:'release_year', label:'Year',     w:70},
+  {key:'status',       label:'Status',   w:105},
+  {key:'design',       label:'Design',   w:115},
+  {key:'fit',          label:'Fit',      w:95},
+  {key:'driver_type',  label:'Driver',   w:130},
+  {key:'impedance_ohms',label:'\u03A9', w:65},
+  {key:'sensitivity_db',label:'dB',      w:65},
+  {key:'wireless',     label:'WL/ANC',   w:90},
+];
+const CARET_W=40;
+const colW={};
+function loadColW(){COLS.forEach(c=>colW[c.key]=c.w);try{const s=JSON.parse(localStorage.getItem('admin_colw')||'null');if(s)Object.assign(colW,s);}catch(e){}}
+function saveColW(){try{localStorage.setItem('admin_colw',JSON.stringify(colW));}catch(e){}}
+function visTotalW(){return COLS.reduce((s,c)=>s+colW[c.key],0)+CARET_W;}
+
+const OPT_STATUS=['Active','Discontinued','Legacy Active'];
+const OPT_DESIGN=['Open Back','Closed Back','Semi-Open'];
+const OPT_FIT=['Over-Ear','On-Ear'];
+const OPT_DRIVER=['Dynamic','Planar Magnetic','Electrostatic','Ribbon','AMT','Hybrid'];
+const OPT_WIRELESS=['Yes','No'];
+const OPT_CATEGORY=['Headphone','Studio','Gaming'];
+
+const FIELDS=[
+  {key:'product_id',     label:'Product ID',      type:'input',    span:1, disabled:true},
+  {key:'manufacturer_id',label:'Brand',           type:'mfr',      span:1},
+  {key:'model_name',     label:'Model name',      type:'input',    span:1},
+  {key:'full_name',      label:'Full name',       type:'input',    span:2},
+  {key:'release_year',   label:'Year',            type:'input',    span:1},
+  {key:'discontinued_year',label:'Disc. year',    type:'input',    span:1},
+  {key:'status',         label:'Status',          type:'select',   span:1, opts:OPT_STATUS},
+  {key:'category',       label:'Category',        type:'select',   span:1, opts:OPT_CATEGORY},
+  {key:'design',         label:'Design',          type:'select',   span:1, opts:OPT_DESIGN},
+  {key:'fit',            label:'Fit',             type:'select',   span:1, opts:OPT_FIT},
+  {key:'driver_type',    label:'Driver type',     type:'select',   span:1, opts:OPT_DRIVER},
+  {key:'driver_size_mm', label:'Driver size (mm)',type:'input',    span:1},
+  {key:'impedance_ohms', label:'Impedance (\u03A9)',type:'input', span:1},
+  {key:'sensitivity_db', label:'Sensitivity (dB)',type:'input',    span:1},
+  {key:'wireless',       label:'Wireless',        type:'select',   span:1, opts:OPT_WIRELESS},
+  {key:'anc',            label:'ANC',             type:'select',   span:1, opts:OPT_WIRELESS},
+  {key:'predecessor',    label:'Predecessor ID',  type:'input',    span:2},
+  {key:'successor',      label:'Successor ID',    type:'input',    span:2},
+  {key:'notes',          label:'Notes',           type:'textarea', span:4},
 ];
 
-let colW = {};
-function loadColW(){ COLS.forEach(c=>colW[c.key]=c.w); try{ const s=JSON.parse(localStorage.getItem("admin_colw")||"null"); if(s) Object.assign(colW,s);}catch(e){} }
-function saveColW(){ try{ localStorage.setItem("admin_colw",JSON.stringify(colW)); }catch(e){} }
+const HIST_LABELS={model_name:'Model',full_name:'Full name',release_year:'Year',
+  discontinued_year:'Disc. year',status:'Status',category:'Category',design:'Design',fit:'Fit',
+  driver_type:'Driver',driver_size_mm:'Driver size',impedance_ohms:'Impedance',
+  sensitivity_db:'Sensitivity',wireless:'Wireless',anc:'ANC',
+  predecessor:'Predecessor',successor:'Successor',notes:'Notes'};
 
-let colVis = {};
-function loadColVis(){ COLS.forEach(c=>colVis[c.key]=true); try{ const s=JSON.parse(localStorage.getItem("admin_colvis")||"null"); if(s) COLS.forEach(c=>{ if(c.key in s) colVis[c.key]=!!s[c.key]; });}catch(e){} }
-function saveColVis(){ try{ localStorage.setItem("admin_colvis",JSON.stringify(colVis)); }catch(e){} }
-function visibleCols(){ return COLS.filter(c=>colVis[c.key]); }
+function cellVal(p,key){
+  if(key==='_brand')return esc(p._brand||'');
+  if(key==='model_name')return '<span class="model-cell">'+esc(p.model_name)+'</span>';
+  if(key==='release_year')return esc(p.release_year)+(p.discontinued_year?'\u2013'+esc(p.discontinued_year):'');
+  if(key==='status'){const c=/disc/i.test(p.status)?'disc':'active';return '<span class="tag '+c+'">'+esc(p.status)+'</span>';}
+  if(key==='wireless'){const f=[];if(p.wireless==='Yes')f.push('WL');if(p.anc==='Yes')f.push('ANC');return f.length?'<span class="flags">'+f.join(' &middot; ')+'</span>':'<span class="spec-empty">&mdash;</span>';}
+  if(key==='impedance_ohms')return p.impedance_ohms?'<span class="spec-val">'+esc(p.impedance_ohms)+' \u03A9</span>':'<span class="spec-empty">&mdash;</span>';
+  if(key==='sensitivity_db')return p.sensitivity_db?'<span class="spec-val">'+esc(p.sensitivity_db)+' dB</span>':'<span class="spec-empty">&mdash;</span>';
+  return esc(p[key]??'');
+}
 
-function buildColMenu(){
-  const wrap=document.getElementById("colboxes"); wrap.innerHTML="";
+function sortRows(rows){
+  return [...rows].sort((a,b)=>{
+    let av=a[sortKey]??'',bv=b[sortKey]??'';
+    if(sortKey==='_brand'){av=a._brand??'';bv=b._brand??'';}
+    const an=parseFloat(av),bn=parseFloat(bv);
+    const cmp=!isNaN(an)&&!isNaN(bn)?an-bn:String(av).localeCompare(String(bv));
+    return sortDir==='ascending'?cmp:-cmp;
+  });
+}
+
+let resizing=null;
+function render(){
+  const q=document.getElementById('q').value.toLowerCase();
+  let rows=all.filter(p=>p._isNew||(!(q)||(p._brand+' '+p.model_name+' '+p.full_name+' '+(p.notes||'')).toLowerCase().includes(q)));
+  rows=sortRows(rows);
+  document.getElementById('sub').textContent=all.filter(p=>!p._isNew).length+' headphones \u00b7 '+rows.filter(p=>!p._isNew).length+' shown \u00b7 click a row to edit';
+  if(!rows.length){document.getElementById('tablewrap').innerHTML='<div class="empty">No matches.</div>';renderSuggestions();return;}
+  const tw=visTotalW();
+  let html='<table style="min-width:'+tw+'px"><thead><tr>';
   COLS.forEach(c=>{
-    const lab=document.createElement("label");
-    lab.innerHTML=`<input type="checkbox" ${colVis[c.key]?"checked":""}> ${esc(c.label)}`;
-    wrap.appendChild(lab);
-    lab.querySelector("input").addEventListener("change",e=>{ colVis[c.key]=e.target.checked; saveColVis(); render(); });
+    const sa=sortKey===c.key?' aria-sort="'+sortDir+'"':' aria-sort="none"';
+    html+='<th style="width:'+colW[c.key]+'px" data-key="'+c.key+'"'+sa+'><span>'+esc(c.label)+'</span><span class="resizer" data-key="'+c.key+'" tabindex="-1"></span></th>';
   });
-}
-function wireColMenu(){
-  const t=document.getElementById("coltoggle"), m=document.getElementById("colmenu");
-  t.addEventListener("click",e=>{ e.stopPropagation(); m.classList.toggle("open"); });
-  document.addEventListener("click",e=>{ if(!m.contains(e.target)&&e.target!==t) m.classList.remove("open"); });
-}
+  html+='<th style="width:'+CARET_W+'px" class="caretcol"><span class="vh">Edit</span></th></tr></thead><tbody>';
+  rows.forEach((p,i)=>{
+    const z=i%2?' zebra':'';
+    const pid=p.product_id;
+    const isExp=expandedId===pid;
+    html+='<tr class="datarow'+z+(isExp?' expanded':'')+'" data-id="'+esc(pid)+'">';
+    COLS.forEach(c=>{html+='<td>'+cellVal(p,c.key)+'</td>';});
+    html+='<td class="caretcol"><button class="expandbtn" aria-label="Edit '+esc(p.model_name||'new')+'"><span class="caret">&#x203A;</span></button></td></tr>';
+    html+='<tr class="editrow'+z+'"'+(isExp?'':' hidden')+' data-pid="'+esc(pid)+'"><td colspan="'+(COLS.length+1)+'"><div class="editwrap" id="ew_'+esc(pid)+'"></div></td></tr>';
+  });
+  html+='</tbody></table>';
+  document.getElementById('tablewrap').innerHTML=html;
 
-function esc(s){ return (s||"").toString().replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
-function toast(msg){ const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"),2300); }
+  // Wire sort
+  document.querySelectorAll('thead th[data-key]').forEach(th=>{
+    th.setAttribute('tabindex','0');
+    const doSort=()=>{const k=th.getAttribute('data-key');if(sortKey===k)sortDir=sortDir==='ascending'?'descending':'ascending';else{sortKey=k;sortDir='ascending';}render();};
+    th.addEventListener('click',e=>{if(e.target.closest('.resizer'))return;doSort();});
+    th.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();doSort();}});
+  });
 
-async function load() {
-  try {
-    const [pRes, mRes, sRes] = await Promise.all([
-      fetch("/api/admin/products"),
-      fetch("/api/admin/products?manufacturers=1"),
-      fetch("/api/admin/suggestions")
-    ]);
+  // Wire row expand
+  document.querySelectorAll('tr.datarow').forEach(tr=>{
+    const pid=tr.getAttribute('data-id');
+    const handler=e=>{if(e.target.closest('button')||e.target.tagName==='A')return;toggleEdit(pid);};
+    tr.addEventListener('click',handler);
+    const btn=tr.querySelector('.expandbtn');
+    if(btn)btn.addEventListener('click',e=>{e.stopPropagation();toggleEdit(pid);});
+  });
 
-    // Parse each response individually so we can pinpoint which one failed
-    let pData, mData, sData;
-    try { pData = await pRes.json(); } catch(e) { throw new Error(`/api/admin/products returned non-JSON (status ${pRes.status}). If you see a login page, your Access session may have expired — refresh and log in again.`); }
-    try { mData = await mRes.json(); } catch(e) { throw new Error(`/api/admin/products?manufacturers=1 returned non-JSON (status ${mRes.status}).`); }
-    try { sData = await sRes.json(); } catch(e) { throw new Error(`/api/admin/suggestions returned non-JSON (status ${sRes.status}).`); }
+  // Wire resize
+  resizing=null;
+  document.querySelectorAll('.resizer').forEach(rz=>{
+    rz.addEventListener('mousedown',e=>{e.preventDefault();resizing={key:rz.getAttribute('data-key'),startX:e.clientX,startW:colW[rz.getAttribute('data-key')]};});
+  });
 
-    if (!pData.ok) throw new Error(`Products API error: ${pData.error || "(no message)"}`);
-
-    all = pData.products;
-    mfrs = (mData.ok && mData.manufacturers) ? mData.manufacturers : [];
-    suggs = (sData.ok && sData.suggestions) ? sData.suggestions.filter(s=>s.status==="pending") : [];
-    document.getElementById("f_manufacturer_id").innerHTML =
-      mfrs.map(m=>`<option value="${m.manufacturer_id}">${esc(m.name)}</option>`).join("");
-    render();
-  } catch(e) {
-    document.getElementById("tablewrap").innerHTML = `<div class="empty"><strong>Load failed:</strong> ${esc(e.message || String(e))}</div>`;
-    document.getElementById("sub").textContent = "";
+  // Populate expanded row if any
+  if(expandedId!==null){
+    const p=all.find(x=>x.product_id===expandedId);
+    const ew=document.getElementById('ew_'+expandedId);
+    if(p&&ew&&!ew.innerHTML)populateEditWrap(ew,p);
   }
-}
-
-function renderSuggestions() {
-  const wrap = document.getElementById("suggwrap");
-  if (!suggs.length) { wrap.innerHTML = ""; return; }
-  wrap.innerHTML = `<div class="sugg-head">${suggs.length} pending suggestion${suggs.length===1?"":"s"}</div>` +
-    suggs.map(s => {
-      const specs = [];
-      if (s.driver_size_mm) specs.push(`Driver ${esc(s.driver_size_mm)} mm`);
-      if (s.impedance_ohms) specs.push(`Impedance ${esc(s.impedance_ohms)} \u03A9`);
-      if (s.sensitivity_db) specs.push(`Sensitivity ${esc(s.sensitivity_db)} dB`);
-      if (s.connector) specs.push(`Connector ${esc(s.connector)}`);
-      if (s.detachable) specs.push(`Detachable ${esc(s.detachable)}`);
-      if (s.weight_g) specs.push(`Weight ${esc(s.weight_g)} g`);
-      const date = (s.created_at || "").slice(0,10) || "unknown date";
-      return `<div class="sugg-card">
-        <div class="sugg-date">Submitted<br><strong>${esc(date)}</strong></div>
-        <div class="sugg-body">
-          <div class="sugg-hp">${esc(s.headphone)}</div>
-          <div class="sugg-specs">${specs.length ? specs.join(" \u00b7 ") : "<span class='muted'>no specs given \u2014 see notes</span>"}</div>
-          ${s.notes ? `<div class="sugg-note">${esc(s.notes)}</div>` : ""}
-          ${s.source ? `<div class="sugg-src"><a href="${esc(s.source)}" target="_blank" rel="noopener">source &#8599;</a>${s.submitter?` \u00b7 by ${esc(s.submitter)}`:""}</div>` : ""}
-        </div>
-        <div class="sugg-actions">
-          <button class="sugg-good" data-sid="${esc(s.id)}">&#10003; Accept</button>
-          <button class="sugg-bad" data-sid="${esc(s.id)}">&#10007; Reject</button>
-        </div>
-      </div>`;
-    }).join("");
-
-  wrap.querySelectorAll(".sugg-good").forEach(b => b.addEventListener("click", () => applySuggestion(b.getAttribute("data-sid"))));
-  wrap.querySelectorAll(".sugg-bad").forEach(b => b.addEventListener("click", () => rejectSuggestion(b.getAttribute("data-sid"))));
-}
-
-function cell(p, key) {
-  if (key === "notes") return esc(p.notes);
-  if (key === "driver_size_mm") return p.driver_size_mm ? esc(p.driver_size_mm)+" mm" : '<span class="muted">\u2014</span>';
-  if (key === "impedance_ohms") return p.impedance_ohms ? esc(p.impedance_ohms)+" \u03A9" : '<span class="muted">\u2014</span>';
-  if (key === "sensitivity_db") return p.sensitivity_db ? esc(p.sensitivity_db)+" dB" : '<span class="muted">\u2014</span>';
-  return esc(p[key]) || '<span class="muted">\u2014</span>';
-}
-
-function render() {
   renderSuggestions();
-  const card = document.getElementById("catalogcard");
-  if (onlySuggestions) {
-    card.style.display = "none";
-    document.getElementById("sub").textContent =
-      `${suggs.length} pending suggestion${suggs.length===1?"":"s"} \u00b7 catalog hidden`;
-    return;
-  }
-  card.style.display = "";
-
-  const q = document.getElementById("q").value.toLowerCase();
-  let rows = all.filter(p => !q || (`${p._brand} ${p.model_name} ${p.full_name} ${p.notes}`||"").toLowerCase().includes(q));
-  rows = sortRows(rows);
-  const sCount = suggs.length;
-  document.getElementById("sub").textContent =
-    `${all.length} headphones${sCount?` \u00b7 ${sCount} pending suggestion${sCount===1?"":"s"} above`:""}${q?` \u00b7 ${rows.length} shown`:""} \u00b7 click a header to sort, a row to edit`;
-
-  const cols = visibleCols();
-  const total = cols.reduce((s,c)=>s+colW[c.key],0);
-
-  if (!rows.length) { document.getElementById("tablewrap").innerHTML='<div class="empty">No matches.</div>'; return; }
-
-  let html = `<table style="min-width:${total}px"><thead><tr>`;
-  cols.forEach(c => {
-    const sa = sortKey === c.key ? ` aria-sort="${sortDir}"` : ' aria-sort="none"';
-    html += `<th data-key="${c.key}" style="width:${colW[c.key]}px"${sa}><span>${esc(c.label)}</span><span class="resizer" data-key="${c.key}"></span></th>`;
-  });
-  html += `</tr></thead><tbody>`;
-  rows.forEach(p => {
-    html += `<tr data-id="${esc(p.product_id)}">` +
-      cols.map(c => `<td class="${c.cls||""}">${cell(p,c.key)}</td>`).join("") +
-      `</tr>`;
-  });
-  html += `</tbody></table>`;
-  document.getElementById("tablewrap").innerHTML = html;
-
-  document.querySelectorAll("tbody tr[data-id]").forEach(tr => {
-    tr.addEventListener("click", () => openEdit(tr.getAttribute("data-id")));
-  });
-  document.querySelectorAll("th[data-key]").forEach(th => {
-    const key = th.getAttribute("data-key");
-    th.setAttribute("tabindex", "0");
-    const doSort = () => {
-      if (sortKey === key) sortDir = sortDir === "ascending" ? "descending" : "ascending";
-      else { sortKey = key; sortDir = "ascending"; }
-      render();
-    };
-    th.addEventListener("click", (e) => { if (e.target.closest(".resizer")) return; doSort(); });
-    th.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); doSort(); } });
-  });
-  document.querySelectorAll(".resizer").forEach(rz => {
-    rz.addEventListener("mousedown", startResize);
-    rz.addEventListener("click", e => e.stopPropagation());
-  });
 }
 
-function applySuggestion(sid) {
-  const s = suggs.find(x => String(x.id) === String(sid)); if (!s) return;
-  pendingSuggId = sid;
-  const match = all.find(p => `${p._brand} ${p.model_name}`.toLowerCase().trim() === (s.headphone||"").toLowerCase().trim());
-  if (match) openEdit(match.product_id);
-  else { openAdd(); document.getElementById("f_model_name").value = s.headphone || ""; }
-  if (s.driver_size_mm) document.getElementById("f_driver_size_mm").value = s.driver_size_mm;
-  if (s.impedance_ohms) document.getElementById("f_impedance_ohms").value = s.impedance_ohms;
-  if (s.sensitivity_db) document.getElementById("f_sensitivity_db").value = s.sensitivity_db;
-  const extra = [];
-  if (s.connector) extra.push(`Connector: ${s.connector}`);
-  if (s.detachable) extra.push(`Detachable: ${s.detachable}`);
-  if (s.weight_g) extra.push(`Weight: ${s.weight_g}g`);
-  if (extra.length) {
-    const nf = document.getElementById("f_notes");
-    nf.value = (nf.value ? nf.value + " \u2014 " : "") + extra.join("; ") + ` (from suggestion #${s.id})`;
-  }
-  toast("Review the pre-filled values, then Save to apply.");
-}
-
-function rejectSuggestion(sid) {
-  showConfirm("Reject suggestion", "Mark this suggestion as rejected? It stays in the Suggestion Log but leaves this queue.", async () => {
-    try {
-      const res = await fetch("/api/admin/suggestions", { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({id:Number(sid), action:"reject"}) });
-      const d = await res.json(); if (!d.ok) throw new Error(d.error||"");
-      suggs = suggs.filter(x => String(x.id) !== String(sid));
-      render(); toast("Rejected (kept in the log).");
-    } catch(e){ toast("Failed to reject."); }
-  });
-}
-
-// ---- column resizing ----
-let resizing = null;
-function startResize(e) {
-  const key = e.target.getAttribute("data-key");
-  resizing = { key, startX: e.clientX, startW: colW[key] };
-  document.body.style.userSelect = "none";
-  e.preventDefault(); e.stopPropagation();
-}
-document.addEventListener("mousemove", e => {
-  if (!resizing) return;
-  colW[resizing.key] = Math.max(45, resizing.startW + (e.clientX - resizing.startX));
-  const th = document.querySelector(`th[data-key="${resizing.key}"]`);
-  if (th) th.style.width = colW[resizing.key] + "px";
-  const tbl = document.querySelector("table");
-  if (tbl) tbl.style.minWidth = visibleCols().reduce((s,c)=>s+colW[c.key],0) + "px";
+// Global resize handlers
+document.addEventListener('mousemove',e=>{
+  if(!resizing)return;
+  const th=document.querySelector('th[data-key="'+resizing.key+'"]');
+  colW[resizing.key]=Math.max(45,resizing.startW+(e.clientX-resizing.startX));
+  if(th)th.style.width=colW[resizing.key]+'px';
+  const tbl=document.querySelector('table');
+  if(tbl)tbl.style.minWidth=visTotalW()+'px';
 });
-document.addEventListener("mouseup", () => { if(resizing){ resizing=null; document.body.style.userSelect=""; saveColW(); } });
+document.addEventListener('mouseup',()=>{if(resizing){saveColW();resizing=null;}});
 
-function setForm(p) {
-  FIELDS.forEach(f => { const el=document.getElementById("f_"+f); if(!el) return;
-    el.value = (p[f]!==undefined && p[f]!==null) ? p[f] : (f==="wireless"||f==="anc"?"No":""); });
-  document.getElementById("meta_date_added").textContent   = p.date_added   || "\u2014";
-  document.getElementById("meta_date_updated").textContent = p.date_updated || "\u2014";
-  const conf = p.spec_confidence || "Estimated";
-  const badge = document.getElementById("meta_spec_confidence");
-  badge.innerHTML = `<span class="conf-badge ${conf==="Verified"?"conf-verified":"conf-est"}">${conf}</span>`;
-  badge._conf = conf;
-  // Reset mini-history
-  document.getElementById("miniHistWrap").hidden = true;
-  document.getElementById("miniHistList").innerHTML = "";
+function toggleEdit(pid){
+  if(expandedId===pid){expandedId=null;render();return;}
+  expandedId=pid;openHistIdx={};render();
+  requestAnimationFrame(()=>{const ew=document.getElementById('ew_'+pid);if(ew)ew.closest('tr').scrollIntoView({behavior:'smooth',block:'nearest'});});
 }
 
-async function loadMiniHistory(pid) {
-  const wrap = document.getElementById("miniHistWrap");
-  const list = document.getElementById("miniHistList");
-  try {
-    const res = await fetch(`/api/admin/history?product_id=${encodeURIComponent(pid)}`);
-    const d = await res.json();
-    if (!d.ok || !d.history.length) return;
-    const hist = d.history;
-    document.getElementById("miniHistTitle").textContent = `Change history \u00b7 ${hist.length} edit${hist.length===1?"":"s"}`;
-    wrap.hidden = false;
+function populateEditWrap(wrap,p){
+  const isNew=!!p._isNew;
+  const pid=p.product_id;
+  let html='<h3>'+(isNew?'New headphone':'Editing: '+esc((p._brand||'')+' '+(p.model_name||'')))+'</h3>';
+  html+='<div class="edit-grid">';
+  FIELDS.forEach(f=>{
+    const spanCls=f.span>1?' span'+f.span:'';
+    const val=p[f.key]??'';
+    const dis=(f.disabled&&!isNew)?' disabled':'';
+    let ctrl='';
+    if(f.type==='textarea'){ctrl='<textarea id="ef_'+f.key+'"'+dis+'>'+esc(val)+'</textarea>';}
+    else if(f.type==='mfr'){
+      const opts=mfrs.map(m=>'<option value="'+m.manufacturer_id+'"'+(String(m.manufacturer_id)===String(p.manufacturer_id)?' selected':'')+'>'+esc(m.name)+'</option>').join('');
+      ctrl='<select id="ef_'+f.key+'">'+opts+'</select>';
+    }else if(f.type==='select'){
+      const opts=(f.opts||[]).map(o=>'<option'+(o===val?' selected':'')+'>'+esc(o)+'</option>').join('');
+      ctrl='<select id="ef_'+f.key+'">'+opts+'</select>';
+    }else{ctrl='<input id="ef_'+f.key+'" value="'+esc(val)+'"'+dis+'>';}
+    html+='<div class="'+spanCls+'"><label for="ef_'+f.key+'">'+esc(f.label)+'</label>'+ctrl+'</div>';
+  });
+  html+='</div>';
+  const conf=p.spec_confidence||'Estimated';
+  html+='<div class="edit-meta"><span>Added: <strong>'+esc(p.date_added||'\u2014')+'</strong></span><span>Updated: <strong>'+esc(p.date_updated||'\u2014')+'</strong></span><span>Specs: <span class="conf-badge '+(conf==='Verified'?'conf-verified':'conf-est')+'" id="confBadge_'+esc(pid)+'">'+esc(conf)+'</span> <button style="background:none;border:none;cursor:pointer;font-size:.65rem;text-decoration:underline;color:var(--muted)" onclick="toggleConf('+JSON.stringify(pid)+')">toggle</button></span></div>';
+  html+='<div class="edit-actions">'+(!isNew?'<button class="btn btn-danger" onclick="confirmDelete('+JSON.stringify(pid)+')">Delete</button>':'<span></span>')+'<div class="edit-actions-right"><button class="btn btn-ghost" onclick="cancelEdit()">Cancel</button><button class="btn btn-primary" onclick="saveEdit('+JSON.stringify(pid)+')">Save changes</button></div></div>';
+  if(!isNew){html+='<div class="edit-hist"><div class="edit-hist-head">Change history</div><ul class="hist-list" id="hl_'+esc(pid)+'"><li class="hist-none">Loading\u2026</li></ul></div>';}
+  wrap.innerHTML=html;
+  if(!isNew)loadInlineHistory(pid);
+}
 
-    let openIdx = -1;  // which entry is currently expanded
-    function buildItems() {
-      list.innerHTML = hist.map((entry, i) => {
-        const prev = i + 1 < hist.length ? hist[i+1].snapshot : null;
-        const when = (entry.edited_at||"").slice(0,16).replace("T"," ");
-        const changedCount = prev
-          ? Object.keys(HIST_LABELS).filter(k => String(prev[k]??"") !== String(entry.snapshot[k]??"")).length
-          : 0;
-        const badge = prev ? `${changedCount} field${changedCount===1?"":"s"} changed` : "initial state";
-        const isOpen = openIdx === i;
-        const detailHtml = isOpen ? buildDetail(entry, prev) : "";
-        return `<li class="mini-hist-item" data-idx="${i}" aria-expanded="${isOpen}">
-          <span class="mh-when">${esc(when)}</span>
-          <span class="mh-badge">${badge}</span>
-          <span class="mh-arrow">${isOpen ? "\u25be" : "\u25b8"}</span>
-          ${detailHtml ? `<div class="mini-hist-detail open" style="grid-column:1/-1">${detailHtml}</div>` : ""}
-        </li>`;
-      }).join("");
+async function loadInlineHistory(pid){
+  const list=document.getElementById('hl_'+pid);if(!list)return;
+  try{
+    const res=await fetch('/api/admin/history?product_id='+encodeURIComponent(pid));
+    const d=await res.json();if(!d.ok)throw new Error();
+    const hist=d.history;
+    if(!hist.length){list.innerHTML='<li class="hist-none">No history yet \u2014 changes appear here after the first save.</li>';return;}
+    buildHistList(list,hist,pid);
+  }catch(e){list.innerHTML='<li class="hist-none">Could not load history.</li>';}
+}
 
-      list.querySelectorAll(".mini-hist-item").forEach(li => {
-        li.addEventListener("click", () => {
-          const idx = parseInt(li.getAttribute("data-idx"), 10);
-          openIdx = openIdx === idx ? -1 : idx;
-          buildItems();
-        });
-      });
+function buildHistList(list,hist,pid){
+  if(openHistIdx[pid]===undefined)openHistIdx[pid]=-1;
+  list.innerHTML=hist.map((entry,i)=>{
+    const prev=i+1<hist.length?hist[i+1].snapshot:null;
+    const when=(entry.edited_at||'').slice(0,16).replace('T',' ');
+    const changed=prev?Object.keys(HIST_LABELS).filter(k=>String(prev[k]??'')!==String(entry.snapshot[k]??'')).length:0;
+    const badge=prev?changed+' field'+(changed===1?'':'s')+' changed':'initial state';
+    const isOpen=openHistIdx[pid]===i;
+    let detHtml='';
+    if(isOpen){
+      const fields=Object.keys(HIST_LABELS).map(k=>{const val=entry.snapshot[k]??'';const ch=prev&&String(prev[k]??'')!==String(val);return'<div class="hf'+(ch?' changed':'')+'"><dt>'+HIST_LABELS[k]+'</dt><dd>'+esc(val||'\u2014')+'</dd></div>';}).join('');
+      detHtml='<div class="hist-detail open"><div class="hist-detail-when">State before edit on '+esc(when)+'</div><div class="hist-fields">'+fields+'</div></div>';
     }
-
-    function buildDetail(entry, prev) {
-      const when = (entry.edited_at||"").slice(0,16).replace("T"," ");
-      const fields = Object.keys(HIST_LABELS).map(k => {
-        const val = entry.snapshot[k] ?? "";
-        const changed = prev && String(prev[k]??"") !== String(val);
-        return `<div class="mhf${changed?" changed":""}"><dt>${HIST_LABELS[k]}</dt><dd>${esc(val||"\u2014")}</dd></div>`;
-      }).join("");
-      return `<div class="mhd-when">State before edit on ${esc(when)}</div><div class="mini-hist-fields">${fields}</div>`;
-    }
-
-    buildItems();
-  } catch(e) { /* silently skip — history is non-critical */ }
+    return'<li class="hist-item" onclick="toggleHistEntry('+JSON.stringify(pid)+','+i+','+JSON.stringify(hist)+')"><span class="hist-when">'+esc(when)+'</span><span class="hist-badge">'+badge+'</span><span class="arrow">'+(isOpen?'\u25be':'\u25b8')+'</span>'+detHtml+'</li>';
+  }).join('');
 }
 
-document.getElementById("miniHistExpandBtn").addEventListener("click", () => {
-  if (editingId) { showTab("history"); loadHistory(editingId); }
-});
-// Toggle spec_confidence via the admin API
-document.getElementById("confToggleBtn").addEventListener("click", async () => {
-  if (!editingId) return;
-  const p = all.find(x => x.product_id === editingId); if (!p) return;
-  const next = (p.spec_confidence || "Estimated") === "Verified" ? "Estimated" : "Verified";
-  try {
-    const updated = { ...p, spec_confidence: next };
-    const res = await fetch("/api/admin/products", {
-      method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updated)
-    });
-    const d = await res.json();
-    if (!d.ok) throw new Error(d.error || "");
-    p.spec_confidence = next;
-    const badge = document.getElementById("meta_spec_confidence");
-    badge.innerHTML = `<span class="conf-badge ${next==="Verified"?"conf-verified":"conf-est"}">${next}</span>`;
-    toast(`Marked as ${next}`);
-  } catch(e) { toast("Failed: " + e.message); }
-});
-function openEdit(id) {
-  const p = all.find(x => x.product_id === id); if (!p) return;
-  editingId = id;
-  document.getElementById("modalTitle").textContent = "Edit headphone";
-  document.getElementById("f_product_id").disabled = true;
-  document.getElementById("deleteBtn").style.display = "";
-  setForm(p);
-  showTab("edit");
-  document.getElementById("overlay").classList.add("open");
-  loadMiniHistory(id);  // load history into the edit tab's bottom section
-}
-function openAdd() {
-  editingId = null;
-  document.getElementById("modalTitle").textContent = "Add headphone";
-  document.getElementById("f_product_id").disabled = false;
-  document.getElementById("deleteBtn").style.display = "none";
-  setForm({});
-  showTab("edit");
-  document.getElementById("overlay").classList.add("open");
-}
-function closeModal(){ document.getElementById("overlay").classList.remove("open"); pendingSuggId = null; }
+function toggleHistEntry(pid,idx,hist){openHistIdx[pid]=openHistIdx[pid]===idx?-1:idx;const list=document.getElementById('hl_'+pid);if(list)buildHistList(list,hist,pid);}
 
-function showTab(which) {
-  const isEdit = which === "edit";
-  document.getElementById("panelEdit").hidden = !isEdit;
-  document.getElementById("panelHistory").hidden = isEdit;
-  document.getElementById("tabEdit").classList.toggle("active", isEdit);
-  document.getElementById("tabHistory").classList.toggle("active", !isEdit);
-  if (!isEdit && editingId) loadHistory(editingId);
+async function saveEdit(pid){
+  const p={};
+  FIELDS.forEach(f=>{const el=document.getElementById('ef_'+f.key);if(el)p[f.key]=el.value.trim();});
+  if(!p.product_id||!p.model_name){toast('Product ID and Model name required');return;}
+  try{
+    const res=await fetch('/api/admin/products',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)});
+    const d=await res.json();if(!d.ok)throw new Error(d.error||'');
+    p._brand=(mfrs.find(m=>String(m.manufacturer_id)===String(p.manufacturer_id))||{}).name||'';
+    const idx=all.findIndex(x=>x.product_id===p.product_id);
+    if(idx>=0)all[idx]={...all[idx],...p};else all=all.filter(x=>!x._isNew).concat([p]);
+    expandedId=p.product_id;toast('Saved');render();
+  }catch(e){toast('Error: '+e.message);}
 }
 
-const HIST_LABELS = {
-  model_name:"Model", full_name:"Full name", release_year:"Year",
-  discontinued_year:"Disc. year", status:"Status", category:"Category",
-  design:"Design", driver_type:"Driver", driver_size_mm:"Driver size",
-  impedance_ohms:"Impedance", sensitivity_db:"Sensitivity",
-  wireless:"Wireless", anc:"ANC", predecessor:"Predecessor",
-  successor:"Successor", notes:"Notes", date_added:"Date added"
-};
-
-async function loadHistory(pid) {
-  const listEl = document.getElementById("histList");
-  const subEl = document.getElementById("histSub");
-  listEl.innerHTML = '<div class="loading">Loading\u2026</div>';
-  subEl.textContent = "";
-  try {
-    const res = await fetch(`/api/admin/history?product_id=${encodeURIComponent(pid)}`);
-    const d = await res.json();
-    if (!d.ok) throw new Error(d.error||"");
-    const hist = d.history;
-    if (!hist.length) {
-      listEl.innerHTML = '<div class="hist-none">No edit history yet — changes will appear here after the first save.</div>';
-      subEl.textContent = "";
-      return;
-    }
-    subEl.textContent = `${hist.length} edit${hist.length===1?"":"s"} recorded \u00b7 each entry shows the state before that edit`;
-    // Build diff: compare each snapshot to the one before it (i.e. the next entry, which is older)
-    listEl.innerHTML = hist.map((entry, i) => {
-      const snap = entry.snapshot;
-      const prev = i + 1 < hist.length ? hist[i + 1].snapshot : null;
-      const when = (entry.edited_at||"").slice(0,16).replace("T"," ");
-      const fields = Object.keys(HIST_LABELS).filter(k => snap[k] !== undefined || (prev && prev[k] !== undefined));
-      const rows = fields.map(k => {
-        const val = snap[k] ?? "";
-        const changed = prev && String(prev[k]??"") !== String(val);
-        return `<div class="hist-field${changed?" changed":""}"><dt>${HIST_LABELS[k]}</dt><dd>${esc(val||"\u2014")}</dd></div>`;
-      }).join("");
-      const changedCount = prev ? fields.filter(k => String(prev[k]??"") !== String(snap[k]??"")).length : 0;
-      const badge = prev ? `${changedCount} field${changedCount===1?"":"s"} changed` : "initial state";
-      return `<div class="hist-entry">
-        <div class="hist-header"><strong>${esc(when)}</strong><span>${badge}</span></div>
-        <div class="hist-fields">${rows}</div>
-      </div>`;
-    }).join("");
-  } catch(e) {
-    listEl.innerHTML = '<div class="hist-none">Could not load history.</div>';
-  }
+function cancelEdit(){
+  all=all.filter(p=>!p._isNew);
+  expandedId=null;openHistIdx={};render();
 }
 
-document.getElementById("tabEdit").addEventListener("click", () => showTab("edit"));
-document.getElementById("tabHistory").addEventListener("click", () => showTab("history"));
-document.getElementById("histCancelBtn").addEventListener("click", closeModal);
-
-async function save() {
-  const p = {};
-  FIELDS.forEach(f => { const el=document.getElementById("f_"+f); if(el) p[f]=el.value.trim(); });
-  if (!p.product_id || !p.model_name) { toast("Product ID and Model name are required."); return; }
-  try {
-    const res = await fetch("/api/admin/products", { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(p) });
-    const d = await res.json(); if (!d.ok) throw new Error(d.error||"");
-    p._brand = (mfrs.find(m=>String(m.manufacturer_id)===String(p.manufacturer_id))||{}).name || "Unknown";
-    const i = all.findIndex(x=>x.product_id===p.product_id);
-    if (i>=0) all[i] = {...all[i], ...p}; else all.unshift(p);
-    const wasSugg = !!pendingSuggId;
-    if (pendingSuggId) {
-      const sid = pendingSuggId;
-      fetch("/api/admin/suggestions", { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({id:Number(sid), action:"accept"}) }).catch(()=>{});
-      suggs = suggs.filter(x => String(x.id) !== String(sid));
-    }
-    closeModal(); render(); toast(wasSugg ? "Saved & suggestion accepted." : "Saved.");
-  } catch(e){ toast("Save failed: " + (e.message||"error")); }
-}
-async function del() {
-  if (!editingId) return;
-  showConfirm("Delete headphone", "Delete this headphone from the database permanently?", async () => {
-    try {
-      const res = await fetch("/api/admin/products", { method:"DELETE", headers:{"Content-Type":"application/json"}, body:JSON.stringify({product_id:editingId}) });
-      const d = await res.json(); if (!d.ok) throw new Error(d.error||"");
-      all = all.filter(x=>x.product_id!==editingId);
-      closeModal(); render(); toast("Deleted.");
-    } catch(e){ toast("Delete failed."); }
+function confirmDelete(pid){
+  confirm2('Delete '+pid+'? This cannot be undone.',async()=>{
+    try{
+      const res=await fetch('/api/admin/products',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({_delete:true,product_id:pid})});
+      const d=await res.json();if(!d.ok)throw new Error(d.error||'');
+      all=all.filter(x=>x.product_id!==pid);expandedId=null;toast('Deleted');render();
+    }catch(e){toast('Error: '+e.message);}
   });
 }
 
-// ---- confirm modal ----
-let confirmAction = null;
-function showConfirm(title, msg, onOk) {
-  document.getElementById("confirmTitle").textContent = title;
-  document.getElementById("confirmMsg").textContent = msg;
-  confirmAction = onOk;
-  document.getElementById("confirmOverlay").classList.add("open");
-}
-function hideConfirm(){ document.getElementById("confirmOverlay").classList.remove("open"); confirmAction=null; }
-
-function resetFromCSV() {
-  showConfirm("Reset from CSV",
-    "This WIPES the live database and reloads it from the GitHub CSVs. Any edits made here that aren't in the CSVs will be lost. Continue?",
-    async () => {
-      toast("Reimporting from CSV\u2026");
-      try {
-        const res = await fetch("/api/admin/import", { method:"POST" });
-        const d = await res.json(); if (!d.ok) throw new Error(d.error||"");
-        toast(`Reloaded ${d.products} headphones.`); load();
-      } catch(e){ toast("Import failed: " + (e.message||"error")); }
-    });
-}
-
-document.getElementById("q").addEventListener("input", render);
-document.getElementById("suggToggle").addEventListener("click", () => {
-  onlySuggestions = !onlySuggestions;
-  document.getElementById("suggToggle").classList.toggle("active", onlySuggestions);
-  render();
+document.getElementById('addBtn').addEventListener('click',()=>{
+  all=all.filter(p=>!p._isNew);
+  const blank={_isNew:true,product_id:'NEW_'+Date.now(),model_name:'',full_name:'',
+    manufacturer_id:mfrs[0]?.manufacturer_id||1,release_year:new Date().getFullYear(),
+    status:'Active',category:'Headphone',design:'Closed Back',fit:'Over-Ear',
+    driver_type:'Dynamic',wireless:'No',anc:'No',spec_confidence:'Estimated'};
+  all.unshift(blank);expandedId=blank.product_id;render();
 });
-document.getElementById("addBtn").addEventListener("click", openAdd);
-document.getElementById("importBtn").addEventListener("click", resetFromCSV);
-document.getElementById("saveBtn").addEventListener("click", save);
-document.getElementById("deleteBtn").addEventListener("click", del);
-document.getElementById("cancelBtn").addEventListener("click", closeModal);
-document.getElementById("overlay").addEventListener("click", e => { if (e.target.id==="overlay") closeModal(); });
-document.getElementById("confirmCancel").addEventListener("click", hideConfirm);
-document.getElementById("confirmOk").addEventListener("click", () => { const a=confirmAction; hideConfirm(); if(a) a(); });
-document.getElementById("confirmOverlay").addEventListener("click", e => { if (e.target.id==="confirmOverlay") hideConfirm(); });
-document.addEventListener("keydown", e => { if (e.key==="Escape"){ closeModal(); hideConfirm(); } });
 
-loadColW();
-loadColVis();
-buildColMenu();
-wireColMenu();
-load();
+async function toggleConf(pid){
+  const badge=document.getElementById('confBadge_'+pid);if(!badge)return;
+  const p=all.find(x=>x.product_id===pid);if(!p)return;
+  const next=(p.spec_confidence||'Estimated')==='Verified'?'Estimated':'Verified';
+  try{
+    const updated={...p,spec_confidence:next};
+    const res=await fetch('/api/admin/products',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(updated)});
+    const d=await res.json();if(!d.ok)throw new Error(d.error||'');
+    p.spec_confidence=next;badge.textContent=next;badge.className='conf-badge '+(next==='Verified'?'conf-verified':'conf-est');toast('Marked as '+next);
+  }catch(e){toast('Error: '+e.message);}
+}
+
+function renderSuggestions(){
+  const area=document.getElementById('suggArea');
+  const pending=suggs.filter(s=>s.status==='pending');
+  if(!pending.length){area.innerHTML='';return;}
+  area.innerHTML='<div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);padding:.75rem var(--pad) .25rem">'+pending.length+' pending suggestion'+(pending.length===1?'':'s')+'</div>'+
+    pending.map(s=>'<div class="sugg-card"><div class="sugg-info"><strong>'+esc(s.brand||'')+' '+esc(s.model_name||'')+'</strong><span class="sugg-meta">'+esc(s.notes||'')+' \u00b7 '+esc((s.submitted_at||'').slice(0,10))+'</span></div><div class="sugg-actions"><button class="btn btn-ghost" onclick="actSugg('+s.id+',\'reject\')">Reject</button><button class="btn btn-primary" onclick="actSugg('+s.id+',\'accept\')">Accept</button></div></div>').join('');
+}
+
+async function actSugg(id,action){
+  try{
+    const res=await fetch('/api/admin/suggestions',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id,action})});
+    const d=await res.json();if(!d.ok)throw new Error(d.error||'');
+    suggs=suggs.filter(s=>s.id!==id);toast(action==='accept'?'Accepted':'Rejected');renderSuggestions();
+  }catch(e){toast('Error: '+e.message);}
+}
+
+document.getElementById('importBtn').addEventListener('click',()=>{
+  confirm2('Reset D1 from the GitHub CSV? This overwrites all current data.',async()=>{
+    toast('Importing\u2026');
+    try{
+      const res=await fetch('/api/admin/import',{method:'POST'});
+      const d=await res.json();if(!d.ok)throw new Error(d.error||'');
+      toast('Import successful');await load();
+    }catch(e){toast('Import failed: '+e.message);}
+  });
+});
+
+let _toastTimer;
+function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(_toastTimer);_toastTimer=setTimeout(()=>el.classList.remove('show'),2800);}
+function confirm2(msg,onYes){
+  const ov=document.getElementById('confirmOverlay');
+  document.getElementById('confirmMsg').textContent=msg;ov.removeAttribute('hidden');
+  const yes=document.getElementById('confirmYes'),no=document.getElementById('confirmNo');
+  const cleanup=()=>{ov.setAttribute('hidden','');yes.onclick=null;no.onclick=null;};
+  yes.onclick=()=>{cleanup();onYes();};no.onclick=cleanup;
+}
+
+async function load(){
+  try{
+    const [pRes,mRes,sRes]=await Promise.all([fetch('/api/admin/products'),fetch('/api/admin/products?manufacturers=1'),fetch('/api/admin/suggestions')]);
+    let pData,mData,sData;
+    try{pData=await pRes.json();}catch(e){throw new Error('Products API non-JSON ('+pRes.status+'). Access session may have expired \u2014 refresh to log in.');}
+    try{mData=await mRes.json();}catch(e){throw new Error('Manufacturers API non-JSON');}
+    try{sData=await sRes.json();}catch(e){sData={ok:true,suggestions:[]};}
+    if(!pData.ok)throw new Error('Products API error: '+(pData.error||'no message'));
+    all=pData.products||[];mfrs=(mData.ok&&mData.manufacturers)?mData.manufacturers:[];suggs=(sData.ok&&sData.suggestions)?sData.suggestions:[];
+    document.getElementById('source').textContent=all.length+' headphones \u00b7 '+mfrs.length+' brands';
+    render();
+  }catch(e){document.getElementById('tablewrap').innerHTML='<div class="empty"><strong>Load failed:</strong> '+esc(e.message)+'</div>';}
+}
+
+loadColW();load();
+document.getElementById('q').addEventListener('input',render);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&expandedId!==null)cancelEdit();});
 </script>
 </body>
 </html>
