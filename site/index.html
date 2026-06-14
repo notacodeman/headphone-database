@@ -459,12 +459,6 @@
   tbody tr.datarow { background: var(--paper); cursor: pointer; }
   tbody tr.datarow.zebra { background: #ece4d4; }
   tbody tr.datarow:hover, tbody tr.datarow.zebra:hover { background: #d6cebc; }
-  /* When the data row is hovered, tint its attached detail drawer to match, so an expanded
-     darker (zebra) row highlights as one unit instead of the row lighting up while the
-     drawer stays its zebra colour. Covers both the row->drawer hover and the open state. */
-  tbody tr.datarow:hover + tr.detailrow > td,
-  tbody tr.datarow.zebra:hover + tr.detailrow > td { background: #d6cebc; }
-  tbody tr.datarow.expanded:hover { background: #d6cebc; }
 
   .resizer { position: absolute; top: 0; right: 0; width: 9px; height: 100%;
     cursor: col-resize; user-select: none; }

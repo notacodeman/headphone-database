@@ -102,6 +102,25 @@
       border-radius: 6px; padding: 0.7rem 0.8rem; cursor: default;
       transition: border-color 0.15s, transform 0.15s; position: relative; }
     .prod-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+    .prod-card { cursor: pointer; }
+    /* Expanded card: highlighted in accent orange to mark which card's detail is open below. */
+    .prod-card.expanded { border-color: var(--accent); border-left: 3px solid var(--accent);
+      background: #f3e2d6; box-shadow: 0 0 0 1px var(--accent) inset; }
+    /* The detail panel spans the full grid width so it drops onto its own row beneath the
+       clicked card, regardless of how many cards sit per row at the current viewport. */
+    .card-detail-row { grid-column: 1 / -1; }
+    .card-detail { background: var(--card); border: 1px solid var(--accent);
+      border-radius: 6px; padding: 1rem 1.25rem; margin: 0.1rem 0 0.3rem; }
+    .card-detail h3 { font-family: 'Fraunces', serif; font-size: 1.05rem; margin-bottom: 0.7rem; color: var(--ink); }
+    .cd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.5rem 1.2rem; }
+    .cd-field { display: flex; flex-direction: column; }
+    .cd-label { font-size: 0.56rem; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); }
+    .cd-val { font-size: 0.84rem; color: var(--ink); font-variant-numeric: tabular-nums; }
+    .cd-notes { margin-top: 0.8rem; font-size: 0.82rem; color: var(--ink);
+      background: var(--paper); border: 1px solid var(--line); padding: 0.5rem 0.7rem; border-radius: 4px; }
+    .cd-links { margin-top: 0.8rem; font-size: 0.78rem; }
+    .cd-links a { color: var(--accent); text-decoration: none; }
+    .cd-links a:hover { text-decoration: underline; }
     .prod-card.active-prod { border-left: 3px solid var(--accent-2); }
     .prod-card.discontinued-prod { opacity: 0.7; }
     .prod-year { font-size: 0.58rem; color: var(--muted); margin-bottom: 0.2rem;
@@ -210,7 +229,9 @@ async function load() {
 // ---- Page render ----
 // Builds the whole brand page: header, the DNA breakdown bars, a per-decade timeline, and
 // the product list. Computes all the aggregate stats from the product array passed in.
+let currentBrandName = '';
 function render(brand, products) {
+  currentBrandName = brand.name || '';
   document.title = `${brand.name} — The Headphone Archive`;
 
   // ---- DNA stats ----
@@ -279,7 +300,7 @@ function render(brand, products) {
         p.successor   ? `<a href="index.html" title="Succeeded by ${esc(nameOf(p.successor))}">↓ ${esc(nameOf(p.successor))}</a>` : '',
       ].filter(Boolean).join(' &middot; ');
       return `
-        <div class="prod-card ${isActive ? 'active-prod' : 'discontinued-prod'}">
+        <div class="prod-card ${isActive ? 'active-prod' : 'discontinued-prod'}" data-pid="${esc(p.product_id)}" tabindex="0" role="button" aria-expanded="false">
           <div class="prod-year">${p.release_year}${p.discontinued_year ? '–' + p.discontinued_year : isActive ? '–present' : ''}</div>
           <div class="prod-model">${esc(p.model_name)}</div>
           <div class="prod-tags">
@@ -347,6 +368,72 @@ function render(brand, products) {
         </div>
       </main>
     </div>`;
+
+  // ---- Card expand/collapse ----
+  // Clicking a product card highlights it and opens a full-width detail card directly below
+  // its row in the same grid. Clicking the same card again (or another) closes/moves the panel.
+  wireCards(byPid);
+}
+
+// Builds the full-width detail card shown when a product card is expanded. Lays out every
+// available spec as a labelled grid, echoing the archive's detail panel but in card form.
+function cardDetail(p) {
+  const row = (label, v, unit) => v ? `<div class="cd-field"><span class="cd-label">${esc(label)}</span><span class="cd-val">${esc(v)}${unit||''}</span></div>` : '';
+  const fields = [
+    row('Full name', p.full_name),
+    row('Released', p.release_year),
+    row('Discontinued', p.discontinued_year),
+    row('Status', p.status),
+    row('Category', p.category),
+    row('Design', p.design),
+    row('Fit', p.fit),
+    row('Driver type', p.driver_type),
+    row('Driver size', p.driver_size_mm, ' mm'),
+    row('Impedance', p.impedance_ohms, ' \u03A9'),
+    row('Sensitivity', p.sensitivity_db, ' dB'),
+    row('Wireless', p.wireless),
+    row('ANC', p.anc),
+  ].filter(Boolean).join('');
+  const q = encodeURIComponent(`${currentBrandName} ${p.model_name} headphone review measurements`);
+  const note = p.notes ? `<p class="cd-notes">${esc(p.notes)}</p>` : '';
+  return `<div class="card-detail">
+    <h3>${esc(p.model_name)}</h3>
+    <div class="cd-grid">${fields}</div>
+    ${note}
+    <p class="cd-links"><a href="https://duckduckgo.com/?q=${q}" target="_blank" rel="noopener">Find reviews &amp; measurements &rarr;</a></p>
+  </div>`;
+}
+
+// Attaches click/keyboard handlers to every card and manages the single open detail panel.
+function wireCards(byPid) {
+  let openPid = null;
+  function closeOpen() {
+    const ex = document.querySelector('.card-detail-row');
+    if (ex) ex.remove();
+    document.querySelectorAll('.prod-card.expanded').forEach(c => {
+      c.classList.remove('expanded'); c.setAttribute('aria-expanded','false');
+    });
+    openPid = null;
+  }
+  function toggle(card) {
+    const pid = card.getAttribute('data-pid');
+    if (openPid === pid) { closeOpen(); return; }
+    closeOpen();
+    const p = byPid[pid];
+    if (!p) return;
+    // Insert a full-width detail item right after the clicked card so it opens on the next row.
+    const detail = document.createElement('div');
+    detail.className = 'card-detail-row';
+    detail.innerHTML = cardDetail(p);
+    card.insertAdjacentElement('afterend', detail);
+    card.classList.add('expanded'); card.setAttribute('aria-expanded','true');
+    openPid = pid;
+    detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  document.querySelectorAll('.prod-card').forEach(card => {
+    card.addEventListener('click', e => { if (e.target.closest('a')) return; toggle(card); });
+    card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(card); } });
+  });
 }
 
 load();
