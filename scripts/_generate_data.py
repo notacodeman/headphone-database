@@ -17,114 +17,101 @@ OUT = Path("database")
 # Manufacturers
 # ---------------------------------------------------------------------------
 manufacturers = [
-    # id, name, country, website, status, founded_year
-    (1,  "Sony",             "Japan",       "https://www.sony.com",            "Active",       1946),
-    (2,  "Sennheiser",       "Germany",     "https://www.sennheiser.com",      "Active",       1945),
-    (3,  "Philips",          "Netherlands", "https://www.philips.com",         "Active",       1891),
-    (4,  "Audio-Technica",   "Japan",       "https://www.audio-technica.com",  "Active",       1962),
-    (5,  "AKG",              "Austria",     "https://www.akg.com",             "Active",       1947),
-    (6,  "Beyerdynamic",     "Germany",     "https://www.beyerdynamic.com",    "Active",       1924),
-    (7,  "Bose",             "USA",         "https://www.bose.com",            "Active",       1964),
-    (8,  "Audeze",           "USA",         "https://www.audeze.com",          "Active",       2008),
-    (9,  "HiFiMan",          "China",       "https://www.hifiman.com",         "Active",       2007),
-    (10, "Focal",            "France",      "https://www.focal.com",           "Active",       1979),
-    (11, "Bowers & Wilkins", "UK",          "https://www.bowerswilkins.com",   "Active",       1966),
-    (12, "Grado",            "USA",         "https://gradolabs.com",           "Active",       1953),
-    (13, "Meze Audio",       "Romania",     "https://mezeaudio.com",           "Active",       2011),
-    (14, "Dan Clark Audio",  "USA",         "https://danclarkaudio.com",       "Active",       2011),
-    (15, "Apple",            "USA",         "https://www.apple.com",           "Active",       1976),
-    (16, "Beats",            "USA",         "https://www.beatsbydre.com",      "Active",       2006),
-    (17, "Shure",            "USA",         "https://www.shure.com",           "Active",       1925),
-    # Gaming
-    (18, "SteelSeries",      "Denmark",     "https://steelseries.com",         "Active",       2001),
-    (19, "HyperX",           "USA",         "https://www.hyperx.com",          "Active",       2002),
-    (20, "Razer",            "USA",         "https://www.razer.com",           "Active",       2005),
-    (21, "Logitech G",       "Switzerland", "https://www.logitechg.com",       "Active",       1981),
-    (22, "Astro Gaming",     "USA",         "https://www.astro.com",           "Active",       2006),
-    (23, "Turtle Beach",     "USA",         "https://www.turtlebeach.com",     "Active",       1975),
-    (24, "Corsair",          "USA",         "https://www.corsair.com",         "Active",       1994),
-    (25, "ASUS ROG",         "Taiwan",      "https://rog.asus.com",            "Active",       2006),
-    # High-end / niche audiophile
-    (26, "Abyss",            "USA",         "https://abyss-headphones.com",    "Active",       2012),
-    (27, "ZMF Headphones",   "USA",         "https://www.zmfheadphones.com",   "Active",       2013),
-    (28, "Stax",             "Japan",       "https://stax.co.jp",              "Active",       1938),
-    (29, "Final Audio",      "Japan",       "https://final-inc.com",           "Active",       1974),
-    (30, "Fostex",           "Japan",       "https://www.fostex.jp",           "Active",       1973),
-    (31, "Denon",            "Japan",       "https://www.denon.com",           "Active",       1910),
-    (32, "Rosson Audio",     "USA",         "https://rossonaudiodesign.com",   "Active",       2017),
-    (33, "Kennerton",        "Russia",      "https://kennerton.com",           "Active",       2012),
-    (34, "Ultrasone",        "Germany",     "https://www.ultrasone.com",       "Active",       1986),
-    # Consumer / mainstream
-    (35, "Bang & Olufsen",   "Denmark",     "https://www.bang-olufsen.com",    "Active",       1925),
-    (36, "Sonos",            "USA",         "https://www.sonos.com",           "Active",       2002),
-    (37, "Marshall",         "UK",          "https://www.marshallheadphones.com","Active",     1962),
-    (38, "JBL",              "USA",         "https://www.jbl.com",             "Active",       1946),
-    (39, "Skullcandy",       "USA",         "https://www.skullcandy.com",      "Active",       2003),
-    (40, "Anker Soundcore",  "China",       "https://www.soundcore.com",       "Active",       2016),
-    (41, "Technics",         "Japan",       "https://www.technics.com",        "Active",       1965),
-    (42, "Nothing",          "UK",          "https://nothing.tech",            "Active",       2020),
-    # New brands — mainstream / popular
-    (43, "Koss",             "USA",         "https://www.koss.com",            "Active",       1953),
-    (44, "V-Moda",           "USA",         "https://www.v-moda.com",          "Active",       2004),
-    (45, "Yamaha",           "Japan",       "https://www.yamaha.com",          "Active",       1887),
-    (46, "Pioneer",          "Japan",       "https://www.pioneer-audiovisual.com","Active",    1938),
-    (47, "AIAIAI",           "Denmark",     "https://www.aiaiai.audio",        "Active",       2006),
-    (48, "1More",            "China",       "https://www.1more.com",           "Active",       2013),
-    (49, "Edifier",          "China",       "https://www.edifier.com",         "Active",       1996),
-    (50, "Cleer",            "USA",         "https://www.cleeraudio.com",      "Active",       2012),
-    # New brands — audiophile / boutique
-    (51, "Austrian Audio",   "Austria",     "https://austrian.audio",          "Active",       2017),
-    (52, "Neumann",          "Germany",     "https://www.neumann.com",         "Active",       1928),
-    (53, "Moondrop",         "China",       "https://moondroplab.com",         "Active",       2015),
-    (54, "Sivga",            "China",       "https://www.sivgaaudio.com",      "Active",       2016),
-    (55, "Sendy Audio",      "China",       "https://www.sendyaudio.com",      "Active",       2016),
-    (56, "FiiO",             "China",       "https://www.fiio.com",            "Active",       2007),
-    (57, "Spirit Torino",    "Italy",       "https://www.spirittorino.com",    "Active",       2014),
-    (58, "Warwick Acoustics","UK",          "https://warwickacoustics.com",    "Active",       2011),
-    (59, "Mark Levinson",    "USA",         "https://www.marklevinson.com",    "Active",       1972),
-    (60, "T+A",              "Germany",     "https://www.ta-hifi.com",         "Active",       1978),
-    (61, "HEDD Audio",       "Germany",     "https://hedd.audio",              "Active",       2015),
-    (62, "Grell Audio",      "Germany",     "https://grell-audio.com",         "Active",       2021),
-    (63, "Ollo Audio",       "Slovenia",    "https://www.olloaudio.com",       "Active",       2016),
-    # New brands — value / budget
-    (64, "Monoprice",       "USA",         "https://www.monoprice.com",       "Active",        2002),
-    (65, "Superlux",        "Taiwan",      "https://www.superlux.com",        "Active",        1990),
-    (66, "Samson",          "USA",         "https://samsontech.com",          "Active",        1980),
-    (67, "Status Audio",    "USA",         "https://status.co",               "Active",        2016),
-    # Office / professional
-    (68, "Jabra",           "Denmark",     "https://www.jabra.com",           "Active",        1993),
-    # Consumer premium
-    (69, "Harman Kardon",  "USA",         "https://www.harmankardon.com",    "Active",         1953),
-    # New brands from OPRA cross-reference
-    (70, "Oppo",           "USA",         "https://www.oppodigital.com",     "Discontinued",   2004),
-    (71, "Creative",       "Singapore",   "https://us.creative.com",         "Active",         1981),
-    (72, "Rode",           "Australia",   "https://rode.com",                "Active",         1967),
-    (73, "Klipsch",        "USA",         "https://www.klipsch.com",         "Active",         1946),
-    (74, "RAAL",           "USA",         "https://raalrequisite.com",       "Active",         2007),
-    # More from OPRA gap-fill
-    (75, "HarmonicDyne",   "China",       "https://harmonicdyne.com",        "Active",         2019),
-    (76, "PSB",            "Canada",      "https://www.psbspeakers.com",     "Active",         1972),
-    (77, "E-Mu",           "USA",         "https://us.creative.com",         "Discontinued",   1971),
-    # From spreadsheet verified additions
-    (78, "Audioquest",     "USA",         "https://www.audioquest.com",      "Active",         1980),
-    (79, "NAD",            "Canada",      "https://nadelectronics.com",      "Active",         1972),
-    (80, "Brainwavz",      "China",       "https://www.brainwavzaudio.com",  "Active",         2005),
-    # From OPRA gap-fill round 3
-    (81, "Modhouse Audio", "USA",         "https://modhouse.io",             "Active",         2015),
-    (82, "Kiwi Ears",      "China",       "https://www.kiwiears.com",        "Active",         2020),
-    (83, "Plantronics",    "USA",         "https://www.poly.com",            "Active",         1961),
-    (84, "Phiaton",        "South Korea", "https://www.phiaton.com",         "Active",         2009),
-    (85, "Teufel",         "Germany",     "https://www.teufel.de",           "Active",         1979),
-    (86, "House of Marley","USA",         "https://www.thehouseofmarley.com","Active",         2010),
-    (87, "Cooler Master",  "Taiwan",      "https://www.coolermaster.com",    "Active",         1992),
-    # Fresh additions — notable brands not in OPRA
-    (88, "JVC",            "Japan",       "https://www.jvc.com",             "Active",         1927),
-    (89, "Tago Studio",    "Japan",       "https://tagostudio.com",          "Active",         2019),
-    (90, "Takstar",        "China",       "https://www.takstar.com",         "Active",         2001),
-    (91, "Goldplanar",     "China",       "https://goldplanar.com",          "Active",         2020),
-    (92, "MySphere",       "Austria",     "https://mysphere.at",             "Active",         2018),
-    (93, "Panasonic",      "Japan",       "https://www.panasonic.com",       "Active",         1918),
-    (94, "Crosszone",      "Japan",       "https://crosszone.jp",            "Active",         2016),
+    # id, name, country, website, status, founded_year, description
+    (1,  "Sony",             "Japan",       "https://www.sony.com",            "Active",       1946, "Japanese consumer electronics giant with one of the broadest headphone catalogs in the world, spanning budget earbuds to the flagship MDR-Z1R and the iconic MDR-7506 studio standard."),
+    (2,  "Sennheiser",       "Germany",     "https://www.sennheiser.com",      "Active",       1945, "German audio institution whose HD 600 series defined the reference open-back standard for a generation. The HD 800 and Orpheus HE-1 represent the outer edge of what headphones can achieve."),
+    (3,  "Philips",          "Netherlands", "https://www.philips.com",         "Active",       1891, "Dutch electronics multinational whose Fidelio line produced several acclaimed audiophile headphones before the brand shifted focus toward consumer electronics."),
+    (4,  "Audio-Technica",   "Japan",       "https://www.audio-technica.com",  "Active",       1962, "Japanese precision manufacturer best known for the ATH-M50x studio monitor and a deep catalog of open-back headphones from the AD and R series."),
+    (5,  "AKG",              "Austria",     "https://www.akg.com",             "Active",       1947, "Viennese studio legend whose K 240 and K 701 shaped professional monitoring for decades. Now owned by Samsung/Harman but the K 812 and K 872 keep the legacy alive."),
+    (6,  "Beyerdynamic",     "Germany",     "https://www.beyerdynamic.com",    "Active",       1924, "Century-old German manufacturer and inventor of the dynamic headphone driver. The DT 770/880/990 trilogy and Tesla-driver flagships are benchmarks of German engineering precision."),
+    (7,  "Bose",             "USA",         "https://www.bose.com",            "Active",       1964, "Massachusetts-based acoustics company that popularised active noise cancellation with the QuietComfort line. Prioritises comfort, convenience, and accessible sound quality."),
+    (8,  "Audeze",           "USA",         "https://www.audeze.com",          "Active",       2008, "California planar magnetic specialist that brought the technology to mainstream audiophiles with the LCD series. Their SLAM magnet arrays set efficiency records for planar design."),
+    (9,  "HiFiMan",          "China",       "https://www.hifiman.com",         "Active",       2007, "Chinese planar pioneer founded by Dr. Fang Bian. Responsible for democratising planar magnetic headphones and producing the Susvara, widely considered one of the finest headphones ever made."),
+    (10, "Focal",            "France",      "https://www.focal.com",           "Active",       1979, "French speaker manufacturer whose entry into headphones with the Utopia and Elear reshaped the high-end market. Known for beryllium-domed drivers and premium cabinet-grade materials."),
+    (11, "Bowers & Wilkins", "UK",          "https://www.bowerswilkins.com",   "Active",       1966, "British hi-fi institution whose Px series brought premium wireless to a design-conscious audience. The P9 Signature remains a statement piece for the brand."),
+    (12, "Grado",            "USA",         "https://gradolabs.com",           "Active",       1953, "Brooklyn family business spanning three generations, making supra-aural open-back headphones by hand since the 1950s. Unmistakable sound, unmistakable look."),
+    (13, "Meze Audio",       "Romania",     "https://mezeaudio.com",           "Active",       2011, "Romanian boutique that stunned the audiophile world with the 99 Classics in 2015 and followed up with the Empyrean — a flagship using Rinaro's isodynamic planar driver."),
+    (14, "Dan Clark Audio",  "USA",         "https://danclarkaudio.com",       "Active",       2011, "San Diego workshop founded as MrSpeakers. Known for T50RP modifications that evolved into original planar designs including the Ether and STEALTH."),
+    (15, "Apple",            "USA",         "https://www.apple.com",           "Active",       1976, "Cupertino technology company whose AirPods Max brought Apple's design language and computational audio to the over-ear headphone market."),
+    (16, "Beats",            "USA",         "https://www.beatsbydre.com",      "Active",       2006, "Brand founded by Dr. Dre and Jimmy Iovine that made headphones a fashion accessory. Acquired by Apple in 2014 and now integrates Apple silicon for spatial audio."),
+    (17, "Shure",            "USA",         "https://www.shure.com",           "Active",       1925, "Chicago microphone and audio equipment company whose SRH line is a studio workhorse. The SRH1540 and SRH1840 are respected reference tools."),
+    (18, "SteelSeries",      "Denmark",     "https://steelseries.com",         "Active",       2001, "Danish gaming peripherals brand whose Arctis series redefined the gaming headset with ski-goggle headbands and a focus on comfort for long sessions."),
+    (19, "HyperX",           "USA",         "https://www.hyperx.com",          "Active",       2002, "Kingston's gaming brand, producing the Cloud series of studio-driver-based headsets that punched well above their price. Now owned by HP."),
+    (20, "Razer",            "USA",         "https://www.razer.com",           "Active",       2005, "Gaming hardware brand from San Francisco. The Kraken and BlackShark V2 series are popular esports headsets; the Opus line targets lifestyle listeners."),
+    (21, "Logitech G",       "Switzerland", "https://www.logitechg.com",       "Active",       1981, "Swiss peripherals giant whose G Pro X series used Blue Microphone technology and swappable drivers to target competitive gamers."),
+    (22, "Astro Gaming",     "USA",         "https://www.astro.com",           "Active",       2006, "Console gaming headset specialist whose A40 TR and A50 Wireless are fixtures in professional esports broadcasting setups. Owned by Logitech."),
+    (23, "Turtle Beach",     "USA",         "https://www.turtlebeach.com",     "Active",       1975, "Veteran gaming headset maker that pioneered surround-sound processing in console headsets. The Stealth series remains a popular mid-tier choice."),
+    (24, "Corsair",          "USA",         "https://www.corsair.com",         "Active",       1994, "PC hardware company whose Virtuoso series targets PC gamers with high-resolution audio and premium build quality."),
+    (25, "ASUS ROG",         "Taiwan",      "https://rog.asus.com",            "Active",       2006, "Republic of Gamers division of ASUS, producing gaming headsets with aggressive styling and ESS DAC-equipped USB audio."),
+    (26, "Abyss",            "USA",         "https://abyss-headphones.com",    "Active",       2012, "Upstate New York boutique producing the AB-1266, a flagship open planar headphone with a bold industrial design that has no counterpart on the market."),
+    (27, "ZMF Headphones",   "USA",         "https://www.zmfheadphones.com",   "Active",       2013, "Chicago one-man operation by Zach Mehrbach building handcrafted wood-cupped dynamic and planar headphones. Long lead times, devoted following."),
+    (28, "Stax",             "Japan",       "https://stax.co.jp",              "Active",       1938, "The definitive electrostatic headphone maker, producing earspeakers since 1938. The SR-009 and SR-X9000 are considered the purest transducers available at any price."),
+    (29, "Final Audio",      "Japan",       "https://final-inc.com",           "Active",       1974, "Japanese audio laboratory known for unconventional acoustic engineering. The D8000 planar and Sonorous series are boundary-pushing products from a deeply research-driven company."),
+    (30, "Fostex",           "Japan",       "https://www.fostex.jp",           "Active",       1973, "Japanese driver manufacturer whose T50RP became the most-modded headphone in audiophile history, and whose TH900 series uses biodynamic technology."),
+    (31, "Denon",            "Japan",       "https://www.denon.com",           "Active",       1910, "Japanese audio institution whose AH-D series closed-backs use biodynamic 50mm drivers. The D9200 with its nano-fibre diaphragm is a standout statement product."),
+    (32, "Rosson Audio",     "USA",         "https://rossonaudiodesign.com",   "Active",       2017, "Small-batch planar workshop by Alex Rosson, co-founder of Audeze. The RAD-0 is a hand-made statement piece with custom wood cups."),
+    (33, "Kennerton",        "Russia",      "https://kennerton.com",           "Active",       2012, "St. Petersburg audio atelier building planar magnetic flagships in exotic wood housings. The Odin and Thror are among the most beautiful headphones made."),
+    (34, "Ultrasone",        "Germany",     "https://www.ultrasone.com",       "Active",       1986, "Bavarian company behind the S-Logic spatial driver technology, which positions the driver off-axis to reduce ear canal pressure and create a wider perceived soundstage."),
+    (35, "Bang & Olufsen",   "Denmark",     "https://www.bang-olufsen.com",    "Active",       1925, "Danish luxury electronics brand whose Beoplay H line is as much furniture as audio equipment. The H95 is their flagship closed-back, built from aluminium and lambskin."),
+    (36, "Sonos",            "USA",         "https://www.sonos.com",           "Active",       2002, "Wireless audio company that entered headphones with the Ace, combining spatial audio and SoundSwap for seamless transition between speakers and headphones."),
+    (37, "Marshall",         "UK",          "https://www.marshallheadphones.com","Active",     1962, "Iconic amplifier brand that extended into headphones in 2010. The Major series on-ear design channels the brand's rock heritage into a consumer-friendly product line."),
+    (38, "JBL",              "USA",         "https://www.jbl.com",             "Active",       1946, "American speaker company under Harman. The Live and Club series cover premium consumer wireless while the Professional line serves studio monitoring."),
+    (39, "Skullcandy",       "USA",         "https://www.skullcandy.com",      "Active",       2003, "Park City, Utah brand that brought bold colour and skate/snowboard culture to headphones. The Crusher series with haptic bass is a signature product."),
+    (40, "Anker Soundcore",  "China",       "https://www.soundcore.com",       "Active",       2016, "Anker's audio sub-brand producing aggressively priced wireless headphones with competitive ANC. The Space Q45 punches well above its category."),
+    (41, "Technics",         "Japan",       "https://www.technics.com",        "Active",       1965, "Panasonic's premium audio brand revived in 2014. The EAH-A800 wireless headphone brings hi-fi DNA to the ANC market with LDAC and multipoint connectivity."),
+    (42, "Nothing",          "UK",          "https://nothing.tech",            "Active",       2020, "Carl Pei's London tech startup known for transparent industrial design. The Headphone (1) was their first over-ear, applying the brand's distinctive dot-matrix aesthetic."),
+    (43, "Koss",             "USA",         "https://www.koss.com",            "Active",       1953, "Milwaukee company that invented the stereo headphone in 1958. The Porta Pro has been in continuous production since 1984 and remains a cult favourite."),
+    (44, "V-Moda",           "USA",         "https://www.v-moda.com",          "Active",       2004, "Lifestyle and DJ headphone brand from Val Kolton, known for the indestructible Crossfade M-100 and a custom shield programme allowing personalised engravings."),
+    (45, "Yamaha",           "Japan",       "https://www.yamaha.com",          "Active",       1887, "Musical instrument giant with a deep headphone catalog. The YH-5000SE flagship uses an orthodynamic driver derived from their 1970s HP-1 and is made in Japan."),
+    (46, "Pioneer",          "Japan",       "https://www.pioneer-audiovisual.com","Active",    1938, "Japanese AV brand whose Pioneer DJ division produces the HDJ series, professional turntablist monitors trusted by DJs worldwide."),
+    (47, "AIAIAI",           "Denmark",     "https://www.aiaiai.audio",        "Active",       2006, "Copenhagen brand whose TMA-2 is the world's most modular headphone — mix and match 360 components including drivers, earpads, headbands, and cables."),
+    (48, "1More",            "China",       "https://www.1more.com",           "Active",       2013, "Shenzhen brand tuned in collaboration with Grammy-winning engineers. The SonoFlow series delivers wireless ANC at prices that embarrass the competition."),
+    (49, "Edifier",          "China",       "https://www.edifier.com",         "Active",       1996, "Beijing audio company whose STAX Spirit line brought planar magnetic technology to mid-range wireless headphones at an accessible price."),
+    (50, "Cleer",            "USA",         "https://www.cleeraudio.com",      "Active",       2012, "San Diego audio brand founded by ex-JBL engineers. The Alpha uses a custom 40mm driver and targets audiophile-grade wireless performance."),
+    (51, "Austrian Audio",   "Austria",     "https://austrian.audio",          "Active",       2017, "Vienna studio founded by ex-AKG engineers after the AKG Vienna facility closed. The Hi-X55 and Hi-X65 are direct spiritual successors to AKG's studio heritage."),
+    (52, "Neumann",          "Germany",     "https://www.neumann.com",         "Active",       1928, "The microphone company's headphone line is aimed squarely at mastering engineers. The NDH 20 and NDH 30 offer exceptional tonal accuracy for critical listening."),
+    (53, "Moondrop",         "China",       "https://moondroplab.com",         "Active",       2015, "Chengdu IEM specialist that expanded into over-ear planars with the Venus and Para. Known for anime-inspired packaging and technically rigorous tuning based on the HRTF target."),
+    (54, "Sivga",            "China",       "https://www.sivgaaudio.com",      "Active",       2016, "Chinese wood-specialist headphone maker crafting dynamic closed-backs with real rosewood, walnut, and zebrawood housings at accessible prices."),
+    (55, "Sendy Audio",      "China",       "https://www.sendyaudio.com",      "Active",       2016, "Planar magnetic specialist using 97mm drivers in open-back designs. The Peacock and Aiva target the audiophile mid-fi market with premium build quality."),
+    (56, "FiiO",             "China",       "https://www.fiio.com",            "Active",       2007, "Guangzhou portable audio giant best known for DACs and DAPs. The FT3 and FT5 represent their serious push into full-size headphones with large dynamic and planar drivers."),
+    (57, "Spirit Torino",    "Italy",       "https://www.spirittorino.com",    "Active",       2014, "Turin boutique producing ultra-light open-back headphones designed for comfortable all-day listening. The Super Leggera is one of the lightest audiophile headphones available."),
+    (58, "Warwick Acoustics","UK",          "https://warwickacoustics.com",    "Active",       2011, "British electrostatic specialist producing the Sonoma Model One and Aperio — complete systems with proprietary energisers built from aerospace-grade materials."),
+    (59, "Mark Levinson",    "USA",         "https://www.marklevinson.com",    "Active",       1972, "American high-end audio brand whose No. 5909 wireless headphone brings luxury materials and Hi-Res Audio certification to the travel headphone market."),
+    (60, "T+A",              "Germany",     "https://www.ta-hifi.de",          "Active",       1978, "Herford high-end manufacturer whose Solitaire P planar headphone features a 200mm driver array and is designed to pair with their in-house headphone amplifiers."),
+    (61, "HEDD Audio",       "Germany",     "https://hedd.audio",              "Active",       2015, "Berlin studio monitor company whose HEDDphone uses Air Motion Transformer drivers — folded-membrane technology borrowed from loudspeakers for exceptionally fast transient response."),
+    (62, "Grell Audio",      "Germany",     "https://grell-audio.com",         "Active",       2021, "Founded by Axel Grell, chief developer of the Sennheiser HD 800. The OAE1 open-air earspeaker is his attempt to solve headphone imaging from first principles."),
+    (63, "Ollo Audio",       "Slovenia",    "https://www.olloaudio.com",       "Active",       2016, "Slovenian studio headphone maker offering individually tested and calibrated closed and open-back monitors, with measurement graphs shipped with each unit."),
+    (64, "Monoprice",        "USA",         "https://www.monoprice.com",       "Active",       2002, "Direct-to-consumer electronics brand whose Monolith M1060 planar brought 106mm drivers to an audience that couldn't afford Audeze prices."),
+    (65, "Superlux",         "Taiwan",      "https://www.superlux.com",        "Active",       1990, "Taiwanese professional audio equipment maker whose HD 668B and HD 681 are studio-standard monitors in disguise, widely used in Chinese broadcast facilities."),
+    (66, "Samson",           "USA",         "https://samsontech.com",          "Active",       1980, "New York professional audio brand whose SR850 semi-open monitor is a rebranded Superlux HD 668B — one of the most recommended budget headphones in audiophile communities."),
+    (67, "Status Audio",     "USA",         "https://status.co",               "Active",       2016, "Direct-to-consumer brand cutting out retail markups. The CB-1 closed-back became a breakout product in the budget audiophile market."),
+    (68, "Jabra",            "Denmark",     "https://www.jabra.com",           "Active",       1993, "GN Audio's communications headset brand trusted in enterprise and contact centre environments. The Evolve2 series is engineered for all-day wearing comfort."),
+    (69, "Harman Kardon",    "USA",         "https://www.harmankardon.com",    "Active",       1953, "American audio brand known for premium design. The SOHO on-ear represents a premium lifestyle offering combining Harman's speaker tuning with a portable form factor."),
+    (70, "Oppo",             "USA",         "https://www.oppodigital.com",     "Discontinued", 2004, "Californian electronics company whose PM-1 and PM-3 planar headphones were critically acclaimed before the brand's closure in 2018. Now sought-after on the used market."),
+    (71, "Creative",         "Singapore",   "https://us.creative.com",         "Active",       1981, "Singapore technology company whose Sound Blaster brand shaped PC audio. The Aurvana Live! uses a biodynamic driver co-developed with Foster Electric."),
+    (72, "Rode",             "Australia",   "https://rode.com",                "Active",       1967, "Sydney microphone company whose NTH-100 studio headphone was developed with DSP-calibrated tuning via the NTH-Mic measurement system."),
+    (73, "Klipsch",          "USA",         "https://www.klipsch.com",         "Active",       1946, "Arkansas speaker company whose Heritage HP-3 headphone uses a wooden cup design inspired by their classic horn-loaded loudspeakers."),
+    (74, "RAAL",             "USA",         "https://raalrequisite.com",       "Active",       2007, "Ribbon driver specialist producing the SR1a — a headphone that uses a true ribbon transducer and requires a special interface for conventional amplifier connection."),
+    (75, "HarmonicDyne",     "China",       "https://harmonicdyne.com",        "Active",       2019, "Chengdu audiophile brand producing the G200, a large-scale open planar headphone with a distinctive hexagonal driver architecture."),
+    (76, "PSB",              "Canada",      "https://www.psbspeakers.com",     "Active",       1972, "Canadian speaker company whose M4U series headphones apply speaker engineering principles and active Room Feel correction to headphone acoustics."),
+    (77, "E-Mu",             "USA",         "https://us.creative.com",         "Discontinued", 1971, "California synthesiser pioneer whose headphone line used biodynamic drivers co-developed with Foster Electric. The Teak and Rosewood are now collector items."),
+    (78, "Audioquest",       "USA",         "https://www.audioquest.com",      "Active",       1980, "Cable and accessory specialist whose NightOwl and NightHawk used Foster biodynamic drivers in carbon fibre and wood housings before the line was discontinued."),
+    (79, "NAD",              "Canada",      "https://nadelectronics.com",      "Active",       1972, "Canadian electronics brand whose VISO HP50 used RoomFeel target curve technology — an early attempt to apply room-corrected tuning to headphone listening."),
+    (80, "Brainwavz",        "China",       "https://www.brainwavzaudio.com",  "Active",       2005, "Hong Kong audio brand best known for replacement earpads compatible with hundreds of headphones, and the HM5 studio monitor."),
+    (81, "Modhouse Audio",   "USA",         "https://modhouse.io",             "Active",       2015, "Wisconsin modification workshop building the Argon — a T50RP Mk2 base fitted with a proprietary driver tuned for a warm, musical presentation. Waitlists measured in months."),
+    (82, "Kiwi Ears",        "China",       "https://www.kiwiears.com",        "Active",       2020, "Young Chinese audio brand with rapid product cadence. The Ardor open planar earned strong reviews at its price, drawing comparisons to headphones costing three times as much."),
+    (83, "Plantronics",      "USA",         "https://www.poly.com",            "Active",       1961, "Communications headset pioneer whose BackBeat line brought Bluetooth comfort to the office market. Merged with Polycom to form Poly, now part of HP."),
+    (84, "Phiaton",          "South Korea", "https://www.phiaton.com",         "Active",       2009, "Korean premium audio brand producing the MS 530 — one of the earliest commercially successful wireless ANC headphones with Bluetooth at launch."),
+    (85, "Teufel",           "Germany",     "https://www.teufel.de",           "Active",       1979, "Berlin direct-sales speaker brand whose Real Blue NC offers competitive ANC performance at prices below the major consumer brands."),
+    (86, "House of Marley",  "USA",         "https://www.thehouseofmarley.com","Active",       2010, "Bob Marley estate brand producing headphones from sustainable materials including bamboo, hemp, and recycled plastics. Donates to environmental causes."),
+    (87, "Cooler Master",    "Taiwan",      "https://www.coolermaster.com",    "Active",       1992, "PC cooling and peripheral brand whose MH751 became a surprise hit in gaming headset communities for its studio-driver-based sound quality at a modest price."),
+    (88, "JVC",              "Japan",       "https://www.jvc.com",             "Active",       1927, "Victor Company of Japan, known for the HA-DX1000 and HA-DX2000 mahogany wood-cup flagship closed-backs and the HA-SW series isodynamic planars."),
+    (89, "Tago Studio",      "Japan",       "https://tagostudio.com",          "Active",       2019, "Small Japanese studio headphone maker offering individually serial-numbered monitors using high-powered 1.5T Neodymium drivers. Made in Japan."),
+    (90, "Takstar",          "China",       "https://www.takstar.com",         "Active",       2001, "Guangzhou professional audio company whose Pro 80 is the OEM basis for many rebranded studio monitors worldwide. The HF580 planar punches above its category."),
+    (91, "Goldplanar",       "China",       "https://goldplanar.com",          "Active",       2020, "Chinese planar magnetic specialist producing the GL2000 — a dual-sided planar with a 68mm driver that delivers competitive performance at a budget price."),
+    (92, "MySphere",         "Austria",     "https://mysphere.at",             "Active",       2018, "Vienna-based audio engineering project by Heinz Renner, former chief engineer at AKG. The MySphere 3 is the spiritual successor to the AKG K1000 open-air earspeaker."),
+    (93, "Panasonic",        "Japan",       "https://www.panasonic.com",       "Active",       1918, "Japanese electronics conglomerate with a modest headphone catalog. The RP-HD10 is their most audiophile-focused recent offering."),
+    (94, "Crosszone",        "Japan",       "https://crosszone.jp",            "Active",       2016, "Niche Japanese brand producing headphones with built-in acoustic crossfeed. The CZ-1 uses secondary in-ear drivers to simulate the inter-channel crosstalk of loudspeaker listening."),
 ]
 mfr_id = {name: i for i, name, *_ in manufacturers}
 
@@ -396,6 +383,7 @@ def add(pid, mfr, fam, model, full, year, status, design, driver, wireless, anc,
 # ---- Sony ----
 add("SONY_MDR1R","Sony","MDR","MDR-1R","Sony MDR-1R",2012,"Discontinued","Closed Back","Dynamic","No","No",succ="SONY_MDR1A",notes="Premium closed-back")
 add("SONY_MDR1A","Sony","MDR","MDR-1A","Sony MDR-1A",2014,"Discontinued","Closed Back","Dynamic","No","No",pred="SONY_MDR1R")
+add("SONY_MDRZ5","Sony","MDR","MDR-Z5","Sony MDR-Z5",2014,"Discontinued","Closed Back","Dynamic","No","No",notes="70mm driver; 70Ω; premium portable closed-back; predecessor to MDR-Z7 concept",succ="SONY_MDRZ7")
 add("SONY_MDRZ7","Sony","MDR","MDR-Z7","Sony MDR-Z7",2014,"Discontinued","Closed Back","Dynamic","No","No",succ="SONY_MDRZ7M2",notes="70mm driver")
 add("SONY_MDRZ7M2","Sony","MDR","MDR-Z7M2","Sony MDR-Z7M2",2018,"Active","Closed Back","Dynamic","No","No",pred="SONY_MDRZ7")
 add("SONY_MDRZ1R","Sony","MDR","MDR-Z1R","Sony MDR-Z1R",2016,"Active","Closed Back","Dynamic","No","No",notes="Signature Series flagship")
@@ -482,6 +470,8 @@ add("BEYER_T1","Beyerdynamic","T-Series","T1","Beyerdynamic T1 (1st Gen)",2009,"
 add("BEYER_T1_2","Beyerdynamic","T-Series","T1 2nd Gen","Beyerdynamic T1 2nd Generation",2014,"Discontinued","Open Back","Dynamic","No","No",pred="BEYER_T1",succ="BEYER_T1_3")
 add("BEYER_T1_3","Beyerdynamic","T-Series","T1 3rd Gen","Beyerdynamic T1 3rd Generation",2020,"Active","Open Back","Dynamic","No","No",pred="BEYER_T1_2")
 add("BEYER_T5_3","Beyerdynamic","T-Series","T5 3rd Gen","Beyerdynamic T5 3rd Generation",2020,"Active","Closed Back","Dynamic","No","No",notes="Closed sibling of T1")
+add("BEYER_T5P","Beyerdynamic","T","T 5p","Beyerdynamic T 5p",2012,"Discontinued","Closed Back","Dynamic","No","No",succ="BEYER_T5PMK2",notes="Portable Tesla closed-back; 32Ω for easy driving; semi-open cups")
+add("BEYER_T5PMK2","Beyerdynamic","T","T 5p 2nd Generation","Beyerdynamic T 5p 2nd Generation",2016,"Active","Closed Back","Dynamic","No","No",pred="BEYER_T5P",notes="Updated portable Tesla closed-back; revised pads and cable",fit="Over-Ear")
 add("BEYER_AMIRON","Beyerdynamic","Amiron","Amiron Home","Beyerdynamic Amiron Home",2017,"Active","Open Back","Dynamic","No","No")
 add("BEYER_AMIRONW","Beyerdynamic","Amiron","Amiron Wireless","Beyerdynamic Amiron Wireless",2018,"Active","Closed Back","Dynamic","Yes","No")
 add("BEYER_AVENTHOW","Beyerdynamic","T-Series","Aventho Wireless","Beyerdynamic Aventho Wireless",2017,"Discontinued","Closed Back","Dynamic","Yes","No",category="Headphone",fit="On-Ear")
@@ -518,6 +508,8 @@ add("HIFIMAN_HE400","HiFiMan","HE","HE-400","HiFiMan HE-400",2011,"Discontinued"
 add("HIFIMAN_HE400I","HiFiMan","HE","HE-400i","HiFiMan HE-400i",2014,"Discontinued","Open Back","Planar Magnetic","No","No",pred="HIFIMAN_HE400")
 add("HIFIMAN_HE400SE","HiFiMan","HE","HE400SE","HiFiMan HE400SE",2021,"Active","Open Back","Planar Magnetic","No","No",notes="Budget Stealth Magnet planar")
 add("HIFIMAN_HE560","HiFiMan","HE","HE-560","HiFiMan HE-560",2014,"Active","Open Back","Planar Magnetic","No","No")
+add("HIFIMAN_HE560V4","HiFiMan","HE","HE-560 V4","HiFiMan HE-560 V4",2019,"Active","Open Back","Planar Magnetic","No","No",pred="HIFIMAN_HE560",notes="Refined version 4 of the HE-560; asymmetric magnetic circuit; improved channel matching")
+add("HIFIMAN_HER10D","HiFiMan","HE","HE-R10D","HiFiMan HE-R10D",2018,"Active","Closed Back","Dynamic","No","No",notes="Dynamic closed-back flagship; 50mm topology driver; tribute to Sony R10; wood cups")
 add("HIFIMAN_HE6SE","HiFiMan","HE","HE6se","HiFiMan HE6se",2018,"Active","Open Back","Planar Magnetic","No","No",notes="Hard-to-drive planar")
 add("HIFIMAN_SUNDARA","HiFiMan","Sundara","Sundara","HiFiMan Sundara",2018,"Active","Open Back","Planar Magnetic","No","No",notes="Popular mid-tier planar")
 add("HIFIMAN_ANANDA","HiFiMan","Ananda","Ananda","HiFiMan Ananda",2018,"Active","Open Back","Planar Magnetic","No","No",succ="HIFIMAN_ANANDANANO")
@@ -831,6 +823,7 @@ add("HIFIMAN_AUDIVINA","HiFiMan","HE","Audivina","HiFiMan Audivina",2023,"Active
 
 # ---- Focal: studio Spirit line + Listen + Clear Pro ----
 add("FOCAL_SPIRITONE","Focal","Spirit","Spirit One","Focal Spirit One",2012,"Discontinued","Closed Back","Dynamic","No","No",category="Headphone")
+add("FOCAL_SPIRITCLASSIC","Focal","Spirit","Spirit Classic","Focal Spirit Classic",2013,"Discontinued","Closed Back","Dynamic","No","No",notes="Audiophile-aimed closed-back; 40mm driver; launched alongside Spirit Professional")
 add("FOCAL_SPIRITPRO","Focal","Spirit","Spirit Professional","Focal Spirit Professional",2013,"Discontinued","Closed Back","Dynamic","No","No",category="Studio")
 add("FOCAL_LISTEN","Focal","Listen","Listen","Focal Listen",2016,"Discontinued","Closed Back","Dynamic","No","No",category="Headphone",fit="On-Ear")
 add("FOCAL_LISTENPRO","Focal","Spirit","Listen Professional","Focal Listen Professional",2017,"Active","Closed Back","Dynamic","No","No",category="Studio",fit="On-Ear")
@@ -1718,6 +1711,8 @@ SPECS = {
     "BEYER_DT1770":      {"impedance": "250", "sensitivity": "102", "driver_size": "45"},
     "BEYER_DT1990":      {"impedance": "250", "sensitivity": "102", "driver_size": "45"},
     "BEYER_DT1990MK2":   {"impedance": "30",  "sensitivity": "94",  "driver_size": "45"},
+    "BEYER_T5P":         {"impedance": "32",  "sensitivity": "101", "driver_size": "45"},
+    "BEYER_T5PMK2":      {"impedance": "32",  "sensitivity": "101", "driver_size": "45"},
     "BEYER_DT700PROX":   {"impedance": "48",  "sensitivity": "100", "driver_size": "45"},
     "BEYER_DT700PROX2":  {"impedance": "48",  "sensitivity": "100", "driver_size": "45"},
     "BEYER_DT900PROX":   {"impedance": "48",  "sensitivity": "100", "driver_size": "45"},
@@ -1756,6 +1751,8 @@ SPECS = {
     "HIFIMAN_HE400S":    {"impedance": "22",  "sensitivity": "98"},
     "HIFIMAN_HE500":     {"impedance": "38",  "sensitivity": "89"},
     "HIFIMAN_HE560":     {"impedance": "50",  "sensitivity": "90"},
+    "HIFIMAN_HE560V4":   {"impedance": "45",  "sensitivity": "90"},
+    "HIFIMAN_HER10D":    {"impedance": "32",  "sensitivity": "94", "driver_size": "50"},
     "HIFIMAN_HE6":       {"impedance": "50",  "sensitivity": "83"},
     "HIFIMAN_HE6SE":     {"impedance": "50",  "sensitivity": "86"},
     "HIFIMAN_SUNDARA":   {"impedance": "37",  "sensitivity": "94"},
@@ -1866,6 +1863,7 @@ SPECS = {
     "SONY_WH1000XM5":  {"impedance": "48", "sensitivity": "101", "driver_size": "30"},
     "SONY_WH1000XM4":  {"impedance": "48", "sensitivity": "101", "driver_size": "40"},
     "SONY_WH1000XM3":  {"impedance": "47", "sensitivity": "104", "driver_size": "40"},
+    "SONY_MDRZ5":      {"impedance": "70",  "sensitivity": "102", "driver_size": "70"},
     "SONY_MDRZ7":      {"impedance": "70", "sensitivity": "102", "driver_size": "70"},
     "SONY_MDRZ7M2":    {"impedance": "70", "sensitivity": "102", "driver_size": "70"},
     "SONY_MDR1A":      {"impedance": "24", "sensitivity": "105", "driver_size": "40"},
@@ -2470,6 +2468,7 @@ SPECS = {
     "FIIO_FT5":    {"impedance": "32", "sensitivity": "100"},
     # ---- Focal remaining ----
     "FOCAL_SPIRITONE":  {"impedance": "32", "sensitivity": "103", "driver_size": "40"},
+    "FOCAL_SPIRITCLASSIC":{"impedance": "32", "sensitivity": "103", "driver_size": "40"},
     "FOCAL_SPIRITPRO":  {"impedance": "32", "sensitivity": "103", "driver_size": "40"},
     "FOCAL_LISTENPRO":  {"impedance": "32", "sensitivity": "104", "driver_size": "40"},
     "FOCAL_LISTENWL":   {"impedance": "32", "sensitivity": "104", "driver_size": "40"},
@@ -2723,6 +2722,182 @@ SPECS = {
                            "detachable_cable": "", "weight_g": "254"},
 }
 
+# ---------------------------------------------------------------------------
+# MSRP data — approximate USD launch prices from manufacturer pages or press releases.
+# ---------------------------------------------------------------------------
+MSRP = {
+    # Sony
+    "SONY_MDR1R":990, "SONY_MDR1A":300, "SONY_MDR1AM2":300,
+    "SONY_MDRZ7":700, "SONY_MDRZ7M2":400, "SONY_MDRZ1R":2300,
+    "SONY_MDR7506":100, "SONY_MDR7510":200, "SONY_MDR7520":400, "SONY_MDRCD900ST":200,
+    "SONY_WH1000XM2":350, "SONY_WH1000XM3":350, "SONY_WH1000XM4":350, "SONY_WH1000XM5":400,
+    "SONY_QUALIA010":2000,
+    # Sennheiser
+    "SENN_HD600":400, "SENN_HD650":500, "SENN_HD660S":500, "SENN_HD660S2":600,
+    "SENN_HD800":1500, "SENN_HD800S":1700, "SENN_HD820":2400, "SENN_HE1":55000,
+    "SENN_HD490PRO":400, "SENN_HD620S":450,
+    "SENN_HD25":170, "SENN_HD280PRO":100, "SENN_HD380PRO":170,
+    "SENN_MOMENTUM4":350, "SENN_MOMENTUM5":400,
+    "SENN_PXC550":350, "SENN_PXC550II":350,
+    # Audio-Technica
+    "ATECH_M50X":150, "ATECH_M70X":200, "ATECH_M40X":100, "ATECH_M20X":50,
+    "ATECH_R70X":350, "ATECH_ADX5000":1000,
+    "ATECH_ATH3000ANV":2000,
+    # AKG
+    "AKG_K701":200, "AKG_K702":200, "AKG_K712":350,
+    "AKG_K240":70, "AKG_K271MK2":170, "AKG_K872":1500, "AKG_K812":1500,
+    "AKG_K361":100, "AKG_K371":150, "AKG_N700NC":300, "AKG_N700NCM2":300,
+    # Beyerdynamic
+    "BEYER_DT770PRO":170, "BEYER_DT880PRO":180, "BEYER_DT990PRO":180,
+    "BEYER_DT1770PRO":600, "BEYER_DT1990":550, "BEYER_DT1990MK2":800,
+    "BEYER_T5P":600, "BEYER_T5PMK2":900,
+    "SONY_MDRZ5":500, "FOCAL_SPIRITCLASSIC":350,
+    "HIFIMAN_HE560V4":900, "HIFIMAN_HER10D":6000,
+    "BEYER_AMIRON":600, "BEYER_DT700PROX":300, "BEYER_DT900PROX":350,
+    "BEYER_MMX300":300, "BEYER_MMX300PRO":300,
+    # Bose
+    "BOSE_QC35II":350, "BOSE_QC45":330, "BOSE_QC35":300,
+    "BOSE_NCH700":380, "BOSE_QCU":430, "BOSE_A20":1095, "BOSE_A30":1350,
+    # Audeze
+    "AUDEZE_LCD2":1200, "AUDEZE_LCD2C":900, "AUDEZE_LCD3":2000,
+    "AUDEZE_LCD4":4000, "AUDEZE_LCD5":4500, "AUDEZE_LCD5S":4500,
+    "AUDEZE_LCDX":1200, "AUDEZE_LCDXC":1300,
+    "AUDEZE_MM100":400, "AUDEZE_MM200":500, "AUDEZE_MM500":1500,
+    "AUDEZE_MAXWELL":300, "AUDEZE_PENROSE":300,
+    "AUDEZE_CRBN":4500, "AUDEZE_CRBN2":4500,
+    # HiFiMan
+    "HIFIMAN_HE400SE":110, "HIFIMAN_HE400I":200, "HIFIMAN_HE400I2020":150, "HIFIMAN_HE4XX":170,
+    "HIFIMAN_HE560":900, "HIFIMAN_HE5XX":220, "HIFIMAN_HE6SE":1800,
+    "HIFIMAN_ANANDA":700, "HIFIMAN_ARYA":1300, "HIFIMAN_ARYASTLTH":1400,
+    "HIFIMAN_SUNDARA":350, "HIFIMAN_EDITION_XS":500,
+    "HIFIMAN_SUSVARA":6000, "HIFIMAN_HE1000V2":3000, "HIFIMAN_HE1000SE":4000,
+    "HIFIMAN_JADE2":2500, "HIFIMAN_SHANGRILA":8000,
+    # Focal
+    "FOCAL_UTOPIA":4000, "FOCAL_UTOPIA2022":5000, "FOCAL_CLEAR":1500, "FOCAL_CLEARMG":1500,
+    "FOCAL_ELEAR":1000, "FOCAL_ELEGIA":900, "FOCAL_STELLIA":3000, "FOCAL_CELESTEE":1000,
+    "FOCAL_BATHYS":800, "FOCAL_HADENYS":1600, "FOCAL_AZURYS":500,
+    "FOCAL_LISTEN":280, "FOCAL_LISTENPRO":350,
+    # Grado
+    "GRADO_SR60X":100, "GRADO_SR80X":125, "GRADO_SR125X":175,
+    "GRADO_SR225X":250, "GRADO_SR325X":350, "GRADO_RS1X":700, "GRADO_RS2X":500,
+    "GRADO_GS1000X":1100, "GRADO_GS3000X":1700, "GRADO_GW100X":300, "GRADO_HEMP":420,
+    # Dan Clark Audio
+    "DCA_STEALTH":4000, "DCA_EXPANSE":4000, "DCA_ETHER2":1500,
+    "DCA_AEON2N":900, "DCA_AEON2C":900, "DCA_AEON2NOIRE":800,
+    # Meze Audio
+    "MEZE_99CLASSICS":310, "MEZE_ELITE":4000, "MEZE_EMPYREAN":3000,
+    "MEZE_EMPYREAN2":4000, "MEZE_EMPYREAN3":4500, "MEZE_109PRO":800,
+    "MEZE_LIRIC":2000, "MEZE_LIRICII":2000,
+    # ZMF Headphones
+    "ZMF_VERITE_O":2500, "ZMF_VERITE_C":2500,
+    "ZMF_ATRIUM_O":3000, "ZMF_ATRIUM_C":3000,
+    "ZMF_CALDERA":2500, "ZMF_AUTEUR":1500, "ZMF_AEOLUS":1300,
+    # Stax
+    "STAX_SR009":4400, "STAX_SR009S":4400, "STAX_SR007":2300,
+    "STAX_SRL700MK2":1300, "STAX_X9000":4500,
+    # Beats
+    "BEATS_STUDIO3":350, "BEATS_STUDIOPRO":350, "BEATS_STUDIO4":350,
+    "BEATS_SOLO3":200, "BEATS_SOLO4":200, "BEATS_SOLOPRO":300,
+    # Apple / B&O / Marshall
+    "APPLE_AIRPODSMAX":550, "APPLE_AIRPODSMAXUSBC":550,
+    "BO_H95":500, "BO_HX":490, "BO_H100":850,
+    "MARSHALL_MAJOR5":100, "MARSHALL_MONITOR3ANC":200,
+    # JBL / Koss / Shure
+    "JBL_CLUBONE":300, "JBL_LIVE660NC":200, "JBL_LIVE770NC":250,
+    "KOSS_PORTAPRO":50, "KOSS_ESP95X":500,
+    "SHURE_SRH1540":500, "SHURE_SRH1840":500,
+    # Neumann / Austrian Audio / Final / Warwick / Abyss
+    "NEUMANN_NDH20":500, "NEUMANN_NDH30":500,
+    "AUSTRIAN_HIX55":350, "AUSTRIAN_HIX65":400,
+    "FINAL_D8000":4000, "FINAL_D8000PRO":4500,
+    "WA_SONOMA":5000, "WA_APERIO":8000,
+    "ABYSS_AB1266":5000, "ABYSS_DIANATC":4000,
+    # FiiO / Technics / Sonos / Mark Levinson / RAAL / Rosson
+    "FIIO_FT3":220, "FIIO_FT5":350,
+    "TECH_EAHA800":380, "TECH_EAHA800M2":380,
+    "SONOS_ACE":450,
+    "MARKLEV_5909":1000,
+    "RAAL_SR1A":3500,
+    "ROSSON_RAD0":2600,
+    # Gaming
+    "ASTRO_A50G4":330, "ASTRO_A50X":380, "ASTRO_A40TR":150,
+    "RAZER_BARRACUDAX":100, "RAZER_OPUS2020":200,
+    "LOGI_G735":180, "LOGI_G435":100, "LOGI_G533":150,
+    "SK_CRUSHER_EVO":200, "SK_CRUSHER_ANC":300,
+}
+
+# ---------------------------------------------------------------------------
+# VERIFIED_SPECS — product IDs whose impedance + sensitivity come directly
+# from manufacturer published spec sheets. All others default to 'Estimated'.
+# ---------------------------------------------------------------------------
+VERIFIED_SPECS = {
+    # Sennheiser (sennheiser.com spec sheets)
+    "SENN_HD600","SENN_HD650","SENN_HD660S","SENN_HD660S2",
+    "SENN_HD800","SENN_HD800S","SENN_HD820","SENN_HE1",
+    "SENN_HD490PRO","SENN_HD620S","SENN_HD25","SENN_HD25_1",
+    "SENN_HD280PRO","SENN_HD380PRO","SENN_AMPERIOR",
+    "SENN_MOMENTUM3","SENN_MOMENTUM4","SENN_MOMENTUM5",
+    "SENN_PXC550","SENN_PXC550II",
+    # Beyerdynamic (beyerdynamic.com)
+    "BEYER_DT770PRO","BEYER_DT880PRO","BEYER_DT990PRO",
+    "BEYER_DT1770PRO","BEYER_DT1990","BEYER_DT1990MK2",
+    "BEYER_T1MK1","BEYER_T1MK2","BEYER_T1MK3",
+    "BEYER_AMIRON","BEYER_DT700PROX","BEYER_DT900PROX",
+    "BEYER_MMX300","BEYER_MMX300PRO",
+    # AKG (akg.com)
+    "AKG_K701","AKG_K702","AKG_K712","AKG_K240",
+    "AKG_K271MK2","AKG_K812","AKG_K872","AKG_K361","AKG_K371",
+    # Audio-Technica (audio-technica.com)
+    "ATECH_M50X","ATECH_M70X","ATECH_M40X","ATECH_M20X",
+    "ATECH_R70X","ATECH_ADX5000","ATECH_ATH3000ANV",
+    # Focal (focal.com)
+    "FOCAL_UTOPIA","FOCAL_UTOPIA2022","FOCAL_CLEAR","FOCAL_CLEARMG",
+    "FOCAL_ELEAR","FOCAL_ELEGIA","FOCAL_STELLIA","FOCAL_CELESTEE",
+    "FOCAL_BATHYS","FOCAL_HADENYS","FOCAL_AZURYS",
+    # Audeze (audeze.com)
+    "AUDEZE_LCD2","AUDEZE_LCD2C","AUDEZE_LCD3","AUDEZE_LCD4","AUDEZE_LCD5",
+    "AUDEZE_LCDX","AUDEZE_LCDXC","AUDEZE_MM100","AUDEZE_MM500",
+    # HiFiMan (hifiman.com)
+    "HIFIMAN_HE400SE","HIFIMAN_ANANDA","HIFIMAN_ARYA","HIFIMAN_SUNDARA",
+    "HIFIMAN_EDITION_XS","HIFIMAN_SUSVARA","HIFIMAN_HE1000V2","HIFIMAN_HE1000SE",
+    # Dan Clark Audio
+    "DCA_STEALTH","DCA_EXPANSE","DCA_ETHER2","DCA_AEON2N","DCA_AEON2C",
+    # ZMF Headphones (zmfheadphones.com)
+    "ZMF_VERITE_O","ZMF_VERITE_C","ZMF_ATRIUM_O","ZMF_ATRIUM_C",
+    "ZMF_CALDERA","ZMF_AUTEUR","ZMF_AEOLUS",
+    # Stax (stax.co.jp)
+    "STAX_SR009","STAX_SR009S","STAX_SR007","STAX_SRL700MK2","STAX_X9000",
+    # Grado (gradolabs.com)
+    "GRADO_SR60X","GRADO_SR80X","GRADO_SR125X","GRADO_SR225X","GRADO_SR325X",
+    "GRADO_RS1X","GRADO_RS2X","GRADO_GS1000X","GRADO_GS3000X","GRADO_GW100X",
+    # Meze Audio (mezeaudio.com)
+    "MEZE_99CLASSICS","MEZE_ELITE","MEZE_EMPYREAN","MEZE_EMPYREAN2","MEZE_109PRO",
+    "MEZE_LIRIC","MEZE_LIRICII",
+    # Sony (sony.com)
+    "SONY_MDR7506","SONY_MDRCD900ST","SONY_MDRZ1R","SONY_MDR1AM2","SONY_MDRZ7M2",
+    # Neumann (neumann.com)
+    "NEUMANN_NDH20","NEUMANN_NDH30",
+    # Austrian Audio (austrian.audio)
+    "AUSTRIAN_HIX55","AUSTRIAN_HIX65","AUSTRIAN_HIX60",
+    # Shure (shure.com)
+    "SHURE_SRH1540","SHURE_SRH1840","SHURE_SRH440A","SHURE_SRH840A",
+    # Koss (koss.com)
+    "KOSS_PORTAPRO","KOSS_KPH30I","KOSS_ESP95X",
+    # Final Audio
+    "FINAL_D8000","FINAL_D8000PRO",
+    # Fostex (fostex.jp)
+    "FOSTEX_T50RPMK3","FOSTEX_T50RPMK4","FOSTEX_TH900MK2","FOSTEX_TH610",
+    # Ollo Audio (ships measured data with every unit)
+    "OLLO_S4X","OLLO_S5X","OLLO_X1",
+}
+
+# Push MSRP values into SPECS so the transform pass picks them up automatically
+for _pid, _price in MSRP.items():
+    if _pid not in SPECS:
+        SPECS[_pid] = {}
+    if "msrp_usd" not in SPECS[_pid]:
+        SPECS[_pid]["msrp_usd"] = str(_price)
+
 products = []
 lineage_pairs = set()
 # Transform pass: turn each raw add() row into a final product record. The SPECS dict
@@ -2743,11 +2918,12 @@ for _int_id, row in enumerate(P, start=1):
         conn = s.get("connector_type", conn)
         detach = s.get("detachable_cable", detach)
         weight = s.get("weight_g", weight)
+    spec_conf = "Verified" if pid in VERIFIED_SPECS else "Estimated"
     fid = fam_id.get((mfr, fam), "")
     mid = mfr_id[mfr]
     products.append([_int_id, pid, fid, mid, model, full, year, disc, status, cat,
                      design, driver, dsize, imp, sens, wl, anc, pred, succ, notes, date_added, fit,
-                     msrp, sig, conn, detach, weight])
+                     msrp, sig, conn, detach, weight, spec_conf])
     if pred:
         lineage_pairs.add((pred, pid))
     if succ:
@@ -2760,7 +2936,7 @@ for _int_id, row in enumerate(P, start=1):
 # changing a column here means updating those consumers too.
 # ---------------------------------------------------------------------------
 with open(OUT / "manufacturers.csv", "w", newline="", encoding="utf-8") as f:
-    w = csv.writer(f); w.writerow(["manufacturer_id","name","country","website","status","founded_year"])
+    w = csv.writer(f); w.writerow(["manufacturer_id","name","country","website","status","founded_year","description"])
     w.writerows(manufacturers)
 
 with open(OUT / "families.csv", "w", newline="", encoding="utf-8") as f:
@@ -2773,7 +2949,7 @@ with open(OUT / "products.csv", "w", newline="", encoding="utf-8") as f:
                 "release_year","discontinued_year","status","category","design",
                 "driver_type","driver_size_mm","impedance_ohms","sensitivity_db",
                 "wireless","anc","predecessor","successor","notes","date_added","fit",
-                "msrp_usd","sound_signature","connector_type","detachable_cable","weight_g"])
+                "msrp_usd","sound_signature","connector_type","detachable_cable","weight_g","spec_confidence"])
     w.writerows(products)
 
 # Guard: catch duplicate product_ids before they cause D1 import failures.

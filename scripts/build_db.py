@@ -33,7 +33,8 @@ CREATE TABLE IF NOT EXISTS manufacturers (
     country          TEXT,
     website          TEXT,
     status           TEXT    CHECK(status IN ('Active','Legacy','Defunct','Discontinued')),
-    founded_year     INTEGER
+    founded_year     INTEGER,
+    description      TEXT
 );
 
 CREATE TABLE IF NOT EXISTS families (
@@ -142,16 +143,18 @@ def load_manufacturers(conn, rows, verbose):
     n = 0
     for r in rows:
         cur.execute("""
-            INSERT INTO manufacturers(manufacturer_id, name, country, website, status, founded_year)
-            VALUES (?,?,?,?,?,?)
+            INSERT INTO manufacturers(manufacturer_id, name, country, website, status, founded_year, description)
+            VALUES (?,?,?,?,?,?,?)
             ON CONFLICT(manufacturer_id) DO UPDATE SET
                 name=excluded.name, country=excluded.country,
                 website=excluded.website, status=excluded.status,
-                founded_year=excluded.founded_year
+                founded_year=excluded.founded_year,
+                description=excluded.description
         """, (
             coerce_int(r.get("manufacturer_id")), coerce_str(r.get("name")),
             coerce_str(r.get("country")), coerce_str(r.get("website")),
             coerce_str(r.get("status")), coerce_int(r.get("founded_year")),
+            coerce_str(r.get("description")),
         ))
         n += 1
     if verbose:

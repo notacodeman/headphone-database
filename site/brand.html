@@ -34,6 +34,8 @@
     .sitenav a:hover { color: var(--accent); }
     .sitenav .sitename { font-family: 'Fraunces', serif; font-size: 1.1rem;
       font-weight: 700; text-transform: none; letter-spacing: 0; }
+    .navlink { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.12em;
+      color: var(--muted); }
 
     /* ---- HERO ---- */
     .brand-hero { max-width: 1300px; margin: 0 auto;
@@ -52,6 +54,8 @@
     .brand-meta-row .pill.discontinued { background: #fef3c7; color: #92400e; border-color: #fcd34d; }
     .brand-meta-row a { color: var(--accent-2); }
     .brand-meta-row a:hover { color: var(--accent); }
+    .brand-desc { max-width: 680px; font-size: 0.83rem; line-height: 1.7;
+      color: var(--muted); margin-top: 1.2rem; }
 
     /* ---- LAYOUT ---- */
     .brand-body { max-width: 1300px; margin: 0 auto;
@@ -98,11 +102,15 @@
       color: var(--muted); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.75rem; }
     .decade-label::after { content: ''; flex: 1; height: 1px; background: var(--line); }
     .decade-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.6rem; }
-    .prod-card { background: var(--card); border: 1px solid var(--line);
-      border-radius: 6px; padding: 0.7rem 0.8rem; cursor: default;
+    .prod-card { display: block; text-decoration: none; color: inherit;
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: 6px; padding: 0.7rem 0.8rem;
       transition: border-color 0.15s, transform 0.15s; position: relative; }
     .prod-card:hover { border-color: var(--accent); transform: translateY(-1px); }
-    .prod-card { cursor: pointer; }
+    .prod-card.active-prod { border-left: 3px solid var(--accent-2); }
+    .prod-card.discontinued-prod { opacity: 0.7; }
+    .prod-msrp { font-size: 0.65rem; color: var(--accent-2); margin-top: 0.3rem;
+      font-weight: 600; letter-spacing: 0.03em; }
     /* Expanded card: highlighted in accent orange to mark which card's detail is open below. */
     .prod-card.expanded { border-color: var(--accent); border-left: 3px solid var(--accent);
       background: #f3e2d6; box-shadow: 0 0 0 1px var(--accent) inset; }
@@ -153,7 +161,10 @@
 
 <nav class="sitenav">
   <a href="index.html" class="sitename">The Headphone Archive</a>
-  <a href="index.html">&larr; Back to archive</a>
+  <div style="display:flex;gap:1.5rem;align-items:center;">
+    <a href="brands.html" class="navlink">&#9674; All Brands</a>
+    <a href="index.html" class="navlink">&larr; Back to archive</a>
+  </div>
 </nav>
 
 <div id="heroArea"><div class="loading-state">Loading brand&hellip;</div></div>
@@ -269,6 +280,7 @@ function render(brand, products) {
         <span class="pill ${statusCls}">${esc(brand.status)}</span>
         ${brand.website ? `<a href="${esc(brand.website)}" target="_blank" rel="noopener">${esc(brand.website.replace(/^https?:\/\//,''))} &nearr;</a>` : ''}
       </div>
+      ${brand.description ? `<p class="brand-desc">${esc(brand.description)}</p>` : ''}
     </div>`;
 
   // ---- Build decade groups ----
@@ -295,20 +307,23 @@ function render(brand, products) {
     const cards = prods.map(p => {
       const isActive = p.status === 'Active';
       const specs = specStr(p);
+      const msrp = p.msrp_usd ? `$${Number(p.msrp_usd).toLocaleString()}` : '';
+      const archiveUrl = `index.html?focus=${p.id}`;
       const lineageLinks = [
-        p.predecessor ? `<a href="index.html" title="Replaces ${esc(nameOf(p.predecessor))}">↑ ${esc(nameOf(p.predecessor))}</a>` : '',
-        p.successor   ? `<a href="index.html" title="Succeeded by ${esc(nameOf(p.successor))}">↓ ${esc(nameOf(p.successor))}</a>` : '',
+        p.predecessor ? `<a href="${archiveUrl}" title="Replaces ${esc(nameOf(p.predecessor))}">↑ ${esc(nameOf(p.predecessor))}</a>` : '',
+        p.successor   ? `<a href="${archiveUrl}" title="Succeeded by ${esc(nameOf(p.successor))}">↓ ${esc(nameOf(p.successor))}</a>` : '',
       ].filter(Boolean).join(' &middot; ');
       return `
-        <div class="prod-card ${isActive ? 'active-prod' : 'discontinued-prod'}" data-pid="${esc(p.product_id)}" tabindex="0" role="button" aria-expanded="false">
+        <a class="prod-card ${isActive ? 'active-prod' : 'discontinued-prod'}" href="${archiveUrl}" title="View ${esc(p.model_name)} in archive">
           <div class="prod-year">${p.release_year}${p.discontinued_year ? '–' + p.discontinued_year : isActive ? '–present' : ''}</div>
           <div class="prod-model">${esc(p.model_name)}</div>
           <div class="prod-tags">
             ${designTag(p.design)}${driverTag(p.driver_type)}${fitTag(p.fit)}
           </div>
           ${specs ? `<div class="prod-specs">${esc(specs)}</div>` : ''}
+          ${msrp ? `<div class="prod-msrp">${esc(msrp)} MSRP</div>` : ''}
           ${lineageLinks ? `<div class="prod-lineage">${lineageLinks}</div>` : ''}
-        </div>`;
+        </a>`;
     }).join('');
     const decLabel = dec === Math.floor(new Date().getFullYear()/10)*10
       ? `${dec}s (present)` : `${dec}s`;

@@ -47,7 +47,7 @@ export async function onRequestPost({ env }) {
 
     // Create tables (id-less mirror of the CSV columns; everything TEXT for simplicity).
     await env.DB.exec(
-      "CREATE TABLE IF NOT EXISTS manufacturers (manufacturer_id INTEGER PRIMARY KEY, name TEXT, country TEXT, website TEXT, status TEXT, founded_year INTEGER);"
+      "CREATE TABLE IF NOT EXISTS manufacturers (manufacturer_id INTEGER PRIMARY KEY, name TEXT, country TEXT, website TEXT, status TEXT, founded_year INTEGER, description TEXT);"
     );
     await env.DB.exec(
       "CREATE TABLE IF NOT EXISTS products (product_id TEXT PRIMARY KEY, id INTEGER UNIQUE, family_id TEXT, manufacturer_id INTEGER, model_name TEXT, full_name TEXT, release_year INTEGER, discontinued_year TEXT, status TEXT, category TEXT, design TEXT, driver_type TEXT, driver_size_mm TEXT, impedance_ohms TEXT, sensitivity_db TEXT, wireless TEXT, anc TEXT, predecessor TEXT, successor TEXT, notes TEXT, date_added TEXT, fit TEXT DEFAULT 'Over-Ear', date_updated TEXT, spec_confidence TEXT DEFAULT 'Estimated', msrp_usd TEXT, sound_signature TEXT, connector_type TEXT, detachable_cable TEXT, weight_g TEXT);"
@@ -61,11 +61,11 @@ export async function onRequestPost({ env }) {
     // Insert manufacturers in batches of 40. D1 caps how many statements one batch()
     // call can hold, so chunking keeps each call under that limit on large datasets.
     const mStmt = env.DB.prepare(
-      "INSERT INTO manufacturers (manufacturer_id,name,country,website,status,founded_year) VALUES (?,?,?,?,?,?)"
+      "INSERT INTO manufacturers (manufacturer_id,name,country,website,status,founded_year,description) VALUES (?,?,?,?,?,?,?)"
     );
     const mBatch = manufacturers.map(m =>
       mStmt.bind(parseInt(m.manufacturer_id, 10) || null, m.name, m.country, m.website, m.status,
-                 parseInt(m.founded_year, 10) || null));
+                 parseInt(m.founded_year, 10) || null, m.description || null));
     for (let i = 0; i < mBatch.length; i += 40) await env.DB.batch(mBatch.slice(i, i + 40));
 
     // Insert products the same way. date_added falls back to today's import date when

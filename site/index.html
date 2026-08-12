@@ -80,7 +80,6 @@
   }
   #statnums { display: flex; gap: 2rem; flex-wrap: wrap; align-items: center; }
   .suggest-btn {
-    margin-left: auto;
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 0.12em;
@@ -93,6 +92,19 @@
     transition: background 0.15s;
   }
   .suggest-btn:hover { background: var(--accent-2); }
+  .brands-btn {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--paper);
+    background: var(--accent-2);
+    padding: 0.45rem 0.95rem;
+    text-decoration: none;
+    border-radius: 99px;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+  .brands-btn:hover { background: #152b22; }
   .stats-bar strong { font-weight: 600; }
 
   .controls {
@@ -359,12 +371,6 @@
     font-size: 0.8rem; border-bottom: 1px solid var(--line); color: var(--accent-2);
   }
   #statnums { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; }
-  .suggest-btn { margin-left: auto; font-size: 0.7rem; text-transform: uppercase;
-    letter-spacing: 0.12em; color: var(--paper); background: var(--accent);
-    padding: 0.45rem 0.95rem; text-decoration: none; border-radius: 99px;
-    white-space: nowrap; transition: background 0.15s; }
-  .suggest-btn:hover { background: var(--accent-2); }
-  .stats-bar strong { font-weight: 600; }
 
   /* ── Controls / filters ──────────────────────────────── */
   .controls {
@@ -566,6 +572,22 @@
   .detail-links { margin-top: 0.9rem; font-size: 0.82rem; }
   .detail-links a { color: var(--accent-2); }
 
+  /* Lineage chain */
+  .lineage-chain { margin-top: 1rem; }
+  .ln-label { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--muted); margin-bottom: 0.5rem; }
+  .ln-row { display: flex; align-items: center; flex-wrap: wrap; gap: 0.3rem; }
+  .ln-arrow { color: var(--line); font-size: 0.9rem; padding: 0 0.1rem; }
+  .ln-node { display: flex; flex-direction: column; align-items: center;
+    padding: 0.35rem 0.65rem; border-radius: 4px; border: 1px solid var(--line);
+    min-width: 80px; max-width: 140px; text-align: center; }
+  .ln-current { background: var(--accent); border-color: var(--accent); color: var(--paper); }
+  .ln-other { background: var(--paper-2); cursor: pointer; transition: border-color 0.12s; }
+  .ln-other:hover { border-color: var(--accent); }
+  .ln-name { font-size: 0.72rem; font-weight: 600; white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis; max-width: 120px; }
+  .ln-year { font-size: 0.6rem; opacity: 0.75; margin-top: 0.1rem; }
+
   /* ── Misc ────────────────────────────────────────────── */
   .loading, .empty { text-align: center; padding: 4rem 1rem;
     color: var(--muted); font-size: 0.9rem; }
@@ -665,7 +687,10 @@
 
 <div class="stats-bar" id="statsbar">
   <span id="statnums">Loading catalog&hellip;</span>
-  <a class="suggest-btn" href="suggest.html">Suggest an Edit &rarr;</a>
+  <div style="margin-left:auto;display:flex;gap:0.5rem;align-items:center;">
+    <a class="brands-btn" href="brands.html">&#9674; All Brands</a>
+    <a class="suggest-btn" href="suggest.html">Suggest an Edit &rarr;</a>
+  </div>
 </div>
 
 <button class="filter-toggle" id="filterToggle" aria-expanded="false" aria-controls="filtersGrid">
@@ -703,6 +728,7 @@
   <div class="resultmeta">
     <span id="count" aria-live="polite"></span>
     <span class="meta-actions">
+      <button class="linkbtn" id="exportBtn">Export CSV</button>
       <span class="colpanel">
         <button class="linkbtn" id="coltoggle">Columns &#9662;</button>
         <div class="colmenu" id="colmenu">
@@ -1107,7 +1133,7 @@ function modelById(id) {
 }
 
 // Builds the expandable detail panel shown when a row is clicked, listing every spec
-// as a definition list plus predecessor/successor links and a review-search shortcut.
+// as a definition list plus a lineage chain visualization and a review-search shortcut.
 function rowDetail(r) {
   const parts = [];
   const add = (label, val, unit = "") => { if (val) parts.push(`<div><dt>${esc(label)}</dt><dd>${esc(val)}${unit}</dd></div>`); };
@@ -1124,12 +1150,53 @@ function rowDetail(r) {
   add("Sensitivity", r.sensitivity_db, "\u200adB");
   add("Wireless", r.wireless);
   add("Active noise cancelling", r.anc);
-  if (r.predecessor) parts.push(`<div><dt>Replaces</dt><dd>${esc(modelById(r.predecessor))}</dd></div>`);
-  if (r.successor) parts.push(`<div><dt>Succeeded by</dt><dd>${esc(modelById(r.successor))}</dd></div>`);
+  if (r.msrp_usd) add("Launch price", "$" + Number(r.msrp_usd).toLocaleString());
+
+  // Build lineage chain — walk back to root predecessor, then forward to end
+  let lineageHtml = "";
+  if (r.predecessor || r.successor) {
+    // Collect full chain: walk predecessors backward, then append current + successors forward
+    const chain = [];
+    let cur = r.predecessor;
+    const visited = new Set();
+    while (cur && !visited.has(cur)) {
+      visited.add(cur);
+      const p = state.rows.find(x => x.product_id === cur);
+      if (!p) break;
+      chain.unshift(p);
+      cur = p.predecessor;
+    }
+    chain.push(r);
+    cur = r.successor;
+    visited.clear();
+    while (cur && !visited.has(cur)) {
+      visited.add(cur);
+      const s = state.rows.find(x => x.product_id === cur);
+      if (!s) break;
+      chain.push(s);
+      cur = s.successor;
+    }
+
+    if (chain.length > 1) {
+      const nodes = chain.map(p => {
+        const isCurrent = p.product_id === r.product_id;
+        const cls = isCurrent ? "ln-node ln-current" : "ln-node ln-other";
+        const yr = p.release_year || "";
+        return `<span class="${cls}" data-id="${esc(p.product_id)}" title="${esc(p._brand + " " + p.model_name + (yr ? " (" + yr + ")" : ""))}">
+          <span class="ln-name">${esc(p.model_name)}</span>
+          ${yr ? `<span class="ln-year">${yr}</span>` : ""}
+        </span>`;
+      });
+      const joined = nodes.join('<span class="ln-arrow">\u2192</span>');
+      lineageHtml = `<div class="lineage-chain"><div class="ln-label">Lineage</div><div class="ln-row">${joined}</div></div>`;
+    }
+  }
+
   const q = encodeURIComponent(`${r._brand} ${r.model_name} headphone review measurements`);
   return `
     <dl class="detail-specs">${parts.join("")}</dl>
     ${r.notes ? `<p class="detail-notes">${esc(r.notes)}</p>` : ""}
+    ${lineageHtml}
     <p class="detail-links"><a href="https://duckduckgo.com/?q=${q}" target="_blank" rel="noopener">Find reviews &amp; measurements &rarr;</a></p>
   `;
 }
@@ -1186,6 +1253,21 @@ function render() {
     tr.addEventListener("click", (e) => {
       if (e.target.closest("a") || e.target.closest(".cmpbtn")) return;
       toggleDetail(tr);
+    });
+  });
+
+  document.querySelectorAll(".ln-node.ln-other").forEach(node => {
+    node.addEventListener("click", () => {
+      const pid = node.getAttribute("data-id");
+      const targetTr = document.querySelector(`tr.datarow[data-id="${pid}"]`);
+      if (targetTr) {
+        document.querySelectorAll("tr.detailrow:not([hidden])").forEach(dr => {
+          dr.setAttribute("hidden", "");
+          dr.previousElementSibling.classList.remove("expanded");
+        });
+        targetTr.scrollIntoView({ behavior: "smooth", block: "center" });
+        setTimeout(() => toggleDetail(targetTr), 300);
+      }
     });
   });
 
@@ -1249,8 +1331,55 @@ loadColPrefs();
 loadColW();
 buildColMenu();
 wireColumnsMenu();
+document.getElementById("exportBtn").addEventListener("click", exportCSV);
+
 compareFromURL();
 load();
+
+function exportCSV() {
+  // Export the currently filtered + sorted rows as a clean, human-readable CSV.
+  // Columns are chosen for readability — internal IDs omitted.
+  const cols = [
+    { label: "Brand",            key: "_brand" },
+    { label: "Model",            key: "model_name" },
+    { label: "Full Name",        key: "full_name" },
+    { label: "Year",             key: "release_year" },
+    { label: "Status",           key: "status" },
+    { label: "Design",           key: "design" },
+    { label: "Fit",              key: "fit" },
+    { label: "Driver Type",      key: "driver_type" },
+    { label: "Driver Size (mm)", key: "driver_size_mm" },
+    { label: "Impedance (Ω)",    key: "impedance_ohms" },
+    { label: "Sensitivity (dB)", key: "sensitivity_db" },
+    { label: "Wireless",         key: "wireless" },
+    { label: "ANC",              key: "anc" },
+    { label: "MSRP (USD)",       key: "msrp_usd" },
+    { label: "Notes",            key: "notes" },
+  ];
+
+  const escCell = v => {
+    const s = String(v ?? "");
+    return s.includes(",") || s.includes('"') || s.includes("\n")
+      ? '"' + s.replace(/"/g, '""') + '"'
+      : s;
+  };
+
+  const header = cols.map(c => c.label).join(",");
+  const rows = state.filtered.map(r =>
+    cols.map(c => escCell(r[c.key] ?? "")).join(",")
+  );
+
+  const csv = [header, ...rows].join("\r\n");
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `headphone-archive-${state.filtered.length}-results.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
 
 // Mobile filter toggle
 document.getElementById("filterToggle").addEventListener("click", function() {

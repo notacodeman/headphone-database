@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All Brands — The Headphone Archive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Spline+Sans+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1714; --paper: #f4f0e8; --paper-2: #eae3d6; --accent: #c2410c;
+    --accent-2: #1e3a2f; --line: #d6cdbd; --muted: #8a8071; --card: #ede7d9;
+    --pad: clamp(1rem, 3vw, 2rem);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: var(--paper); color: var(--ink);
+    font-family: 'Spline Sans Mono', monospace; line-height: 1.5; }
+
+  /* Nav */
+  .sitenav { border-bottom: 2px solid var(--ink); padding: 1rem var(--pad);
+    max-width: 1400px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .sitenav-left { display: flex; align-items: center; gap: 1.5rem; }
+  .sitename { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 700;
+    color: var(--ink); text-decoration: none; }
+  .sitename:hover { color: var(--accent); }
+  .navlink { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--muted); text-decoration: none; }
+  .navlink:hover { color: var(--accent); }
+
+  /* Hero */
+  .hero { max-width: 1400px; margin: 0 auto;
+    padding: 3rem var(--pad) 2rem; border-bottom: 1px solid var(--line); }
+  .hero-eyebrow { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--muted); margin-bottom: 0.6rem; }
+  .hero h1 { font-family: 'Fraunces', serif; font-weight: 900;
+    font-size: clamp(2.4rem, 6vw, 5rem); line-height: 0.92; letter-spacing: -0.02em; }
+  .hero-sub { margin-top: 1rem; font-size: 0.8rem; color: var(--muted); }
+
+  /* Filter / search bar */
+  .filterbar { max-width: 1400px; margin: 0 auto;
+    padding: 1rem var(--pad) 0.5rem;
+    display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+  .filterbar input { flex: 1; min-width: 200px; padding: 0.55rem 0.75rem;
+    border: 1px solid var(--ink); background: var(--paper);
+    font-family: inherit; font-size: 0.85rem; color: var(--ink); }
+  .filterbar input:focus { outline: none; border-color: var(--accent); }
+  .region-btns { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+  .rbtn { background: none; border: 1px solid var(--line); font-family: inherit;
+    font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em;
+    padding: 0.35rem 0.75rem; cursor: pointer; color: var(--muted);
+    border-radius: 99px; transition: all 0.12s; }
+  .rbtn:hover { border-color: var(--ink); color: var(--ink); }
+  .rbtn.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+  /* Alphabet strip */
+  .alpha-strip { max-width: 1400px; margin: 0 auto;
+    padding: 0.4rem var(--pad); display: flex; flex-wrap: wrap; gap: 0.1rem;
+    border-bottom: 1px solid var(--line); }
+  .alpha-btn { background: none; border: none; font-family: inherit;
+    font-size: 0.72rem; padding: 0.25rem 0.4rem; cursor: pointer;
+    color: var(--muted); border-radius: 2px; transition: all 0.1s; }
+  .alpha-btn:hover { color: var(--accent); }
+  .alpha-btn.has-brands { color: var(--ink); font-weight: 600; }
+  .alpha-btn.active { color: var(--accent); }
+
+  /* Results meta */
+  .resultmeta { max-width: 1400px; margin: 0 auto;
+    padding: 0.75rem var(--pad); font-size: 0.72rem; color: var(--muted); }
+
+  /* Brand grid */
+  .brand-grid { max-width: 1400px; margin: 0 auto;
+    padding: 0 var(--pad) 4rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1px;
+    border-left: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    background: var(--line); }
+  .brand-card { background: var(--paper); padding: 1.25rem 1.4rem;
+    text-decoration: none; color: inherit;
+    display: flex; flex-direction: column; gap: 0.3rem;
+    transition: background 0.12s; position: relative; }
+  .brand-card:hover { background: var(--paper-2); }
+  .brand-card:hover .card-name { color: var(--accent); }
+  .card-name { font-family: 'Fraunces', serif; font-size: 1.15rem;
+    font-weight: 700; line-height: 1.1; color: var(--ink); }
+  .card-meta { display: flex; gap: 0.5rem; align-items: center;
+    flex-wrap: wrap; margin-top: 0.15rem; }
+  .card-country { font-size: 0.65rem; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--muted); }
+  .card-founded { font-size: 0.65rem; color: var(--muted); }
+  .card-founded::before { content: "Est. "; }
+  .card-status { font-size: 0.6rem; text-transform: uppercase;
+    letter-spacing: 0.08em; padding: 0.1rem 0.45rem;
+    border-radius: 99px; border: 1px solid var(--line); color: var(--muted); }
+  .card-status.disc { background: #fef3c7; color: #92400e; border-color: #fde68a; }
+  .card-desc { font-size: 0.74rem; color: var(--muted); line-height: 1.55;
+    margin-top: 0.5rem;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+    overflow: hidden; }
+  .card-count { margin-top: auto; padding-top: 0.75rem;
+    font-size: 0.65rem; color: var(--muted); text-transform: uppercase;
+    letter-spacing: 0.1em; border-top: 1px solid var(--line); }
+  .card-count strong { color: var(--accent-2); }
+
+  /* Letter section headers */
+  .letter-header { grid-column: 1 / -1; background: var(--paper-2);
+    padding: 0.5rem 1.4rem; font-size: 0.6rem; text-transform: uppercase;
+    letter-spacing: 0.15em; color: var(--muted); border-top: 1px solid var(--line); }
+
+  .empty { text-align: center; padding: 3rem 1rem; color: var(--muted);
+    font-size: 0.85rem; grid-column: 1/-1; }
+  .loading { text-align: center; padding: 3rem 1rem; color: var(--muted); }
+
+  @media (max-width: 600px) {
+    .brand-grid { grid-template-columns: 1fr; }
+    .region-btns { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="sitenav-left">
+    <a href="index.html" class="sitename">The Headphone Archive</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">The Headphone Archive</div>
+  <h1>All Brands</h1>
+  <p class="hero-sub" id="heroSub">Loading&hellip;</p>
+</div>
+
+<div class="filterbar">
+  <input type="text" id="q" placeholder="Search brands&hellip;" autocomplete="off">
+  <div class="region-btns" id="regionBtns"></div>
+</div>
+
+<div class="alpha-strip" id="alphaStrip"></div>
+<p class="resultmeta" id="resultMeta"></p>
+
+<div class="brand-grid" id="brandGrid">
+  <div class="loading">Loading brands&hellip;</div>
+</div>
+
+<script>
+const esc = s => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+let allBrands = [];
+let productCounts = {};
+let activeRegion = '';
+let activeLetter = '';
+
+const REGIONS = {
+  'Japan':   'Japan',
+  'Germany': 'Germany',
+  'USA':     'USA',
+  'China':   'China',
+  'Other':   'other',
+};
+
+async function load() {
+  try {
+    // Fetch all brands and the catalog (for product counts)
+    const [bRes, cRes] = await Promise.all([
+      fetch('/api/brands'),
+      fetch('/api/catalog'),
+    ]);
+    const bData = await bRes.json();
+    const cData = await cRes.json();
+
+    if (!bData.ok) throw new Error(bData.error || 'Failed to load brands');
+
+    allBrands = (bData.brands || []).sort((a, b) =>
+      a.name.localeCompare(b.name));
+
+    // Build product counts from catalog
+    if (cData.ok && cData.products) {
+      cData.products.forEach(p => {
+        const mid = String(p.manufacturer_id);
+        productCounts[mid] = (productCounts[mid] || 0) + 1;
+      });
+    }
+
+    document.getElementById('heroSub').textContent =
+      allBrands.length + ' brands from ' +
+      [...new Set(allBrands.map(b => b.country))].length + ' countries';
+
+    buildRegionButtons();
+    buildAlphaStrip();
+    render();
+  } catch (e) {
+    document.getElementById('brandGrid').innerHTML =
+      '<div class="empty">Could not load brands: ' + esc(e.message) + '</div>';
+  }
+}
+
+function buildRegionButtons() {
+  const countries = [...new Set(allBrands.map(b => b.country))].sort();
+  // Show top countries + Other
+  const topCountries = ['Japan', 'Germany', 'USA', 'China', 'UK', 'Denmark', 'France', 'Austria'];
+  const btns = document.getElementById('regionBtns');
+  btns.innerHTML = '<button class="rbtn active" data-region="">All</button>' +
+    topCountries
+      .filter(c => countries.includes(c))
+      .map(c => '<button class="rbtn" data-region="' + esc(c) + '">' + esc(c) + '</button>')
+      .join('');
+  btns.querySelectorAll('.rbtn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeRegion = btn.getAttribute('data-region');
+      activeLetter = '';
+      btns.querySelectorAll('.rbtn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      render();
+    });
+  });
+}
+
+function buildAlphaStrip() {
+  const letters = [...new Set(allBrands.map(b => b.name[0].toUpperCase()))].sort();
+  const strip = document.getElementById('alphaStrip');
+  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  strip.innerHTML = alphabet.map(l => {
+    const has = letters.includes(l);
+    return '<button class="alpha-btn' + (has ? ' has-brands' : '') + '" data-letter="' + l + '">' + l + '</button>';
+  }).join('');
+  strip.querySelectorAll('.alpha-btn.has-brands').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const l = btn.getAttribute('data-letter');
+      activeLetter = activeLetter === l ? '' : l;
+      strip.querySelectorAll('.alpha-btn').forEach(b => b.classList.remove('active'));
+      if (activeLetter) btn.classList.add('active');
+      render();
+    });
+  });
+}
+
+function render() {
+  const q = document.getElementById('q').value.toLowerCase().trim();
+  let brands = allBrands.filter(b => {
+    if (q && !b.name.toLowerCase().includes(q) &&
+        !(b.description || '').toLowerCase().includes(q) &&
+        !b.country.toLowerCase().includes(q)) return false;
+    if (activeRegion && b.country !== activeRegion) return false;
+    if (activeLetter && b.name[0].toUpperCase() !== activeLetter) return false;
+    return true;
+  });
+
+  document.getElementById('resultMeta').textContent =
+    brands.length + ' of ' + allBrands.length + ' brands';
+
+  if (!brands.length) {
+    document.getElementById('brandGrid').innerHTML = '<div class="empty">No brands match.</div>';
+    return;
+  }
+
+  // Group by first letter
+  const byLetter = {};
+  brands.forEach(b => {
+    const l = b.name[0].toUpperCase();
+    if (!byLetter[l]) byLetter[l] = [];
+    byLetter[l].push(b);
+  });
+
+  let html = '';
+  Object.keys(byLetter).sort().forEach(letter => {
+    if (!q && !activeRegion) { // only show letter headers when not searching
+      html += '<div class="letter-header">' + esc(letter) + '</div>';
+    }
+    byLetter[letter].forEach(b => {
+      const count = productCounts[String(b.manufacturer_id)] || 0;
+      const isDisc = b.status === 'Discontinued';
+      const statusHtml = isDisc
+        ? '<span class="card-status disc">Discontinued</span>'
+        : '';
+      html += '<a class="brand-card" href="brand.html?id=' + b.manufacturer_id + '">' +
+        '<div class="card-name">' + esc(b.name) + '</div>' +
+        '<div class="card-meta">' +
+          '<span class="card-country">' + esc(b.country) + '</span>' +
+          (b.founded_year ? '<span class="card-founded">' + esc(String(b.founded_year)) + '</span>' : '') +
+          statusHtml +
+        '</div>' +
+        (b.description ? '<p class="card-desc">' + esc(b.description) + '</p>' : '') +
+        '<div class="card-count"><strong>' + count + '</strong> headphone' + (count !== 1 ? 's' : '') + '</div>' +
+        '</a>';
+    });
+  });
+
+  document.getElementById('brandGrid').innerHTML = html;
+}
+
+document.getElementById('q').addEventListener('input', () => {
+  activeLetter = '';
+  document.querySelectorAll('.alpha-btn').forEach(b => b.classList.remove('active'));
+  render();
+});
+
+load();
+</script>
+</body>
+</html>

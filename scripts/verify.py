@@ -35,7 +35,7 @@ except Exception:
 CSV_FILES = ["manufacturers", "families", "products", "lineage", "sources"]
 
 SCHEMA = """
-CREATE TABLE manufacturers (manufacturer_id INTEGER PRIMARY KEY, name TEXT, country TEXT, website TEXT, status TEXT, founded_year INTEGER);
+CREATE TABLE manufacturers (manufacturer_id INTEGER PRIMARY KEY, name TEXT, country TEXT, website TEXT, status TEXT, founded_year INTEGER, description TEXT);
 CREATE TABLE families (family_id INTEGER PRIMARY KEY, manufacturer_id INTEGER, family_name TEXT, family_type TEXT);
 CREATE TABLE products (
     product_id TEXT PRIMARY KEY, family_id INTEGER, manufacturer_id INTEGER,
@@ -44,7 +44,8 @@ CREATE TABLE products (
     driver_size_mm TEXT, impedance_ohms TEXT, sensitivity_db TEXT,
     wireless TEXT, anc TEXT, predecessor TEXT, successor TEXT, notes TEXT,
     date_added TEXT, id INTEGER UNIQUE, fit TEXT, date_updated TEXT,
-    msrp_usd TEXT, sound_signature TEXT, connector_type TEXT, detachable_cable TEXT, weight_g TEXT
+    msrp_usd TEXT, sound_signature TEXT, connector_type TEXT, detachable_cable TEXT, weight_g TEXT,
+    spec_confidence TEXT
 );
 CREATE TABLE lineage (lineage_id INTEGER PRIMARY KEY, predecessor_product_id TEXT, successor_product_id TEXT);
 CREATE TABLE sources (source_id INTEGER PRIMARY KEY, product_id TEXT, source_type TEXT, title TEXT, url TEXT);
