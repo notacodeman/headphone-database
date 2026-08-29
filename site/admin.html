@@ -72,8 +72,8 @@
   thead th > span:first-child { display:inline-block; max-width:calc(100% - 10px);
     overflow:hidden; text-overflow:clip; vertical-align:bottom; }
   .resizer { position:absolute; top:0; right:0; width:9px; height:100%; cursor:col-resize; user-select:none; }
-  .resizer::before { content:""; position:absolute; right:3px; top:25%; height:50%; width:1px; background:var(--line); }
-  .resizer:hover::before { top:0; height:100%; width:2px; background:var(--accent); }
+  .resizer::before { content:""; position:absolute; right:0; top:25%; height:50%; width:1px; background:var(--line); }
+  .resizer:hover::before { right:0; top:0; height:100%; width:2px; background:var(--accent); }
   tbody tr { border-bottom:1px solid var(--line); }
   tbody tr.datarow { background:var(--paper); cursor:pointer; transition:background .1s; }
   tbody tr.datarow.zebra { background:#ece4d4; }
