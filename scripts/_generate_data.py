@@ -2891,12 +2891,979 @@ VERIFIED_SPECS = {
     "OLLO_S4X","OLLO_S5X","OLLO_X1",
 }
 
-# Push MSRP values into SPECS so the transform pass picks them up automatically
+# ---------------------------------------------------------------------------
+# MSRP expansion — fills gaps from the initial batch
+# ---------------------------------------------------------------------------
+MSRP.update({
+    # Sennheiser
+    "SENN_HD201":130, "SENN_HD202":50, "SENN_HD218":60, "SENN_HD219":50,
+    "SENN_HD228":70, "SENN_HD229":70, "SENN_HD238":80, "SENN_HD239":80,
+    "SENN_HD418":60, "SENN_HD419":60, "SENN_HD428":80, "SENN_HD429":80,
+    "SENN_HD438":100, "SENN_HD439":100, "SENN_HD449":100, "SENN_HD471":100,
+    "SENN_HD515":100, "SENN_HD518":150, "SENN_HD555":150, "SENN_HD558":180,
+    "SENN_HD569":200, "SENN_HD579":200, "SENN_HD599":250, "SENN_HD560S":200,
+    "SENN_HD4_40BT":150, "SENN_HD4_50BTNC":200,
+    "SENN_HD350BT":100, "SENN_HD450BT":150, "SENN_HD250BT":200,
+    "SENN_MOMENTUM":280, "SENN_MOMENTUM2":350, "SENN_MOMENTUM3":350,
+    "SENN_ACCENTUM":230, "SENN_ACCENTUMPLUS":280,
+    "SENN_AMPERIOR":300, "SENN_PX100":60, "SENN_PX200":90,
+    "SENN_HDB630":450,
+    # Audio-Technica
+    "ATECH_M30X":70, "ATECH_M50XBT":180, "ATECH_M50XBT2":200,
+    "ATECH_M60X":150, "ATECH_A700Z":150, "ATECH_A500Z":100, "ATECH_A900Z":250,
+    "ATECH_ANC300":200, "ATECH_ANC900BT":200, "ATECH_ANC70":150, "ATECH_ANC50":80,
+    "ATECH_SR50BT":100, "ATECH_SR30BT":70,
+    "ATECH_WP900":400, "ATECH_DSR7BT":250, "ATECH_DSR9BT":350,
+    "ATECH_ES55":100, "ATECH_EW9":200,
+    # Sony
+    "SONY_MDR1R":400, "SONY_MDR1A":300, "SONY_MDRZ5":500, "SONY_MDRZ7":700,
+    "SONY_MDR7510":200, "SONY_MDR7520":400,
+    "SONY_WHCH700N":200, "SONY_WHCH710N":200, "SONY_WHCH720N":200,
+    "SONY_WHHH1":300, "SONY_WHH900N":300,
+    "SONY_MDRXB700":120, "SONY_MDRXB950N1":200, "SONY_MDRXB1000":200,
+    "SONY_CH500":60, "SONY_CH510":60, "SONY_CH520":60,
+    "SONY_ZX110":30, "SONY_ZX310":50, "SONY_XB650":80,
+    # Beyerdynamic
+    "BEYER_DT240PRO":100, "BEYER_DT231":80, "BEYER_DT235":80,
+    "BEYER_T50P":300, "BEYER_T5P":600, "BEYER_T5PMK2":900,
+    "BEYER_AVENTHOW":450, "BEYER_MMX300PRO":300,
+    "BEYER_DT1350":350,
+    # AKG
+    "AKG_K44":50, "AKG_K52":50, "AKG_K72":60, "AKG_K92":70,
+    "AKG_K141MK2":100, "AKG_K240MK2":150, "AKG_K271MK2":170,
+    "AKG_K450":150, "AKG_K490NC":250, "AKG_K550":200, "AKG_K553":180,
+    "AKG_Y50BT":150, "AKG_N60NC":200, "AKG_N700NC":300, "AKG_N700NCM2":300,
+    "AKG_K67":130, "AKG_K175":150,
+    # HiFiMan
+    "HIFIMAN_HE300":200, "HIFIMAN_HE5LE":600, "HIFIMAN_HE500":700,
+    "HIFIMAN_HE560":900, "HIFIMAN_HE560V4":900,
+    "HIFIMAN_HE400I":250, "HIFIMAN_HE400I2020":150,
+    "HIFIMAN_HEX4":200, "HIFIMAN_HER10D":6000,
+    "HIFIMAN_DEVA":300, "HIFIMAN_DEVA_PRO":350,
+    # JBL
+    "JBL_E45BT":100, "JBL_LIVE400":100, "JBL_LIVE460":130,
+    "JBL_LIVE650BTNC":200, "JBL_LIVE660NC":200, "JBL_LIVE770NC":250,
+    "JBL_TUNE760NC":80, "JBL_TUNE710BT":100, "JBL_TUNE770NC":100,
+    "JBL_E65BTNC":150, "JBL_DUETNC":100, "JBL_CLUB700":120,
+    "JBL_CLUB950":200,
+    # Grado
+    "GRADO_SR60E":80, "GRADO_SR80E":100, "GRADO_SR125E":150, "GRADO_SR225E":200,
+    "GRADO_SR325E":295, "GRADO_GH1":125, "GRADO_GH2":175, "GRADO_GH3":250,
+    "GRADO_GH4":300, "GRADO_HEMP":420, "GRADO_GW100X":300,
+    "GRADO_RS1":600, "GRADO_RS2E":500, "GRADO_PS1000E":1700,
+    "GRADO_GS1000":1000,
+    # Fostex
+    "FOSTEX_TH600":600, "FOSTEX_TH900":1500, "FOSTEX_TH610":400,
+    "FOSTEX_TH7":250, "FOSTEX_T50RPMK2":200, "FOSTEX_T50RPMK3":200,
+    "FOSTEX_T50RPMK4":300, "FOSTEX_TR80":150, "FOSTEX_TXO":400,
+    # Bowers & Wilkins
+    "BW_P3":200, "BW_P5":300, "BW_P5S2":350, "BW_P7":400,
+    "BW_P9":900, "BW_PX":380, "BW_PX5":280, "BW_PX7":380,
+    "BW_PX7S2":380, "BW_PX7S3":380, "BW_PX8":700,
+    # Razer
+    "RAZER_KRAKEN2019":80, "RAZER_KRAKENX":50, "RAZER_KRAKENULTI":130,
+    "RAZER_NARIU":200, "RAZER_BSHARKV2":100, "RAZER_BARRACUDAX":100,
+    "RAZER_OPUS2020":200,
+    # Dan Clark Audio
+    "DCA_MADDOG":300, "DCA_AEON2NOIRE":800, "DCA_NOIRECLOSED":800,
+    "DCA_VOCE":3500,
+    # ZMF
+    "ZMF_AEOLUS":1300, "ZMF_ATTICUS":1200, "ZMF_EIKON":1500,
+    "ZMF_ORI":600, "ZMF_VIBRO":400,
+    # Stax
+    "STAX_SR207":300, "STAX_SR507":600, "STAX_SRL300":450,
+    "STAX_SRL500":600, "STAX_SRL700":900, "STAX_SR404":500, "STAX_SR4070":700,
+    # Shure
+    "SHURE_SRH440":100, "SHURE_SRH750DJ":200, "SHURE_SRH940":300,
+    "SHURE_SRH1440":250,
+    # Meze
+    "MEZE_99NOIR":350, "MEZE_99CLASSICS_WALNUT":310,
+    # Bang & Olufsen
+    "BO_H4":300, "BO_H6":400, "BO_H9":500,
+    # Marshall
+    "MARSHALL_MAJOR2":100, "MARSHALL_MAJOR3":100, "MARSHALL_MAJOR4":100,
+    "MARSHALL_MIDANC":200, "MARSHALL_MONITOR":250, "MARSHALL_MONITOR2ANC":350,
+    # Koss
+    "KOSS_KPH40":40, "KOSS_KSC75":20, "KOSS_KPH7":35, "KOSS_PRO4AA":100,
+    "KOSS_PORTAPROWL":85,
+    # SteelSeries
+    "SS_ARCTIS1":50, "SS_ARCTIS3":70, "SS_ARCTIS5":100, "SS_ARCTIS7":150,
+    "SS_ARCTIS7P":170, "SS_ARCTISNOVA":100, "SS_ARCTISNOVA5":130,
+    "SS_ARCTISNOVA7":200, "SS_ARCTIS9":200, "SS_ARCTIS_NOVA_PRO":250,
+    # HyperX
+    "HX_CLOUD2":100, "HX_CLOUDCORE":80, "HX_CLOUDALPHA":100, "HX_CLOUDS":80,
+    "HX_CLOUDFLIGHTS":170, "HX_CLOUDFLIGHT3":120, "HX_CLOUDII_WL":150,
+    "HX_STINGER2":60,
+    # Denon
+    "DENON_D600":300, "DENON_D1100":200, "DENON_D2000":350,
+    "DENON_D5000":600, "DENON_D7000":1000, "DENON_D7100":600,
+    "DENON_D9200":1000, "DENON_AH_GC30":200,
+    # Yamaha
+    "YAMAHA_HPHMT7":230, "YAMAHA_HPHMT8":300, "YAMAHA_HP1":1000,
+    "YAMAHA_YHL700A":300, "YAMAHA_YHE700A":300, "YAMAHA_YHS5000SE":5000,
+    # Ultrasone
+    "ULTRA_ED8":1500, "ULTRA_ED10":2000, "ULTRA_ED15":2500,
+    "ULTRA_HFI780":200, "ULTRA_HFI2400":300, "ULTRA_SIGPURE":700,
+    "ULTRA_HFI580":130, "ULTRA_HFI450":100, "ULTRA_PERF880":350,
+    # Logitech G
+    "LOGI_G432":70, "LOGI_G433":100, "LOGI_G435":80, "LOGI_G533":150,
+    "LOGI_G633":150, "LOGI_G635":150, "LOGI_G733":130, "LOGI_G735":180,
+    "LOGI_G930":100,
+    # V-Moda
+    "VMODA_LP":100, "VMODA_LP2":150, "VMODA_M80":180, "VMODA_M100":310,
+    "VMODA_CROSSFADE2WL":350, "VMODA_M100MASTER":350,
+    # Skullcandy
+    "SK_HESH3":70, "SK_CRUSHBASE":100, "SK_CRUSHER_EVO":200, "SK_CRUSHER_ANC":300,
+    "SK_HESH_ANC":100, "SK_VENUE_ANC":100,
+    # Anker Soundcore
+    "ANKER_LIFEQ20":40, "ANKER_LIFEQ30":60, "ANKER_SPACEQ45":80,
+    "ANKER_SPACEONE":80, "ANKER_SPACEONEPRO":100,
+    # Moondrop
+    "MOONDROP_VENUS":200, "MOONDROP_PARA":300, "MOONDROP_COSMO":100,
+    "MOONDROP_HORIZON":80, "MOONDROP_EDGE":150,
+    # Sendy Audio
+    "SENDY_AIVA":250, "SENDY_PEACOCK":400, "SENDY_APOLLO":350,
+    # Kiwi Ears
+    "KIWIEARS_ARDOR":250, "KIWIEARS_ELLIPSE":280, "KIWIEARS_ATHEIA":300,
+    # T+A
+    "TA_SOLITAIRE_P":2700, "TA_SOLITAIRE_PSE":3000, "TA_SOLITAIRE_T":2000,
+    # HEDD Audio
+    "HEDD_HEDDPHONE":1900, "HEDD_HEDDPHONE2":1500,
+    # Ollo Audio
+    "OLLO_S4X":399, "OLLO_S5X":399, "OLLO_X1":299,
+    # FiiO
+    "FIIO_FT1":80, "FIIO_FT1PRO":130, "FIIO_FT3":220, "FIIO_FT5":350,
+    # Austrian Audio
+    "AUSTRIAN_HIX60":350, "AUSTRIAN_THECOMPOSER":1500,
+    # Warwick Acoustics
+    "WA_SONOMA":5000, "WA_APERIO":8000,
+    # Abyss
+    "ABYSS_DIANAV2":3000, "ABYSS_DIANA":2500, "ABYSS_DIANAMR":4000,
+    # Final Audio
+    "FINAL_SONOROUS3":600, "FINAL_SONOROUS6":900, "FINAL_SONOROUSX":3000,
+    # Status Audio
+    "STATUS_CB1":80, "STATUS_OB1":130,
+    # Harman Kardon
+    "HK_SOHO":200, "HK_SOHOWL":250, "HK_SOHOWNC":300,
+    # Turtle Beach
+    "TB_STEALTH600G2":100, "TB_STEALTH700G2":150, "TB_STEALTHPRO":250,
+    # Corsair
+    "CORSAIR_HS80":100, "CORSAIR_HS70":80, "CORSAIR_VOID":100,
+    # Astro
+    "ASTRO_A40":130,
+    # Cleer
+    "CLEER_FLOW2":100, "CLEER_ENDURO100":80, "CLEER_ALPHA":150,
+    # 1More
+    "1MORE_SONOFLOW":80, "1MORE_SONOFLOWSE":100, "1MORE_MK802":70,
+    # Edifier STAX Spirit
+    "EDIFIER_STAXGT1":100, "EDIFIER_STAXGT5":130,
+    # Goldplanar
+    "GOLD_GL2000DS":250, "GOLD_GL2000SS":220, "GOLD_GL850":350,
+    # Takstar
+    "TAKSTAR_PRO80":60, "TAKSTAR_PRO82":80, "TAKSTAR_HF580":100,
+    "TAKSTAR_HF660S":130,
+    # Superlux
+    "SUPERLUX_HD668B":40, "SUPERLUX_HD681":35, "SUPERLUX_HD669":55,
+    # JVC
+    "JVC_HADX1000":400, "JVC_HADX2000":600,
+    "JVC_HASW01":500, "JVC_HASW02":700,
+    # Plantronics
+    "PLANT_BB500":60, "PLANT_BB600":80, "PLANT_BB810":150,
+    # Phiaton
+    "PHIATON_MS530":300, "PHIATON_BT460":130,
+    # Oppo
+    "OPPO_PM1":1100, "OPPO_PM2":700, "OPPO_PM3":400,
+    # ASUS ROG
+    "ASUS_DELTAS":100, "ASUS_DELTA2":150,
+    # Sonos
+    "SONOS_ACE":449,
+    # Technics
+    "TECH_EAHA800":380,
+    # Teufel
+    "TEUFEL_REALBLUENC":120, "TEUFEL_ZOLA":150,
+    # Creative
+    "CREATIVE_AVLIVE":60, "CREATIVE_AVLIVE2":80,
+    # Modhouse
+    "MODHOUSE_ARGONMK3":400, "MODHOUSE_TUNGSTEN":600,
+    # Rosson
+    "ROSSON_RAD0":2600,
+    # PSB
+    "PSB_M4U1":300, "PSB_M4U2":400,
+    # Rode
+    "RODE_NTH100":150,
+    # Crosszone
+    "CZ_CZ1":1500, "CZ_CZ10":2000,
+    # MySphere
+    "MYSPHERE_3":3500, "MYSPHERE_3X":4000,
+    # Tago Studio
+    "TAGO_T301":1000, "TAGO_T302":1200,
+    # Kennerton
+    "KENNERTON_ODIN":2000, "KENNERTON_THROR":2500,
+    # Spirit Torino
+    "SPIRITTORINO_SUPER":900, "SPIRITTORINO_RADIANTE":1200,
+    # Neumann
+    "NEUMANN_NDH30":600,
+})
+
+# ---------------------------------------------------------------------------
+# CONNECTOR TYPE + DETACHABLE CABLE
+# connector_type: what the headphone's cable terminates at the headphone end
+# detachable_cable: "Yes" / "No"
+# ---------------------------------------------------------------------------
+CONNECTORS = {
+    # Audeze — dual mini-XLR on all LCD series
+    "AUDEZE_LCD2":"Dual mini-XLR", "AUDEZE_LCD2C":"Dual mini-XLR",
+    "AUDEZE_LCD3":"Dual mini-XLR", "AUDEZE_LCD4":"Dual mini-XLR",
+    "AUDEZE_LCD5":"Dual mini-XLR", "AUDEZE_LCD5S":"Dual mini-XLR",
+    "AUDEZE_LCDX":"Dual mini-XLR", "AUDEZE_LCDXC":"Dual mini-XLR",
+    "AUDEZE_MM100":"3.5mm", "AUDEZE_MM200":"3.5mm", "AUDEZE_MM500":"3.5mm",
+    "AUDEZE_CRBN":"Electrostatic", "AUDEZE_CRBN2":"Electrostatic",
+    # HiFiMan — dual 3.5mm on most planars
+    "HIFIMAN_SUSVARA":"Dual 3.5mm", "HIFIMAN_HE1000V2":"Dual 3.5mm",
+    "HIFIMAN_HE1000SE":"Dual 3.5mm", "HIFIMAN_ARYA":"Dual 3.5mm",
+    "HIFIMAN_ARYASTLTH":"Dual 3.5mm", "HIFIMAN_ANANDA":"Dual 3.5mm",
+    "HIFIMAN_SUNDARA":"Dual 3.5mm", "HIFIMAN_EDITION_XS":"Dual 3.5mm",
+    "HIFIMAN_HE560":"Dual 3.5mm", "HIFIMAN_HE560V4":"Dual 3.5mm",
+    "HIFIMAN_HE6SE":"Dual 3.5mm", "HIFIMAN_HE400SE":"Dual 3.5mm",
+    "HIFIMAN_DEVA":"Dual 3.5mm", "HIFIMAN_DEVA_PRO":"Dual 3.5mm",
+    "HIFIMAN_HEX4":"Dual 3.5mm", "HIFIMAN_HE5XX":"Dual 3.5mm",
+    "HIFIMAN_HE4XX":"Dual 3.5mm",
+    # Focal — 3.5mm locking (unique Focal connector)
+    "FOCAL_UTOPIA":"3.5mm", "FOCAL_UTOPIA2022":"3.5mm",
+    "FOCAL_CLEAR":"3.5mm", "FOCAL_CLEARMG":"3.5mm",
+    "FOCAL_ELEAR":"3.5mm", "FOCAL_ELEGIA":"3.5mm",
+    "FOCAL_STELLIA":"3.5mm", "FOCAL_CELESTEE":"3.5mm",
+    "FOCAL_BATHYS":"3.5mm",
+    # Beyerdynamic — mini-XLR on high-end, non-detachable on DT consumer
+    "BEYER_DT1770PRO":"mini-XLR", "BEYER_DT1990":"mini-XLR",
+    "BEYER_DT1990MK2":"mini-XLR", "BEYER_T1MK2":"mini-XLR",
+    "BEYER_T1MK3":"mini-XLR", "BEYER_DT700PROX":"mini-XLR",
+    "BEYER_DT900PROX":"mini-XLR", "BEYER_T5P":"3.5mm", "BEYER_T5PMK2":"3.5mm",
+    "BEYER_DT770PRO":"3.5mm/6.35mm", "BEYER_DT880PRO":"3.5mm/6.35mm",
+    "BEYER_DT990PRO":"3.5mm/6.35mm",
+    # AKG — mini-XLR on K series pro
+    "AKG_K701":"mini-XLR", "AKG_K702":"mini-XLR", "AKG_K712":"mini-XLR",
+    "AKG_K812":"3.5mm", "AKG_K872":"3.5mm",
+    "AKG_K240":"mini-XLR", "AKG_K271MK2":"mini-XLR",
+    "AKG_K550":"3.5mm", "AKG_K553":"3.5mm",
+    # Sennheiser — proprietary 2-pin on HD 600 series; non-detach on consumer
+    "SENN_HD600":"Sennheiser 2-pin", "SENN_HD650":"Sennheiser 2-pin",
+    "SENN_HD660S":"Sennheiser 2-pin", "SENN_HD660S2":"Sennheiser 2-pin",
+    "SENN_HD800":"Sennheiser twist-lock", "SENN_HD800S":"Sennheiser twist-lock",
+    "SENN_HD820":"Sennheiser twist-lock", "SENN_HD490PRO":"Sennheiser 2-pin",
+    "SENN_HD620S":"Sennheiser 2-pin", "SENN_HD560S":"3.5mm",
+    "SENN_HD25":"3.5mm", "SENN_HD25_1":"3.5mm",
+    # Audio-Technica — A-series detachable, M-series mostly non
+    "ATECH_R70X":"A2DC", "ATECH_ADX5000":"A2DC",
+    "ATECH_A2000Z":"A2DC", "ATECH_A1000Z":"A2DC",
+    "ATECH_M50XBT":"Wireless", "ATECH_M50XBT2":"Wireless",
+    # ZMF — dual 3.5mm
+    "ZMF_VERITE_O":"Dual 3.5mm", "ZMF_VERITE_C":"Dual 3.5mm",
+    "ZMF_ATRIUM_O":"Dual 3.5mm", "ZMF_ATRIUM_C":"Dual 3.5mm",
+    "ZMF_CALDERA":"Dual 3.5mm", "ZMF_AUTEUR":"Dual 3.5mm",
+    "ZMF_AEOLUS":"Dual 3.5mm",
+    # Dan Clark Audio — mini-XLR
+    "DCA_STEALTH":"mini-XLR", "DCA_EXPANSE":"mini-XLR",
+    "DCA_ETHER2":"mini-XLR", "DCA_AEON2N":"mini-XLR", "DCA_AEON2C":"mini-XLR",
+    "DCA_AEON2NOIRE":"mini-XLR", "DCA_NOIRECLOSED":"mini-XLR",
+    # Meze
+    "MEZE_ELITE":"mini-XLR", "MEZE_EMPYREAN":"mini-XLR",
+    "MEZE_EMPYREAN2":"mini-XLR", "MEZE_EMPYREAN3":"mini-XLR",
+    "MEZE_109PRO":"3.5mm", "MEZE_LIRIC":"3.5mm", "MEZE_LIRICII":"3.5mm",
+    "MEZE_99CLASSICS":"3.5mm",
+    # Wireless headphones
+    "SONY_WH1000XM4":"Wireless", "SONY_WH1000XM5":"Wireless",
+    "SONY_WH1000XM6":"Wireless",
+    "BOSE_QC35II":"Wireless", "BOSE_QC45":"Wireless", "BOSE_NCH700":"Wireless",
+    "BOSE_QCU":"Wireless",
+    "APPLE_AIRPODSMAX":"Lightning", "APPLE_AIRPODSMAXUSBC":"USB-C",
+    # Shure
+    "SHURE_SRH1540":"MMCX", "SHURE_SRH1840":"3.5mm",
+    "SHURE_SRH440A":"3.5mm", "SHURE_SRH840A":"3.5mm",
+    # Sony wired flagships
+    "SONY_MDRZ1R":"4.4mm Pentaconn", "SONY_MDRZ7M2":"4.4mm Pentaconn",
+    "SONY_MDR7506":"3.5mm/6.35mm",
+    # Final Audio
+    "FINAL_D8000":"4.4mm Pentaconn", "FINAL_D8000PRO":"4.4mm Pentaconn",
+    # Stax
+    "STAX_SR009":"Electrostatic", "STAX_SR009S":"Electrostatic",
+    "STAX_SR007":"Electrostatic", "STAX_SRL700MK2":"Electrostatic",
+    "STAX_X9000":"Electrostatic",
+    # Grado — non-detachable on SR series, some RS/PS/GS are detachable
+    "GRADO_SR60X":"3.5mm", "GRADO_SR80X":"3.5mm",
+    "GRADO_SR125X":"3.5mm", "GRADO_SR225X":"3.5mm", "GRADO_SR325X":"3.5mm",
+    "GRADO_RS1X":"3.5mm", "GRADO_RS2X":"3.5mm",
+    "GRADO_GS1000X":"3.5mm", "GRADO_GS3000X":"3.5mm",
+    # Fostex
+    "FOSTEX_TH900MK2":"Dual 3.5mm", "FOSTEX_TH610":"Dual 3.5mm",
+    "FOSTEX_TH600":"Dual 3.5mm", "FOSTEX_T50RPMK3":"3.5mm",
+    "FOSTEX_T50RPMK4":"3.5mm",
+    # Denon biodynamic
+    "DENON_D9200":"Dual 3.5mm", "DENON_D7200":"Dual 3.5mm",
+    # Neumann / Austrian Audio
+    "NEUMANN_NDH20":"mini-XLR", "NEUMANN_NDH30":"mini-XLR",
+    "AUSTRIAN_HIX55":"3.5mm", "AUSTRIAN_HIX65":"3.5mm",
+}
+
+# Detachable cable data
+DETACHABLE = {
+    # Yes — these all have user-replaceable cables
+    **{pid: "Yes" for pid in [
+        "AUDEZE_LCD2","AUDEZE_LCD2C","AUDEZE_LCD3","AUDEZE_LCD4","AUDEZE_LCD5",
+        "AUDEZE_LCD5S","AUDEZE_LCDX","AUDEZE_LCDXC","AUDEZE_MM100","AUDEZE_MM200","AUDEZE_MM500",
+        "HIFIMAN_SUSVARA","HIFIMAN_HE1000V2","HIFIMAN_HE1000SE","HIFIMAN_ARYA",
+        "HIFIMAN_ARYASTLTH","HIFIMAN_ANANDA","HIFIMAN_SUNDARA","HIFIMAN_EDITION_XS",
+        "HIFIMAN_HE560","HIFIMAN_HE560V4","HIFIMAN_HE6SE","HIFIMAN_HE400SE",
+        "HIFIMAN_DEVA","HIFIMAN_DEVA_PRO","HIFIMAN_HEX4","HIFIMAN_HE5XX","HIFIMAN_HE4XX",
+        "FOCAL_UTOPIA","FOCAL_UTOPIA2022","FOCAL_CLEAR","FOCAL_CLEARMG",
+        "FOCAL_ELEAR","FOCAL_ELEGIA","FOCAL_STELLIA","FOCAL_CELESTEE","FOCAL_BATHYS",
+        "BEYER_DT1770PRO","BEYER_DT1990","BEYER_DT1990MK2","BEYER_T1MK2","BEYER_T1MK3",
+        "BEYER_DT700PROX","BEYER_DT900PROX","BEYER_T5P","BEYER_T5PMK2",
+        "AKG_K701","AKG_K702","AKG_K712","AKG_K812","AKG_K872","AKG_K240","AKG_K271MK2",
+        "SENN_HD600","SENN_HD650","SENN_HD660S","SENN_HD660S2","SENN_HD800","SENN_HD800S",
+        "SENN_HD820","SENN_HD490PRO","SENN_HD620S","SENN_HD560S","SENN_HD25","SENN_HD25_1",
+        "ATECH_R70X","ATECH_ADX5000","ATECH_A2000Z","ATECH_A1000Z",
+        "ATECH_M50X","ATECH_M70X",
+        "ZMF_VERITE_O","ZMF_VERITE_C","ZMF_ATRIUM_O","ZMF_ATRIUM_C",
+        "ZMF_CALDERA","ZMF_AUTEUR","ZMF_AEOLUS",
+        "DCA_STEALTH","DCA_EXPANSE","DCA_ETHER2","DCA_AEON2N","DCA_AEON2C",
+        "DCA_AEON2NOIRE","DCA_NOIRECLOSED",
+        "MEZE_ELITE","MEZE_EMPYREAN","MEZE_EMPYREAN2","MEZE_EMPYREAN3",
+        "MEZE_109PRO","MEZE_LIRIC","MEZE_LIRICII","MEZE_99CLASSICS",
+        "SHURE_SRH1540","SHURE_SRH1840","SHURE_SRH440A","SHURE_SRH840A",
+        "FINAL_D8000","FINAL_D8000PRO",
+        "FOSTEX_TH900MK2","FOSTEX_TH610","FOSTEX_TH600","FOSTEX_T50RPMK3","FOSTEX_T50RPMK4",
+        "DENON_D9200","DENON_D7200",
+        "NEUMANN_NDH20","NEUMANN_NDH30","AUSTRIAN_HIX55","AUSTRIAN_HIX65","AUSTRIAN_HIX60",
+        "SONY_MDRZ1R","SONY_MDRZ7M2",
+        "AIAIAI_TMA2","AIAIAI_TMA2STUDIO",
+        "OLLO_S4X","OLLO_S5X",
+        "GRADO_RS1X","GRADO_RS2X","GRADO_GS1000X","GRADO_GS3000X","GRADO_GW100X",
+        "HEDD_HEDDPHONE","HEDD_HEDDPHONE2",
+        "TA_SOLITAIRE_P","TA_SOLITAIRE_PSE","TA_SOLITAIRE_T",
+        "KENNT_ODIN","KENNERTON_THROR",
+    ]},
+    # No — non-detachable
+    **{pid: "No" for pid in [
+        "GRADO_SR60X","GRADO_SR80X","GRADO_SR125X","GRADO_SR225X","GRADO_SR325X",
+        "GRADO_GH1","GRADO_GH2","GRADO_GH3","GRADO_GH4","GRADO_HEMP",
+        "BOSE_QC35II","BOSE_QC45","BOSE_NCH700","BOSE_QCU","BOSE_A20","BOSE_A30",
+        "SONY_WH1000XM4","SONY_WH1000XM5","SONY_WH1000XM6",
+        "SONY_MDR7506","SONY_MDRCD900ST",
+        "BEYER_DT770PRO","BEYER_DT880PRO","BEYER_DT990PRO",
+        "ATECH_M40X","ATECH_M20X",
+        "AKG_K550","AKG_K553","AKG_K361","AKG_K371",
+        "BEATS_STUDIO3","BEATS_STUDIO4","BEATS_STUDIOPRO",
+        "APPLE_AIRPODSMAX","APPLE_AIRPODSMAXUSBC",
+        "SENN_MOMENTUM3","SENN_MOMENTUM4","SENN_MOMENTUM5",
+        "SENN_HD4_50BTNC","SENN_HD4_40BT",
+    ]},
+}
+
+# Push connectors and detachable into SPECS
+for _pid, _conn in CONNECTORS.items():
+    if _pid not in SPECS: SPECS[_pid] = {}
+    SPECS[_pid]["connector_type"] = _conn
+
+for _pid, _det in DETACHABLE.items():
+    if _pid not in SPECS: SPECS[_pid] = {}
+    SPECS[_pid]["detachable_cable"] = _det
+
 for _pid, _price in MSRP.items():
     if _pid not in SPECS:
         SPECS[_pid] = {}
     if "msrp_usd" not in SPECS[_pid]:
         SPECS[_pid]["msrp_usd"] = str(_price)
+
+# ---------------------------------------------------------------------------
+# SOUND SIGNATURES — community-consensus tuning character for each headphone.
+# Categories: Neutral · Warm Neutral · Neutral Bright · Warm · Bright ·
+#             V-Shaped · Bassy · Dark · Analytical · U-Shaped
+# ---------------------------------------------------------------------------
+SOUND_SIGS = {
+    # ── Neutral ──────────────────────────────────────────────────────────────
+    "SENN_HD600":"Neutral", "SENN_HD490PRO":"Neutral", "SENN_HD560S":"Neutral",
+    "SENN_HD280PRO":"Neutral", "SENN_HD380PRO":"Neutral",
+    "ATECH_M40X":"Neutral", "ATECH_R70X":"Neutral",
+    "ATECH_ADX5000":"Neutral",
+    "FOCAL_CLEAR":"Neutral", "FOCAL_CLEARMG":"Neutral",
+    "FOCAL_HADENYS":"Neutral", "FOCAL_AZURYS":"Neutral",
+    "AUDEZE_LCDX":"Neutral", "AUDEZE_MM500":"Neutral",
+    "NEUMANN_NDH20":"Neutral", "NEUMANN_NDH30":"Neutral",
+    "AUSTRIAN_HIX55":"Neutral", "AUSTRIAN_HIX65":"Neutral", "AUSTRIAN_HIX60":"Neutral",
+    "OLLO_S4X":"Neutral", "OLLO_S5X":"Neutral",
+    "AKG_K361":"Neutral", "AKG_K371":"Neutral", "AKG_K271MK2":"Neutral",
+    "SHURE_SRH840A":"Neutral", "SHURE_SRH1840":"Neutral",
+    "BEYER_DT700PROX":"Neutral",
+    "HIFIMAN_EDITION_XS":"Neutral Bright",
+    "TAGO_T301":"Neutral", "TAGO_T302":"Neutral",
+    "RODE_NTH100":"Neutral",
+
+    # ── Warm Neutral ─────────────────────────────────────────────────────────
+    "SENN_HD650":"Warm Neutral", "SENN_HD660S":"Warm Neutral", "SENN_HD660S2":"Warm Neutral",
+    "AUDEZE_LCD2":"Warm Neutral", "AUDEZE_LCD2C":"Warm Neutral",
+    "AUDEZE_LCD3":"Warm Neutral", "AUDEZE_LCD5":"Warm Neutral", "AUDEZE_LCD5S":"Warm Neutral",
+    "AUDEZE_MM100":"Warm Neutral",
+    "ZMF_AUTEUR":"Warm Neutral", "ZMF_AEOLUS":"Warm Neutral",
+    "ZMF_ATRIUM_O":"Warm Neutral", "ZMF_ATRIUM_C":"Warm Neutral",
+    "MEZE_109PRO":"Warm Neutral", "MEZE_LIRIC":"Warm Neutral", "MEZE_LIRICII":"Warm Neutral",
+    "BEYER_AMIRON":"Warm Neutral",
+    "HIFIMAN_ANANDA":"Warm Neutral", "HIFIMAN_ARYA":"Warm Neutral",
+    "HIFIMAN_ARYASTLTH":"Warm Neutral",
+    "SONY_MDRZ1R":"Warm Neutral", "SONY_MDRZ7M2":"Warm Neutral",
+    "DCA_ETHER2":"Warm Neutral", "DCA_AEON2N":"Warm Neutral",
+
+    # ── Neutral Bright ───────────────────────────────────────────────────────
+    "SENN_HD800S":"Neutral Bright",
+    "AKG_K701":"Neutral Bright", "AKG_K702":"Neutral Bright", "AKG_K712":"Neutral Bright",
+    "HIFIMAN_SUNDARA":"Neutral Bright", "HIFIMAN_HE400SE":"Neutral Bright",
+    "HIFIMAN_HE5XX":"Neutral Bright",
+    "FOCAL_ELEAR":"Neutral Bright",
+    "DCA_EXPANSE":"Neutral Bright",
+    "BEYER_DT880PRO":"Neutral Bright",
+    "BEYER_DT900PROX":"Neutral Bright",
+    "AKG_K812":"Neutral Bright",
+    "GRADO_RS1X":"Neutral Bright", "GRADO_RS2X":"Neutral Bright",
+
+    # ── Bright ───────────────────────────────────────────────────────────────
+    "SENN_HD800":"Bright", "SENN_HD820":"Bright",
+    "BEYER_DT990PRO":"Bright", "BEYER_T1MK1":"Bright", "BEYER_T1MK2":"Bright",
+    "GRADO_SR60X":"Bright", "GRADO_SR80X":"Bright", "GRADO_SR125X":"Bright",
+    "GRADO_SR225X":"Bright", "GRADO_SR325X":"Bright",
+    "GRADO_GS1000X":"Bright", "GRADO_GS3000X":"Bright",
+    "HIFIMAN_HE6SE":"Bright", "HIFIMAN_HE560":"Bright", "HIFIMAN_HE560V4":"Bright",
+    "SONY_MDR7506":"Bright", "SONY_MDRCD900ST":"Bright",
+    "SENN_HD25":"Bright", "SENN_HD25_1":"Bright", "SENN_AMPERIOR":"Bright",
+    "AKG_K240":"Bright",
+    "STAX_SR009":"Bright", "STAX_SR009S":"Bright", "STAX_X9000":"Bright",
+
+    # ── Analytical ───────────────────────────────────────────────────────────
+    "BEYER_DT1990":"Analytical", "BEYER_DT1990MK2":"Analytical",
+    "BEYER_DT1770PRO":"Analytical",
+    "FOCAL_UTOPIA":"Analytical", "FOCAL_UTOPIA2022":"Analytical",
+    "AUDEZE_LCD4":"Analytical",
+    "DCA_STEALTH":"Analytical",
+    "ZMF_VERITE_O":"Analytical", "ZMF_VERITE_C":"Analytical",
+    "HIFIMAN_SUSVARA":"Analytical", "HIFIMAN_HE1000V2":"Analytical", "HIFIMAN_HE1000SE":"Analytical",
+    "ATECH_M50X":"Analytical", "ATECH_M70X":"Analytical",
+    "BEYER_DT770PRO":"Analytical",
+    "AKG_K872":"Analytical", "AKG_K550":"Analytical",
+    "SHURE_SRH440A":"Analytical", "SHURE_SRH1540":"Analytical",
+    "SUPER_HD668B":"Analytical", "SAMSON_SR850":"Analytical",
+
+    # ── Warm ─────────────────────────────────────────────────────────────────
+    "MEZE_99CLASSICS":"Warm", "MEZE_ELITE":"Warm",
+    "MEZE_EMPYREAN":"Warm", "MEZE_EMPYREAN2":"Warm", "MEZE_EMPYREAN3":"Warm",
+    "AUDEZE_LCD_GX":"Warm",
+    "ZMF_CALDERA":"Warm",
+    "DENON_D9200":"Warm", "DENON_D7200":"Warm", "DENON_D5000":"Warm",
+    "FOSTEX_TH900MK2":"Warm", "FOSTEX_TH610":"Warm",
+    "BO_H95":"Warm", "BO_HX":"Warm",
+    "MARSHALL_MONITOR2ANC":"Warm", "MARSHALL_MONITOR3ANC":"Warm",
+    "BW_PX8":"Warm", "BW_PX7S2":"Warm", "BW_P9":"Warm",
+    "SONY_MDR1AM2":"Warm", "SONY_MDRZ7":"Warm",
+    "AUDEZE_MM200":"Warm",
+    "KENNERTON_ODIN":"Warm", "KENNERTON_THROR":"Warm",
+    "HIFIMAN_HER10D":"Warm",
+
+    # ── V-Shaped ─────────────────────────────────────────────────────────────
+    "SONY_WH1000XM3":"V-Shaped", "SONY_WH1000XM4":"V-Shaped",
+    "SONY_WH1000XM5":"V-Shaped", "SONY_WH1000XM6":"V-Shaped",
+    "BOSE_QC35II":"V-Shaped", "BOSE_QC45":"V-Shaped", "BOSE_NCH700":"V-Shaped",
+    "BEATS_STUDIO3":"V-Shaped", "BEATS_STUDIOPRO":"V-Shaped", "BEATS_STUDIO4":"V-Shaped",
+    "BEATS_SOLO3":"V-Shaped", "BEATS_SOLO4":"V-Shaped",
+    "VMODA_M100":"V-Shaped", "VMODA_M100MASTER":"V-Shaped", "VMODA_CROSSFADE2WL":"V-Shaped",
+    "APPLE_AIRPODSMAX":"V-Shaped", "APPLE_AIRPODSMAXUSBC":"V-Shaped",
+    "SK_CRUSHER_EVO":"V-Shaped", "SK_CRUSHER_ANC":"V-Shaped",
+    "SK_HESH3":"V-Shaped",
+    "JBL_LIVE660NC":"V-Shaped", "JBL_LIVE770NC":"V-Shaped",
+    "JBL_TUNE760NC":"V-Shaped",
+    "SENN_MOMENTUM3":"V-Shaped", "SENN_MOMENTUM4":"V-Shaped", "SENN_MOMENTUM5":"V-Shaped",
+    "SENN_ACCENTUM":"V-Shaped", "SENN_ACCENTUMPLUS":"V-Shaped",
+    "HK_SOHO":"V-Shaped", "HK_SOHOWL":"V-Shaped",
+    "BO_H4":"V-Shaped", "BO_H6":"V-Shaped", "BO_H9":"V-Shaped",
+    "MARSHALL_MAJOR4":"V-Shaped", "MARSHALL_MAJOR5":"V-Shaped",
+    "TECH_EAHA800":"V-Shaped", "TECH_EAHA800M2":"V-Shaped",
+    "SONOS_ACE":"V-Shaped",
+    "1MORE_SONOFLOW":"V-Shaped",
+    "ANKER_SPACEQ45":"V-Shaped", "ANKER_SPACEONE":"V-Shaped",
+    "ATECH_SR50BT":"V-Shaped",
+    "PHIATON_MS530":"V-Shaped",
+
+    # ── Bassy ────────────────────────────────────────────────────────────────
+    "SONY_MDRXB1000":"Bassy", "SONY_MDRXB700":"Bassy",
+    "BEATS_EP":"Bassy", "BEATS_MIXR":"Bassy",
+    "SK_CRUSHBASE":"Bassy",
+    "JBL_CLUBONE":"Bassy",
+
+    # ── Dark ─────────────────────────────────────────────────────────────────
+    "AUDEZE_LCD_2":"Dark",
+    "STAX_SR007":"Dark",
+    "FOCAL_ELEGIA":"Dark",
+    "DCA_AEON2C":"Dark",
+    "FOCAL_STELLIA":"Dark",
+
+    # ── U-Shaped ─────────────────────────────────────────────────────────────
+    "ATECH_M50X":"U-Shaped", "ATECH_M50XBT":"U-Shaped", "ATECH_M50XBT2":"U-Shaped",
+    "FOCAL_CELESTEE":"U-Shaped", "FOCAL_BATHYS":"U-Shaped",
+    "AUDEZE_LCDXC":"U-Shaped", "AUDEZE_LCD_GX":"U-Shaped",
+    "HIFIMAN_HE4XX":"U-Shaped",
+    "BEYER_T5P":"U-Shaped", "BEYER_T5PMK2":"U-Shaped",
+    "SENN_HD569":"U-Shaped",
+    "MARKLEV_5909":"U-Shaped",
+}
+
+# Push sound signatures into SPECS
+for _pid, _sig in SOUND_SIGS.items():
+    if _pid not in SPECS: SPECS[_pid] = {}
+    if "sound_signature" not in SPECS[_pid]:
+        SPECS[_pid]["sound_signature"] = _sig
+
+# ---------------------------------------------------------------------------
+# WEIGHT DATA (grams) — from manufacturer spec sheets
+# ---------------------------------------------------------------------------
+WEIGHTS = {
+    # Sennheiser
+    "SENN_HD600":260, "SENN_HD650":260, "SENN_HD660S":260, "SENN_HD660S2":260,
+    "SENN_HD800":330, "SENN_HD800S":330, "SENN_HD820":380,
+    "SENN_HD490PRO":240, "SENN_HD620S":330,
+    "SENN_HD560S":240, "SENN_HD25":140, "SENN_HD25_1":140,
+    "SENN_MOMENTUM4":293, "SENN_MOMENTUM5":293, "SENN_ACCENTUM":240,
+    "SENN_PXC550II":227,
+    # Beyerdynamic
+    "BEYER_DT770PRO":270, "BEYER_DT880PRO":295, "BEYER_DT990PRO":250,
+    "BEYER_DT1770PRO":388, "BEYER_DT1990":370, "BEYER_DT1990MK2":370,
+    "BEYER_T1MK2":360, "BEYER_T1MK3":360,
+    "BEYER_DT700PROX":340, "BEYER_DT900PROX":340,
+    "BEYER_AMIRON":340, "BEYER_MMX300":363,
+    # Audio-Technica
+    "ATECH_M50X":285, "ATECH_M40X":240, "ATECH_M70X":300,
+    "ATECH_R70X":210, "ATECH_ADX5000":270,
+    # AKG
+    "AKG_K701":235, "AKG_K702":235, "AKG_K712":235,
+    "AKG_K812":390, "AKG_K872":340,
+    "AKG_K361":225, "AKG_K371":239,
+    # HiFiMan
+    "HIFIMAN_SUSVARA":450, "HIFIMAN_HE1000V2":420, "HIFIMAN_HE1000SE":450,
+    "HIFIMAN_ARYA":404, "HIFIMAN_ARYASTLTH":440,
+    "HIFIMAN_ANANDA":399, "HIFIMAN_SUNDARA":372, "HIFIMAN_EDITION_XS":405,
+    "HIFIMAN_HE560":375, "HIFIMAN_HE6SE":458,
+    "HIFIMAN_HE400SE":390, "HIFIMAN_HE5XX":440,
+    # Focal
+    "FOCAL_UTOPIA":490, "FOCAL_UTOPIA2022":490,
+    "FOCAL_CLEAR":450, "FOCAL_CLEARMG":450,
+    "FOCAL_ELEAR":450, "FOCAL_ELEGIA":430,
+    "FOCAL_STELLIA":500, "FOCAL_CELESTEE":420, "FOCAL_BATHYS":360,
+    # Audeze
+    "AUDEZE_LCD2":585, "AUDEZE_LCD2C":545,
+    "AUDEZE_LCD3":550, "AUDEZE_LCD4":735, "AUDEZE_LCD5":420,
+    "AUDEZE_LCDX":600, "AUDEZE_LCDXC":695,
+    "AUDEZE_MM100":260, "AUDEZE_MM500":360,
+    # ZMF
+    "ZMF_VERITE_O":415, "ZMF_VERITE_C":425,
+    "ZMF_ATRIUM_O":485, "ZMF_ATRIUM_C":495,
+    "ZMF_CALDERA":430, "ZMF_AUTEUR":430, "ZMF_AEOLUS":440,
+    # Dan Clark Audio
+    "DCA_STEALTH":415, "DCA_EXPANSE":415,
+    "DCA_ETHER2":290, "DCA_AEON2N":290, "DCA_AEON2C":290,
+    # Meze
+    "MEZE_ELITE":430, "MEZE_EMPYREAN":430, "MEZE_EMPYREAN2":430, "MEZE_EMPYREAN3":430,
+    "MEZE_99CLASSICS":260, "MEZE_109PRO":332, "MEZE_LIRIC":333,
+    # Sony
+    "SONY_WH1000XM4":254, "SONY_WH1000XM5":250, "SONY_WH1000XM6":254,
+    "SONY_MDRZ1R":385, "SONY_MDRZ7M2":350,
+    "SONY_MDR7506":230, "SONY_MDR1AM2":235,
+    # Bose
+    "BOSE_QC45":238, "BOSE_QC35II":235, "BOSE_NCH700":250,
+    # Apple
+    "APPLE_AIRPODSMAX":385, "APPLE_AIRPODSMAXUSBC":385,
+    # Stax
+    "STAX_SR009":338, "STAX_SR009S":338, "STAX_SR007":370,
+    "STAX_SRL700MK2":430, "STAX_X9000":440,
+    # Neumann / Austrian Audio
+    "NEUMANN_NDH20":383, "NEUMANN_NDH30":350,
+    "AUSTRIAN_HIX55":299, "AUSTRIAN_HIX65":299, "AUSTRIAN_HIX60":299,
+    # Shure
+    "SHURE_SRH1540":322, "SHURE_SRH1840":369,
+    "SHURE_SRH440A":159, "SHURE_SRH840A":218,
+    # Beats / Marshall
+    "BEATS_STUDIO4":260, "BEATS_STUDIOPRO":260,
+    "MARSHALL_MONITOR2ANC":270, "MARSHALL_MONITOR3ANC":282,
+    # B&W
+    "BW_PX7S2":307, "BW_PX8":309, "BW_PX5":237,
+    # V-Moda
+    "VMODA_M100MASTER":280, "VMODA_CROSSFADE2WL":280,
+    # Grado
+    "GRADO_SR60X":175, "GRADO_SR80X":175, "GRADO_SR325X":190,
+    "GRADO_GS3000X":350,
+    # Ollo Audio
+    "OLLO_S4X":319, "OLLO_S5X":319,
+    # Final Audio
+    "FINAL_D8000":523, "FINAL_D8000PRO":523,
+    # Sonos / Mark Levinson / Technics
+    "SONOS_ACE":312, "MARKLEV_5909":385, "TECH_EAHA800":237,
+    # Koss
+    "KOSS_PORTAPRO":60, "KOSS_KSC75":35,
+    # FiiO
+    "FIIO_FT3":365, "FIIO_FT5":390,
+}
+
+# Push weight data into SPECS
+for _pid, _wt in WEIGHTS.items():
+    if _pid not in SPECS: SPECS[_pid] = {}
+    if "weight_g" not in SPECS[_pid]:
+        SPECS[_pid]["weight_g"] = str(_wt)
+
+# ---------------------------------------------------------------------------
+# EXPANDED CONNECTOR TYPE coverage
+# ---------------------------------------------------------------------------
+CONNECTORS.update({
+    # Sennheiser consumer / gaming
+    "SENN_HD569":"3.5mm", "SENN_HD579":"3.5mm", "SENN_HD599":"3.5mm",
+    "SENN_HD518":"3.5mm", "SENN_HD558":"3.5mm", "SENN_HD558":"3.5mm",
+    "SENN_HD4_40BT":"Wireless", "SENN_HD4_50BTNC":"Wireless",
+    "SENN_HD350BT":"Wireless", "SENN_HD450BT":"Wireless", "SENN_HD250BT":"Wireless",
+    "SENN_MOMENTUM3":"Wireless", "SENN_MOMENTUM4":"Wireless", "SENN_MOMENTUM5":"Wireless",
+    "SENN_ACCENTUM":"Wireless", "SENN_ACCENTUMPLUS":"Wireless",
+    "SENN_PXC550":"Wireless", "SENN_PXC550II":"Wireless",
+    # Beyerdynamic consumer
+    "BEYER_DT231":"3.5mm", "BEYER_DT235":"3.5mm",
+    "BEYER_AVENTHOW":"Wireless",
+    # AKG consumer
+    "AKG_K52":"3.5mm", "AKG_K72":"3.5mm", "AKG_K92":"3.5mm",
+    "AKG_K44":"3.5mm", "AKG_K450":"3.5mm", "AKG_K553":"3.5mm",
+    "AKG_Y50BT":"Wireless", "AKG_N60NC":"Wireless", "AKG_N700NC":"Wireless",
+    # Sony consumer/wireless
+    "SONY_WH1000XM2":"Wireless", "SONY_WH1000XM3":"Wireless",
+    "SONY_WHCH700N":"Wireless", "SONY_WHCH710N":"Wireless", "SONY_WHCH720N":"Wireless",
+    "SONY_MDR1R":"3.5mm", "SONY_MDR1A":"3.5mm", "SONY_MDRZ5":"3.5mm",
+    "SONY_MDRZ7":"3.5mm", "SONY_MDR7510":"3.5mm", "SONY_MDR7520":"6.35mm",
+    # Bose
+    "BOSE_QC35II":"Wireless", "BOSE_QC45":"Wireless", "BOSE_NCH700":"Wireless",
+    "BOSE_QCU":"Wireless",
+    # Beats
+    "BEATS_STUDIO3":"Wireless", "BEATS_STUDIO4":"Wireless", "BEATS_STUDIOPRO":"Wireless",
+    "BEATS_SOLO3":"Wireless", "BEATS_SOLO4":"Wireless", "BEATS_SOLOPRO":"Wireless",
+    # Grado all use fixed 3.5mm
+    "GRADO_SR60X":"3.5mm", "GRADO_SR80X":"3.5mm", "GRADO_SR125X":"3.5mm",
+    "GRADO_SR225X":"3.5mm", "GRADO_SR325X":"3.5mm",
+    "GRADO_GH1":"3.5mm", "GRADO_GH2":"3.5mm", "GRADO_GH3":"3.5mm",
+    "GRADO_GH4":"3.5mm", "GRADO_HEMP":"3.5mm",
+    "GRADO_PS1000E":"3.5mm", "GRADO_PS2000E":"3.5mm",
+    # Stax (electrostatic bias connection)
+    "STAX_SRL300":"Electrostatic", "STAX_SRL500":"Electrostatic",
+    "STAX_SRL700":"Electrostatic", "STAX_SR404":"Electrostatic",
+    "STAX_SR207":"Electrostatic", "STAX_SR507":"Electrostatic",
+    "STAX_SR4070":"Electrostatic",
+    # HiFiMan electrostatic
+    "HIFIMAN_JADE2":"Electrostatic", "HIFIMAN_SHANGRILA":"Electrostatic",
+    # Audeze CRBN
+    "AUDEZE_CRBN":"Electrostatic", "AUDEZE_CRBN2":"Electrostatic",
+    # Gaming / wireless
+    "ASTRO_A50G4":"Wireless", "ASTRO_A50X":"Wireless",
+    "ASTRO_A40":"3.5mm", "ASTRO_A40TR":"3.5mm",
+    "RAZER_BARRACUDAX":"Wireless", "RAZER_NARIU":"Wireless",
+    "RAZER_KRAKENX":"3.5mm", "RAZER_KRAKENULTI":"USB",
+    "LOGI_G435":"Wireless", "LOGI_G533":"Wireless", "LOGI_G733":"Wireless", "LOGI_G735":"Wireless",
+    "LOGI_G432":"USB", "LOGI_G433":"USB", "LOGI_G635":"USB",
+    "SS_ARCTIS7":"Wireless", "SS_ARCTISNOVA7":"Wireless", "SS_ARCTIS_NOVA_PRO":"Wireless",
+    "SS_ARCTIS5":"USB", "SS_ARCTIS3":"3.5mm",
+    "HX_CLOUDFLIGHTS":"Wireless", "HX_CLOUD2":"3.5mm", "HX_CLOUDALPHA":"3.5mm",
+    "TB_STEALTH700G2":"Wireless", "TB_STEALTHPRO":"Wireless", "TB_STEALTH600G2":"Wireless",
+    "CORSAIR_HS80":"Wireless", "CORSAIR_HS70":"Wireless",
+    # Consumer wireless
+    "SONY_TECH_EAHA800":"Wireless",
+    "TECH_EAHA800":"Wireless", "TECH_EAHA800M2":"Wireless",
+    "SONOS_ACE":"Wireless",
+    "SENN_MOMENTUM3":"Wireless",
+    "BO_H95":"Wireless", "BO_HX":"Wireless", "BO_H100":"Wireless",
+    "MARSHALL_MONITOR2ANC":"Wireless", "MARSHALL_MONITOR3ANC":"Wireless",
+    "MARSHALL_MIDANC":"Wireless",
+    "BW_PX7S2":"Wireless", "BW_PX8":"Wireless", "BW_PX7":"Wireless",
+    "BW_PX5":"Wireless", "BW_PX":"Wireless",
+    "MARKLEV_5909":"Wireless",
+    "1MORE_SONOFLOW":"Wireless", "1MORE_SONOFLOWSE":"Wireless",
+    "ANKER_SPACEQ45":"Wireless", "ANKER_SPACEONE":"Wireless", "ANKER_SPACEONEPRO":"Wireless",
+    "ATECH_M50XBT":"Wireless", "ATECH_M50XBT2":"Wireless",
+    # Koss
+    "KOSS_PORTAPRO":"3.5mm", "KOSS_PORTAPROWL":"Wireless",
+    "KOSS_KSC75":"3.5mm", "KOSS_KPH30I":"3.5mm", "KOSS_KPH40":"3.5mm",
+    # Studio non-detachable
+    "SONY_MDR7506":"3.5mm/6.35mm", "SONY_MDRCD900ST":"3.5mm",
+    "SUPER_HD668B":"3.5mm", "SAMSON_SR850":"3.5mm",
+    "TAKSTAR_PRO80":"6.35mm", "TAKSTAR_PRO82":"6.35mm",
+    # FiiO
+    "FIIO_FT3":"4.4mm Pentaconn", "FIIO_FT5":"4.4mm Pentaconn",
+    "FIIO_FT1":"3.5mm", "FIIO_FT1PRO":"3.5mm",
+    # Denon
+    "DENON_D9200":"Dual 3.5mm", "DENON_D7200":"Dual 3.5mm",
+    "DENON_D600":"Dual 3.5mm", "DENON_D2000":"3.5mm", "DENON_D5000":"3.5mm",
+    # Crosszone / MySphere / Tago
+    "CZ_CZ1":"3.5mm", "CZ_CZ10":"3.5mm",
+    "TAGO_T301":"4.4mm Pentaconn", "TAGO_T302":"4.4mm Pentaconn",
+    # V-Moda
+    "VMODA_M100":"3.5mm", "VMODA_M100MASTER":"3.5mm",
+    "VMODA_CROSSFADE2WL":"Wireless",
+})
+
+# Push expanded connectors into SPECS
+for _pid, _conn in CONNECTORS.items():
+    if _pid not in SPECS: SPECS[_pid] = {}
+    SPECS[_pid]["connector_type"] = _conn
+
+# Expanded detachable data
+DETACHABLE.update({
+    **{pid: "Yes" for pid in [
+        "SENN_HD560S","SENN_HD518","SENN_HD558","SENN_HD569","SENN_HD579","SENN_HD599",
+        "ATECH_M50XBT","ATECH_M50XBT2","ATECH_WP900",
+        "BEYER_DT231","BEYER_DT235",
+        "FIIO_FT3","FIIO_FT5","FIIO_FT1","FIIO_FT1PRO",
+        "DENON_D9200","DENON_D7200","DENON_D600","DENON_D5000","DENON_D2000",
+        "HIFIMAN_HE5XX","HIFIMAN_HE400SE","HIFIMAN_HE4XX",
+        "FOSTEX_TXO","FOSTEX_TR80",
+        "GRADO_GW100X",
+        "TAGO_T301","TAGO_T302",
+        "AIAIAI_TMA1","AIAIAI_TMA2WL",
+        "PSB_M4U1","PSB_M4U2",
+        "MEZE_99NOIR","MEZE_99CLASSICSWALNUT",
+    ]},
+    **{pid: "No" for pid in [
+        "SENN_HD4_40BT","SENN_HD4_50BTNC","SENN_HD350BT","SENN_HD450BT","SENN_HD250BT",
+        "SENN_MOMENTUM3","SENN_MOMENTUM4","SENN_MOMENTUM5","SENN_ACCENTUM","SENN_ACCENTUMPLUS",
+        "SENN_PXC550","SENN_PXC550II","SENN_HD25","SENN_HD25_1","SENN_AMPERIOR",
+        "GRADO_SR60X","GRADO_SR80X","GRADO_SR125X","GRADO_SR225X","GRADO_SR325X",
+        "GRADO_GH1","GRADO_GH2","GRADO_GH3","GRADO_GH4","GRADO_HEMP",
+        "GRADO_RS1X","GRADO_RS2X","GRADO_GS1000X","GRADO_GS3000X",
+        "AKG_K52","AKG_K72","AKG_K92","AKG_K44","AKG_K450",
+        "BEATS_EP","BEATS_MIXR",
+        "MARSHALL_MAJOR2","MARSHALL_MAJOR3","MARSHALL_MAJOR4","MARSHALL_MAJOR5",
+        "MARSHALL_MIDANC","MARSHALL_MONITOR2ANC","MARSHALL_MONITOR3ANC",
+        "KOSS_PORTAPRO","KOSS_KSC75","KOSS_KPH30I","KOSS_KPH40","KOSS_KPH7",
+        "SS_ARCTIS1","SS_ARCTIS3","SS_ARCTIS5","SS_ARCTIS7","SS_ARCTISNOVA",
+        "SS_ARCTISNOVA5","SS_ARCTISNOVA7","SS_ARCTIS_NOVA_PRO",
+        "HX_CLOUD2","HX_CLOUDALPHA","HX_CLOUDS","HX_CLOUDFLIGHTS","HX_CLOUDFLIGHT3",
+        "RAZER_KRAKENX","RAZER_KRAKENULTI","RAZER_NARIU","RAZER_BARRACUDAX",
+        "LOGI_G430","LOGI_G432","LOGI_G433","LOGI_G435","LOGI_G533","LOGI_G635","LOGI_G735",
+        "TB_STEALTH600G2","TB_STEALTH700G2","TB_STEALTHPRO",
+        "ASTRO_A40","ASTRO_A40TR","ASTRO_A50G4","ASTRO_A50X",
+        "CORSAIR_HS80","CORSAIR_HS70",
+        "SONY_WH1000XM4","SONY_WH1000XM5","SONY_WH1000XM6",
+        "SONY_WHCH700N","SONY_WHCH710N","SONY_WHCH720N",
+        "SONY_CH500","SONY_CH510","SONY_CH520",
+        "BO_H95","BO_HX","BO_H100","BO_H4","BO_H6","BO_H9",
+        "BW_PX5","BW_PX7","BW_PX7S2","BW_PX8",
+        "TECH_EAHA800","TECH_EAHA800M2","SONOS_ACE","MARKLEV_5909",
+        "ANKER_LIFEQ20","ANKER_LIFEQ30","ANKER_SPACEQ45","ANKER_SPACEONE",
+        "1MORE_SONOFLOW","1MORE_SONOFLOWSE",
+        "SUPER_HD668B","SAMSON_SR850","TAKSTAR_PRO80","TAKSTAR_PRO82",
+    ]},
+})
+
+# Push expanded detachable into SPECS
+for _pid, _det in DETACHABLE.items():
+    if _pid not in SPECS: SPECS[_pid] = {}
+    SPECS[_pid]["detachable_cable"] = _det
+
+# ---------------------------------------------------------------------------
+# WEIGHT EXPANSION — fills gaps across all major brands
+# ---------------------------------------------------------------------------
+WEIGHTS.update({
+    # Sennheiser remaining
+    "SENN_HD518":238, "SENN_HD555":260, "SENN_HD558":260,
+    "SENN_HD569":229, "SENN_HD579":218, "SENN_HD599":223,
+    "SENN_HD400BT":175, "SENN_HD350BT":155, "SENN_HD450BT":170, "SENN_HD250BT":227,
+    "SENN_HD4_40BT":185, "SENN_HD4_50BTNC":229,
+    "SENN_MOMENTUM2":190, "SENN_ACCENTUM":240, "SENN_ACCENTUMPLUS":280,
+    "SENN_PXC550":227, "SENN_PXC550II":227,
+    "SENN_AMPERIOR":143, "SENN_HD25":140, "SENN_HDB630":355,
+    # Sony remaining
+    "SONY_WH1000XM2":275, "SONY_WH1000XM3":255,
+    "SONY_WHCH700N":223, "SONY_WHCH710N":223, "SONY_WHCH720N":192,
+    "SONY_MDR7506":230, "SONY_MDRCD900ST":200,
+    "SONY_MDRXB950N1":270, "SONY_MDRXB1000":320,
+    "SONY_CH500":130, "SONY_ZX110":107,
+    # Beyerdynamic remaining
+    "BEYER_DT240PRO":190, "BEYER_AVENTHOW":340,
+    "BEYER_T5P":290, "BEYER_T5PMK2":310, "BEYER_DT1350":230,
+    # AKG remaining
+    "AKG_K92":178, "AKG_K72":190, "AKG_K52":190,
+    "AKG_K240":240, "AKG_K450":170, "AKG_N60NC":162,
+    "AKG_N700NC":303, "AKG_N700NCM2":295, "AKG_Y50BT":190,
+    # HiFiMan remaining
+    "HIFIMAN_HE400SE":390, "HIFIMAN_HE400I":370, "HIFIMAN_HE400I2020":370,
+    "HIFIMAN_HE5XX":440, "HIFIMAN_HE4XX":440, "HIFIMAN_HE6SE":458,
+    "HIFIMAN_HE560":375, "HIFIMAN_JADE2":550,
+    "HIFIMAN_DEVA":360, "HIFIMAN_DEVA_PRO":360, "HIFIMAN_HEX4":390,
+    # Grado remaining
+    "GRADO_SR60X":175, "GRADO_SR80X":175, "GRADO_SR125X":175,
+    "GRADO_SR225X":190, "GRADO_SR325X":190,
+    "GRADO_RS1X":290, "GRADO_RS2X":260,
+    "GRADO_GS1000X":350, "GRADO_GH1":200, "GRADO_GH4":240,
+    "GRADO_HEMP":220, "GRADO_GW100X":265,
+    # JBL
+    "JBL_LIVE660NC":249, "JBL_LIVE770NC":232, "JBL_TUNE760NC":190,
+    "JBL_TUNE710BT":160, "JBL_CLUBONE":289, "JBL_LIVE460":170,
+    "JBL_LIVE400":162,
+    # Fostex
+    "FOSTEX_TH600":400, "FOSTEX_TH900":390, "FOSTEX_TH610":390,
+    "FOSTEX_T50RPMK3":320, "FOSTEX_T50RPMK4":320,
+    "FOSTEX_TR80":294, "FOSTEX_TXO":280,
+    # Audeze remaining
+    "AUDEZE_LCD4":735, "AUDEZE_LCDXC":695,
+    "AUDEZE_MM200":346, "AUDEZE_CRBN":650,
+    "AUDEZE_MAXWELL":265, "AUDEZE_PENROSE":345,
+    # Razer
+    "RAZER_KRAKENX":250, "RAZER_KRAKENULTI":322,
+    "RAZER_NARIU":340, "RAZER_BARRACUDAX":250,
+    "RAZER_BSHARKV2":262, "RAZER_OPUS2020":300,
+    # Bose remaining
+    "BOSE_NCH700":250, "BOSE_A20":340, "BOSE_A30":340,
+    # Focal remaining
+    "FOCAL_LISTEN":195, "FOCAL_LISTENPRO":180,
+    "FOCAL_HADENYS":450, "FOCAL_AZURYS":335,
+    # Dan Clark remaining
+    "DCA_MADDOG":385, "DCA_AEON2NOIRE":295, "DCA_VOCE":455,
+    # ZMF remaining
+    "ZMF_ATTICUS":430, "ZMF_EIKON":420, "ZMF_ORI":350,
+    # Stax remaining
+    "STAX_SRL300":400, "STAX_SRL500":415, "STAX_SRL700":416,
+    "STAX_SR404":381, "STAX_SR207":285, "STAX_SR507":358,
+    # Shure remaining
+    "SHURE_SRH440":218, "SHURE_SRH750DJ":269, "SHURE_SRH940":305,
+    # B&W remaining
+    "BW_P3":138, "BW_P5":215, "BW_P7":290,
+    "BW_PX":275, "BW_P9":350,
+    # Logitech G
+    "LOGI_G432":259, "LOGI_G435":165, "LOGI_G533":350,
+    "LOGI_G635":375, "LOGI_G733":278, "LOGI_G735":300,
+    "LOGI_G930":375,
+    # Beats remaining
+    "BEATS_STUDIO3":260, "BEATS_SOLO3":215, "BEATS_SOLO4":220,
+    "BEATS_SOLOPRO":260, "BEATS_EP":155, "BEATS_MIXR":197,
+    # Denon
+    "DENON_D2000":345, "DENON_D5000":360, "DENON_D7000":395,
+    "DENON_D7200":385, "DENON_D1100":255, "DENON_D600":330,
+    # Yamaha
+    "YAMAHA_HPHMT7":210, "YAMAHA_HPHMT8":210, "YAMAHA_YHL700A":305,
+    # Ultrasone
+    "ULTRA_ED8":280, "ULTRA_ED10":350, "ULTRA_HFI780":230,
+    "ULTRA_HFI2400":230, "ULTRA_SIGPURE":290, "ULTRA_PERF880":350,
+    # Marshall
+    "MARSHALL_MAJOR2":170, "MARSHALL_MAJOR3":165,
+    "MARSHALL_MAJOR4":163, "MARSHALL_MAJOR5":163,
+    "MARSHALL_MIDANC":210, "MARSHALL_MONITOR":249,
+    "MARSHALL_MONITOR2ANC":270, "MARSHALL_MONITOR3ANC":282,
+    # Bang & Olufsen
+    "BO_H4":235, "BO_H6":235, "BO_H9":250,
+    "BO_H95":351, "BO_HX":371, "BO_H100":421,
+    # HyperX
+    "HX_CLOUD2":309, "HX_CLOUDALPHA":336, "HX_CLOUDFLIGHTS":275,
+    "HX_CLOUDFLIGHT3":270, "HX_CLOUDII_WL":309,
+    # SteelSeries
+    "SS_ARCTIS3":262, "SS_ARCTIS5":271, "SS_ARCTIS7":354,
+    "SS_ARCTIS7P":354, "SS_ARCTISNOVA5":251, "SS_ARCTISNOVA7":338,
+    "SS_ARCTIS_NOVA_PRO":342,
+    # Skullcandy
+    "SK_HESH3":195, "SK_CRUSHER_EVO":255, "SK_CRUSHER_ANC":276,
+    "SK_VENUE_ANC":220,
+    # Corsair
+    "CORSAIR_HS80":333, "CORSAIR_HS70":340,
+    # Turtle Beach
+    "TB_STEALTH600G2":290, "TB_STEALTH700G2":322, "TB_STEALTHPRO":397,
+    # Astro
+    "ASTRO_A40":368, "ASTRO_A40TR":336, "ASTRO_A50G4":374, "ASTRO_A50X":374,
+    # V-Moda
+    "VMODA_LP":280, "VMODA_M100":355, "VMODA_M100MASTER":350,
+    "VMODA_CROSSFADE2WL":350,
+    # Koss
+    "KOSS_ESP95X":127, "KOSS_KPH30I":67, "KOSS_KPH40":56,
+    # Philips
+    "PHILI_X2HR":320, "PHILI_SHP9500":290,
+    "PHILI_L2BO":278, "PHILI_A5PRO":280,
+    # Monoprice
+    "MONO_M1060":520, "MONO_M1060C":590, "MONO_M570":470,
+    # Superlux
+    "SUPER_HD668B":200, "SUPER_HD681":195, "SUPER_HD669":220,
+    # Edifier STAX Spirit
+    "EDIFIER_STAXGT1":390, "EDIFIER_STAXGT5":450,
+    # FiiO
+    "FIIO_FT1":345, "FIIO_FT3":365, "FIIO_FT5":390,
+    # Meze remaining
+    "MEZE_99NOIR":260, "MEZE_LIRICII":333,
+    # Abyss
+    "ABYSS_AB1266":480, "ABYSS_DIANA":330,
+    "ABYSS_DIANATC":350, "ABYSS_DIANAV2":330,
+    # Kennerton
+    "KENNERTON_ODIN":520, "KENNERTON_THROR":560,
+    # Final Audio remaining
+    "FINAL_SONOROUS3":390, "FINAL_SONOROUS6":430,
+    # Anker Soundcore
+    "ANKER_LIFEQ20":253, "ANKER_LIFEQ30":260,
+    "ANKER_SPACEQ45":270, "ANKER_SPACEONE":265,
+    # 1More
+    "1MORE_SONOFLOW":237, "1MORE_SONOFLOWSE":237,
+    # Harman Kardon
+    "HK_SOHO":140, "HK_SOHOWL":138, "HK_SOHOWNC":142,
+    # Status Audio
+    "STATUS_CB1":208, "STATUS_OB1":240,
+    # Moondrop
+    "MOONDROP_VENUS":435, "MOONDROP_PARA":470,
+    # T+A
+    "TA_SOLITAIRE_P":490,
+    # HEDD Audio
+    "HEDD_HEDDPHONE":718, "HEDD_HEDDPHONE2":700,
+    # Sendy Audio
+    "SENDY_AIVA":430, "SENDY_PEACOCK":490, "SENDY_APOLLO":380,
+    # Kiwi Ears
+    "KIWIEARS_ARDOR":390, "KIWIEARS_ELLIPSE":420,
+    # JVC
+    "JVC_HADX1000":390, "JVC_HADX2000":380,
+    "JVC_HASW01":280, "JVC_HASW02":275,
+    # Jabra
+    "JABRA_E285":149, "JABRA_E275":185, "JABRA_E265":175,
+    "JABRA_E255":155, "JABRA_E240":164, "JABRA_E230":78,
+    # Takstar
+    "TAKSTAR_PRO80":368, "TAKSTAR_PRO82":350, "TAKSTAR_HF580":445,
+    # Modhouse
+    "MODHOUSE_ARGONMK3":380, "MODHOUSE_TUNGSTEN":400,
+    # Ollo remaining
+    "OLLO_X1":282,
+    # Rosson
+    "ROSSON_RAD0":460,
+    # Spirit Torino
+    "SPIRITTORINO_SUPER":285, "SPIRITTORINO_RADIANTE":295,
+    # RAAL
+    "RAAL_SR1A":150,
+    # MySphere
+    "MYSPHERE_3":490, "MYSPHERE_3X":490,
+    # Crosszone
+    "CZ_CZ1":380, "CZ_CZ10":350,
+    # Tago Studio
+    "TAGO_T301":370, "TAGO_T302":380,
+    # Mark Levinson
+    "MARKLEV_5909":385,
+    # Pioneer DJ
+    "PIONEER_HDJX10":334, "PIONEER_HDJ2000":330,
+    "PIONEER_SEMASTER1":395,
+    # Goldplanar
+    "GOLD_GL2000DS":480, "GOLD_GL2000SS":450,
+    # PSB
+    "PSB_M4U1":285, "PSB_M4U2":290,
+    # Phiaton
+    "PHIATON_MS530":195, "PHIATON_BT460":185,
+    # House of Marley
+    "MARLEY_PV2":170, "MARLEY_PV2BT":185,
+    # Plantroncis
+    "PLANT_BB810":175,
+    # Creative
+    "CREATIVE_AVLIVE":208,
+})
+
+# Push all weight data into SPECS
+for _pid, _wt in WEIGHTS.items():
+    if _pid not in SPECS: SPECS[_pid] = {}
+    if "weight_g" not in SPECS[_pid]:
+        SPECS[_pid]["weight_g"] = str(_wt)
 
 products = []
 lineage_pairs = set()

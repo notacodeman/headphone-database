@@ -309,10 +309,6 @@ function render(brand, products) {
       const specs = specStr(p);
       const msrp = p.msrp_usd ? `$${Number(p.msrp_usd).toLocaleString()}` : '';
       const archiveUrl = `index.html?focus=${p.id}`;
-      const lineageLinks = [
-        p.predecessor ? `<a href="${archiveUrl}" title="Replaces ${esc(nameOf(p.predecessor))}">↑ ${esc(nameOf(p.predecessor))}</a>` : '',
-        p.successor   ? `<a href="${archiveUrl}" title="Succeeded by ${esc(nameOf(p.successor))}">↓ ${esc(nameOf(p.successor))}</a>` : '',
-      ].filter(Boolean).join(' &middot; ');
       return `
         <a class="prod-card ${isActive ? 'active-prod' : 'discontinued-prod'}" href="${archiveUrl}" title="View ${esc(p.model_name)} in archive">
           <div class="prod-year">${p.release_year}${p.discontinued_year ? '–' + p.discontinued_year : isActive ? '–present' : ''}</div>
@@ -322,7 +318,6 @@ function render(brand, products) {
           </div>
           ${specs ? `<div class="prod-specs">${esc(specs)}</div>` : ''}
           ${msrp ? `<div class="prod-msrp">${esc(msrp)} MSRP</div>` : ''}
-          ${lineageLinks ? `<div class="prod-lineage">${lineageLinks}</div>` : ''}
         </a>`;
     }).join('');
     const decLabel = dec === Math.floor(new Date().getFullYear()/10)*10

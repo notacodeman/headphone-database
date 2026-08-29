@@ -108,16 +108,15 @@
   .stats-bar strong { font-weight: 600; }
 
   .controls {
-    max-width: 1300px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 1.5rem 2rem 0.5rem;
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
-    gap: 0.75rem;
+    padding: 1.2rem var(--pad) 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
   }
-  @media (max-width: 1100px) { .controls { grid-template-columns: 2fr 1fr 1fr 1fr; } }
-  @media (max-width: 900px)  { .controls { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 520px)  { .controls { grid-template-columns: 1fr; } }
+  .controls .field { flex: 1; min-width: 130px; max-width: 220px; }
+  .controls .field:first-child { flex: 2; min-width: 200px; max-width: 400px; }
 
   .field label {
     display: block;
@@ -375,14 +374,14 @@
   /* ── Controls / filters ──────────────────────────────── */
   .controls {
     padding: 1.2rem var(--pad) 0.5rem;
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
+    display: flex;
+    flex-wrap: wrap;
     gap: 0.6rem;
   }
+  .controls .field { flex: 1; min-width: 130px; max-width: 220px; }
+  .controls .field:first-child { flex: 2; min-width: 200px; max-width: 400px; }
   /* Filter toggle — mobile only */
   .filter-toggle { display: none; }
-  @media (max-width: 1100px) { .controls { grid-template-columns: 2fr 1fr 1fr 1fr; } }
-  @media (max-width: 820px)  { .controls { grid-template-columns: 1fr 1fr 1fr; } }
   @media (max-width: 600px)  {
     .filter-toggle {
       display: flex; align-items: center; gap: 0.5rem;
@@ -722,6 +721,63 @@
     <label for="status">Status</label>
     <select id="status"><option value="">All</option></select>
   </div>
+  <div class="field">
+    <label for="sig">Sound signature</label>
+    <select id="sig">
+      <option value="">All</option>
+      <option>Neutral</option>
+      <option>Warm Neutral</option>
+      <option>Neutral Bright</option>
+      <option>Warm</option>
+      <option>Bright</option>
+      <option>Analytical</option>
+      <option>V-Shaped</option>
+      <option>U-Shaped</option>
+      <option>Bassy</option>
+      <option>Dark</option>
+    </select>
+  </div>
+    <select id="imp_max">
+      <option value="">Any</option>
+      <option value="16">Up to 16&Omega;</option>
+      <option value="32">Up to 32&Omega;</option>
+      <option value="50">Up to 50&Omega;</option>
+      <option value="80">Up to 80&Omega;</option>
+      <option value="150">Up to 150&Omega;</option>
+      <option value="300">Up to 300&Omega;</option>
+    </select>
+  </div>
+  <div class="field">
+    <label for="price_max">Max price (USD)</label>
+    <input type="number" id="price_max" placeholder="e.g. 500" min="0" step="50">
+  </div>
+  <div class="field">
+    <label for="connector">Connector</label>
+    <select id="connector">
+      <option value="">All</option>
+      <option>3.5mm</option>
+      <option>6.35mm</option>
+      <option>3.5mm/6.35mm</option>
+      <option>4.4mm Pentaconn</option>
+      <option>Dual 3.5mm</option>
+      <option>mini-XLR</option>
+      <option>Dual mini-XLR</option>
+      <option>A2DC</option>
+      <option>MMCX</option>
+      <option>Wireless</option>
+      <option>USB</option>
+      <option>USB-C</option>
+      <option>Electrostatic</option>
+    </select>
+  </div>
+  <div class="field">
+    <label for="detachable">Detachable cable</label>
+    <select id="detachable">
+      <option value="">All</option>
+      <option>Yes</option>
+      <option>No</option>
+    </select>
+  </div>
 </div>
 
 <main id="main">
@@ -786,7 +842,12 @@ const COLS = [
   { key: "impedance_ohms", label: "Impedance",   on: true,  sortable: true,  w: 90 },
   { key: "sensitivity_db", label: "Sensitivity", on: false, sortable: true,  w: 130 },
   { key: "status",         label: "Status",      on: true,  sortable: true,  w: 130 },
-  { key: "_flags",         label: "Wireless/ANC",on: true,  sortable: false, w: 120 }
+  { key: "_flags",         label: "Wireless/ANC", on: true,  sortable: false, w: 120 },
+  { key: "weight_g",       label: "Weight (g)",   on: false, sortable: true,  w: 100 },
+  { key: "msrp_usd",       label: "MSRP (USD)",   on: false, sortable: true,  w: 110 },
+  { key: "connector_type", label: "Connector",    on: false, sortable: true,  w: 140 },
+  { key: "detachable_cable",label:"Detachable",   on: false, sortable: true,  w: 100 },
+  { key: "notes",          label: "Notes",        on: false, sortable: false, w: 280 }
 ];
 
 // ---- Application state ----
@@ -956,6 +1017,7 @@ async function load() {
         buildColMenu();
         apply();
         updateCompareBar();
+        handleFocusParam();
         document.getElementById("source").innerHTML =
           'Source: <a href="https://github.com/notacodeman/headphone-database">github.com/notacodeman/headphone-database</a>';
         return;
@@ -986,6 +1048,7 @@ async function loadFromCSV() {
     buildColMenu();
     apply();
     updateCompareBar();
+    handleFocusParam();
     document.getElementById("source").innerHTML =
       'Source: <a href="https://github.com/notacodeman/headphone-database">github.com/notacodeman/headphone-database</a>';
   } catch (e) {
@@ -1031,10 +1094,10 @@ function initFilters() {
     `<span><strong>${brands}</strong> brands</span>` +
     `<span><strong>${Math.min(...years)}</strong>&ndash;<strong>${Math.max(...years)}</strong></span>`;
 
-  ["q","brand","design","fit","driver","status"].forEach(id =>
+  ["q","brand","design","fit","driver","status","sig","connector","detachable","imp_max","price_max"].forEach(id =>
     document.getElementById(id).addEventListener("input", apply));
   document.getElementById("reset").addEventListener("click", () => {
-    ["q","brand","design","fit","driver","status"].forEach(id => document.getElementById(id).value = "");
+    ["q","brand","design","fit","driver","status","sig","connector","detachable","imp_max","price_max"].forEach(id => document.getElementById(id).value = "");
     apply();
   });
 }
@@ -1061,19 +1124,35 @@ function buildColMenu() {
 // Reads every filter control, narrows state.rows into state.filtered, then sorts and
 // renders. This is the single entry point re-run whenever any filter or search changes.
 function apply() {
-  const q  = document.getElementById("q").value.toLowerCase();
-  const b  = document.getElementById("brand").value;
-  const d  = document.getElementById("design").value;
-  const ft = document.getElementById("fit").value;
-  const dr = document.getElementById("driver").value;
-  const s  = document.getElementById("status").value;
+  const q        = document.getElementById("q").value.toLowerCase();
+  const b        = document.getElementById("brand").value;
+  const d        = document.getElementById("design").value;
+  const ft       = document.getElementById("fit").value;
+  const dr       = document.getElementById("driver").value;
+  const s        = document.getElementById("status").value;
+  const sig      = document.getElementById("sig").value;
+  const conn     = document.getElementById("connector").value;
+  const detach   = document.getElementById("detachable").value;
+  const impMax   = parseFloat(document.getElementById("imp_max").value) || null;
+  const priceMax = parseFloat(document.getElementById("price_max").value) || null;
 
   state.filtered = state.rows.filter(r => {
-    if (b  && r._brand      !== b)  return false;
-    if (d  && r.design      !== d)  return false;
-    if (ft && r.fit         !== ft) return false;
-    if (dr && r.driver_type !== dr) return false;
-    if (s  && r.status      !== s)  return false;
+    if (b      && r._brand            !== b)     return false;
+    if (d      && r.design            !== d)     return false;
+    if (ft     && r.fit               !== ft)    return false;
+    if (dr     && r.driver_type       !== dr)    return false;
+    if (s      && r.status            !== s)     return false;
+    if (sig    && r.sound_signature   !== sig)   return false;
+    if (conn   && r.connector_type    !== conn)  return false;
+    if (detach && r.detachable_cable  !== detach) return false;
+    if (impMax !== null) {
+      const imp = parseFloat(r.impedance_ohms);
+      if (isNaN(imp) || imp > impMax) return false;
+    }
+    if (priceMax !== null) {
+      const price = parseFloat(r.msrp_usd);
+      if (isNaN(price) || price > priceMax) return false;
+    }
     if (q) {
       const hay = [r.full_name, r._brand, r.notes, r.model_name].map(x => x || "").join(" ").toLowerCase();
       if (!hay.includes(q)) return false;
@@ -1119,6 +1198,10 @@ function cellValue(r, key) {
     return `<span class="flags">${f.join(" \u00b7 ") || "&mdash;"}</span>`;
   }
   if (key === "notes") return `<span class="notes">${esc(r.notes)}</span>`;
+  if (key === "weight_g") return r.weight_g ? `<span class="spec">${esc(r.weight_g)}\u200ag</span>` : `<span class="spec empty">&mdash;</span>`;
+  if (key === "msrp_usd") return r.msrp_usd ? `<span class="spec">$${Number(r.msrp_usd).toLocaleString()}</span>` : `<span class="spec empty">&mdash;</span>`;
+  if (key === "connector_type") return r.connector_type ? `<span class="spec">${esc(r.connector_type)}</span>` : `<span class="spec empty">&mdash;</span>`;
+  if (key === "detachable_cable") return r.detachable_cable ? `<span class="spec">${esc(r.detachable_cable)}</span>` : `<span class="spec empty">&mdash;</span>`;
   return esc(r[key]);
 }
 
@@ -1150,6 +1233,11 @@ function rowDetail(r) {
   add("Sensitivity", r.sensitivity_db, "\u200adB");
   add("Wireless", r.wireless);
   add("Active noise cancelling", r.anc);
+  if (r.weight_g)        add("Weight", r.weight_g, "\u200ag");
+  if (r.msrp_usd)        add("Launch price", "$" + Number(r.msrp_usd).toLocaleString());
+  if (r.connector_type)  add("Connector", r.connector_type);
+  if (r.detachable_cable) add("Detachable cable", r.detachable_cable);
+  if (r.sound_signature) add("Sound signature", r.sound_signature);
   if (r.msrp_usd) add("Launch price", "$" + Number(r.msrp_usd).toLocaleString());
 
   // Build lineage chain — walk back to root predecessor, then forward to end
@@ -1180,9 +1268,10 @@ function rowDetail(r) {
     if (chain.length > 1) {
       const nodes = chain.map(p => {
         const isCurrent = p.product_id === r.product_id;
-        const cls = isCurrent ? "ln-node ln-current" : "ln-node ln-other";
         const yr = p.release_year || "";
-        return `<span class="${cls}" data-id="${esc(p.product_id)}" title="${esc(p._brand + " " + p.model_name + (yr ? " (" + yr + ")" : ""))}">
+        // All nodes use the integer id to match tr.datarow[data-id]
+        // Current node still clickable — toggles its own row closed
+        return `<span class="ln-node${isCurrent ? " ln-current" : " ln-other"}" data-id="${esc(p.id)}" title="${esc(p._brand + " " + p.model_name + (yr ? " (" + yr + ")" : ""))}">
           <span class="ln-name">${esc(p.model_name)}</span>
           ${yr ? `<span class="ln-year">${yr}</span>` : ""}
         </span>`;
@@ -1258,16 +1347,27 @@ function render() {
 
   document.querySelectorAll(".ln-node.ln-other").forEach(node => {
     node.addEventListener("click", () => {
-      const pid = node.getAttribute("data-id");
-      const targetTr = document.querySelector(`tr.datarow[data-id="${pid}"]`);
-      if (targetTr) {
-        document.querySelectorAll("tr.detailrow:not([hidden])").forEach(dr => {
-          dr.setAttribute("hidden", "");
-          dr.previousElementSibling.classList.remove("expanded");
+      const intId = node.getAttribute("data-id");
+      let targetTr = document.querySelector(`tr.datarow[data-id="${intId}"]`);
+
+      // If the target isn't currently rendered (filtered out), clear all filters first
+      if (!targetTr) {
+        ["q","brand","design","fit","driver","status","imp_max","price_max"].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.value = "";
         });
-        targetTr.scrollIntoView({ behavior: "smooth", block: "center" });
-        setTimeout(() => toggleDetail(targetTr), 300);
+        apply();
+        targetTr = document.querySelector(`tr.datarow[data-id="${intId}"]`);
       }
+
+      if (!targetTr) return;
+      // Close any open detail rows
+      document.querySelectorAll("tr.detailrow:not([hidden])").forEach(dr => {
+        dr.setAttribute("hidden", "");
+        dr.previousElementSibling.classList.remove("expanded");
+      });
+      targetTr.scrollIntoView({ behavior: "smooth", block: "center" });
+      setTimeout(() => toggleDetail(targetTr), 300);
     });
   });
 
@@ -1332,6 +1432,34 @@ loadColW();
 buildColMenu();
 wireColumnsMenu();
 document.getElementById("exportBtn").addEventListener("click", exportCSV);
+
+// Read ?focus=ID from the URL (set by brand page links) and scroll to + expand that row.
+// Runs once after data loads; clears the param from the URL so refresh is clean.
+function handleFocusParam() {
+  const params = new URLSearchParams(location.search);
+  const focusId = params.get("focus");
+  if (!focusId) return;
+
+  // Remove focus param from URL without reloading
+  params.delete("focus");
+  const newUrl = params.toString()
+    ? `${location.pathname}?${params}`
+    : location.pathname;
+  history.replaceState(null, "", newUrl);
+
+  // Find the row in the rendered table
+  requestAnimationFrame(() => {
+    const tr = document.querySelector(`tr.datarow[data-id="${focusId}"]`);
+    if (!tr) return;
+    tr.scrollIntoView({ behavior: "smooth", block: "center" });
+    // Brief highlight then expand
+    tr.style.outline = "2px solid var(--accent)";
+    setTimeout(() => {
+      tr.style.outline = "";
+      toggleDetail(tr);
+    }, 600);
+  });
+}
 
 compareFromURL();
 load();
@@ -1417,11 +1545,16 @@ const CMP_FIELDS = [
   { label: "Driver size",  key: "driver_size_mm",  unit: " mm" },
   { label: "Impedance",    key: "impedance_ohms",  unit: " \u03A9" },
   { label: "Sensitivity",  key: "sensitivity_db",  unit: " dB" },
-  { label: "Wireless",     key: "wireless" },
-  { label: "ANC",          key: "anc" },
-  { label: "Predecessor",  key: "_pred_name" },
-  { label: "Successor",    key: "_succ_name" },
-  { label: "Notes",        key: "notes" },
+  { label: "Wireless",      key: "wireless" },
+  { label: "ANC",           key: "anc" },
+  { label: "Weight",        key: "weight_g",        unit: " g" },
+  { label: "Launch price",  key: "msrp_usd" },
+  { label: "Connector",     key: "connector_type" },
+  { label: "Detachable",    key: "detachable_cable" },
+  { label: "Sound signature",key:"sound_signature" },
+  { label: "Predecessor",   key: "_pred_name" },
+  { label: "Successor",     key: "_succ_name" },
+  { label: "Notes",         key: "notes" },
 ];
 
 function resolvedName(id) {
