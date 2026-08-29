@@ -195,6 +195,13 @@
   .colpanel {
     position: relative;
     display: inline-block;
+    /* No font-size of its own (it wraps only a button + an absolutely-positioned
+       menu), so it was inheriting the page's default 16px, and with body's inherited
+       line-height:1.5 that's a 24px-tall box — taller than the 12px .linkbtn siblings'
+       ~14.4px, which pushed the Columns button a couple px off their shared center
+       line as a flex item. font-size: 0 zeroes this element's own line box (1.5 x 0);
+       .colmenu and its children set their own rem-based sizes so they're unaffected. */
+    font-size: 0;
   }
   .colmenu {
     position: absolute;
@@ -455,7 +462,7 @@
   .linkbtn:hover { color: var(--accent); }
 
   /* Columns panel */
-  .colpanel { position: relative; display: inline-block; }
+  .colpanel { position: relative; display: inline-block; font-size: 0; }
   .colmenu { position: absolute; right: 0; top: 1.8rem; z-index: 20;
     background: var(--paper); border: 1px solid var(--ink);
     box-shadow: 4px 4px 0 rgba(26,23,20,0.12); padding: 0.85rem 1rem;
@@ -879,19 +886,27 @@ const RAW_BASE = "https://raw.githubusercontent.com/notacodeman/headphone-databa
 // (a 4-digit year, a short enum), so it never wastes flex space or gets squeezed. `w` is
 // sized to the longest value that column actually shows today (measured against the real
 // header/cell fonts, not guessed) — re-measure if a column's content set changes.
-// A fixed column with `wSmall`/`labelSmall` also gets a drag handle: dragging it snaps
-// between the normal width/label and this compact one (see startResize/FIXED_DRAG_THRESHOLD)
-// instead of resizing continuously, since there's no in-between size that makes sense for
-// content this short.
+// A fixed column can opt into a drag handle two different ways: `wSmall` (Design, Fit)
+// snaps between the normal and this compact width once the drag passes
+// FIXED_DRAG_THRESHOLD, since there's no in-between size that makes sense for
+// content this short; `resizable: true` (Impedance) instead resizes continuously like a
+// flexible column, just without ever donating/taking space in the weight-based split — for
+// a fixed column that has no compact alternate form but still shouldn't be permanently
+// locked. Neither flag (e.g. Year) means no handle at all: truly fixed, tight by default.
 const COLS = [
   { key: "_brand",         label: "Brand",       on: true,  sortable: true,  w: 130, minW: 110 },
   { key: "model_name",     label: "Model",       on: true,  sortable: true,  w: 180, minW: 150 },
-  { key: "release_year",   label: "Year", labelSmall: "Y", on: true, sortable: true, w: 58, wSmall: 42, fixed: true },
-  { key: "design",     label: "Design", labelSmall: "D", on: true, sortable: true, w: 116, wSmall: 34, fixed: true },
-  { key: "fit",            label: "Fit",         on: true,  sortable: true,  w: 92,  fixed: true },
+  // Year has no small mode: fitting the full "Year" header at every width leaves no
+  // useful in-between size (the header alone needs ~59px, so "small" would end up
+  // wider than "normal"), so it's just a single width, kept as tight as the header
+  // and a plain 4-digit value allow. Design keeps its full header too, but a small
+  // mode still makes sense there since "Design" fits within its compact width.
+  { key: "release_year",   label: "Year", on: true, sortable: true, w: 60, fixed: true },
+  { key: "design",     label: "Design", on: true, sortable: true, w: 116, wSmall: 80, fixed: true },
+  { key: "fit",            label: "Fit",         on: true,  sortable: true,  w: 92,  wSmall: 58, fixed: true },
   { key: "driver_type",    label: "Driver",      on: false, sortable: true,  w: 130, minW: 90 },
   { key: "driver_size_mm", label: "Driver Size", on: false, sortable: true,  w: 120, minW: 90 },
-  { key: "impedance_ohms", label: "Impedance",   on: true,  sortable: true,  w: 104, fixed: true },
+  { key: "impedance_ohms", label: "Impedance",   on: true,  sortable: true,  w: 101, fixed: true, resizable: true },
   { key: "sensitivity_db", label: "Sensitivity", on: false, sortable: true,  w: 130, minW: 90 },
   { key: "status",         label: "Status",      on: false, sortable: true,  w: 130, minW: 90 },
   { key: "_flags",         label: "Wireless/ANC", on: false, sortable: false, w: 120, minW: 90 },
@@ -975,12 +990,16 @@ const COMPARE_COL_W = 44;
 const colW = {};
 function loadColW(){ COLS.forEach(c=>colW[c.key]=c.w); try{ const s=JSON.parse(localStorage.getItem("archive_colw")||"null"); if(s) COLS.forEach(c=>{ if(typeof s[c.key]==="number") colW[c.key]=s[c.key]; });}catch(e){} }
 function saveColW(){ try{ localStorage.setItem("archive_colw",JSON.stringify(colW)); }catch(e){} }
-// Per-column "small" mode for fixed columns that define a wSmall/labelSmall (currently
-// Year and Design) — toggled by dragging their handle, see startResize.
+// Per-column "small" mode for fixed columns that define a wSmall (currently Design and
+// Fit) — toggled by dragging their handle, see startResize.
 function loadColSmall(){ try{ const s=JSON.parse(localStorage.getItem("archive_colsmall")||"null"); if(s) COLS.forEach(c=>{ if(c.wSmall) state.small[c.key] = !!s[c.key]; }); }catch(e){} }
 function saveColSmall(){ try{ localStorage.setItem("archive_colsmall",JSON.stringify(state.small)); }catch(e){} }
 // The effective width of a fixed column right now (its compact width when in small mode).
-function fixedColW(c){ return (c.fixed && c.wSmall && state.small[c.key]) ? c.wSmall : c.w; }
+function fixedColW(c){
+  if (c.wSmall) return state.small[c.key] ? c.wSmall : c.w;
+  if (c.resizable) return colW[c.key]; // freely dragged — colW is seeded from c.w and persisted like any other column
+  return c.w;
+}
 // Sum of weights for currently-visible, non-fixed data columns.
 function visibleWeight(){ return COLS.filter(c=>state.visible[c.key] && !c.fixed).reduce((s,c)=>s+colW[c.key],0); }
 // Percentage width for one column = its share of the visible weight.
@@ -1041,6 +1060,12 @@ function reflowColumnWidths() {
     const th = tbl.querySelector(`th[data-key="${c.key}"]`);
     if (th) th.style.width = (px[c.key] / dataAreaPx * 100) + "%";
   });
+  // A freely-resizable fixed column (Impedance) doesn't take part in the split above, but
+  // still needs its own <th> updated directly while it's being dragged.
+  dataCols.filter(c => c.fixed && c.resizable).forEach(c => {
+    const th = tbl.querySelector(`th[data-key="${c.key}"]`);
+    if (th) th.style.width = fixedColW(c) + "px";
+  });
 }
 // Sizes #tablewrap's own scroll area to exactly whatever vertical space is left in the
 // viewport below it, down to the footer, so the table scrolls internally instead of the
@@ -1071,11 +1096,15 @@ window.addEventListener("resize", () => {
 });
 
 let resizing = null;
-// Dragging a fixed column's handle (Year, Design — anything with wSmall) doesn't resize
-// continuously; it snaps between the normal and small width/label once the drag passes
-// FIXED_DRAG_THRESHOLD px, since there's no useful in-between size for content this short.
+// Dragging a wSmall fixed column's handle (Design, Fit) doesn't resize continuously; it
+// snaps between the normal and small width once the drag passes FIXED_DRAG_THRESHOLD px,
+// since there's no useful in-between size for content this short.
 let fixedDrag = null;
 const FIXED_DRAG_THRESHOLD = 15;
+// Dragging a `resizable` fixed column's handle (Impedance) resizes it continuously, same
+// feel as a flexible column, just without it ever joining the weight-based split.
+let fixedFreeDrag = null;
+const FIXED_FREE_MINW = 40;
 document.addEventListener("mousemove", e => {
   if (fixedDrag) {
     const delta = e.clientX - fixedDrag.startX;
@@ -1086,6 +1115,12 @@ document.addEventListener("mousemove", e => {
       state.small[fixedDrag.key] = next;
       render();
     }
+    return;
+  }
+  if (fixedFreeDrag) {
+    const delta = e.clientX - fixedFreeDrag.startX;
+    colW[fixedFreeDrag.key] = Math.max(FIXED_FREE_MINW, fixedFreeDrag.startW + delta);
+    reflowColumnWidths();
     return;
   }
   if (!resizing) return;
@@ -1119,14 +1154,21 @@ document.addEventListener("mousemove", e => {
 });
 document.addEventListener("mouseup", () => {
   if (fixedDrag) { fixedDrag = null; document.body.style.userSelect = ""; saveColSmall(); return; }
+  if (fixedFreeDrag) { fixedFreeDrag = null; document.body.style.userSelect = ""; saveColW(); return; }
   if (resizing){ resizing=null; document.body.style.userSelect=""; saveColW(); }
 });
 function startResize(e){
   const key = e.target.getAttribute("data-key");
   const col = COLS.find(c => c.key === key);
-  if (col && col.fixed) {
-    // Fixed columns snap between two states rather than resizing continuously.
+  if (col && col.fixed && col.wSmall) {
+    // Snaps between two states rather than resizing continuously.
     fixedDrag = { key, startX: e.clientX, startSmall: !!state.small[key] };
+    document.body.style.userSelect = "none";
+    e.preventDefault(); e.stopPropagation();
+    return;
+  }
+  if (col && col.fixed && col.resizable) {
+    fixedFreeDrag = { key, startX: e.clientX, startW: colW[key] };
     document.body.style.userSelect = "none";
     e.preventDefault(); e.stopPropagation();
     return;
@@ -1354,13 +1396,14 @@ function sortRows() {
 function cellValue(r, key) {
   if (key === "_brand") return `<a class="brand" href="brand.html?id=${esc(r.manufacturer_id)}">${esc(r._brand)}</a>`;
   if (key === "model_name") return `<span class="model-name">${esc(r.model_name)}</span>`;
-  if (key === "release_year") {
-    if (state.small.release_year) return `<span class="year">${esc(String(r.release_year ?? "").slice(-2))}</span>`;
-    return `<span class="year">${esc(r.release_year)}${r.discontinued_year ? "&ndash;" + esc(r.discontinued_year) : ""}</span>`;
-  }
+  if (key === "release_year") return `<span class="year">${esc(r.release_year)}${r.discontinued_year ? "&ndash;" + esc(r.discontinued_year) : ""}</span>`;
   if (key === "design") {
-    if (state.small.design) return esc((r.design || "").charAt(0).toUpperCase());
+    if (state.small.design) return esc(firstWord(r.design));
     return esc(r.design);
+  }
+  if (key === "fit") {
+    if (state.small.fit) return esc(firstWord(r.fit));
+    return esc(r.fit);
   }
   if (key === "status") {
     const cls = /disc/i.test(r.status) ? "disc" : "active";
@@ -1386,6 +1429,10 @@ function specCell(val, unit) {
   if (!val) return '<span class="spec empty">&mdash;</span>';
   return `<span class="spec">${esc(val)}\u200a${unit}</span>`;
 }
+
+// Compact-mode value for design/fit: the first word of a "Word Word" or "Word-Word"
+// value \u2014 "Open Back" -> "Open", "Closed Back" -> "Closed", "Over-Ear" -> "Over".
+function firstWord(s) { return (s || "").split(/[\s-]/)[0]; }
 
 function modelById(id) {
   const r = state.rows.find(x => x.product_id === id);
@@ -1500,15 +1547,14 @@ function render() {
   let html = `<table class="autofit"><thead><tr>`;
   cols.forEach(c => {
     const sortAttr = c.sortable ? (state.sortKey === c.key ? ` aria-sort="${state.sortDir}"` : ' aria-sort="none"') : "";
-    const last = c.key === cols[cols.length-1].key;
-    // Last data column gets no resizer (nothing to its right to borrow from). A fixed
-    // column only gets one if it has a small mode to snap to (wSmall) — otherwise its
-    // width never changes at all, so a handle would be a false affordance.
-    const canResize = !last && (!c.fixed || c.wSmall);
+    // A fixed column only gets a handle if it has somewhere to go: wSmall (snap) or
+    // resizable (free drag). A column with neither (e.g. Year) is truly fixed. Flexible
+    // columns always get one, including the last — dragging it still works, since the
+    // redistribution math isn't limited to adjacent columns.
+    const canResize = c.fixed ? (c.wSmall || c.resizable) : true;
     const rz = canResize ? `<span class="resizer" data-key="${c.key}"></span>` : "";
     const widthStyle = c.fixed ? `${fixedColW(c)}px` : (dataAreaPx > 0 ? (colPx[c.key] / dataAreaPx * 100) + "%" : colPct(c.key) + "%");
-    const label = (c.fixed && c.labelSmall && state.small[c.key]) ? c.labelSmall : c.label;
-    html += `<th scope="col" data-key="${c.key}" style="width:${widthStyle}"${sortAttr}><span>${label}</span>${rz}</th>`;
+    html += `<th scope="col" data-key="${c.key}" style="width:${widthStyle}"${sortAttr}><span>${c.label}</span>${rz}</th>`;
   });
   html += `<th scope="col" class="cmpcol" style="width:${COMPARE_COL_W}px"><span class="vh">Compare</span></th>`;
   html += `<th scope="col" class="caretcol" style="width:${CARET_W}px"><span class="vh">Details</span></th>`;
