@@ -830,16 +830,19 @@ const RAW_BASE = "https://raw.githubusercontent.com/notacodeman/headphone-databa
 // split 100% of the table's width; `minW` is a soft floor in pixels — the width
 // distributor (see distributeColumnWidths) tries not to shrink a column past it, only
 // giving up on that if every visible column is already at its floor and there still
-// isn't enough room, so the table still never overflows.
+// isn't enough room, so the table still never overflows. `fixed: true` opts a column
+// out of that proportional split entirely — it always renders at exactly `w` pixels
+// (like the compare/caret columns), for content whose size doesn't vary meaningfully
+// (a 4-digit year, a short enum), so it never wastes flex space or gets squeezed.
 const COLS = [
   { key: "_brand",         label: "Brand",       on: true,  sortable: true,  w: 130, minW: 110 },
   { key: "model_name",     label: "Model",       on: true,  sortable: true,  w: 180, minW: 150 },
-  { key: "release_year",   label: "Year",        on: true,  sortable: true,  w: 80,  minW: 60 },
-  { key: "design",         label: "Design",      on: true,  sortable: true,  w: 120, minW: 90 },
-  { key: "fit",            label: "Fit",         on: true,  sortable: true,  w: 100, minW: 70 },
+  { key: "release_year",   label: "Year",        on: true,  sortable: true,  w: 85,  fixed: true },
+  { key: "design",         label: "Design",      on: true,  sortable: true,  w: 110, fixed: true },
+  { key: "fit",            label: "Fit",         on: true,  sortable: true,  w: 80,  fixed: true },
   { key: "driver_type",    label: "Driver",      on: false, sortable: true,  w: 130, minW: 90 },
   { key: "driver_size_mm", label: "Driver Size", on: false, sortable: true,  w: 120, minW: 90 },
-  { key: "impedance_ohms", label: "Impedance",   on: true,  sortable: true,  w: 90,  minW: 70 },
+  { key: "impedance_ohms", label: "Impedance",   on: true,  sortable: true,  w: 80,  fixed: true },
   { key: "sensitivity_db", label: "Sensitivity", on: false, sortable: true,  w: 130, minW: 90 },
   { key: "status",         label: "Status",      on: false, sortable: true,  w: 130, minW: 90 },
   { key: "_flags",         label: "Wireless/ANC", on: false, sortable: false, w: 120, minW: 90 },
@@ -923,10 +926,13 @@ const COMPARE_COL_W = 44;
 const colW = {};
 function loadColW(){ COLS.forEach(c=>colW[c.key]=c.w); try{ const s=JSON.parse(localStorage.getItem("archive_colw")||"null"); if(s) COLS.forEach(c=>{ if(typeof s[c.key]==="number") colW[c.key]=s[c.key]; });}catch(e){} }
 function saveColW(){ try{ localStorage.setItem("archive_colw",JSON.stringify(colW)); }catch(e){} }
-// Sum of weights for currently-visible data columns.
-function visibleWeight(){ return COLS.filter(c=>state.visible[c.key]).reduce((s,c)=>s+colW[c.key],0); }
+// Sum of weights for currently-visible, non-fixed data columns.
+function visibleWeight(){ return COLS.filter(c=>state.visible[c.key] && !c.fixed).reduce((s,c)=>s+colW[c.key],0); }
 // Percentage width for one column = its share of the visible weight.
 function colPct(key){ const t=visibleWeight(); return t>0 ? (colW[key]/t*100) : 0; }
+// Total pixels permanently reserved by visible `fixed: true` columns (they render at
+// exactly their w in px, outside the proportional split — see the COLS comment above).
+function fixedColsPx(cols){ return cols.filter(c=>c.fixed).reduce((s,c)=>s+c.w,0); }
 
 // Splits containerPx among `cols` by weight, same as colPct, but tries not to shrink
 // any column below its minW. When a column's proportional share would be too small,
@@ -969,12 +975,14 @@ function reflowColumnWidths() {
   const tbl = document.querySelector("#tablewrap table");
   if (!tbl) return;
   const dataCols = COLS.filter(c => state.visible[c.key]);
-  // Percentage widths on the data columns are only sharing out whatever's left after
-  // the two fixed-px columns (compare/caret), so minimums must be computed — and
-  // percentages back-converted — against that remainder, not the table's full width.
-  const dataAreaPx = tbl.clientWidth - COMPARE_COL_W - CARET_W;
-  const px = distributeColumnWidths(dataCols, dataAreaPx);
-  dataCols.forEach(c => {
+  const flexCols = dataCols.filter(c => !c.fixed);
+  // Percentage widths on the flexible data columns are only sharing out whatever's left
+  // after the two fixed-px utility columns (compare/caret) AND any `fixed: true` data
+  // columns, so minimums must be computed — and percentages back-converted — against
+  // that remainder, not the table's full width.
+  const dataAreaPx = tbl.clientWidth - COMPARE_COL_W - CARET_W - fixedColsPx(dataCols);
+  const px = distributeColumnWidths(flexCols, dataAreaPx);
+  flexCols.forEach(c => {
     const th = tbl.querySelector(`th[data-key="${c.key}"]`);
     if (th) th.style.width = (px[c.key] / dataAreaPx * 100) + "%";
   });
@@ -991,12 +999,13 @@ document.addEventListener("mousemove", e => {
   const tbl = document.querySelector("#tablewrap table");
   if (!tbl) return;
   // Translate the pixel drag into a change in this column's weight, measured against
-  // the space actually available to data columns (table width minus the two fixed-px
-  // compare/caret columns) so a 100px drag feels like 100px on screen.
-  const dataCols = COLS.filter(c=>state.visible[c.key]);
+  // the space actually available to flexible data columns (table width minus the two
+  // fixed-px compare/caret columns and any `fixed: true` data columns) so a 100px drag
+  // feels like 100px on screen. `fixed` columns never take part in this at all.
+  const dataCols = COLS.filter(c=>state.visible[c.key] && !c.fixed);
   const others = dataCols.filter(c=>c.key!==resizing.key);
   if (!others.length) return;                  // only one column visible; nothing to trade against
-  const pxPerWeight = (tbl.clientWidth - COMPARE_COL_W - CARET_W) / resizing.startTotal;
+  const pxPerWeight = (tbl.clientWidth - COMPARE_COL_W - CARET_W - fixedColsPx(COLS.filter(c=>state.visible[c.key]))) / resizing.startTotal;
   let deltaW = (e.clientX - resizing.startX) / pxPerWeight;
   // Clamp: the dragged column can't shrink below MINW, and can't grow so far
   // that the remaining columns would each be pushed below MINW.
@@ -1018,7 +1027,7 @@ document.addEventListener("mousemove", e => {
 document.addEventListener("mouseup", () => { if (resizing){ resizing=null; document.body.style.userSelect=""; saveColW(); } });
 function startResize(e){
   const key = e.target.getAttribute("data-key");
-  const dataCols = COLS.filter(c=>state.visible[c.key]);
+  const dataCols = COLS.filter(c=>state.visible[c.key] && !c.fixed);
   const others = dataCols.filter(c=>c.key!==key);
   if (!others.length) { e.preventDefault(); e.stopPropagation(); return; }
   // Snapshot every starting weight so the whole drag is computed from the state
@@ -1365,21 +1374,24 @@ function render() {
     return;
   }
   const cols = COLS.filter(c => state.visible[c.key]);
+  const flexCols = cols.filter(c => !c.fixed);
   // Compute widths up front against the wrapper's current pixel width (the table itself
   // doesn't exist yet) so soft minimums are honored on first paint, not just mid-drag.
-  // Percentages only divide up what's left after the fixed-px compare/caret columns, so
-  // the budget passed in — and used to convert back to a percentage — has to match that.
+  // Percentages only divide up what's left after the fixed-px compare/caret columns and
+  // any `fixed: true` data columns, so the budget passed in — and used to convert back
+  // to a percentage — has to match that same remainder.
   const wrapperPx = document.getElementById("tablewrap").clientWidth || 0;
-  const dataAreaPx = Math.max(0, wrapperPx - COMPARE_COL_W - CARET_W);
-  const colPx = distributeColumnWidths(cols, dataAreaPx);
+  const dataAreaPx = Math.max(0, wrapperPx - COMPARE_COL_W - CARET_W - fixedColsPx(cols));
+  const colPx = distributeColumnWidths(flexCols, dataAreaPx);
   let html = `<table class="autofit"><thead><tr>`;
   cols.forEach(c => {
     const sortAttr = c.sortable ? (state.sortKey === c.key ? ` aria-sort="${state.sortDir}"` : ' aria-sort="none"') : "";
     const last = c.key === cols[cols.length-1].key;
-    // Last data column gets no resizer (nothing to its right to borrow from).
-    const rz = last ? "" : `<span class="resizer" data-key="${c.key}"></span>`;
-    const pct = dataAreaPx > 0 ? (colPx[c.key] / dataAreaPx * 100) : colPct(c.key);
-    html += `<th scope="col" data-key="${c.key}" style="width:${pct}%"${sortAttr}><span>${c.label}</span>${rz}</th>`;
+    // Last data column gets no resizer (nothing to its right to borrow from); fixed
+    // columns never get one either — their width never changes via dragging.
+    const rz = (last || c.fixed) ? "" : `<span class="resizer" data-key="${c.key}"></span>`;
+    const widthStyle = c.fixed ? `${c.w}px` : (dataAreaPx > 0 ? (colPx[c.key] / dataAreaPx * 100) + "%" : colPct(c.key) + "%");
+    html += `<th scope="col" data-key="${c.key}" style="width:${widthStyle}"${sortAttr}><span>${c.label}</span>${rz}</th>`;
   });
   html += `<th scope="col" class="cmpcol" style="width:${COMPARE_COL_W}px"><span class="vh">Compare</span></th>`;
   html += `<th scope="col" class="caretcol" style="width:${CARET_W}px"><span class="vh">Details</span></th>`;
