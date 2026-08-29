@@ -447,7 +447,8 @@
     border-right: 1px solid var(--line);
   }
   table.autofit { width: 100%; table-layout: fixed; }
-  table.autofit th, table.autofit td { overflow: hidden; text-overflow: ellipsis; }
+  table.autofit td { overflow: hidden; text-overflow: ellipsis; }
+  table.autofit th { overflow: hidden; text-overflow: clip; }
   thead th { position: sticky; top: 0; z-index: 10; background: var(--paper-2);
     text-align: left; font-size: 0.65rem; text-transform: uppercase;
     letter-spacing: 0.12em; color: var(--muted); padding: 0.5rem 0.6rem;
