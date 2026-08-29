@@ -349,6 +349,7 @@
      The small-screen rules also bump input font-size to 16px to stop iOS auto-zoom. */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
   /* ── Variables & base ────────────────────────────────── */
   :root { --pad: clamp(1rem, 3vw, 2rem); }
 
@@ -668,10 +669,6 @@
   .cmptable .cmp-diff { color: var(--accent); font-weight: 500; }
   .cmptable .cmp-same { color: var(--muted); }
   .cmptable .cmp-empty { color: var(--line); font-style: italic; }
-
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-  }
 </style>
 </head>
 <body>
