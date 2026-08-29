@@ -826,23 +826,27 @@
 // site normally reads the live D1 catalog API and only drops to these CSVs if that fails.
 const RAW_BASE = "https://raw.githubusercontent.com/notacodeman/headphone-database/main/database";
 
-// Column definitions. `on` is the default visibility.
+// Column definitions. `on` is the default visibility. `w` is a relative weight used to
+// split 100% of the table's width; `minW` is a soft floor in pixels — the width
+// distributor (see distributeColumnWidths) tries not to shrink a column past it, only
+// giving up on that if every visible column is already at its floor and there still
+// isn't enough room, so the table still never overflows.
 const COLS = [
-  { key: "_brand",         label: "Brand",       on: true,  sortable: true,  w: 130 },
-  { key: "model_name",     label: "Model",       on: true,  sortable: true,  w: 180 },
-  { key: "release_year",   label: "Year",        on: true,  sortable: true,  w: 80 },
-  { key: "design",         label: "Design",      on: true,  sortable: true,  w: 120 },
-  { key: "fit",            label: "Fit",         on: true,  sortable: true,  w: 100 },
-  { key: "driver_type",    label: "Driver",      on: false, sortable: true,  w: 130 },
-  { key: "driver_size_mm", label: "Driver Size", on: false, sortable: true,  w: 120 },
-  { key: "impedance_ohms", label: "Impedance",   on: true,  sortable: true,  w: 90 },
-  { key: "sensitivity_db", label: "Sensitivity", on: false, sortable: true,  w: 130 },
-  { key: "status",         label: "Status",      on: false, sortable: true,  w: 130 },
-  { key: "_flags",         label: "Wireless/ANC", on: false, sortable: false, w: 120 },
-  { key: "weight_g",       label: "Weight (g)",   on: false, sortable: true,  w: 100 },
-  { key: "msrp_usd",       label: "MSRP (USD)",   on: true,  sortable: true,  w: 110 },
-  { key: "connector_type", label: "Connector",    on: false, sortable: true,  w: 140 },
-  { key: "detachable_cable",label:"Detachable",   on: false, sortable: true,  w: 100 }
+  { key: "_brand",         label: "Brand",       on: true,  sortable: true,  w: 130, minW: 110 },
+  { key: "model_name",     label: "Model",       on: true,  sortable: true,  w: 180, minW: 150 },
+  { key: "release_year",   label: "Year",        on: true,  sortable: true,  w: 80,  minW: 60 },
+  { key: "design",         label: "Design",      on: true,  sortable: true,  w: 120, minW: 90 },
+  { key: "fit",            label: "Fit",         on: true,  sortable: true,  w: 100, minW: 70 },
+  { key: "driver_type",    label: "Driver",      on: false, sortable: true,  w: 130, minW: 90 },
+  { key: "driver_size_mm", label: "Driver Size", on: false, sortable: true,  w: 120, minW: 90 },
+  { key: "impedance_ohms", label: "Impedance",   on: true,  sortable: true,  w: 90,  minW: 70 },
+  { key: "sensitivity_db", label: "Sensitivity", on: false, sortable: true,  w: 130, minW: 90 },
+  { key: "status",         label: "Status",      on: false, sortable: true,  w: 130, minW: 90 },
+  { key: "_flags",         label: "Wireless/ANC", on: false, sortable: false, w: 120, minW: 90 },
+  { key: "weight_g",       label: "Weight (g)",   on: false, sortable: true,  w: 100, minW: 70 },
+  { key: "msrp_usd",       label: "MSRP (USD)",   on: true,  sortable: true,  w: 110, minW: 80 },
+  { key: "connector_type", label: "Connector",    on: false, sortable: true,  w: 140, minW: 100 },
+  { key: "detachable_cable",label:"Detachable",   on: false, sortable: true,  w: 100, minW: 80 }
 ];
 
 // ---- Application state ----
@@ -924,17 +928,75 @@ function visibleWeight(){ return COLS.filter(c=>state.visible[c.key]).reduce((s,
 // Percentage width for one column = its share of the visible weight.
 function colPct(key){ const t=visibleWeight(); return t>0 ? (colW[key]/t*100) : 0; }
 
+// Splits containerPx among `cols` by weight, same as colPct, but tries not to shrink
+// any column below its minW. When a column's proportional share would be too small,
+// it's bumped up to minW and the shortfall is taken from the still-flexible columns
+// (proportional to their own weight), repeating until stable. If every column is
+// already at its floor and there's still a shortfall, the floors are abandoned and
+// widths fall back to a plain proportional split — the table filling its container
+// with no overflow always wins over honoring a soft minimum. Returns {key: pixels}.
+function distributeColumnWidths(cols, containerPx) {
+  const totalWeight = cols.reduce((s, c) => s + colW[c.key], 0);
+  const px = {};
+  if (totalWeight <= 0 || containerPx <= 0) { cols.forEach(c => px[c.key] = 0); return px; }
+  cols.forEach(c => { px[c.key] = colW[c.key] / totalWeight * containerPx; });
+
+  const totalMin = cols.reduce((s, c) => s + (c.minW || 0), 0);
+  if (totalMin >= containerPx) return px; // no room to honor floors; plain split stands
+
+  const locked = new Set();
+  for (let iter = 0; iter < cols.length; iter++) {
+    let deficit = 0;
+    cols.forEach(c => {
+      if (!locked.has(c.key) && px[c.key] < (c.minW || 0)) {
+        deficit += c.minW - px[c.key];
+        px[c.key] = c.minW;
+        locked.add(c.key);
+      }
+    });
+    if (deficit <= 0) break;
+    const flexible = cols.filter(c => !locked.has(c.key));
+    if (!flexible.length) break;
+    const flexWeight = flexible.reduce((s, c) => s + colW[c.key], 0);
+    flexible.forEach(c => { px[c.key] -= deficit * (colW[c.key] / flexWeight); });
+  }
+  return px;
+}
+
+// Re-applies distributeColumnWidths' output to the live <th> elements. Shared by the
+// column-drag reflow and the window-resize listener below, so both paths honor minW.
+function reflowColumnWidths() {
+  const tbl = document.querySelector("#tablewrap table");
+  if (!tbl) return;
+  const dataCols = COLS.filter(c => state.visible[c.key]);
+  // Percentage widths on the data columns are only sharing out whatever's left after
+  // the two fixed-px columns (compare/caret), so minimums must be computed — and
+  // percentages back-converted — against that remainder, not the table's full width.
+  const dataAreaPx = tbl.clientWidth - COMPARE_COL_W - CARET_W;
+  const px = distributeColumnWidths(dataCols, dataAreaPx);
+  dataCols.forEach(c => {
+    const th = tbl.querySelector(`th[data-key="${c.key}"]`);
+    if (th) th.style.width = (px[c.key] / dataAreaPx * 100) + "%";
+  });
+}
+let resizeReflowTimer = null;
+window.addEventListener("resize", () => {
+  clearTimeout(resizeReflowTimer);
+  resizeReflowTimer = setTimeout(reflowColumnWidths, 100);
+});
+
 let resizing = null;
 document.addEventListener("mousemove", e => {
   if (!resizing) return;
   const tbl = document.querySelector("#tablewrap table");
   if (!tbl) return;
-  // Translate the pixel drag into a change in this column's weight, measured
-  // against the table's pixel width so a 100px drag feels like 100px on screen.
+  // Translate the pixel drag into a change in this column's weight, measured against
+  // the space actually available to data columns (table width minus the two fixed-px
+  // compare/caret columns) so a 100px drag feels like 100px on screen.
   const dataCols = COLS.filter(c=>state.visible[c.key]);
   const others = dataCols.filter(c=>c.key!==resizing.key);
   if (!others.length) return;                  // only one column visible; nothing to trade against
-  const pxPerWeight = tbl.clientWidth / resizing.startTotal;
+  const pxPerWeight = (tbl.clientWidth - COMPARE_COL_W - CARET_W) / resizing.startTotal;
   let deltaW = (e.clientX - resizing.startX) / pxPerWeight;
   // Clamp: the dragged column can't shrink below MINW, and can't grow so far
   // that the remaining columns would each be pushed below MINW.
@@ -948,12 +1010,10 @@ document.addEventListener("mousemove", e => {
   colW[resizing.key] = resizing.startW + deltaW;
   const scale = (resizing.startOthersTotal - deltaW) / resizing.startOthersTotal;
   others.forEach(c => { colW[c.key] = resizing.startOtherW[c.key] * scale; });
-  // Re-apply percentage widths to every visible column so the whole row reflows,
-  // not just the two columns nearest the divider.
-  dataCols.forEach(c => {
-    const th = tbl.querySelector(`th[data-key="${c.key}"]`);
-    if (th) th.style.width = colPct(c.key) + "%";
-  });
+  // Re-apply widths to every visible column so the whole row reflows, not just the
+  // two columns nearest the divider — routed through distributeColumnWidths so a
+  // drag can't push a column past its soft minimum either.
+  reflowColumnWidths();
 });
 document.addEventListener("mouseup", () => { if (resizing){ resizing=null; document.body.style.userSelect=""; saveColW(); } });
 function startResize(e){
@@ -1305,13 +1365,21 @@ function render() {
     return;
   }
   const cols = COLS.filter(c => state.visible[c.key]);
+  // Compute widths up front against the wrapper's current pixel width (the table itself
+  // doesn't exist yet) so soft minimums are honored on first paint, not just mid-drag.
+  // Percentages only divide up what's left after the fixed-px compare/caret columns, so
+  // the budget passed in — and used to convert back to a percentage — has to match that.
+  const wrapperPx = document.getElementById("tablewrap").clientWidth || 0;
+  const dataAreaPx = Math.max(0, wrapperPx - COMPARE_COL_W - CARET_W);
+  const colPx = distributeColumnWidths(cols, dataAreaPx);
   let html = `<table class="autofit"><thead><tr>`;
   cols.forEach(c => {
     const sortAttr = c.sortable ? (state.sortKey === c.key ? ` aria-sort="${state.sortDir}"` : ' aria-sort="none"') : "";
     const last = c.key === cols[cols.length-1].key;
     // Last data column gets no resizer (nothing to its right to borrow from).
     const rz = last ? "" : `<span class="resizer" data-key="${c.key}"></span>`;
-    html += `<th scope="col" data-key="${c.key}" style="width:${colPct(c.key)}%"${sortAttr}><span>${c.label}</span>${rz}</th>`;
+    const pct = dataAreaPx > 0 ? (colPx[c.key] / dataAreaPx * 100) : colPct(c.key);
+    html += `<th scope="col" data-key="${c.key}" style="width:${pct}%"${sortAttr}><span>${c.label}</span>${rz}</th>`;
   });
   html += `<th scope="col" class="cmpcol" style="width:${COMPARE_COL_W}px"><span class="vh">Compare</span></th>`;
   html += `<th scope="col" class="caretcol" style="width:${CARET_W}px"><span class="vh">Details</span></th>`;
