@@ -454,7 +454,7 @@
     border-bottom: 2px solid var(--ink); cursor: pointer; user-select: none; white-space: nowrap; }
   thead th:hover { color: var(--accent); }
   thead th > span:first-child { display: inline-block; max-width: calc(100% - 10px);
-    overflow: hidden; text-overflow: ellipsis; vertical-align: bottom; }
+    overflow: hidden; text-overflow: clip; vertical-align: bottom; }
   thead th[aria-sort="ascending"]::after  { content: ' \2191'; color: var(--accent); font-size: 0.7rem; }
   thead th[aria-sort="descending"]::after { content: ' \2193'; color: var(--accent); font-size: 0.7rem; }
   thead th[aria-sort="ascending"], thead th[aria-sort="descending"] { color: var(--accent); border-bottom: 3px solid var(--accent); }

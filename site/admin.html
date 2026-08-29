@@ -72,7 +72,7 @@
   thead th[aria-sort="descending"]::after { content:' \2193'; color:var(--accent); }
   thead th[aria-sort="ascending"], thead th[aria-sort="descending"] { color: var(--accent); border-bottom: 3px solid var(--accent); }
   thead th > span:first-child { display:inline-block; max-width:calc(100% - 10px);
-    overflow:hidden; text-overflow:ellipsis; vertical-align:bottom; }
+    overflow:hidden; text-overflow:clip; vertical-align:bottom; }
   .resizer { position:absolute; top:0; right:0; width:9px; height:100%; cursor:col-resize; user-select:none; }
   .resizer::before { content:""; position:absolute; right:3px; top:25%; height:50%; width:1px; background:var(--line); }
   .resizer:hover::before { top:0; height:100%; width:2px; background:var(--accent); }
