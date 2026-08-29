@@ -111,12 +111,12 @@
     max-width: 1400px;
     margin: 0 auto;
     padding: 1.2rem var(--pad) 0.5rem;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
     gap: 0.6rem;
   }
-  .controls .field { flex: 1; min-width: 130px; max-width: 220px; }
-  .controls .field:first-child { flex: 2; min-width: 200px; max-width: 400px; }
+  .controls .field { min-width: 0; }
+  .controls .field:first-child { grid-column: span 2; }
 
   .field label {
     display: block;
@@ -374,12 +374,12 @@
   /* ── Controls / filters ──────────────────────────────── */
   .controls {
     padding: 1.2rem var(--pad) 0.5rem;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
     gap: 0.6rem;
   }
-  .controls .field { flex: 1; min-width: 130px; max-width: 220px; }
-  .controls .field:first-child { flex: 2; min-width: 200px; max-width: 400px; }
+  .controls .field { min-width: 0; }
+  .controls .field:first-child { grid-column: span 2; }
   /* Filter toggle — mobile only */
   .filter-toggle { display: none; }
   @media (max-width: 600px)  {
@@ -737,6 +737,8 @@
       <option>Dark</option>
     </select>
   </div>
+  <div class="field">
+    <label for="imp_max">Max impedance</label>
     <select id="imp_max">
       <option value="">Any</option>
       <option value="16">Up to 16&Omega;</option>
