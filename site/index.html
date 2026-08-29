@@ -107,16 +107,27 @@
   .brands-btn:hover { background: #152b22; }
   .stats-bar strong { font-weight: 600; }
 
+  /* The filter grid is now a popover anchored to the toolbar's own left edge (not the
+     Filters button's position, which can sit far enough right that a wide panel would
+     overflow the viewport) instead of an always-open row, so it costs nothing in the
+     page's default vertical layout — only .toolbar's own single row does. */
   .controls {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 1.2rem var(--pad) 0.5rem;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: var(--pad);
+    z-index: 25;
+    display: none;
+    grid-template-columns: repeat(5, 1fr);
     gap: 0.6rem;
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    box-shadow: 4px 4px 0 rgba(26,23,20,0.12);
+    padding: 1rem;
+    width: max(600px, 40vw);
+    max-width: calc(100vw - 2 * var(--pad));
   }
+  .controls.open { display: grid; }
   .controls .field { min-width: 0; }
-  .controls .field:first-child { grid-column: span 2; }
 
   .field label {
     display: block;
@@ -138,20 +149,36 @@
   }
   input:focus, select:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
 
-  main { max-width: 1300px; margin: 0 auto; padding: 0 2rem 4rem; }
-
-  .resultmeta {
-    font-size: 0.75rem;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    padding: 1rem 0;
+  /* ---- Toolbar ----
+     One compact row combining search, the Filters popover trigger, the result count, and
+     the export/columns/reset actions — replaces the old separate filter-grid row and
+     .resultmeta row so the page's default chrome is a single thin strip. */
+  .toolbar {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem var(--pad);
     display: flex;
-    justify-content: space-between;
     align-items: center;
     gap: 1rem;
     flex-wrap: wrap;
   }
+  .searchfield { width: min(280px, 100%); }
+  .filter-toggle {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: none; border: 1px solid var(--ink); font-family: inherit;
+    font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em;
+    padding: 0.62rem 0.9rem; cursor: pointer; color: var(--ink);
+    border-radius: 4px;
+  }
+  .filter-toggle:hover { background: var(--paper-2); }
+  .filter-count {
+    background: var(--accent); color: var(--paper); border-radius: 99px;
+    font-size: 0.62rem; line-height: 1; padding: 0.22rem 0.4rem;
+  }
+  .resultcount { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+
+  main { max-width: 1300px; margin: 0 auto; padding: 0 2rem; }
   .meta-actions { display: flex; gap: 1.25rem; align-items: center; }
   .linkbtn {
     background: none; border: none; font-family: inherit; cursor: pointer;
@@ -361,7 +388,7 @@
 
   /* ── Page structure ──────────────────────────────────── */
   /* All sections share the same max-width and side padding */
-  .stats-bar, .controls, main, footer {
+  .stats-bar, main, footer {
     max-width: 1400px; margin: 0 auto;
   }
   .stats-bar {
@@ -371,30 +398,43 @@
   }
   #statnums { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; }
 
-  /* ── Controls / filters ──────────────────────────────── */
-  .controls {
-    padding: 1.2rem var(--pad) 0.5rem;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 0.6rem;
+  /* ── Toolbar (search, filters popover, result count, actions) ──── */
+  .toolbar {
+    position: relative;
+    max-width: 1400px; margin: 0 auto; padding: 1rem var(--pad);
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
   }
+  .searchfield { width: min(280px, 100%); }
+  .filter-toggle {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: none; border: 1px solid var(--ink); font-family: inherit;
+    font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em;
+    padding: 0.62rem 0.9rem; cursor: pointer; color: var(--ink);
+    border-radius: 4px;
+  }
+  .filter-toggle:hover { background: var(--paper-2); }
+  .filter-count {
+    background: var(--accent); color: var(--paper); border-radius: 99px;
+    font-size: 0.62rem; line-height: 1; padding: 0.22rem 0.4rem;
+  }
+  .resultcount { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+
+  /* ── Controls / filters popover ──────────────────────── */
+  .controls {
+    position: absolute; top: calc(100% + 0.5rem); left: var(--pad); z-index: 25;
+    display: none;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.6rem;
+    background: var(--paper); border: 1px solid var(--ink);
+    box-shadow: 4px 4px 0 rgba(26,23,20,0.12);
+    padding: 1rem;
+    width: max(600px, 40vw);
+    max-width: calc(100vw - 2 * var(--pad));
+  }
+  .controls.open { display: grid; }
   .controls .field { min-width: 0; }
-  .controls .field:first-child { grid-column: span 2; }
-  /* Filter toggle — mobile only */
-  .filter-toggle { display: none; }
-  @media (max-width: 600px)  {
-    .filter-toggle {
-      display: flex; align-items: center; gap: 0.5rem;
-      margin: 0.75rem var(--pad) 0;
-      background: none; border: 1px solid var(--ink); font-family: inherit;
-      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em;
-      padding: 0.5rem 0.9rem; cursor: pointer; color: var(--ink);
-      border-radius: 4px; width: fit-content;
-    }
-    .filter-toggle:hover { background: var(--paper-2); }
-    .controls { display: none; padding: 0.75rem var(--pad) 0.5rem;
-      grid-template-columns: 1fr 1fr; }
-    .controls.open { display: grid; }
+  @media (max-width: 700px) {
+    .controls { grid-template-columns: 1fr 1fr; width: max(90vw, 320px); }
   }
 
   .field label { display: block; font-size: 0.65rem; text-transform: uppercase;
@@ -406,13 +446,9 @@
   @media (max-width: 600px) { input, select { font-size: 1rem; } } /* prevent iOS zoom */
 
   /* ── Main + table ────────────────────────────────────── */
-  main { padding: 0 0 4rem; }
+  main { padding: 0; }
 
-  .resultmeta { font-size: 0.75rem; color: var(--muted); text-transform: uppercase;
-    letter-spacing: 0.1em; padding: 1rem var(--pad);
-    display: flex; justify-content: space-between; align-items: center;
-    gap: 1rem; flex-wrap: wrap; }
-  .meta-actions { display: flex; gap: 1.25rem; align-items: center; }
+  .meta-actions { display: flex; gap: 1.25rem; align-items: center; margin-left: auto; }
   .linkbtn { background: none; border: none; font-family: inherit; cursor: pointer;
     color: var(--accent-2); font-size: 0.75rem; text-transform: uppercase;
     letter-spacing: 0.1em; text-decoration: underline; text-underline-offset: 3px; padding: 0; }
@@ -492,8 +528,11 @@
     /* Each row becomes a card */
     tr.datarow {
       display: grid;
-      grid-template-columns: 1fr auto auto;
-      grid-template-areas: "brand cmp caret" "model cmp caret" "meta  cmp caret";
+      /* Year and design each get their own column (auto / 1fr) rather than sharing one
+         "meta" area — two grid items placed in the same named area stack on top of each
+         other instead of flowing side by side, which is what "auto auto" here fixes. */
+      grid-template-columns: auto 1fr auto auto;
+      grid-template-areas: "brand  brand  cmp caret" "model  model  cmp caret" "year design cmp caret";
       gap: 0 0.4rem;
       align-items: center;
       border: 1px solid var(--line);
@@ -510,25 +549,30 @@
     tr.datarow td { display: none; padding: 0; border: none;
       white-space: normal; overflow: visible; text-overflow: unset; }
 
-    td[data-key="_brand"]    { display: block; grid-area: brand;
+    /* Prefixed with `tr.datarow` (rather than the bare `td[data-key=...]`) so these
+       beat the "hide all cells" rule above on specificity — a plain attribute selector
+       is less specific than tr.datarow td and was silently losing to display:none. */
+    tr.datarow td[data-key="_brand"]    { display: block; grid-area: brand;
       font-size: 0.68rem; color: var(--muted); margin-bottom: 0.1rem; }
-    td[data-key="model_name"]{ display: block; grid-area: model;
+    tr.datarow td[data-key="model_name"]{ display: block; grid-area: model;
       font-size: 0.95rem; font-family: 'Fraunces', serif; font-weight: 600;
       line-height: 1.2; padding: 0.05rem 0; }
-    /* Meta row: year + design chips */
-    td[data-key="release_year"]{ display: inline; grid-area: meta;
-      font-size: 0.72rem; color: var(--muted); }
-    td[data-key="design"]    { display: inline; grid-area: meta;
-      font-size: 0.72rem; color: var(--muted); }
-    td[data-key="design"]::before { content: " · "; }
-    td[data-key="status"]    { display: none; } /* shown in expand panel */
-    td.cmpcol  { display: flex; grid-area: cmp;  align-items: center;
+    /* Meta row: year + design, each in their own grid column so they sit side by side
+       instead of overlapping (see the grid-template-areas comment above). */
+    tr.datarow td[data-key="release_year"]{ display: inline; grid-area: year;
+      font-size: 0.72rem; color: var(--muted); justify-self: start; }
+    tr.datarow td[data-key="design"]    { display: inline; grid-area: design;
+      font-size: 0.72rem; color: var(--muted); justify-self: start; }
+    tr.datarow td[data-key="design"]::before { content: "\00b7"; margin-right: 0.3em; }
+    tr.datarow td.cmpcol  { display: flex; grid-area: cmp;  align-items: center;
       justify-content: center; width: 28px; }
-    td.caretcol{ display: flex; grid-area: caret; align-items: center;
+    tr.datarow td.caretcol{ display: flex; grid-area: caret; align-items: center;
       justify-content: center; width: 28px; }
 
-    /* Detail row in card view */
-    tr.detailrow { display: block; }
+    /* Detail row in card view — :not([hidden]) so the hidden attribute (which toggleDetail
+       sets/clears) still wins; a bare `display: block` here would override it and force
+       every row's detail panel permanently open. */
+    tr.detailrow:not([hidden]) { display: block; }
     tr.detailrow > td { display: block; padding: 0; border: none;
       margin: -0.5rem var(--pad) 0.5rem; border-left: 3px solid var(--accent);
       background: var(--paper); border-radius: 0 0 8px 8px; }
@@ -686,99 +730,98 @@
   </div>
 </div>
 
-<button class="filter-toggle" id="filterToggle" aria-expanded="false" aria-controls="filtersGrid">
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
-  Filters
-</button>
-<div class="controls" id="filtersGrid">
-  <div class="field">
-    <label for="q">Search</label>
-    <input type="text" id="q" placeholder="Model, brand, keyword&hellip;" autocomplete="off">
-  </div>
-  <div class="field">
-    <label for="brand">Brand</label>
-    <select id="brand"><option value="">All</option></select>
-  </div>
-  <div class="field">
-    <label for="design">Design</label>
-    <select id="design"><option value="">All</option></select>
-  </div>
-  <div class="field">
-    <label for="fit">Fit</label>
-    <select id="fit"><option value="">All</option></select>
-  </div>
-  <div class="field">
-    <label for="driver">Driver</label>
-    <select id="driver"><option value="">All</option></select>
-  </div>
-  <div class="field">
-    <label for="status">Status</label>
-    <select id="status"><option value="">All</option></select>
-  </div>
-  <div class="field">
-    <label for="sig">Sound signature</label>
-    <select id="sig">
-      <option value="">All</option>
-      <option>Neutral</option>
-      <option>Warm Neutral</option>
-      <option>Neutral Bright</option>
-      <option>Warm</option>
-      <option>Bright</option>
-      <option>Analytical</option>
-      <option>V-Shaped</option>
-      <option>U-Shaped</option>
-      <option>Bassy</option>
-      <option>Dark</option>
-    </select>
-  </div>
-  <div class="field">
-    <label for="imp_max">Max impedance</label>
-    <select id="imp_max">
-      <option value="">Any</option>
-      <option value="16">Up to 16&Omega;</option>
-      <option value="32">Up to 32&Omega;</option>
-      <option value="50">Up to 50&Omega;</option>
-      <option value="80">Up to 80&Omega;</option>
-      <option value="150">Up to 150&Omega;</option>
-      <option value="300">Up to 300&Omega;</option>
-    </select>
-  </div>
-  <div class="field">
-    <label for="price_max">Max price (USD)</label>
-    <input type="number" id="price_max" placeholder="e.g. 500" min="0" step="50">
-  </div>
-  <div class="field">
-    <label for="connector">Connector</label>
-    <select id="connector">
-      <option value="">All</option>
-      <option>3.5mm</option>
-      <option>6.35mm</option>
-      <option>3.5mm/6.35mm</option>
-      <option>4.4mm Pentaconn</option>
-      <option>Dual 3.5mm</option>
-      <option>mini-XLR</option>
-      <option>Dual mini-XLR</option>
-      <option>A2DC</option>
-      <option>MMCX</option>
-      <option>Wireless</option>
-      <option>USB</option>
-      <option>USB-C</option>
-      <option>Electrostatic</option>
-    </select>
-  </div>
-  <div class="field">
-    <label for="detachable">Detachable cable</label>
-    <select id="detachable">
-      <option value="">All</option>
-      <option>Yes</option>
-      <option>No</option>
-    </select>
-  </div>
-</div>
-
 <main id="main">
-  <div class="resultmeta">
-    <span id="count" aria-live="polite"></span>
+  <div class="toolbar">
+    <div class="field searchfield">
+      <label for="q" class="vh">Search</label>
+      <input type="text" id="q" placeholder="Model, brand, keyword&hellip;" autocomplete="off">
+    </div>
+    <button class="filter-toggle" id="filterToggle" aria-haspopup="true" aria-expanded="false" aria-controls="filtersGrid">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+      Filters<span class="filter-count" id="filterCount" hidden></span>
+    </button>
+    <div class="controls" id="filtersGrid">
+        <div class="field">
+          <label for="brand">Brand</label>
+          <select id="brand"><option value="">All</option></select>
+        </div>
+        <div class="field">
+          <label for="design">Design</label>
+          <select id="design"><option value="">All</option></select>
+        </div>
+        <div class="field">
+          <label for="fit">Fit</label>
+          <select id="fit"><option value="">All</option></select>
+        </div>
+        <div class="field">
+          <label for="driver">Driver</label>
+          <select id="driver"><option value="">All</option></select>
+        </div>
+        <div class="field">
+          <label for="status">Status</label>
+          <select id="status"><option value="">All</option></select>
+        </div>
+        <div class="field">
+          <label for="sig">Sound signature</label>
+          <select id="sig">
+            <option value="">All</option>
+            <option>Neutral</option>
+            <option>Warm Neutral</option>
+            <option>Neutral Bright</option>
+            <option>Warm</option>
+            <option>Bright</option>
+            <option>Analytical</option>
+            <option>V-Shaped</option>
+            <option>U-Shaped</option>
+            <option>Bassy</option>
+            <option>Dark</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="imp_max">Max impedance</label>
+          <select id="imp_max">
+            <option value="">Any</option>
+            <option value="16">Up to 16&Omega;</option>
+            <option value="32">Up to 32&Omega;</option>
+            <option value="50">Up to 50&Omega;</option>
+            <option value="80">Up to 80&Omega;</option>
+            <option value="150">Up to 150&Omega;</option>
+            <option value="300">Up to 300&Omega;</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="price_max">Max price (USD)</label>
+          <input type="number" id="price_max" placeholder="e.g. 500" min="0" step="50">
+        </div>
+        <div class="field">
+          <label for="connector">Connector</label>
+          <select id="connector">
+            <option value="">All</option>
+            <option>3.5mm</option>
+            <option>6.35mm</option>
+            <option>3.5mm/6.35mm</option>
+            <option>4.4mm Pentaconn</option>
+            <option>Dual 3.5mm</option>
+            <option>mini-XLR</option>
+            <option>Dual mini-XLR</option>
+            <option>A2DC</option>
+            <option>MMCX</option>
+            <option>Wireless</option>
+            <option>USB</option>
+            <option>USB-C</option>
+            <option>Electrostatic</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="detachable">Detachable cable</label>
+          <select id="detachable">
+            <option value="">All</option>
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+        </div>
+      </div>
+    <span id="count" class="resultcount" aria-live="polite"></span>
     <span class="meta-actions">
       <button class="linkbtn" id="exportBtn">Export CSV</button>
       <span class="colpanel">
@@ -987,10 +1030,32 @@ function reflowColumnWidths() {
     if (th) th.style.width = (px[c.key] / dataAreaPx * 100) + "%";
   });
 }
+// Sizes #tablewrap's own scroll area to exactly whatever vertical space is left in the
+// viewport below it, down to the footer, so the table scrolls internally instead of the
+// whole page needing to scroll to reach the bottom. Recomputed on load, on window resize,
+// and once web fonts finish swapping in (which can shift the header's height slightly).
+// The filters popover is `position:absolute` and doesn't affect document flow, so opening
+// it doesn't require a recompute.
+function fitTableHeight() {
+  const wrap = document.getElementById("tablewrap");
+  if (!wrap) return;
+  // Below 600px the mobile card layout takes over and wants the whole page to scroll
+  // normally (max-height: none, set by the mobile media query) — clear any inline
+  // override from a wider viewport so that CSS rule can apply again.
+  if (window.innerWidth <= 600) { wrap.style.maxHeight = ""; return; }
+  const top = wrap.getBoundingClientRect().top;
+  const footer = document.querySelector("footer");
+  const footerH = footer ? footer.getBoundingClientRect().height : 0;
+  const available = window.innerHeight - top - footerH;
+  wrap.style.maxHeight = Math.max(200, Math.floor(available)) + "px";
+}
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitTableHeight);
+fitTableHeight();
+
 let resizeReflowTimer = null;
 window.addEventListener("resize", () => {
   clearTimeout(resizeReflowTimer);
-  resizeReflowTimer = setTimeout(reflowColumnWidths, 100);
+  resizeReflowTimer = setTimeout(() => { reflowColumnWidths(); fitTableHeight(); }, 100);
 });
 
 let resizing = null;
@@ -1113,12 +1178,14 @@ async function loadFromCSV() {
     apply();
     updateCompareBar();
     handleFocusParam();
+    fitTableHeight();
     document.getElementById("source").innerHTML =
       'Source: <a href="https://github.com/notacodeman/headphone-database">github.com/notacodeman/headphone-database</a>';
   } catch (e) {
     document.getElementById("tablewrap").innerHTML =
       '<div class="empty">Could not load the catalog. If you just updated the repo, give it a moment and refresh.</div>';
     document.getElementById("statnums").innerHTML = '<span>Catalog unavailable</span>';
+    fitTableHeight();
   }
 }
 
@@ -1225,6 +1292,7 @@ function apply() {
   });
   sortRows();
   render();
+  updateFilterBadge();
 }
 
 // Sorts state.filtered in place by the active column. Numeric spec columns are compared
@@ -1583,13 +1651,42 @@ function exportCSV() {
   URL.revokeObjectURL(url);
 }
 
-// Mobile filter toggle
-document.getElementById("filterToggle").addEventListener("click", function() {
+// Filters popover — same open/outside-click/Escape pattern as the Columns menu below.
+function wireFilterPanel() {
+  const toggle = document.getElementById("filterToggle");
   const grid = document.getElementById("filtersGrid");
-  const open = grid.classList.toggle("open");
-  this.setAttribute("aria-expanded", String(open));
-  this.querySelector("svg").style.opacity = open ? "1" : "0.6";
-});
+  toggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const open = grid.classList.toggle("open");
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.querySelector("svg").style.opacity = open ? "1" : "0.6";
+  });
+  document.addEventListener("click", (e) => {
+    if (!grid.contains(e.target) && e.target !== toggle && !toggle.contains(e.target)) {
+      grid.classList.remove("open");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.querySelector("svg").style.opacity = "0.6";
+    }
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      grid.classList.remove("open");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.querySelector("svg").style.opacity = "0.6";
+    }
+  });
+}
+wireFilterPanel();
+
+// Updates the small count badge on the Filters button so an active filter is still
+// visible at a glance while the popover itself is collapsed.
+const FILTER_FIELD_IDS = ["q","brand","design","fit","driver","status","sig","connector","detachable","imp_max","price_max"];
+function updateFilterBadge() {
+  const n = FILTER_FIELD_IDS.filter(id => document.getElementById(id).value !== "").length;
+  const badge = document.getElementById("filterCount");
+  badge.hidden = n === 0;
+  badge.textContent = n;
+}
 
 // ---- Compare bar ----
 function updateCompareBar() {
