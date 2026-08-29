@@ -500,6 +500,11 @@
   thead th > span:first-child { display: inline-block; max-width: calc(100% - 10px);
     overflow: hidden; text-overflow: clip; vertical-align: bottom; }
   thead th[aria-sort="ascending"], thead th[aria-sort="descending"] { color: var(--accent); border-bottom: 3px solid var(--accent); }
+  /* Column reorder drag feedback: the dragged header dims, and a colored edge on the
+     currently-hovered header shows which side it would land on if dropped now. */
+  thead th.dragging-col { opacity: 0.4; }
+  thead th.drop-before { box-shadow: inset 3px 0 0 var(--accent); }
+  thead th.drop-after { box-shadow: inset -3px 0 0 var(--accent); }
   tbody tr:hover { background: var(--paper-2); }
   tbody td { padding: 0.7rem 0.6rem; font-size: 0.86rem; vertical-align: top;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -1000,6 +1005,29 @@ function fixedColW(c){
   if (c.resizable) return colW[c.key]; // freely dragged — colW is seeded from c.w and persisted like any other column
   return c.w;
 }
+
+// ---- Column order ----
+// colOrder is a full list of column keys in the user's chosen order (or null, meaning
+// COLS' own declaration order). Set by dragging a header — see wireHeaderDrag — and
+// persisted the same way visibility/widths already are.
+let colOrder = null;
+function loadColOrder(){
+  try {
+    const s = JSON.parse(localStorage.getItem("archive_colorder") || "null");
+    if (Array.isArray(s) && s.every(k => typeof k === "string")) colOrder = s;
+  } catch (e) {}
+}
+function saveColOrder(){ try{ localStorage.setItem("archive_colorder", JSON.stringify(colOrder)); }catch(e){} }
+// All of COLS, reordered per colOrder. Any key in colOrder no longer in COLS is dropped;
+// any COLS entry not yet in colOrder (e.g. one added after a visitor's order was saved)
+// is appended at the end, so it doesn't just disappear.
+function orderedCols(){
+  if (!colOrder) return COLS.slice();
+  const byKey = {}; COLS.forEach(c => byKey[c.key] = c);
+  const ordered = colOrder.map(k => byKey[k]).filter(Boolean);
+  COLS.forEach(c => { if (!colOrder.includes(c.key)) ordered.push(c); });
+  return ordered;
+}
 // Sum of weights for currently-visible, non-fixed data columns.
 function visibleWeight(){ return COLS.filter(c=>state.visible[c.key] && !c.fixed).reduce((s,c)=>s+colW[c.key],0); }
 // Percentage width for one column = its share of the visible weight.
@@ -1105,7 +1133,33 @@ const FIXED_DRAG_THRESHOLD = 15;
 // feel as a flexible column, just without it ever joining the weight-based split.
 let fixedFreeDrag = null;
 const FIXED_FREE_MINW = 40;
+// Dragging a header body (anywhere but the resizer) reorders columns instead of resizing.
+// Distinguished from a plain click-to-sort by movement: under HEADER_DRAG_THRESHOLD px it's
+// still a click when the mouse comes up; past it, it's a reorder and the click that
+// naturally follows mouseup is suppressed (see suppressNextHeaderClick).
+let headerDrag = null;
+const HEADER_DRAG_THRESHOLD = 6;
+let suppressNextHeaderClick = false;
 document.addEventListener("mousemove", e => {
+  if (headerDrag) {
+    if (!headerDrag.moved && Math.abs(e.clientX - headerDrag.startX) > HEADER_DRAG_THRESHOLD) {
+      headerDrag.moved = true;
+      document.querySelector(`th[data-key="${headerDrag.key}"]`)?.classList.add("dragging-col");
+    }
+    if (headerDrag.moved) {
+      document.querySelectorAll("th[data-key]").forEach(t => t.classList.remove("drop-before", "drop-after"));
+      const hovered = document.elementFromPoint(e.clientX, e.clientY)?.closest("th[data-key]");
+      if (hovered && hovered.getAttribute("data-key") !== headerDrag.key) {
+        const rect = hovered.getBoundingClientRect();
+        headerDrag.targetKey = hovered.getAttribute("data-key");
+        headerDrag.before = e.clientX < rect.left + rect.width / 2;
+        hovered.classList.add(headerDrag.before ? "drop-before" : "drop-after");
+      } else {
+        headerDrag.targetKey = null;
+      }
+    }
+    return;
+  }
   if (fixedDrag) {
     const delta = e.clientX - fixedDrag.startX;
     let next = fixedDrag.startSmall;
@@ -1153,6 +1207,25 @@ document.addEventListener("mousemove", e => {
   reflowColumnWidths();
 });
 document.addEventListener("mouseup", () => {
+  if (headerDrag) {
+    document.body.style.userSelect = "";
+    document.querySelectorAll("th[data-key]").forEach(t => t.classList.remove("dragging-col", "drop-before", "drop-after"));
+    if (headerDrag.moved) {
+      suppressNextHeaderClick = true;
+      if (headerDrag.targetKey) {
+        const order = orderedCols().map(c => c.key);
+        order.splice(order.indexOf(headerDrag.key), 1);
+        let toIdx = order.indexOf(headerDrag.targetKey);
+        if (!headerDrag.before) toIdx += 1;
+        order.splice(toIdx, 0, headerDrag.key);
+        colOrder = order;
+        saveColOrder();
+        render();
+      }
+    }
+    headerDrag = null;
+    return;
+  }
   if (fixedDrag) { fixedDrag = null; document.body.style.userSelect = ""; saveColSmall(); return; }
   if (fixedFreeDrag) { fixedFreeDrag = null; document.body.style.userSelect = ""; saveColW(); return; }
   if (resizing){ resizing=null; document.body.style.userSelect=""; saveColW(); }
@@ -1534,7 +1607,7 @@ function render() {
     document.getElementById("tablewrap").innerHTML = '<div class="empty">No headphones match those filters.</div>';
     return;
   }
-  const cols = COLS.filter(c => state.visible[c.key]);
+  const cols = orderedCols().filter(c => state.visible[c.key]);
   const flexCols = cols.filter(c => !c.fixed);
   // Compute widths up front against the wrapper's current pixel width (the table itself
   // doesn't exist yet) so soft minimums are honored on first paint, not just mid-drag.
@@ -1624,7 +1697,13 @@ function render() {
   document.querySelectorAll("th[data-key]").forEach(th => {
     const key = th.getAttribute("data-key");
     const col = COLS.find(c => c.key === key);
-    if (!col || !col.sortable) return;
+    if (!col) return;
+    th.addEventListener("mousedown", (e) => {
+      if (e.target.closest(".resizer")) return;
+      headerDrag = { key, startX: e.clientX, moved: false, targetKey: null };
+      document.body.style.userSelect = "none";
+    });
+    if (!col.sortable) return;
     th.setAttribute("tabindex", "0");
     th.setAttribute("role", "button");
     const doSort = () => {
@@ -1632,7 +1711,11 @@ function render() {
       else { state.sortKey = key; state.sortDir = "ascending"; }
       sortRows(); render();
     };
-    th.addEventListener("click", (e) => { if (e.target.closest(".resizer")) return; doSort(); });
+    th.addEventListener("click", (e) => {
+      if (e.target.closest(".resizer")) return;
+      if (suppressNextHeaderClick) { suppressNextHeaderClick = false; return; }
+      doSort();
+    });
     th.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); doSort(); } });
   });
 }
@@ -1667,6 +1750,7 @@ function wireColumnsMenu() {
 loadColPrefs();
 loadColW();
 loadColSmall();
+loadColOrder();
 buildColMenu();
 wireColumnsMenu();
 document.getElementById("exportBtn").addEventListener("click", exportCSV);
