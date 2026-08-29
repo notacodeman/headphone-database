@@ -287,27 +287,29 @@ def sync_csv_products(conn):
     """Export the products table back to products.csv with the full canonical column set, in the
     same column order _generate_data.py uses. Keeps the CSV backup in step with local DB edits."""
     rows = conn.execute(
-        "SELECT product_id, family_id, manufacturer_id, model_name, full_name, "
+        "SELECT id, product_id, family_id, manufacturer_id, model_name, full_name, "
         "release_year, discontinued_year, status, category, design, driver_type, "
         "driver_size_mm, impedance_ohms, sensitivity_db, wireless, anc, "
         "predecessor, successor, notes, date_added, fit, "
-        "msrp_usd, sound_signature, connector_type, detachable_cable, weight_g "
+        "msrp_usd, sound_signature, connector_type, detachable_cable, weight_g, spec_confidence "
         "FROM products ORDER BY product_id"
     ).fetchall()
     _write_csv(CSV_DIR / "products.csv", [
-        "product_id","family_id","manufacturer_id","model_name","full_name",
+        "id","product_id","family_id","manufacturer_id","model_name","full_name",
         "release_year","discontinued_year","status","category","design","driver_type",
         "driver_size_mm","impedance_ohms","sensitivity_db","wireless","anc",
         "predecessor","successor","notes","date_added","fit",
-        "msrp_usd","sound_signature","connector_type","detachable_cable","weight_g"
+        "msrp_usd","sound_signature","connector_type","detachable_cable","weight_g","spec_confidence"
     ], rows)
 
 
 def sync_csv_manufacturers(conn):
     rows = conn.execute(
-        "SELECT manufacturer_id, name, country, website, status FROM manufacturers ORDER BY manufacturer_id"
+        "SELECT manufacturer_id, name, country, website, status, founded_year, description "
+        "FROM manufacturers ORDER BY manufacturer_id"
     ).fetchall()
-    _write_csv(CSV_DIR / "manufacturers.csv", ["manufacturer_id","name","country","website","status"], rows)
+    _write_csv(CSV_DIR / "manufacturers.csv",
+               ["manufacturer_id","name","country","website","status","founded_year","description"], rows)
 
 
 def sync_csv_families(conn):

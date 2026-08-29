@@ -53,25 +53,44 @@ export async function onRequestPost({ request, env }) {
     if (!(p.model_name || "").toString().trim())
       return json({ ok: false, error: "model_name is required." }, 400);
 
-    // Snapshot existing row BEFORE overwriting it (for version history).
-    // Only fires on updates (not new inserts) — no row means nothing to snapshot.
-    try {
-      const existing = await env.DB.prepare(
-        "SELECT * FROM products WHERE product_id = ?"
-      ).bind(id).first();
-      if (existing) {
+    // Look up the existing row (if any) BEFORE overwriting it, both to snapshot it for
+    // version history and to recover its `id`. The editor form never exposes `id` as a
+    // field (it's assigned, not user-edited), so the client never sends it — without this
+    // lookup every save would coerce the missing value to null and wipe the row's id.
+    const existing = await env.DB.prepare(
+      "SELECT * FROM products WHERE product_id = ?"
+    ).bind(id).first();
+    if (existing) {
+      try {
         const editedAt = new Date().toISOString();
         await env.DB.prepare(
           "INSERT INTO product_history (product_id, edited_at, snapshot) VALUES (?, ?, ?)"
         ).bind(id, editedAt, JSON.stringify(existing)).run();
-      }
-    } catch (_) { /* history write failure should never block the actual save */ }
+      } catch (_) { /* history write failure should never block the actual save */ }
+    }
+
+    // Brand-new product (no existing row) with no id sent — assign the next free
+    // sequential id, matching the identity scheme _generate_data.py uses. Updates to an
+    // existing product fall back to its current id via the `existing` lookup below.
+    if (!existing && (p.id === undefined || p.id === null || p.id === "")) {
+      const next = await env.DB.prepare(
+        "SELECT COALESCE(MAX(id), 0) + 1 AS next FROM products"
+      ).first();
+      p.id = next.next;
+    }
 
     // Coerce each field to a DB-safe value. Numeric columns parse to integers (or
     // null if unparseable), date_added defaults to today when blank, and everything
     // else is stored as a trimmed string — keeping types consistent with the schema.
+    // A field that's entirely absent from the request (e.g. `family_id`, which FIELDS
+    // tracks but the editor UI doesn't yet expose) falls back to the existing row's
+    // value on update rather than being coerced to blank — same reasoning as `id` above,
+    // generalised so adding a server-side field doesn't silently erase it until the
+    // editor catches up. A field the client explicitly sent as "" is left alone: that's
+    // the user clearing it on purpose.
     const vals = FIELDS.map(f => {
       let v = p[f];
+      if (v === undefined && existing) v = existing[f];
       if (v === undefined || v === null) v = "";
       if (f === "id" || f === "manufacturer_id" || f === "release_year") {
         const n = parseInt(v, 10);
