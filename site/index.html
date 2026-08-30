@@ -508,6 +508,11 @@
     z-index: 30; display: none; pointer-events: none; }
   /* Applied to a column's cells when COLS marks it `center: true` (currently Impedance). */
   td.col-center { text-align: center; }
+  /* Applied to a column's th+td when COLS marks it `tight: true` (Year, Impedance) — the
+     standard 0.6rem side padding is generous for columns already trimmed to fit a short
+     header word, so this shaves it down and the column's `w` is measured against this
+     smaller padding instead. */
+  th.col-tight, td.col-tight { padding-left: 0.3rem; padding-right: 0.3rem; }
   tbody tr:hover { background: var(--paper-2); }
   tbody td { padding: 0.7rem 0.6rem; font-size: 0.86rem; vertical-align: top;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -907,12 +912,12 @@ const COLS = [
   // wider than "normal"), so it's just a single width, kept as tight as the header
   // and a plain 4-digit value allow. Design keeps its full header too, but a small
   // mode still makes sense there since "Design" fits within its compact width.
-  { key: "release_year",   label: "Year", on: true, sortable: true, w: 60, fixed: true },
+  { key: "release_year",   label: "Year", on: true, sortable: true, w: 51, fixed: true, tight: true },
   { key: "design",     label: "Design", on: true, sortable: true, w: 116, wSmall: 80, fixed: true },
   { key: "fit",            label: "Fit",         on: true,  sortable: true,  w: 92,  wSmall: 58, fixed: true },
   { key: "driver_type",    label: "Driver",      on: false, sortable: true,  w: 130, minW: 90 },
   { key: "driver_size_mm", label: "Driver Size", on: false, sortable: true,  w: 120, minW: 90 },
-  { key: "impedance_ohms", label: "Impedance",   on: true,  sortable: true,  w: 97,  fixed: true, center: true },
+  { key: "impedance_ohms", label: "Impedance",   on: true,  sortable: true,  w: 88,  fixed: true, center: true, tight: true },
   { key: "sensitivity_db", label: "Sensitivity", on: false, sortable: true,  w: 130, minW: 90 },
   { key: "status",         label: "Status",      on: false, sortable: true,  w: 130, minW: 90 },
   { key: "_flags",         label: "Wireless/ANC", on: false, sortable: false, w: 120, minW: 90 },
@@ -1634,7 +1639,8 @@ function render() {
     const canResize = c.fixed ? !!c.wSmall : true;
     const rz = canResize ? `<span class="resizer" data-key="${c.key}"></span>` : "";
     const widthStyle = c.fixed ? `${fixedColW(c)}px` : (dataAreaPx > 0 ? (colPx[c.key] / dataAreaPx * 100) + "%" : colPct(c.key) + "%");
-    html += `<th scope="col" data-key="${c.key}" style="width:${widthStyle}"${sortAttr}><span>${c.label}</span>${rz}</th>`;
+    const thCls = c.tight ? ' class="col-tight"' : "";
+    html += `<th scope="col" data-key="${c.key}" style="width:${widthStyle}"${sortAttr}${thCls}><span>${c.label}</span>${rz}</th>`;
   });
   html += `<th scope="col" class="cmpcol" style="width:${COMPARE_COL_W}px"><span class="vh">Compare</span></th>`;
   html += `<th scope="col" class="caretcol" style="width:${CARET_W}px"><span class="vh">Details</span></th>`;
@@ -1646,7 +1652,10 @@ function render() {
     const selected = compareSet.has(intId);
     const full = !selected && compareSet.size >= COMPARE_MAX;
     html += `<tr class="datarow${z}" data-id="${intId}">` +
-      cols.map(c => `<td data-key="${c.key}"${c.center ? ' class="col-center"' : ""}>${cellValue(r, c.key)}</td>`).join("") +
+      cols.map(c => {
+        const tdCls = [c.center && "col-center", c.tight && "col-tight"].filter(Boolean).join(" ");
+        return `<td data-key="${c.key}"${tdCls ? ` class="${tdCls}"` : ""}>${cellValue(r, c.key)}</td>`;
+      }).join("") +
       `<td class="cmpcol"><button class="cmpbtn${selected?" cmpbtn--on":""}" data-cid="${intId}" aria-pressed="${selected}" ${full?"disabled":""} title="${selected?"Remove from comparison":(full?"Maximum 3 selected":"Add to comparison")}"></button></td>` +
       `<td class="caretcol"><button class="expandbtn" aria-expanded="false" aria-label="Show details for ${esc(label)}"><span class="caret" aria-hidden="true">\u203A</span></button></td>` +
       `</tr>`;
