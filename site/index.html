@@ -500,11 +500,12 @@
   thead th > span:first-child { display: inline-block; max-width: calc(100% - 10px);
     overflow: hidden; text-overflow: clip; vertical-align: bottom; }
   thead th[aria-sort="ascending"], thead th[aria-sort="descending"] { color: var(--accent); border-bottom: 3px solid var(--accent); }
-  /* Column reorder drag feedback: the dragged header dims, and a colored edge on the
-     currently-hovered header shows which side it would land on if dropped now. */
+  /* Column reorder drag feedback: the dragged header dims, and a single fixed-position
+     bar (positioned in JS, see wireHeaderDrag) marks the one spot it would land on if
+     dropped now. */
   thead th.dragging-col { opacity: 0.4; }
-  thead th.drop-before { box-shadow: inset 3px 0 0 var(--accent); }
-  thead th.drop-after { box-shadow: inset -3px 0 0 var(--accent); }
+  #colDropIndicator { position: fixed; width: 3px; background: var(--accent);
+    z-index: 30; display: none; pointer-events: none; }
   tbody tr:hover { background: var(--paper-2); }
   tbody td { padding: 0.7rem 0.6rem; font-size: 0.86rem; vertical-align: top;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -1140,6 +1141,37 @@ const FIXED_FREE_MINW = 40;
 let headerDrag = null;
 const HEADER_DRAG_THRESHOLD = 6;
 let suppressNextHeaderClick = false;
+// Finds the one canonical drop point for a header drag at mouseX: the first visible
+// column (left to right, excluding the one being dragged) whose center is past mouseX —
+// insert before it, at its left edge. If mouseX is past every column's center, insert
+// after the last one, at its right edge. Because this is a single left-to-right scan
+// rather than "whichever column happens to be under the cursor", there's exactly one
+// answer for any mouseX, so only one indicator position is ever possible — no more
+// flipping between a column's trailing edge and its neighbor's leading edge for the same
+// physical gap.
+function headerDropPoint(mouseX) {
+  const ths = [...document.querySelectorAll("thead th[data-key]")]
+    .filter(th => th.getAttribute("data-key") !== headerDrag.key);
+  for (const th of ths) {
+    const rect = th.getBoundingClientRect();
+    if (mouseX < rect.left + rect.width / 2) {
+      return { beforeKey: th.getAttribute("data-key"), x: rect.left, top: rect.top, height: rect.height };
+    }
+  }
+  const lastTh = ths[ths.length - 1];
+  if (!lastTh) return null;
+  const rect = lastTh.getBoundingClientRect();
+  return { beforeKey: null, afterKey: lastTh.getAttribute("data-key"), x: rect.right, top: rect.top, height: rect.height };
+}
+function getColDropIndicator() {
+  let el = document.getElementById("colDropIndicator");
+  if (!el) {
+    el = document.createElement("div");
+    el.id = "colDropIndicator";
+    document.body.appendChild(el);
+  }
+  return el;
+}
 document.addEventListener("mousemove", e => {
   if (headerDrag) {
     if (!headerDrag.moved && Math.abs(e.clientX - headerDrag.startX) > HEADER_DRAG_THRESHOLD) {
@@ -1147,15 +1179,16 @@ document.addEventListener("mousemove", e => {
       document.querySelector(`th[data-key="${headerDrag.key}"]`)?.classList.add("dragging-col");
     }
     if (headerDrag.moved) {
-      document.querySelectorAll("th[data-key]").forEach(t => t.classList.remove("drop-before", "drop-after"));
-      const hovered = document.elementFromPoint(e.clientX, e.clientY)?.closest("th[data-key]");
-      if (hovered && hovered.getAttribute("data-key") !== headerDrag.key) {
-        const rect = hovered.getBoundingClientRect();
-        headerDrag.targetKey = hovered.getAttribute("data-key");
-        headerDrag.before = e.clientX < rect.left + rect.width / 2;
-        hovered.classList.add(headerDrag.before ? "drop-before" : "drop-after");
+      const point = headerDropPoint(e.clientX);
+      headerDrag.point = point;
+      const indicator = getColDropIndicator();
+      if (point) {
+        indicator.style.display = "block";
+        indicator.style.left = (point.x - 1) + "px";
+        indicator.style.top = point.top + "px";
+        indicator.style.height = point.height + "px";
       } else {
-        headerDrag.targetKey = null;
+        indicator.style.display = "none";
       }
     }
     return;
@@ -1209,19 +1242,18 @@ document.addEventListener("mousemove", e => {
 document.addEventListener("mouseup", () => {
   if (headerDrag) {
     document.body.style.userSelect = "";
-    document.querySelectorAll("th[data-key]").forEach(t => t.classList.remove("dragging-col", "drop-before", "drop-after"));
-    if (headerDrag.moved) {
+    document.querySelector(`th[data-key="${headerDrag.key}"]`)?.classList.remove("dragging-col");
+    getColDropIndicator().style.display = "none";
+    if (headerDrag.moved && headerDrag.point) {
       suppressNextHeaderClick = true;
-      if (headerDrag.targetKey) {
-        const order = orderedCols().map(c => c.key);
-        order.splice(order.indexOf(headerDrag.key), 1);
-        let toIdx = order.indexOf(headerDrag.targetKey);
-        if (!headerDrag.before) toIdx += 1;
-        order.splice(toIdx, 0, headerDrag.key);
-        colOrder = order;
-        saveColOrder();
-        render();
-      }
+      const point = headerDrag.point;
+      const order = orderedCols().map(c => c.key);
+      order.splice(order.indexOf(headerDrag.key), 1);
+      let toIdx = point.beforeKey ? order.indexOf(point.beforeKey) : order.indexOf(point.afterKey) + 1;
+      order.splice(toIdx, 0, headerDrag.key);
+      colOrder = order;
+      saveColOrder();
+      render();
     }
     headerDrag = null;
     return;
@@ -1700,7 +1732,7 @@ function render() {
     if (!col) return;
     th.addEventListener("mousedown", (e) => {
       if (e.target.closest(".resizer")) return;
-      headerDrag = { key, startX: e.clientX, moved: false, targetKey: null };
+      headerDrag = { key, startX: e.clientX, moved: false, point: null };
       document.body.style.userSelect = "none";
     });
     if (!col.sortable) return;
