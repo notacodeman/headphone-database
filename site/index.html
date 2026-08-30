@@ -1108,17 +1108,40 @@ function distributeColumnWidths(cols, containerPx) {
     const flexWeight = flexible.reduce((s, c) => s + colW[c.key], 0);
     flexible.forEach(c => { px[c.key] -= deficit * (colW[c.key] / flexWeight); });
   }
+
+  // Ceiling pass, mirroring the floor pass above: a column can carry a `maxW` (currently
+  // just Model, so it doesn't balloon on wide screens past what its longest actual value
+  // needs — see fitModelDefaultWidth) that only applies while the visitor hasn't dragged
+  // it to their own width. Once they have (colWCustomized), their choice wins and the
+  // ceiling stops applying to that column — this is a *default*, not a hard limit.
+  for (let iter = 0; iter < cols.length; iter++) {
+    let surplus = 0;
+    cols.forEach(c => {
+      if (!locked.has(c.key) && c.maxW && !colWCustomized.has(c.key) && px[c.key] > c.maxW) {
+        surplus += px[c.key] - c.maxW;
+        px[c.key] = c.maxW;
+        locked.add(c.key);
+      }
+    });
+    if (surplus <= 0) break;
+    const flexible = cols.filter(c => !locked.has(c.key));
+    if (!flexible.length) break;
+    const flexWeight = flexible.reduce((s, c) => s + colW[c.key], 0);
+    flexible.forEach(c => { px[c.key] += surplus * (colW[c.key] / flexWeight); });
+  }
   return px;
 }
 
-// Model's starting weight shouldn't balloon past what its longest actual name needs.
-// Unlike the fixed-vocabulary columns (Design, Fit...) model names are open-ended free
-// text, and the longest one changes as the catalog grows, so this measures the live,
+// Model's default width shouldn't balloon past what its longest actual name needs — on a
+// wide screen the flexible-column split would otherwise happily hand it any leftover
+// space. Unlike the fixed-vocabulary columns (Design, Fit...) model names are open-ended
+// free text, and the longest one changes as the catalog grows, so this measures the live,
 // already-rendered table instead of a hardcoded guess — run once after the first render.
-// It only sets the *default* — a visitor who has already dragged Model to their own width
-// (colWCustomized) keeps it, and once set this is a normal flexible weight like any other:
-// distributeColumnWidths can still grow it past this if there's slack space, or shrink it
-// (down to its minW) if the visitor drags it smaller.
+// Sets both the starting weight AND a matching maxW ceiling (enforced in
+// distributeColumnWidths), so by default it renders right at this width instead of
+// stretching with the rest of the table. It only sets the *default*, though — a visitor
+// who drags Model to their own width (colWCustomized, set on mouseup) keeps it, and the
+// ceiling stops applying to that column from then on.
 //
 // Shrinks the real column to force every cell's scrollWidth to report its true unclipped
 // content width (padding included), then takes the max across the whole rendered tbody.
@@ -1138,7 +1161,10 @@ async function fitModelDefaultWidth() {
   });
   th.style.width = prevWidth;
   if (maxW > 0) {
-    colW.model_name = Math.ceil(maxW) + 10; // 10px of breathing room past the longest name's exact fit
+    const target = Math.ceil(maxW) + 10; // 10px of breathing room past the longest name's exact fit
+    colW.model_name = target;
+    const col = COLS.find(c => c.key === "model_name");
+    if (col) col.maxW = target;
     render();
   }
 }
@@ -1314,7 +1340,7 @@ document.addEventListener("mouseup", () => {
     return;
   }
   if (fixedDrag) { fixedDrag = null; document.body.style.userSelect = ""; saveColSmall(); return; }
-  if (resizing){ resizing=null; document.body.style.userSelect=""; saveColW(); }
+  if (resizing){ colWCustomized.add(resizing.key); resizing=null; document.body.style.userSelect=""; saveColW(); }
 });
 function startResize(e){
   const key = e.target.getAttribute("data-key");
