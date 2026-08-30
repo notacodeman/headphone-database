@@ -294,6 +294,12 @@
   tr.datarow.expanded .caret { transform: rotate(90deg); color: var(--accent); }
   tr.detailrow > td { padding: 0; border-bottom: 1px solid var(--line); }
   tr.detailrow.zebra > td { background: #ece4d4; }
+  /* A row and its own detail panel share one highlight while expanded — same shade as
+     the existing hover state, so it reads as "engaged" rather than a brand new color,
+     and it stays lit even after the mouse moves off (unlike hover, which is transient).
+     Declared after zebra/hover above so it wins the tie on specificity. */
+  tbody tr.datarow.expanded { background: #d6cebc; }
+  tr.detailrow:not([hidden]) > td { background: #d6cebc; }
   /* ---- Expanded row detail panel ----
      The drawer revealed when a row is clicked: a responsive grid of every spec plus notes
      and review links. The amber left border ties it visually to its parent row. */
@@ -620,6 +626,12 @@
   tr.datarow.expanded .caret { transform: rotate(90deg); color: var(--accent); }
   tr.detailrow > td { padding: 0; border-bottom: 1px solid var(--line); }
   tr.detailrow.zebra > td { background: #ece4d4; }
+  /* A row and its own detail panel share one highlight while expanded — same shade as
+     the existing hover state, so it reads as "engaged" rather than a brand new color,
+     and it stays lit even after the mouse moves off (unlike hover, which is transient).
+     Declared after zebra/hover above so it wins the tie on specificity. */
+  tbody tr.datarow.expanded { background: #d6cebc; }
+  tr.detailrow:not([hidden]) > td { background: #d6cebc; }
   .detailwrap { padding: 1.1rem 1.4rem; border-left: 3px solid var(--accent); }
   .detail-specs { display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
