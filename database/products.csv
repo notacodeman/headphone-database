@@ -67,24 +67,24 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 66,AKG_N700NCM2,16,5,N700NC M2,AKG N700NC M2,2019,,Active,Headphone,Closed Back,Dynamic,,32,114,Yes,Yes,AKG_N700NC,,,,Over-Ear,300,,Wireless,,295,Estimated
 67,AKG_N90Q,16,5,N90Q,AKG N90Q,2016,,Discontinued,Headphone,Closed Back,Dynamic,50,40,110,No,Yes,,,Tuned by Quincy Jones,,Over-Ear,1500,,,,,Estimated
 68,BEYER_DT770PRO,17,6,DT 770 Pro,Beyerdynamic DT 770 Pro,1985,,Legacy Active,Studio,Closed Back,Dynamic,45,250,96,No,No,,,"Studio classic, still produced",,Over-Ear,170,Analytical,3.5mm/6.35mm,No,270,Verified
-69,BEYER_DT880,17,6,DT 880,Beyerdynamic DT 880,1980,,Legacy Active,Headphone,Semi-Open,Dynamic,45,250,96,No,No,,BEYER_DT880_2005,Original semi-open classic,,Over-Ear,300,,,,,Estimated
+69,BEYER_DT880,17,6,DT 880,Beyerdynamic DT 880,1980,,Legacy Active,Headphone,Semi-Open,Dynamic,45,250,96,No,No,,BEYER_DT880_2005,Original semi-open classic,,Over-Ear,300,,3.5mm/6.35mm,,240,Estimated
 70,BEYER_DT990PRO,17,6,DT 990 Pro,Beyerdynamic DT 990 Pro,1985,,Legacy Active,Studio,Open Back,Dynamic,45,250,96,No,No,,,,,Over-Ear,180,Bright,3.5mm/6.35mm,No,250,Verified
-71,BEYER_DT1770,17,6,DT 1770 Pro,Beyerdynamic DT 1770 Pro,2016,,Active,Studio,Closed Back,Dynamic,45,250,102,No,No,,,Tesla driver,,Over-Ear,550,,,,,Estimated
+71,BEYER_DT1770,17,6,DT 1770 Pro,Beyerdynamic DT 1770 Pro,2016,,Active,Studio,Closed Back,Dynamic,45,250,102,No,No,,,Tesla driver,,Over-Ear,550,,mini-XLR,,388,Estimated
 72,BEYER_DT1990,17,6,DT 1990 Pro,Beyerdynamic DT 1990 Pro,2016,,Active,Studio,Open Back,Dynamic,45,250,102,No,No,,BEYER_DT1990MK2,,,Over-Ear,550,Analytical,mini-XLR,Yes,370,Verified
 73,BEYER_DT1990MK2,17,6,DT 1990 Pro MkII,Beyerdynamic DT 1990 Pro MkII,2024,,Active,Studio,Open Back,Dynamic,45,30,94,No,No,BEYER_DT1990,,,,Over-Ear,600,Bright,mini-XLR,Yes,402,Verified
 74,BEYER_DT700PROX,17,6,DT 700 Pro X,Beyerdynamic DT 700 Pro X,2022,,Active,Studio,Closed Back,Dynamic,45,48,100,No,No,,,Stellar.45 driver,,Over-Ear,300,Neutral,mini-XLR,Yes,340,Verified
 75,BEYER_DT900PROX,17,6,DT 900 Pro X,Beyerdynamic DT 900 Pro X,2022,,Active,Studio,Open Back,Dynamic,45,48,100,No,No,,,,,Over-Ear,350,Neutral Bright,mini-XLR,Yes,340,Verified
-76,BEYER_T1,18,6,T1,Beyerdynamic T1 (1st Gen),2009,,Discontinued,Headphone,Open Back,Dynamic,45,600,102,No,No,,BEYER_T1_2,Tesla flagship,,Over-Ear,1400,,,,,Estimated
-77,BEYER_T1_2,18,6,T1 2nd Gen,Beyerdynamic T1 2nd Generation,2014,,Discontinued,Headphone,Open Back,Dynamic,45,600,102,No,No,BEYER_T1,BEYER_T1_3,,,Over-Ear,1000,,,,,Estimated
-78,BEYER_T1_3,18,6,T1 3rd Gen,Beyerdynamic T1 3rd Generation,2020,,Active,Headphone,Open Back,Dynamic,45,32,100,No,No,BEYER_T1_2,,,,Over-Ear,1200,,,,,Estimated
-79,BEYER_T5_3,18,6,T5 3rd Gen,Beyerdynamic T5 3rd Generation,2020,,Active,Headphone,Closed Back,Dynamic,45,32,100,No,No,,,Closed sibling of T1,,Over-Ear,1000,,,,,Estimated
+76,BEYER_T1,18,6,T1,Beyerdynamic T1 (1st Gen),2009,,Discontinued,Headphone,Open Back,Dynamic,45,600,102,No,No,,BEYER_T1_2,Tesla flagship,,Over-Ear,1400,,mini-XLR,,240,Estimated
+77,BEYER_T1_2,18,6,T1 2nd Gen,Beyerdynamic T1 2nd Generation,2014,,Discontinued,Headphone,Open Back,Dynamic,45,600,102,No,No,BEYER_T1,BEYER_T1_3,,,Over-Ear,1000,,mini-XLR,,360,Estimated
+78,BEYER_T1_3,18,6,T1 3rd Gen,Beyerdynamic T1 3rd Generation,2020,,Active,Headphone,Open Back,Dynamic,45,32,100,No,No,BEYER_T1_2,,,,Over-Ear,1200,,mini-XLR,,360,Estimated
+79,BEYER_T5_3,18,6,T5 3rd Gen,Beyerdynamic T5 3rd Generation,2020,,Active,Headphone,Closed Back,Dynamic,45,32,100,No,No,,,Closed sibling of T1,,Over-Ear,1000,,mini-XLR,,360,Estimated
 80,BEYER_T5P,,6,T 5p,Beyerdynamic T 5p,2012,,Discontinued,Headphone,Closed Back,Dynamic,45,32,101,No,No,,BEYER_T5PMK2,Portable Tesla closed-back; 32Ω for easy driving; semi-open cups,,Over-Ear,600,U-Shaped,3.5mm,Yes,290,Estimated
 81,BEYER_T5PMK2,,6,T 5p 2nd Generation,Beyerdynamic T 5p 2nd Generation,2016,,Active,Headphone,Closed Back,Dynamic,45,32,101,No,No,BEYER_T5P,,Updated portable Tesla closed-back; revised pads and cable,,Over-Ear,900,U-Shaped,3.5mm,Yes,310,Estimated
 82,BEYER_AMIRON,19,6,Amiron Home,Beyerdynamic Amiron Home,2017,,Active,Headphone,Open Back,Dynamic,45,250,102,No,No,,,,,Over-Ear,600,Warm Neutral,,,340,Verified
-83,BEYER_AMIRONW,19,6,Amiron Wireless,Beyerdynamic Amiron Wireless,2018,,Active,Headphone,Closed Back,Dynamic,,32,108,Yes,No,,,,,Over-Ear,700,,Wireless,,,Estimated
+83,BEYER_AMIRONW,19,6,Amiron Wireless,Beyerdynamic Amiron Wireless,2018,,Active,Headphone,Closed Back,Dynamic,,32,108,Yes,No,,,,,Over-Ear,700,,Wireless,,350,Estimated
 84,BEYER_AVENTHOW,18,6,Aventho Wireless,Beyerdynamic Aventho Wireless,2017,,Discontinued,Headphone,Closed Back,Dynamic,,32,108,Yes,No,,,,,On-Ear,450,,Wireless,,340,Estimated
 85,BEYER_MMX300,20,6,MMX 300,Beyerdynamic MMX 300,2014,,Active,Gaming,Closed Back,Dynamic,45,250,96,No,No,,,Gaming headset,,Over-Ear,300,,,,363,Verified
-86,BEYER_CUSTOM1,17,6,Custom One Pro,Beyerdynamic Custom One Pro,2012,,Active,Headphone,Closed Back,Dynamic,45,16,96,No,No,,,Adjustable bass sliders,,Over-Ear,200,,,,,Estimated
+86,BEYER_CUSTOM1,17,6,Custom One Pro,Beyerdynamic Custom One Pro,2012,,Active,Headphone,Closed Back,Dynamic,45,16,96,No,No,,,Adjustable bass sliders,,Over-Ear,200,,3.5mm,,210,Estimated
 87,BOSE_QC25,21,7,QuietComfort 25,Bose QuietComfort 25,2014,,Discontinued,Headphone,Closed Back,Dynamic,40,30,107,No,Yes,,BOSE_QC35,,,Over-Ear,300,,,,,Estimated
 88,BOSE_QC35,21,7,QuietComfort 35,Bose QuietComfort 35,2016,,Discontinued,Headphone,Closed Back,Dynamic,40,32,107,Yes,Yes,BOSE_QC25,BOSE_QC35II,,,Over-Ear,300,,Wireless,,,Estimated
 89,BOSE_QC35II,21,7,QuietComfort 35 II,Bose QuietComfort 35 II,2017,,Discontinued,Headphone,Closed Back,Dynamic,40,32,107,Yes,Yes,BOSE_QC35,BOSE_QC45,,,Over-Ear,350,V-Shaped,Wireless,No,235,Estimated
@@ -320,18 +320,18 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 319,AKG_K553,15,5,K553 Pro,AKG K553 Pro,2015,,Active,Studio,Closed Back,Dynamic,50,32,114,No,No,AKG_K550,,,,Over-Ear,180,,3.5mm,No,,Estimated
 320,AKG_K701,15,5,K701,AKG K701,2005,,Legacy Active,Headphone,Open Back,Dynamic,50,62,105,No,No,,,Reference open-back classic,,Over-Ear,200,Neutral Bright,mini-XLR,Yes,235,Verified
 321,AKG_Y50BT,15,5,Y50BT,AKG Y50BT,2015,,Discontinued,Headphone,Closed Back,Dynamic,40,32,115,Yes,No,,,,,On-Ear,150,,Wireless,,190,Estimated
-322,BEYER_DT770_32,17,6,DT 770 Pro 32 Ohm,Beyerdynamic DT 770 Pro (32 Ohm),2014,,Active,Studio,Closed Back,Dynamic,45,32,102,No,No,,,Low-impedance mobile variant,,Over-Ear,160,,,,,Estimated
-323,BEYER_DT770_80,17,6,DT 770 Pro 80 Ohm,Beyerdynamic DT 770 Pro (80 Ohm),1985,,Legacy Active,Studio,Closed Back,Dynamic,45,80,96,No,No,,,Most popular impedance,,Over-Ear,160,,,,,Estimated
-324,BEYER_DT770_250,17,6,DT 770 Pro 250 Ohm,Beyerdynamic DT 770 Pro (250 Ohm),1985,,Legacy Active,Studio,Closed Back,Dynamic,45,250,96,No,No,,,High-impedance studio variant,,Over-Ear,180,,,,,Estimated
-325,BEYER_DT880_250,17,6,DT 880 Pro 250 Ohm,Beyerdynamic DT 880 Pro (250 Ohm),2005,,Legacy Active,Studio,Semi-Open,Dynamic,45,250,96,No,No,,,,,Over-Ear,230,,,,,Estimated
-326,BEYER_DT990_250,17,6,DT 990 Pro 250 Ohm,Beyerdynamic DT 990 Pro (250 Ohm),1985,,Legacy Active,Studio,Open Back,Dynamic,45,250,96,No,No,,,,,Over-Ear,180,,,,,Estimated
+322,BEYER_DT770_32,17,6,DT 770 Pro 32 Ohm,Beyerdynamic DT 770 Pro (32 Ohm),2014,,Active,Studio,Closed Back,Dynamic,45,32,102,No,No,,,Low-impedance mobile variant,,Over-Ear,160,,3.5mm/6.35mm,,270,Estimated
+323,BEYER_DT770_80,17,6,DT 770 Pro 80 Ohm,Beyerdynamic DT 770 Pro (80 Ohm),1985,,Legacy Active,Studio,Closed Back,Dynamic,45,80,96,No,No,,,Most popular impedance,,Over-Ear,160,,3.5mm/6.35mm,,270,Estimated
+324,BEYER_DT770_250,17,6,DT 770 Pro 250 Ohm,Beyerdynamic DT 770 Pro (250 Ohm),1985,,Legacy Active,Studio,Closed Back,Dynamic,45,250,96,No,No,,,High-impedance studio variant,,Over-Ear,180,,3.5mm/6.35mm,,270,Estimated
+325,BEYER_DT880_250,17,6,DT 880 Pro 250 Ohm,Beyerdynamic DT 880 Pro (250 Ohm),2005,,Legacy Active,Studio,Semi-Open,Dynamic,45,250,96,No,No,,,,,Over-Ear,230,,3.5mm/6.35mm,,260,Estimated
+326,BEYER_DT990_250,17,6,DT 990 Pro 250 Ohm,Beyerdynamic DT 990 Pro (250 Ohm),1985,,Legacy Active,Studio,Open Back,Dynamic,45,250,96,No,No,,,,,Over-Ear,180,,3.5mm/6.35mm,,250,Estimated
 327,BEYER_DT240PRO,17,6,DT 240 Pro,Beyerdynamic DT 240 Pro,2016,,Active,Studio,Closed Back,Dynamic,45,16,101,No,No,,,,,Over-Ear,100,,,,190,Estimated
-328,BEYER_DT700PROX2,17,6,DT 700 Pro X mkII,Beyerdynamic DT 700 Pro X mkII,2025,,Active,Studio,Closed Back,Dynamic,45,48,100,No,No,BEYER_DT700PROX,,,,Over-Ear,320,,,,,Estimated
-329,BEYER_CUSTOMSTUDIO,98,6,Custom Studio,Beyerdynamic Custom Studio,2015,,Active,Studio,Closed Back,Dynamic,45,250,96,No,No,,,,,Over-Ear,100,,,,,Estimated
-330,BEYER_LAGOONANC,98,6,Lagoon ANC,Beyerdynamic Lagoon ANC,2019,,Discontinued,Headphone,Closed Back,Dynamic,,32,100,Yes,Yes,,,,,Over-Ear,300,,Wireless,,,Estimated
-331,BEYER_MMX150,20,6,MMX 150,Beyerdynamic MMX 150,2022,,Active,Gaming,Closed Back,Dynamic,40,32,116,No,No,,,,,Over-Ear,100,,,,,Estimated
-332,BEYER_MMX300_2,20,6,MMX 300 2nd Gen,Beyerdynamic MMX 300 (2nd Gen),2019,,Active,Gaming,Closed Back,Dynamic,45,250,96,No,No,BEYER_MMX300,,,,Over-Ear,300,,,,,Estimated
-333,BEYER_TYGR300R,17,6,TYGR 300 R,Beyerdynamic TYGR 300 R,2020,,Active,Headphone,Open Back,Dynamic,45,32,102,No,No,,,Gaming-focused open-back; popular with audiophiles,,Over-Ear,200,,,,,Estimated
+328,BEYER_DT700PROX2,17,6,DT 700 Pro X mkII,Beyerdynamic DT 700 Pro X mkII,2025,,Active,Studio,Closed Back,Dynamic,45,48,100,No,No,BEYER_DT700PROX,,,,Over-Ear,320,,mini-XLR,,320,Estimated
+329,BEYER_CUSTOMSTUDIO,98,6,Custom Studio,Beyerdynamic Custom Studio,2015,,Active,Studio,Closed Back,Dynamic,45,250,96,No,No,,,,,Over-Ear,100,,3.5mm,,200,Estimated
+330,BEYER_LAGOONANC,98,6,Lagoon ANC,Beyerdynamic Lagoon ANC,2019,,Discontinued,Headphone,Closed Back,Dynamic,,32,100,Yes,Yes,,,,,Over-Ear,300,,Wireless,,300,Estimated
+331,BEYER_MMX150,20,6,MMX 150,Beyerdynamic MMX 150,2022,,Active,Gaming,Closed Back,Dynamic,40,32,116,No,No,,,,,Over-Ear,100,,mini-XLR,,220,Estimated
+332,BEYER_MMX300_2,20,6,MMX 300 2nd Gen,Beyerdynamic MMX 300 (2nd Gen),2019,,Active,Gaming,Closed Back,Dynamic,45,250,96,No,No,BEYER_MMX300,,,,Over-Ear,300,,mini-XLR,,363,Estimated
+333,BEYER_TYGR300R,17,6,TYGR 300 R,Beyerdynamic TYGR 300 R,2020,,Active,Headphone,Open Back,Dynamic,45,32,102,No,No,,,Gaming-focused open-back; popular with audiophiles,,Over-Ear,200,,3.5mm,,345,Estimated
 334,BOSE_QC3,100,7,QuietComfort 3,Bose QuietComfort 3,2006,,Discontinued,Headphone,Closed Back,Dynamic,40,30,107,No,Yes,,,On-ear ANC,,On-Ear,350,,,,,Estimated
 335,BOSE_OE2,99,7,OE2,Bose OE2,2011,,Discontinued,Headphone,Closed Back,Dynamic,40,32,109,No,No,,,,,On-Ear,150,,,,,Estimated
 336,BOSE_AE2,99,7,AE2,Bose AE2,2010,,Discontinued,Headphone,Closed Back,Dynamic,40,32,109,No,No,,,,,Over-Ear,150,,,,,Estimated
@@ -470,11 +470,11 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 469,AKG_K601,117,5,K601,AKG K601,2005,,Discontinued,Headphone,Open Back,Dynamic,50,120,97,No,No,AKG_K501,,,,Over-Ear,200,,,,,Estimated
 470,AKG_K271,97,5,K271 Studio,AKG K271 Studio,2003,,Discontinued,Studio,Closed Back,Dynamic,30,55,91,No,No,,AKG_K271MK2,,,Over-Ear,150,,,,,Estimated
 471,AKG_K141,97,5,K141 Studio,AKG K141 Studio,2003,,Active,Studio,Semi-Open,Dynamic,30,55,101,No,No,,,,,Over-Ear,100,,,,,Estimated
-472,BEYER_DT48,121,6,DT 48,Beyerdynamic DT 48,1937,,Discontinued,Headphone,Closed Back,Dynamic,45,200,96,No,No,,,Among the oldest headphones in continuous production,,Over-Ear,150,,,,,Estimated
-473,BEYER_DT831,121,6,DT 831,Beyerdynamic DT 831,1994,,Discontinued,Headphone,Closed Back,Dynamic,45,250,96,No,No,,,,,Over-Ear,200,,,,,Estimated
-474,BEYER_DT880_2005,17,6,DT 880 Edition (2005),Beyerdynamic DT 880 Edition (2005),2005,,Active,Headphone,Semi-Open,Dynamic,45,250,96,No,No,BEYER_DT880,,Consumer Edition revision,,Over-Ear,300,,,,,Estimated
-475,BEYER_DT150,121,6,DT 150,Beyerdynamic DT 150,1980,,Active,Studio,Closed Back,Dynamic,45,250,102,No,No,,,Broadcast monitoring classic,,Over-Ear,200,,,,,Estimated
-476,BEYER_DT100,121,6,DT 100,Beyerdynamic DT 100,1965,,Legacy Active,Studio,Closed Back,Dynamic,45,400,115,No,No,,,Broadcast/studio staple,,Over-Ear,180,,,,,Estimated
+472,BEYER_DT48,121,6,DT 48,Beyerdynamic DT 48,1937,,Discontinued,Headphone,Closed Back,Dynamic,45,200,96,No,No,,,Among the oldest headphones in continuous production,,Over-Ear,150,,3.5mm,,135,Estimated
+473,BEYER_DT831,121,6,DT 831,Beyerdynamic DT 831,1994,,Discontinued,Headphone,Closed Back,Dynamic,45,250,96,No,No,,,,,Over-Ear,200,,3.5mm,,285,Estimated
+474,BEYER_DT880_2005,17,6,DT 880 Edition (2005),Beyerdynamic DT 880 Edition (2005),2005,,Active,Headphone,Semi-Open,Dynamic,45,250,96,No,No,BEYER_DT880,,Consumer Edition revision,,Over-Ear,300,,3.5mm/6.35mm,,240,Estimated
+475,BEYER_DT150,121,6,DT 150,Beyerdynamic DT 150,1980,,Active,Studio,Closed Back,Dynamic,45,250,102,No,No,,,Broadcast monitoring classic,,Over-Ear,200,,3.5mm/6.35mm,,270,Estimated
+476,BEYER_DT100,121,6,DT 100,Beyerdynamic DT 100,1965,,Legacy Active,Studio,Closed Back,Dynamic,45,400,115,No,No,,,Broadcast/studio staple,,Over-Ear,180,,3.5mm/6.35mm,,285,Estimated
 477,ATECH_M50,10,4,ATH-M50,Audio-Technica ATH-M50,2007,,Discontinued,Studio,Closed Back,Dynamic,45,38,99,No,No,,ATECH_M50X,"The original M50, fixed cable",,Over-Ear,199,,3.5mm,,285,Estimated
 478,ATECH_ESW9,118,4,ATH-ESW9,Audio-Technica ATH-ESW9,2006,,Discontinued,Headphone,Closed Back,Dynamic,42,42,100,No,No,,,Portable wood on-ear,,Over-Ear,300,,3.5mm,,230,Estimated
 479,ATECH_ES7,118,4,ATH-ES7,Audio-Technica ATH-ES7,2005,,Discontinued,Headphone,Closed Back,Dynamic,42,42,102,No,No,,,,,Over-Ear,200,,3.5mm,,195,Estimated
@@ -670,8 +670,8 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 669,AUDEZE_LCDMX4,23,8,LCD-MX4,Audeze LCD-MX4,2017,,Active,Headphone,Open Back,Planar Magnetic,106,20,103,No,No,,,High efficiency 106mm planar; 1.5 Tesla Fluxor magnets,,Over-Ear,2495,,,,,Estimated
 670,AUDEZE_MOBIUS,,8,Mobius,Audeze Mobius,2018,,Active,Gaming,Closed Back,Planar Magnetic,,10,111,Yes,Yes,,,3D planar gaming headset; head tracking; Waves Nx audio,,Over-Ear,399,,Wireless,,,Estimated
 671,BEYER_DT1350,17,6,DT 1350,Beyerdynamic DT 1350,2011,,Active,Headphone,Closed Back,Dynamic,35,80,96,No,No,,,Premium on-ear; Tesla driver; high isolation,,On-Ear,350,,,,230,Estimated
-672,BEYER_DT177XGO,17,6,DT 177X Go,Beyerdynamic DT 177X Go,2020,,Active,Headphone,Closed Back,Dynamic,45,250,102,No,No,,,Drop + Beyerdynamic collab; DT 1770 driver; 250Ω,,Over-Ear,300,,,,,Estimated
-673,BEYER_DT250,17,6,DT 250,Beyerdynamic DT 250,1998,,Active,Studio,Closed Back,Dynamic,45,250,96,No,No,,,Broadcast/monitoring classic; still in production,,Over-Ear,200,,,,,Estimated
+672,BEYER_DT177XGO,17,6,DT 177X Go,Beyerdynamic DT 177X Go,2020,,Active,Headphone,Closed Back,Dynamic,45,250,102,No,No,,,Drop + Beyerdynamic collab; DT 1770 driver; 250Ω,,Over-Ear,300,,3.5mm,,300,Estimated
+673,BEYER_DT250,17,6,DT 250,Beyerdynamic DT 250,1998,,Active,Studio,Closed Back,Dynamic,45,250,96,No,No,,,Broadcast/monitoring classic; still in production,,Over-Ear,200,,3.5mm/6.35mm,,200,Estimated
 674,AKG_Q701,,5,Q701,AKG Q701,2010,,Active,Headphone,Open Back,Dynamic,50,62,105,No,No,,,Quincy Jones signature; K701 with bass boost port,,Over-Ear,300,,,,,Estimated
 675,AKG_K7XX,,5,K7XX,AKG K7XX,2014,,Discontinued,Headphone,Open Back,Dynamic,45,62,105,No,No,,,Massdrop collab K702 with K712 bass port; beloved value pick,,Over-Ear,200,,,,,Estimated
 676,AKG_N60NC,,5,N60 NC,AKG N60 NC,2016,,Discontinued,Headphone,Closed Back,Dynamic,32,32,116,No,Yes,,,Compact on-ear with ANC; folding,,On-Ear,200,,Wireless,,162,Estimated
@@ -799,8 +799,8 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 798,PANA_RPHD10,197,93,RP-HD10,Panasonic RP-HD10,2017,,Active,Headphone,Closed Back,Dynamic,40,32,98,No,No,,,High-res certified; 40mm DIATONE-inspired driver,,Over-Ear,300,,,,,Estimated
 799,CZ_CZ1,198,94,CZ-1,Crosszone CZ-1,2017,,Active,Headphone,Closed Back,Dynamic,40,25,100,No,No,,,Unique acoustic crossfeed via in-ear secondary drivers; eliminates headphone imaging artifacts,,Over-Ear,1500,,3.5mm,,380,Estimated
 800,CZ_CZ10,198,94,CZ-10,Crosszone CZ-10,2020,,Active,Headphone,Open Back,Dynamic,40,25,100,No,No,,,Open-back CZ with same acoustic crossfeed technology as CZ-1,,Over-Ear,2000,,3.5mm,,350,Estimated
-801,BEYER_DT770PRO_LTD,17,6,DT 770 Pro X Limited Edition,Beyerdynamic DT 770 Pro X Limited Edition,2024,,Active,Headphone,Closed Back,Dynamic,45,48,100,No,No,BEYER_DT770PRO,,STELLAR.45 driver in DT 770 shell; limited colourway run,,Over-Ear,199,,,,,Estimated
-802,BEYER_MMX300PRO,20,6,MMX 300 Pro,Beyerdynamic MMX 300 Pro,2024,,Active,Gaming,Closed Back,Dynamic,45,48,100,No,No,,,Pro gaming closed-back; STELLAR.45 driver,,Over-Ear,300,,,,,Verified
+801,BEYER_DT770PRO_LTD,17,6,DT 770 Pro X Limited Edition,Beyerdynamic DT 770 Pro X Limited Edition,2024,,Active,Headphone,Closed Back,Dynamic,45,48,100,No,No,BEYER_DT770PRO,,STELLAR.45 driver in DT 770 shell; limited colourway run,,Over-Ear,199,,mini-XLR,,320,Estimated
+802,BEYER_MMX300PRO,20,6,MMX 300 Pro,Beyerdynamic MMX 300 Pro,2024,,Active,Gaming,Closed Back,Dynamic,45,48,100,No,No,,,Pro gaming closed-back; STELLAR.45 driver,,Over-Ear,300,,mini-XLR,,350,Verified
 803,HIFIMAN_SUSVARAUNV,27,9,Susvara Unveiled,HiFiMan Susvara Unveiled,2023,,Active,Headphone,Open Back,Planar Magnetic,,60,83,No,No,HIFIMAN_SUSVARA,,Susvara with exposed driver; limited production; premium over standard Susvara,,Over-Ear,8000,,,,,Estimated
 804,MEZE_EMPYREAN3,46,13,Empyrean 3,Meze Audio Empyrean 3,2025,,Active,Headphone,Open Back,Planar Magnetic,,31.6,102,No,No,,,Third-gen isodynamic planar; new Rinaro PCOCC driver,,Over-Ear,4500,Warm,mini-XLR,Yes,430,Estimated
 805,FOCAL_DIABLO,,10,Celestee Diablo,Focal Celestee Diablo,2024,,Active,Headphone,Closed Back,Dynamic,40,35,105,No,No,FOCAL_CELESTEE,,Celestee variant with unique Diablo orange finish; same driver,,Over-Ear,1490,,,,,Estimated
@@ -829,10 +829,10 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 828,GRADO_GS3000E,43,12,GS3000e,Grado GS3000e,2015,,Discontinued,Headphone,Open Back,Dynamic,,32,99,No,No,,GRADO_GS3000X,Cocobolo Statement flagship,,On-Ear,1495,,,,,Estimated
 829,GRADO_HF1,,12,HF1,Grado HF1,2005,,Discontinued,Headphone,Open Back,Dynamic,,32,99,No,No,,,First Head-Fi collaboration; aluminum cups,,On-Ear,500,,,,,Estimated
 830,GRADO_HF2,,12,HF2,Grado HF2,2009,,Discontinued,Headphone,Open Back,Dynamic,,32,99,No,No,,,Second Head-Fi collaboration; mahogany cups,,On-Ear,500,,,,,Estimated
-831,BEYER_DT770M,17,6,DT 770 M,Beyerdynamic DT 770 M,2020,,Active,Studio,Closed Back,Dynamic,45,80,96,No,No,,,Monitor variant; limited bass response; 80Ω,,Over-Ear,180,,,,,Estimated
-832,BEYER_T50P,,6,T 50p,Beyerdynamic T 50p,2013,,Discontinued,Headphone,Closed Back,Dynamic,40,32,102,No,No,,,Portable Tesla; high-end on-ear for mobile use,,On-Ear,300,,,,,Estimated
-833,BEYER_DT880_600,17,6,DT 880 Edition 600 Ohm,Beyerdynamic DT 880 Edition 600 Ohm,2005,,Active,Headphone,Semi-Open,Dynamic,45,600,96,No,No,BEYER_DT880_2005,,High-impedance variant; intended for high-end sources/amps,,Over-Ear,350,,,,,Estimated
-834,BEYER_DT860,17,6,DT 860,Beyerdynamic DT 860,2003,,Discontinued,Headphone,Closed Back,Dynamic,45,250,96,No,No,,,Reference closed-back monitoring; semi-open character,,Over-Ear,200,,,,,Estimated
+831,BEYER_DT770M,17,6,DT 770 M,Beyerdynamic DT 770 M,2020,,Active,Studio,Closed Back,Dynamic,45,80,96,No,No,,,Monitor variant; limited bass response; 80Ω,,Over-Ear,180,,3.5mm/6.35mm,,270,Estimated
+832,BEYER_T50P,,6,T 50p,Beyerdynamic T 50p,2013,,Discontinued,Headphone,Closed Back,Dynamic,40,32,102,No,No,,,Portable Tesla; high-end on-ear for mobile use,,On-Ear,300,,3.5mm,,130,Estimated
+833,BEYER_DT880_600,17,6,DT 880 Edition 600 Ohm,Beyerdynamic DT 880 Edition 600 Ohm,2005,,Active,Headphone,Semi-Open,Dynamic,45,600,96,No,No,BEYER_DT880_2005,,High-impedance variant; intended for high-end sources/amps,,Over-Ear,350,,3.5mm/6.35mm,,240,Estimated
+834,BEYER_DT860,17,6,DT 860,Beyerdynamic DT 860,2003,,Discontinued,Headphone,Closed Back,Dynamic,45,250,96,No,No,,,Reference closed-back monitoring; semi-open character,,Over-Ear,200,,3.5mm/6.35mm,,240,Estimated
 835,ATECH_A700,12,4,ATH-A700,Audio-Technica ATH-A700,2003,,Discontinued,Headphone,Closed Back,Dynamic,53,40,100,No,No,,,Air-dynamic wing support; 53mm driver; precursor to A700X,,Over-Ear,250,,A2DC,,260,Estimated
 836,ATECH_A900X,12,4,ATH-A900X,Audio-Technica ATH-A900X,2011,,Active,Headphone,Closed Back,Dynamic,53,40,100,No,No,,,53mm air dynamic; flagship A-series,,Over-Ear,180,,3.5mm,,245,Estimated
 837,ATECH_AWAS,13,4,ATH-AWAS,Audio-Technica ATH-AWAS,2019,,Active,Headphone,Closed Back,Dynamic,58,42,100,No,No,,,Wenge/sakura wood; 58mm driver; flagship W-series,,Over-Ear,2200,,A2DC,,380,Estimated
@@ -874,9 +874,9 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 873,AQ_NIGHTOWLCARBON,179,78,NightOwl Carbon,Audioquest NightOwl Carbon,2016,,Discontinued,Headphone,Closed Back,Dynamic,50,25,99,No,No,AQ_NIGHTOWL,,Updated NightOwl; carbon finish; tighter tolerances,,Over-Ear,999,,,,,Estimated
 874,NAD_HP50,180,79,VISO HP50,NAD VISO HP50,2014,,Discontinued,Headphone,Closed Back,Dynamic,40,32,106,No,No,,,Designed by PSB's Paul Barton; RoomFeel psychoacoustic tuning; Sound and Vision Top Pick 2014,,Over-Ear,299,,,,,Estimated
 875,BWAVZ_HM5,181,80,HM5,Brainwavz HM5,2012,,Active,Studio,Closed Back,Dynamic,40,64,98,No,No,,,Budget studio reference; Sennheiser-inspired neutral tuning; popular pad-swapping base,,Over-Ear,99,,,,,Estimated
-876,BEYER_T51P,,6,T 51p,Beyerdynamic T 51p,2013,,Discontinued,Headphone,Closed Back,Dynamic,40,60,102,No,No,,,Portable Tesla on-ear; 60Ω; premium portable,,On-Ear,300,,,,,Estimated
-877,BEYER_T51I,,6,T 51i,Beyerdynamic T 51i,2013,,Discontinued,Headphone,Closed Back,Dynamic,40,32,111,No,No,,,T51p with 3-button iOS remote; 32Ω,,On-Ear,250,,,,,Estimated
-878,BEYER_T90,,6,T 90,Beyerdynamic T 90,2012,,Discontinued,Headphone,Open Back,Dynamic,45,250,102,No,No,,,Open Tesla flagship; 250Ω; 102 dB sensitivity; 45mm Tesla driver,,Over-Ear,600,,,,,Estimated
+876,BEYER_T51P,,6,T 51p,Beyerdynamic T 51p,2013,,Discontinued,Headphone,Closed Back,Dynamic,40,60,102,No,No,,,Portable Tesla on-ear; 60Ω; premium portable,,On-Ear,300,,3.5mm,,190,Estimated
+877,BEYER_T51I,,6,T 51i,Beyerdynamic T 51i,2013,,Discontinued,Headphone,Closed Back,Dynamic,40,32,111,No,No,,,T51p with 3-button iOS remote; 32Ω,,On-Ear,250,,3.5mm,,190,Estimated
+878,BEYER_T90,,6,T 90,Beyerdynamic T 90,2012,,Discontinued,Headphone,Open Back,Dynamic,45,250,102,No,No,,,Open Tesla flagship; 250Ω; 102 dB sensitivity; 45mm Tesla driver,,Over-Ear,600,,mini-XLR,,320,Estimated
 879,SENN_HE1,,2,Orpheus HE-1,Sennheiser Orpheus HE-1,2016,,Active,Headphone,Open Back,Electrostatic,,,,No,No,,,"~€55,000 flagship electrostatic system; built-in amp/DAC; marble and glass construction",,Over-Ear,55000,,Electrostatic,,440,Verified
 880,ZMF_ORI,,27,Ori,ZMF Ori,2015,,Discontinued,Headphone,Closed Back,Planar Magnetic,,50,96,No,No,,ZMF_ORI3,ZMF's first headphone; T50RP Mk2 driver in handcrafted wood cups,,Over-Ear,600,,,,350,Estimated
 881,ZMF_ORI3,,27,Ori 3.0,ZMF Ori 3.0,2025,,Active,Headphone,Closed Back,Planar Magnetic,80,35,96,No,No,ZMF_ORI,,Complete redesign; 80mm CAMS planar; torrefied Black Limba cups,,Over-Ear,2200,,,,,Estimated
