@@ -501,11 +501,17 @@
   thead th { position: sticky; top: 0; z-index: 10; background: var(--paper-2);
     text-align: left; font-size: 0.65rem; text-transform: uppercase;
     letter-spacing: 0.12em; color: var(--muted); padding: 0.5rem 0.6rem;
-    border-bottom: 2px solid var(--ink); cursor: pointer; user-select: none; white-space: nowrap; }
+    /* box-shadow, not border-bottom: with table { border-collapse: collapse }, a bottom
+       border on a sticky header cell is collapsed onto the shared edge with the row
+       below it, so it scrolls away with the body instead of staying pinned to the
+       sticky header. box-shadow isn't part of the border-collapse model, so it stays
+       put. */
+    box-shadow: 0 2px 0 0 var(--ink);
+    cursor: pointer; user-select: none; white-space: nowrap; }
   thead th:hover { color: var(--accent); }
   thead th > span:first-child { display: inline-block; max-width: calc(100% - 10px);
     overflow: hidden; text-overflow: clip; vertical-align: bottom; }
-  thead th[aria-sort="ascending"], thead th[aria-sort="descending"] { color: var(--accent); border-bottom: 3px solid var(--accent); }
+  thead th[aria-sort="ascending"], thead th[aria-sort="descending"] { color: var(--accent); box-shadow: 0 3px 0 0 var(--accent); }
   /* Column reorder drag feedback: the dragged header dims, and a single fixed-position
      bar (positioned in JS, see wireHeaderDrag) marks the one spot it would land on if
      dropped now. */
