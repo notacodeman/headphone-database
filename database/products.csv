@@ -106,7 +106,7 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 105,AUDEZE_CRBN,26,8,CRBN,Audeze CRBN,2022,,Active,Headphone,Open Back,Electrostatic,,,102,No,No,,,Carbon-nanotube electrostatic,,Over-Ear,4500,,Electrostatic,,650,Estimated
 106,AUDEZE_MAXWELL,25,8,Maxwell,Audeze Maxwell,2023,,Active,Gaming,Closed Back,Planar Magnetic,,32,111,Yes,No,,AUDEZE_MAXWELL2,Wireless gaming planar,,Over-Ear,300,,,,265,Estimated
 107,AUDEZE_MAXWELL2,25,8,Maxwell 2,Audeze Maxwell 2,2025,,Active,Gaming,Closed Back,Planar Magnetic,,32,111,Yes,No,AUDEZE_MAXWELL,,,,Over-Ear,,,,,,Estimated
-108,HIFIMAN_HE400,27,9,HE-400,HiFiMan HE-400,2011,,Discontinued,Headphone,Open Back,Planar Magnetic,,50,92,No,No,,HIFIMAN_HE400I,,,Over-Ear,,,,,,Estimated
+108,HIFIMAN_HE400,27,9,HE-400,HiFiMan HE-400,2011,,Discontinued,Headphone,Open Back,Planar Magnetic,,50,92,No,No,,HIFIMAN_HE400I,,,Over-Ear,400,,,,,Estimated
 109,HIFIMAN_HE400I,27,9,HE-400i,HiFiMan HE-400i,2014,,Discontinued,Headphone,Open Back,Planar Magnetic,,35,93,No,No,HIFIMAN_HE400,,,,Over-Ear,250,,,,370,Estimated
 110,HIFIMAN_HE400SE,27,9,HE400SE,HiFiMan HE400SE,2021,,Active,Headphone,Open Back,Planar Magnetic,,32,91,No,No,,,Budget Stealth Magnet planar,,Over-Ear,110,Neutral Bright,Dual 3.5mm,Yes,390,Verified
 111,HIFIMAN_HE560,27,9,HE-560,HiFiMan HE-560,2014,,Active,Headphone,Open Back,Planar Magnetic,,50,90,No,No,,,,,Over-Ear,900,Bright,Dual 3.5mm,Yes,375,Estimated
@@ -115,15 +115,15 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 114,HIFIMAN_HE6SE,27,9,HE6se,HiFiMan HE6se,2018,,Active,Headphone,Open Back,Planar Magnetic,,50,86,No,No,,,Hard-to-drive planar,,Over-Ear,1800,Bright,Dual 3.5mm,Yes,458,Estimated
 115,HIFIMAN_SUNDARA,32,9,Sundara,HiFiMan Sundara,2018,,Active,Headphone,Open Back,Planar Magnetic,,37,94,No,No,,,Popular mid-tier planar,,Over-Ear,350,Neutral Bright,Dual 3.5mm,Yes,372,Verified
 116,HIFIMAN_ANANDA,29,9,Ananda,HiFiMan Ananda,2018,,Active,Headphone,Open Back,Planar Magnetic,,25,103,No,No,,HIFIMAN_ANANDANANO,,,Over-Ear,700,Warm Neutral,Dual 3.5mm,Yes,399,Verified
-117,HIFIMAN_ANANDANANO,29,9,Ananda Nano,HiFiMan Ananda Nano,2023,,Active,Headphone,Open Back,Planar Magnetic,,16,103,No,No,HIFIMAN_ANANDA,,,,Over-Ear,,,,,,Estimated
+117,HIFIMAN_ANANDANANO,29,9,Ananda Nano,HiFiMan Ananda Nano,2023,,Active,Headphone,Open Back,Planar Magnetic,,16,103,No,No,HIFIMAN_ANANDA,,,,Over-Ear,649,,,,,Estimated
 118,HIFIMAN_ARYA,30,9,Arya,HiFiMan Arya,2018,,Active,Headphone,Open Back,Planar Magnetic,,35,91,No,No,,HIFIMAN_ARYAORGANIC,,,Over-Ear,1300,Warm Neutral,Dual 3.5mm,Yes,404,Verified
-119,HIFIMAN_ARYAORGANIC,30,9,Arya Organic,HiFiMan Arya Organic,2023,,Active,Headphone,Open Back,Planar Magnetic,,32,94,No,No,HIFIMAN_ARYA,,,,Over-Ear,,,,,,Estimated
-120,HIFIMAN_HE1000,27,9,HE1000,HiFiMan HE1000,2015,,Discontinued,Headphone,Open Back,Planar Magnetic,,35,90,No,No,,HIFIMAN_HE1000V2,Nanometer diaphragm,,Over-Ear,,,,,,Estimated
+119,HIFIMAN_ARYAORGANIC,30,9,Arya Organic,HiFiMan Arya Organic,2023,,Active,Headphone,Open Back,Planar Magnetic,,32,94,No,No,HIFIMAN_ARYA,,,,Over-Ear,1299,,,,,Estimated
+120,HIFIMAN_HE1000,27,9,HE1000,HiFiMan HE1000,2015,,Discontinued,Headphone,Open Back,Planar Magnetic,,35,90,No,No,,HIFIMAN_HE1000V2,Nanometer diaphragm,,Over-Ear,3000,,,,,Estimated
 121,HIFIMAN_HE1000SE,27,9,HE1000se,HiFiMan HE1000se,2020,,Active,Headphone,Open Back,Planar Magnetic,,35,96,No,No,HIFIMAN_HE1000V2,,,,Over-Ear,4000,Analytical,Dual 3.5mm,Yes,450,Verified
 122,HIFIMAN_SUSVARA,31,9,Susvara,HiFiMan Susvara,2017,,Active,Headphone,Open Back,Planar Magnetic,,60,83,No,No,,,Reference flagship planar,,Over-Ear,6000,Analytical,Dual 3.5mm,Yes,450,Verified
-123,HIFIMAN_EDITIONXS,28,9,Edition XS,HiFiMan Edition XS,2021,,Active,Headphone,Open Back,Planar Magnetic,,18,92,No,No,,,Value Stealth Magnet planar,,Over-Ear,,,,,,Estimated
+123,HIFIMAN_EDITIONXS,28,9,Edition XS,HiFiMan Edition XS,2021,,Active,Headphone,Open Back,Planar Magnetic,,18,92,No,No,,,Value Stealth Magnet planar,,Over-Ear,499,,,,,Estimated
 124,HIFIMAN_DEVA,33,9,Deva,HiFiMan Deva,2019,,Discontinued,Headphone,Open Back,Planar Magnetic,,18,93,Yes,No,,HIFIMAN_DEVAPRO,Optional Bluemini wireless module,,Over-Ear,300,,Dual 3.5mm,Yes,360,Estimated
-125,HIFIMAN_DEVAPRO,33,9,Deva Pro,HiFiMan Deva Pro,2021,,Active,Headphone,Open Back,Planar Magnetic,,18,94,Yes,No,HIFIMAN_DEVA,,,,Over-Ear,,,,,,Estimated
+125,HIFIMAN_DEVAPRO,33,9,Deva Pro,HiFiMan Deva Pro,2021,,Active,Headphone,Open Back,Planar Magnetic,,18,94,Yes,No,HIFIMAN_DEVA,,,,Over-Ear,329,,,,,Estimated
 126,FOCAL_ELEAR,35,10,Elear,Focal Elear,2016,,Discontinued,Headphone,Open Back,Dynamic,40,80,104,No,No,,,Aluminum-magnesium dome,,Over-Ear,1000,Neutral Bright,3.5mm,Yes,450,Verified
 127,FOCAL_CLEAR,35,10,Clear,Focal Clear,2017,,Discontinued,Headphone,Open Back,Dynamic,40,55,104,No,No,,FOCAL_CLEARMG,,,Over-Ear,1500,Neutral,3.5mm,Yes,450,Verified
 128,FOCAL_CLEARMG,35,10,Clear MG,Focal Clear MG,2021,,Active,Headphone,Open Back,Dynamic,40,55,104,No,No,FOCAL_CLEAR,,Magnesium dome,,Over-Ear,1500,Neutral,3.5mm,Yes,450,Verified
@@ -338,24 +338,24 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 337,BOSE_SOUNDLINKAE,99,7,SoundLink Around-Ear II,Bose SoundLink Around-Ear II,2015,,Discontinued,Headphone,Closed Back,Dynamic,40,32,105,Yes,No,,,,,Over-Ear,230,,,,,Estimated
 338,BOSE_SOUNDLINKOE,99,7,SoundLink On-Ear,Bose SoundLink On-Ear,2016,,Discontinued,Headphone,Closed Back,Dynamic,40,32,105,Yes,No,,,,,On-Ear,200,,,,,Estimated
 339,HIFIMAN_HE500,27,9,HE-500,HiFiMan HE-500,2011,,Discontinued,Headphone,Open Back,Planar Magnetic,,38,89,No,No,,,Beloved early planar,,Over-Ear,700,,,,,Estimated
-340,HIFIMAN_HE6,27,9,HE-6,HiFiMan HE-6,2011,,Discontinued,Headphone,Open Back,Planar Magnetic,,50,83,No,No,,HIFIMAN_HE6SE,Famously power-hungry,,Over-Ear,,,,,,Estimated
-341,HIFIMAN_EDITIONX,28,9,Edition X,HiFiMan Edition X,2015,,Discontinued,Headphone,Open Back,Planar Magnetic,,25,103,No,No,,HIFIMAN_EDITIONXV2,,,Over-Ear,,,,,,Estimated
-342,HIFIMAN_EDITIONXV2,28,9,Edition X V2,HiFiMan Edition X V2,2016,,Discontinued,Headphone,Open Back,Planar Magnetic,,25,103,No,No,HIFIMAN_EDITIONX,,,,Over-Ear,,,,,,Estimated
-343,HIFIMAN_EDITIONS,28,9,Edition S,HiFiMan Edition S,2016,,Discontinued,Headphone,Open Back,Dynamic,,35,96,No,No,,,"On-ear, switchable open/closed",,Over-Ear,,,,,,Estimated
-344,HIFIMAN_HE400S,27,9,HE400S,HiFiMan HE400S,2015,,Discontinued,Headphone,Open Back,Planar Magnetic,,22,98,No,No,,,,,Over-Ear,,,,,,Estimated
+340,HIFIMAN_HE6,27,9,HE-6,HiFiMan HE-6,2011,,Discontinued,Headphone,Open Back,Planar Magnetic,,50,83,No,No,,HIFIMAN_HE6SE,Famously power-hungry,,Over-Ear,1300,,,,,Estimated
+341,HIFIMAN_EDITIONX,28,9,Edition X,HiFiMan Edition X,2015,,Discontinued,Headphone,Open Back,Planar Magnetic,,25,103,No,No,,HIFIMAN_EDITIONXV2,,,Over-Ear,1799,,,,,Estimated
+342,HIFIMAN_EDITIONXV2,28,9,Edition X V2,HiFiMan Edition X V2,2016,,Discontinued,Headphone,Open Back,Planar Magnetic,,25,103,No,No,HIFIMAN_EDITIONX,,,,Over-Ear,1799,,,,,Estimated
+343,HIFIMAN_EDITIONS,28,9,Edition S,HiFiMan Edition S,2016,,Discontinued,Headphone,Open Back,Dynamic,,35,96,No,No,,,"On-ear, switchable open/closed",,Over-Ear,299,,,,,Estimated
+344,HIFIMAN_HE400S,27,9,HE400S,HiFiMan HE400S,2015,,Discontinued,Headphone,Open Back,Planar Magnetic,,22,98,No,No,,,,,Over-Ear,299,,,,,Estimated
 345,HIFIMAN_HE1000V2,27,9,HE1000 V2,HiFiMan HE1000 V2,2016,,Discontinued,Headphone,Open Back,Planar Magnetic,,35,90,No,No,HIFIMAN_HE1000,HIFIMAN_HE1000SE,,,Over-Ear,3000,Analytical,Dual 3.5mm,Yes,420,Verified
-346,HIFIMAN_HE1000UNV,27,9,HE1000 Unveiled,HiFiMan HE1000 Unveiled,2024,,Active,Headphone,Open Back,Planar Magnetic,,35,90,No,No,HIFIMAN_HE1000SE,,Stator-less open design,,Over-Ear,,,,,,Estimated
-347,HIFIMAN_ARYASTEALTH,30,9,Arya Stealth,HiFiMan Arya Stealth Magnet,2021,,Discontinued,Headphone,Open Back,Planar Magnetic,,32,94,No,No,,,Stealth Magnet revision,,Over-Ear,,,,,,Estimated
-348,HIFIMAN_ARYAUNV,30,9,Arya Unveiled,HiFiMan Arya Unveiled,2024,,Active,Headphone,Open Back,Planar Magnetic,,35,91,No,No,,,,,Over-Ear,,,,,,Estimated
-349,HIFIMAN_ANANDANANOUNV,29,9,Ananda Unveiled,HiFiMan Ananda Unveiled,2024,,Active,Headphone,Open Back,Planar Magnetic,,16,103,No,No,,,,,Over-Ear,,,,,,Estimated
-350,HIFIMAN_SUNDARAC,32,9,Sundara Closed-Back,HiFiMan Sundara Closed-Back,2022,,Active,Headphone,Closed Back,Planar Magnetic,,20,96,No,No,,,,,Over-Ear,,,,,,Estimated
-351,HIFIMAN_HER9,27,9,HE-R9,HiFiMan HE-R9,2021,,Active,Headphone,Closed Back,Dynamic,,18,91,Yes,No,,,"Dynamic, optional Bluemini",,Over-Ear,,,,,,Estimated
-352,HIFIMAN_HER10P,27,9,HE-R10P,HiFiMan HE-R10P,2021,,Discontinued,Headphone,Closed Back,Planar Magnetic,,18,91,No,No,,,Homage to R10,,Over-Ear,,,,,,Estimated
+346,HIFIMAN_HE1000UNV,27,9,HE1000 Unveiled,HiFiMan HE1000 Unveiled,2024,,Active,Headphone,Open Back,Planar Magnetic,,35,90,No,No,HIFIMAN_HE1000SE,,Stator-less open design,,Over-Ear,2699,,,,,Estimated
+347,HIFIMAN_ARYASTEALTH,30,9,Arya Stealth,HiFiMan Arya Stealth Magnet,2021,,Discontinued,Headphone,Open Back,Planar Magnetic,,32,94,No,No,,,Stealth Magnet revision,,Over-Ear,1599,,,,,Estimated
+348,HIFIMAN_ARYAUNV,30,9,Arya Unveiled,HiFiMan Arya Unveiled,2024,,Active,Headphone,Open Back,Planar Magnetic,,35,91,No,No,,,,,Over-Ear,1499,,,,,Estimated
+349,HIFIMAN_ANANDANANOUNV,29,9,Ananda Unveiled,HiFiMan Ananda Unveiled,2024,,Active,Headphone,Open Back,Planar Magnetic,,16,103,No,No,,,,,Over-Ear,999,,,,,Estimated
+350,HIFIMAN_SUNDARAC,32,9,Sundara Closed-Back,HiFiMan Sundara Closed-Back,2022,,Active,Headphone,Closed Back,Planar Magnetic,,20,96,No,No,,,,,Over-Ear,349,,,,,Estimated
+351,HIFIMAN_HER9,27,9,HE-R9,HiFiMan HE-R9,2021,,Active,Headphone,Closed Back,Dynamic,,18,91,Yes,No,,,"Dynamic, optional Bluemini",,Over-Ear,1999,,,,,Estimated
+352,HIFIMAN_HER10P,27,9,HE-R10P,HiFiMan HE-R10P,2021,,Discontinued,Headphone,Closed Back,Planar Magnetic,,18,91,No,No,,,Homage to R10,,Over-Ear,2999,,,,,Estimated
 353,HIFIMAN_HE4XX,27,9,HE4XX,Drop x HiFiMan HE4XX,2017,,Active,Headphone,Open Back,Planar Magnetic,,35,93,No,No,,,Drop collaboration,,Over-Ear,170,U-Shaped,Dual 3.5mm,Yes,440,Estimated
 354,HIFIMAN_HE5XX,27,9,HE5XX,Drop x HiFiMan HE5XX,2021,,Active,Headphone,Open Back,Planar Magnetic,,18,91,No,No,,,Drop collaboration,,Over-Ear,220,Neutral Bright,Dual 3.5mm,Yes,440,Estimated
 355,HIFIMAN_JADE2,27,9,Jade II,HiFiMan Jade II,2019,,Active,Headphone,Open Back,Electrostatic,,,90,No,No,,,"Electrostatic, needs energizer",,Over-Ear,2500,,Electrostatic,,550,Estimated
 356,HIFIMAN_SHANGRILA,27,9,Shangri-La Jr,HiFiMan Shangri-La Jr,2017,,Active,Headphone,Open Back,Electrostatic,,,90,No,No,,,,,Over-Ear,8000,,Electrostatic,,,Estimated
-357,HIFIMAN_AUDIVINA,27,9,Audivina,HiFiMan Audivina,2023,,Active,Headphone,Closed Back,Planar Magnetic,,14,91,No,No,,,Closed-back home listening,,Over-Ear,,,,,,Estimated
+357,HIFIMAN_AUDIVINA,27,9,Audivina,HiFiMan Audivina,2023,,Active,Headphone,Closed Back,Planar Magnetic,,14,91,No,No,,,Closed-back home listening,,Over-Ear,1699,,,,,Estimated
 358,FOCAL_SPIRITONE,101,10,Spirit One,Focal Spirit One,2012,,Discontinued,Headphone,Closed Back,Dynamic,40,32,103,No,No,,,,,Over-Ear,,,,,,Estimated
 359,FOCAL_SPIRITCLASSIC,101,10,Spirit Classic,Focal Spirit Classic,2013,,Discontinued,Headphone,Closed Back,Dynamic,40,32,103,No,No,,,Audiophile-aimed closed-back; 40mm driver; launched alongside Spirit Professional,,Over-Ear,350,,,,,Estimated
 360,FOCAL_SPIRITPRO,101,10,Spirit Professional,Focal Spirit Professional,2013,,Discontinued,Studio,Closed Back,Dynamic,40,32,103,No,No,,,,,Over-Ear,,,,,,Estimated
@@ -600,8 +600,8 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 599,OLLO_S4X,156,63,S4X,Ollo Audio S4X,2021,,Active,Studio,Closed Back,Dynamic,40,32,110,No,No,,,,,Over-Ear,399,Neutral,,Yes,319,Verified
 600,OLLO_S5X,156,63,S5X,Ollo Audio S5X,2022,,Active,Studio,Open Back,Dynamic,40,32,110,No,No,,,,,Over-Ear,399,Neutral,,Yes,319,Verified
 601,OLLO_X1,157,63,X1,Ollo Audio X1,2023,,Active,Studio,Open Back,Dynamic,40,32,104,No,No,,,Reference open-back,,Over-Ear,299,,,,282,Verified
-602,HIFIMAN_HE600,27,9,HE600,HiFiMan HE600,2025,,Active,Headphone,Open Back,Planar Magnetic,,50,92,No,No,,,"Ultra-thin diaphragm, $799",,Over-Ear,,,,,,Estimated
-603,HIFIMAN_EDITIONXV,28,9,Edition XV,HiFiMan Edition XV,2025,,Active,Headphone,Open Back,Planar Magnetic,,35,103,No,No,,,,,Over-Ear,,,,,,Estimated
+602,HIFIMAN_HE600,27,9,HE600,HiFiMan HE600,2025,,Active,Headphone,Open Back,Planar Magnetic,,50,92,No,No,,,"Ultra-thin diaphragm, $799",,Over-Ear,599,,,,,Estimated
+603,HIFIMAN_EDITIONXV,28,9,Edition XV,HiFiMan Edition XV,2025,,Active,Headphone,Open Back,Planar Magnetic,,35,103,No,No,,,,,Over-Ear,1799,,,,,Estimated
 604,MOONDROP_HORIZON,146,53,Horizon,Moondrop Horizon,2025,,Active,Headphone,Open Back,Dynamic,,32,100,No,No,,,"Dynamic driver, low-distortion",,Over-Ear,80,,,,,Estimated
 605,MOONDROP_EDGE,158,53,Edge,Moondrop Edge,2024,,Active,Headphone,Closed Back,Dynamic,,32,100,Yes,Yes,,,First Moondrop over-ear wireless ANC,,Over-Ear,150,,,,,Estimated
 606,MOONDROP_OLDFASHIONED,159,53,Old Fashioned,Moondrop Old Fashioned,2025,,Active,Headphone,Open Back,Dynamic,,60,96,No,No,,,"$25 retro on-ear, 40mm driver",,Over-Ear,,,,,,Estimated
@@ -801,7 +801,7 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 800,CZ_CZ10,198,94,CZ-10,Crosszone CZ-10,2020,,Active,Headphone,Open Back,Dynamic,40,25,100,No,No,,,Open-back CZ with same acoustic crossfeed technology as CZ-1,,Over-Ear,2000,,3.5mm,,350,Estimated
 801,BEYER_DT770PRO_LTD,17,6,DT 770 Pro X Limited Edition,Beyerdynamic DT 770 Pro X Limited Edition,2024,,Active,Headphone,Closed Back,Dynamic,45,48,100,No,No,BEYER_DT770PRO,,STELLAR.45 driver in DT 770 shell; limited colourway run,,Over-Ear,199,,,,,Estimated
 802,BEYER_MMX300PRO,20,6,MMX 300 Pro,Beyerdynamic MMX 300 Pro,2024,,Active,Gaming,Closed Back,Dynamic,45,48,100,No,No,,,Pro gaming closed-back; STELLAR.45 driver,,Over-Ear,300,,,,,Verified
-803,HIFIMAN_SUSVARAUNV,27,9,Susvara Unveiled,HiFiMan Susvara Unveiled,2023,,Active,Headphone,Open Back,Planar Magnetic,,60,83,No,No,HIFIMAN_SUSVARA,,Susvara with exposed driver; limited production; premium over standard Susvara,,Over-Ear,,,,,,Estimated
+803,HIFIMAN_SUSVARAUNV,27,9,Susvara Unveiled,HiFiMan Susvara Unveiled,2023,,Active,Headphone,Open Back,Planar Magnetic,,60,83,No,No,HIFIMAN_SUSVARA,,Susvara with exposed driver; limited production; premium over standard Susvara,,Over-Ear,8000,,,,,Estimated
 804,MEZE_EMPYREAN3,46,13,Empyrean 3,Meze Audio Empyrean 3,2025,,Active,Headphone,Open Back,Planar Magnetic,,31.6,102,No,No,,,Third-gen isodynamic planar; new Rinaro PCOCC driver,,Over-Ear,4500,Warm,mini-XLR,Yes,430,Estimated
 805,FOCAL_DIABLO,,10,Celestee Diablo,Focal Celestee Diablo,2024,,Active,Headphone,Closed Back,Dynamic,40,35,105,No,No,FOCAL_CELESTEE,,Celestee variant with unique Diablo orange finish; same driver,,Over-Ear,,,,,,Estimated
 806,HD_HELIOS,174,75,Helios,HarmonicDyne Helios,2019,,Active,Headphone,Open Back,Dynamic,50,32,104,No,No,,,Debut model; 50mm bio-film driver; wood cups,,Over-Ear,,,,,,Estimated
