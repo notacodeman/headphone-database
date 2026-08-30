@@ -506,12 +506,15 @@
        below it, so it scrolls away with the body instead of staying pinned to the
        sticky header. box-shadow isn't part of the border-collapse model, so it stays
        put. */
-    box-shadow: 0 2px 0 0 var(--ink);
+    /* The inset right-edge shadow is a static divider between every header, resizable
+       or not — see .resizer::before below for the extra grip mark on ones that are. */
+    box-shadow: 0 2px 0 0 var(--ink), inset -1px 0 0 var(--line);
     cursor: pointer; user-select: none; white-space: nowrap; }
+  thead th:last-child { box-shadow: 0 2px 0 0 var(--ink); }
   thead th:hover { color: var(--accent); }
   thead th > span:first-child { display: inline-block; max-width: calc(100% - 10px);
     overflow: hidden; text-overflow: clip; vertical-align: bottom; }
-  thead th[aria-sort="ascending"], thead th[aria-sort="descending"] { color: var(--accent); box-shadow: 0 3px 0 0 var(--accent); }
+  thead th[aria-sort="ascending"], thead th[aria-sort="descending"] { color: var(--accent); box-shadow: 0 3px 0 0 var(--accent), inset -1px 0 0 var(--line); }
   /* Column reorder drag feedback: the dragged header dims, and a single fixed-position
      bar (positioned in JS, see wireHeaderDrag) marks the one spot it would land on if
      dropped now. */
@@ -535,9 +538,12 @@
 
   .resizer { position: absolute; top: 0; right: 0; width: 9px; height: 100%;
     cursor: col-resize; user-select: none; }
-  .resizer::before { content: ""; position: absolute; right: 0; top: 25%;
-    height: 50%; width: 1px; background: var(--line); }
-  .resizer:hover::before { right: 0; top: 0; height: 100%; width: 2px; background: var(--accent); }
+  /* Every header already gets a plain divider line (thead th's inset box-shadow);
+     this short grip mark layers on top of it to mark boundaries that actually drag,
+     growing into a full-height accent line on hover as the "you can resize here" cue. */
+  .resizer::before { content: ""; position: absolute; right: 0; top: 38%;
+    height: 24%; width: 3px; border-radius: 2px; background: var(--muted); }
+  .resizer:hover::before { top: 0; height: 100%; width: 2px; border-radius: 0; background: var(--accent); }
 
   .model-name { font-family: 'Fraunces', serif; font-size: 1.02rem; font-weight: 600; }
   .brand { color: var(--accent-2); font-weight: 500; text-decoration: none; }
