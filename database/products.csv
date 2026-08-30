@@ -182,40 +182,40 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 181,SHURE_SRH1840,53,17,SRH1840,Shure SRH1840,2011,,Active,Studio,Open Back,Dynamic,40,65,99,No,No,,,,,Over-Ear,500,Neutral,3.5mm,Yes,369,Verified
 182,SHURE_AONIC50,54,17,AONIC 50,Shure AONIC 50,2020,,Discontinued,Headphone,Closed Back,Dynamic,40,24,96,Yes,Yes,,SHURE_AONIC50G2,,,Over-Ear,350,,Wireless,,,Estimated
 183,SHURE_AONIC50G2,54,17,AONIC 50 Gen 2,Shure AONIC 50 Gen 2,2023,,Active,Headphone,Closed Back,Dynamic,40,24,96,Yes,Yes,SHURE_AONIC50,,,,Over-Ear,400,,Wireless,,,Estimated
-184,STEEL_ARCTIS7,56,18,Arctis 7,SteelSeries Arctis 7,2017,,Discontinued,Gaming,Closed Back,Dynamic,40,32,98,Yes,No,,,,,Over-Ear,150,,Wireless,,,Estimated
-185,STEEL_ARCTISPRO,56,18,Arctis Pro Wireless,SteelSeries Arctis Pro Wireless,2018,,Discontinued,Gaming,Closed Back,Dynamic,40,32,98,Yes,No,,,,,Over-Ear,330,,Wireless,,,Estimated
-186,STEEL_NOVAPRO,55,18,Arctis Nova Pro Wireless,SteelSeries Arctis Nova Pro Wireless,2022,,Active,Gaming,Closed Back,Dynamic,40,32,100,Yes,Yes,,,"Dual hot-swap batteries, ANC",,Over-Ear,350,,Wireless,,,Estimated
-187,STEEL_NOVA7,55,18,Arctis Nova 7,SteelSeries Arctis Nova 7,2022,,Active,Gaming,Closed Back,Dynamic,40,32,98,Yes,No,,,,,Over-Ear,180,,Wireless,,,Estimated
-188,STEEL_NOVA3,55,18,Arctis Nova 3,SteelSeries Arctis Nova 3,2022,,Active,Gaming,Closed Back,Dynamic,40,32,98,No,No,,,,,Over-Ear,100,,,,,Estimated
-189,STEEL_NOVA5,55,18,Arctis Nova 5,SteelSeries Arctis Nova 5,2024,,Active,Gaming,Closed Back,Dynamic,40,32,98,Yes,No,,,,,Over-Ear,130,,Wireless,,,Estimated
-190,STEEL_NOVAELITE,55,18,Arctis Nova Elite,SteelSeries Arctis Nova Elite,2025,,Active,Gaming,Closed Back,Dynamic,40,32,100,Yes,Yes,,,Simultaneous BT + 2.4GHz,,Over-Ear,600,,Wireless,,,Estimated
-191,HYPERX_CLOUD2,57,19,Cloud II,HyperX Cloud II,2015,,Active,Gaming,Closed Back,Dynamic,53,60,98,No,No,,,Long-running wired classic,,Over-Ear,100,,,,,Estimated
-192,HYPERX_CLOUDALPHA,57,19,Cloud Alpha,HyperX Cloud Alpha,2017,,Active,Gaming,Closed Back,Dynamic,50,65,98,No,No,,,Dual-chamber drivers,,Over-Ear,100,,,,,Estimated
-193,HYPERX_CLOUDALPHAW,57,19,Cloud Alpha Wireless,HyperX Cloud Alpha Wireless,2022,,Active,Gaming,Closed Back,Dynamic,50,62,98,Yes,No,,,~300hr battery life,,Over-Ear,200,,Wireless,,,Estimated
-194,HYPERX_CLOUD3,57,19,Cloud III,HyperX Cloud III,2023,,Active,Gaming,Closed Back,Dynamic,53,60,98,No,No,HYPERX_CLOUD2,,,,Over-Ear,100,,,,,Estimated
-195,HYPERX_CLOUD3W,57,19,Cloud III Wireless,HyperX Cloud III Wireless,2023,,Active,Gaming,Closed Back,Dynamic,40,32,98,Yes,No,,,,,Over-Ear,170,,Wireless,,,Estimated
-196,RAZER_BSV2,58,20,BlackShark V2,Razer BlackShark V2,2020,,Active,Gaming,Closed Back,Dynamic,50,32,100,No,No,,,TriForce Titanium drivers,,Over-Ear,100,,,,,Estimated
-197,RAZER_BSV2PRO,58,20,BlackShark V2 Pro,Razer BlackShark V2 Pro,2020,,Active,Gaming,Closed Back,Dynamic,50,32,100,Yes,No,,RAZER_BSV2PRO23,,,Over-Ear,180,,Wireless,,,Estimated
-198,RAZER_BSV2PRO23,58,20,BlackShark V2 Pro (2023),Razer BlackShark V2 Pro (2023),2023,,Active,Gaming,Closed Back,Dynamic,50,32,100,Yes,No,RAZER_BSV2PRO,,,,Over-Ear,200,,Wireless,,,Estimated
-199,RAZER_BSV3PRO,58,20,BlackShark V3 Pro,Razer BlackShark V3 Pro,2025,,Active,Gaming,Closed Back,Dynamic,50,32,100,Yes,No,,,HyperClear mic,,Over-Ear,250,,Wireless,,,Estimated
-200,RAZER_KRAKENV3,59,20,Kraken V3,Razer Kraken V3,2021,,Active,Gaming,Closed Back,Dynamic,50,32,109,No,No,,,,,Over-Ear,100,,,,,Estimated
-201,RAZER_KRAKENV4PRO,59,20,Kraken V4 Pro,Razer Kraken V4 Pro,2025,,Active,Gaming,Closed Back,Dynamic,50,32,109,Yes,No,,,,,Over-Ear,250,,Wireless,,,Estimated
-202,LOGI_GPROX,60,21,G Pro X,Logitech G Pro X,2019,,Discontinued,Gaming,Closed Back,Dynamic,50,35,91,No,No,,LOGI_GPROX2,Blue VO!CE mic,,Over-Ear,130,,,,,Estimated
-203,LOGI_GPROX2,60,21,G Pro X 2 Lightspeed,Logitech G Pro X 2 Lightspeed,2023,,Active,Gaming,Closed Back,Dynamic,50,35,91,Yes,No,LOGI_GPROX,,50mm Pro-G Graphene drivers,,Over-Ear,160,,Wireless,,,Estimated
-204,LOGI_G535,61,21,G535 Lightspeed,Logitech G535 Lightspeed,2021,,Active,Gaming,Closed Back,Dynamic,40,32,93,Yes,No,,,,,Over-Ear,130,,Wireless,,,Estimated
+184,STEEL_ARCTIS7,56,18,Arctis 7,SteelSeries Arctis 7,2017,,Discontinued,Gaming,Closed Back,Dynamic,40,32,98,Yes,No,,,,,Over-Ear,150,,Wireless,,354,Estimated
+185,STEEL_ARCTISPRO,56,18,Arctis Pro Wireless,SteelSeries Arctis Pro Wireless,2018,,Discontinued,Gaming,Closed Back,Dynamic,40,32,98,Yes,No,,,,,Over-Ear,330,,Wireless,,371,Estimated
+186,STEEL_NOVAPRO,55,18,Arctis Nova Pro Wireless,SteelSeries Arctis Nova Pro Wireless,2022,,Active,Gaming,Closed Back,Dynamic,40,32,100,Yes,Yes,,,"Dual hot-swap batteries, ANC",,Over-Ear,350,,Wireless,,350,Estimated
+187,STEEL_NOVA7,55,18,Arctis Nova 7,SteelSeries Arctis Nova 7,2022,,Active,Gaming,Closed Back,Dynamic,40,32,98,Yes,No,,,,,Over-Ear,180,,Wireless,,337,Estimated
+188,STEEL_NOVA3,55,18,Arctis Nova 3,SteelSeries Arctis Nova 3,2022,,Active,Gaming,Closed Back,Dynamic,40,32,98,No,No,,,,,Over-Ear,100,,3.5mm,,300,Estimated
+189,STEEL_NOVA5,55,18,Arctis Nova 5,SteelSeries Arctis Nova 5,2024,,Active,Gaming,Closed Back,Dynamic,40,32,98,Yes,No,,,,,Over-Ear,130,,Wireless,,275,Estimated
+190,STEEL_NOVAELITE,55,18,Arctis Nova Elite,SteelSeries Arctis Nova Elite,2025,,Active,Gaming,Closed Back,Dynamic,40,32,100,Yes,Yes,,,Simultaneous BT + 2.4GHz,,Over-Ear,600,,Wireless,,340,Estimated
+191,HYPERX_CLOUD2,57,19,Cloud II,HyperX Cloud II,2015,,Active,Gaming,Closed Back,Dynamic,53,60,98,No,No,,,Long-running wired classic,,Over-Ear,100,,3.5mm,,320,Estimated
+192,HYPERX_CLOUDALPHA,57,19,Cloud Alpha,HyperX Cloud Alpha,2017,,Active,Gaming,Closed Back,Dynamic,50,65,98,No,No,,,Dual-chamber drivers,,Over-Ear,100,,3.5mm,,298,Estimated
+193,HYPERX_CLOUDALPHAW,57,19,Cloud Alpha Wireless,HyperX Cloud Alpha Wireless,2022,,Active,Gaming,Closed Back,Dynamic,50,62,98,Yes,No,,,~300hr battery life,,Over-Ear,200,,Wireless,,335,Estimated
+194,HYPERX_CLOUD3,57,19,Cloud III,HyperX Cloud III,2023,,Active,Gaming,Closed Back,Dynamic,53,60,98,No,No,HYPERX_CLOUD2,,,,Over-Ear,100,,3.5mm,,335,Estimated
+195,HYPERX_CLOUD3W,57,19,Cloud III Wireless,HyperX Cloud III Wireless,2023,,Active,Gaming,Closed Back,Dynamic,40,32,98,Yes,No,,,,,Over-Ear,170,,Wireless,,350,Estimated
+196,RAZER_BSV2,58,20,BlackShark V2,Razer BlackShark V2,2020,,Active,Gaming,Closed Back,Dynamic,50,32,100,No,No,,,TriForce Titanium drivers,,Over-Ear,100,,3.5mm,,262,Estimated
+197,RAZER_BSV2PRO,58,20,BlackShark V2 Pro,Razer BlackShark V2 Pro,2020,,Active,Gaming,Closed Back,Dynamic,50,32,100,Yes,No,,RAZER_BSV2PRO23,,,Over-Ear,180,,Wireless,,320,Estimated
+198,RAZER_BSV2PRO23,58,20,BlackShark V2 Pro (2023),Razer BlackShark V2 Pro (2023),2023,,Active,Gaming,Closed Back,Dynamic,50,32,100,Yes,No,RAZER_BSV2PRO,,,,Over-Ear,200,,Wireless,,320,Estimated
+199,RAZER_BSV3PRO,58,20,BlackShark V3 Pro,Razer BlackShark V3 Pro,2025,,Active,Gaming,Closed Back,Dynamic,50,32,100,Yes,No,,,HyperClear mic,,Over-Ear,250,,Wireless,,320,Estimated
+200,RAZER_KRAKENV3,59,20,Kraken V3,Razer Kraken V3,2021,,Active,Gaming,Closed Back,Dynamic,50,32,109,No,No,,,,,Over-Ear,100,,3.5mm,,320,Estimated
+201,RAZER_KRAKENV4PRO,59,20,Kraken V4 Pro,Razer Kraken V4 Pro,2025,,Active,Gaming,Closed Back,Dynamic,50,32,109,Yes,No,,,,,Over-Ear,250,,Wireless,,400,Estimated
+202,LOGI_GPROX,60,21,G Pro X,Logitech G Pro X,2019,,Discontinued,Gaming,Closed Back,Dynamic,50,35,91,No,No,,LOGI_GPROX2,Blue VO!CE mic,,Over-Ear,130,,3.5mm,,320,Estimated
+203,LOGI_GPROX2,60,21,G Pro X 2 Lightspeed,Logitech G Pro X 2 Lightspeed,2023,,Active,Gaming,Closed Back,Dynamic,50,35,91,Yes,No,LOGI_GPROX,,50mm Pro-G Graphene drivers,,Over-Ear,160,,Wireless,,345,Estimated
+204,LOGI_G535,61,21,G535 Lightspeed,Logitech G535 Lightspeed,2021,,Active,Gaming,Closed Back,Dynamic,40,32,93,Yes,No,,,,,Over-Ear,130,,Wireless,,236,Estimated
 205,LOGI_G733,61,21,G733 Lightspeed,Logitech G733 Lightspeed,2020,,Active,Gaming,Closed Back,Dynamic,40,32,88,Yes,No,,,,,Over-Ear,130,,Wireless,,278,Estimated
 206,ASTRO_A50G4,62,22,A50 Wireless Gen 4,Astro A50 Wireless (Gen 4),2019,,Discontinued,Gaming,Closed Back,Dynamic,40,32,118,Yes,No,,ASTRO_A50X,,,Over-Ear,330,,Wireless,No,374,Estimated
 207,ASTRO_A50X,62,22,A50 X Lightspeed,Astro A50 X Lightspeed,2024,,Active,Gaming,Closed Back,Dynamic,40,32,118,Yes,No,ASTRO_A50G4,,"HDMI base station, multi-console switching",,Over-Ear,380,,Wireless,No,374,Estimated
 208,ASTRO_A40TR,62,22,A40 TR,Astro A40 TR,2017,,Active,Gaming,Open Back,Dynamic,40,48,118,No,No,,,,,Over-Ear,150,,3.5mm,No,336,Estimated
 209,TB_STEALTH700G2,63,23,Stealth 700 Gen 2,Turtle Beach Stealth 700 Gen 2,2020,,Active,Gaming,Closed Back,Dynamic,50,32,95,Yes,No,,,,,Over-Ear,150,,Wireless,No,322,Estimated
 210,TB_STEALTHPRO,63,23,Stealth Pro,Turtle Beach Stealth Pro,2023,,Active,Gaming,Closed Back,Dynamic,50,32,95,Yes,Yes,,,"Swappable batteries, ANC",,Over-Ear,250,,Wireless,No,397,Estimated
-211,TB_ATLASAIR,63,23,Atlas Air,Turtle Beach Atlas Air,2024,,Active,Gaming,Open Back,Dynamic,50,32,95,Yes,No,,,Open-back wireless,,Over-Ear,150,,Wireless,,,Estimated
-212,CORSAIR_VIRTUOSO,64,24,Virtuoso RGB Wireless,Corsair Virtuoso RGB Wireless,2019,,Active,Gaming,Closed Back,Dynamic,50,32,109,Yes,No,,,,,Over-Ear,180,,Wireless,,,Estimated
-213,CORSAIR_VIRTUOSOXT,64,24,Virtuoso RGB Wireless XT,Corsair Virtuoso RGB Wireless XT,2021,,Active,Gaming,Closed Back,Dynamic,50,32,109,Yes,No,,,,,Over-Ear,170,,Wireless,,,Estimated
-214,CORSAIR_VIRTUOSOPRO,64,24,Virtuoso Pro,Corsair Virtuoso Pro,2023,,Active,Gaming,Open Back,Dynamic,50,32,109,No,No,,,"Open-back, graphene drivers",,Over-Ear,150,,,,,Estimated
+211,TB_ATLASAIR,63,23,Atlas Air,Turtle Beach Atlas Air,2024,,Active,Gaming,Open Back,Dynamic,50,32,95,Yes,No,,,Open-back wireless,,Over-Ear,150,,Wireless,,335,Estimated
+212,CORSAIR_VIRTUOSO,64,24,Virtuoso RGB Wireless,Corsair Virtuoso RGB Wireless,2019,,Active,Gaming,Closed Back,Dynamic,50,32,109,Yes,No,,,,,Over-Ear,180,,Wireless,,385,Estimated
+213,CORSAIR_VIRTUOSOXT,64,24,Virtuoso RGB Wireless XT,Corsair Virtuoso RGB Wireless XT,2021,,Active,Gaming,Closed Back,Dynamic,50,32,109,Yes,No,,,,,Over-Ear,170,,Wireless,,350,Estimated
+214,CORSAIR_VIRTUOSOPRO,64,24,Virtuoso Pro,Corsair Virtuoso Pro,2023,,Active,Gaming,Open Back,Dynamic,50,32,109,No,No,,,"Open-back, graphene drivers",,Over-Ear,150,,3.5mm,,340,Estimated
 215,CORSAIR_HS80,65,24,HS80 RGB Wireless,Corsair HS80 RGB Wireless,2021,,Active,Gaming,Closed Back,Dynamic,50,32,100,Yes,No,,,,,Over-Ear,100,,Wireless,No,333,Estimated
-216,ASUS_DELTAS,66,25,ROG Delta S,ASUS ROG Delta S,2021,,Active,Gaming,Closed Back,Dynamic,40,32,108,No,No,,,"USB-C, quad-DAC",,Over-Ear,100,,,,,Estimated
-217,ASUS_DELTA2,66,25,ROG Delta II,ASUS ROG Delta II,2025,,Active,Gaming,Closed Back,Dynamic,40,32,108,Yes,No,,,,,Over-Ear,150,,Wireless,,,Estimated
+216,ASUS_DELTAS,66,25,ROG Delta S,ASUS ROG Delta S,2021,,Active,Gaming,Closed Back,Dynamic,40,32,108,No,No,,,"USB-C, quad-DAC",,Over-Ear,100,,USB-C,,320,Estimated
+217,ASUS_DELTA2,66,25,ROG Delta II,ASUS ROG Delta II,2025,,Active,Gaming,Closed Back,Dynamic,40,32,108,Yes,No,,,,,Over-Ear,150,,Wireless,,320,Estimated
 218,ABYSS_AB1266,67,26,AB-1266,Abyss AB-1266,2013,,Active,Headphone,Open Back,Planar Magnetic,,42,88,No,No,,,Reference flagship planar; later revised as Phi and Phi TC,,Over-Ear,5000,,,,480,Estimated
 219,ABYSS_DIANA,68,26,Diana,Abyss Diana,2017,,Active,Headphone,Open Back,Planar Magnetic,,42,88,No,No,,ABYSS_DIANAV2,,,Over-Ear,2500,,,,330,Estimated
 220,ABYSS_DIANAV2,68,26,Diana V2,Abyss Diana V2,2020,,Active,Headphone,Open Back,Planar Magnetic,,42,88,No,No,ABYSS_DIANA,,,,Over-Ear,3000,,,,330,Estimated
@@ -388,21 +388,21 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 387,AUDEZE_LCD4Z,23,8,LCD-4z,Audeze LCD-4z,2017,,Active,Headphone,Open Back,Planar Magnetic,106,15,98,No,No,,,Low-impedance LCD-4,,Over-Ear,3995,,,,,Estimated
 388,AUDEZE_LCDXC2021,23,8,LCD-XC (2021),Audeze LCD-XC (2021),2021,,Active,Headphone,Closed Back,Planar Magnetic,106,20,103,No,No,AUDEZE_LCDXC,,,,Over-Ear,1799,,,,,Estimated
 389,AUDEZE_CRBN2,26,8,CRBN2,Audeze CRBN2,2024,,Active,Headphone,Open Back,Electrostatic,,,102,No,No,AUDEZE_CRBN,,,,Over-Ear,4500,,Electrostatic,,,Estimated
-390,STEEL_ARCTIS5,56,18,Arctis 5,SteelSeries Arctis 5,2017,,Discontinued,Gaming,Closed Back,Dynamic,40,32,98,No,No,,,,,Over-Ear,100,,,,,Estimated
-391,STEEL_NOVA1,55,18,Arctis Nova 1,SteelSeries Arctis Nova 1,2022,,Active,Gaming,Closed Back,Dynamic,40,32,98,No,No,,,,,Over-Ear,50,,,,,Estimated
-392,STEEL_NOVA7X,55,18,Arctis Nova 7X,SteelSeries Arctis Nova 7X,2022,,Active,Gaming,Closed Back,Dynamic,40,32,98,Yes,No,,,,,Over-Ear,180,,Wireless,,,Estimated
-393,STEEL_NOVAPROOMNI,55,18,Arctis Nova Pro Omni,SteelSeries Arctis Nova Pro Omni,2025,,Active,Gaming,Closed Back,Dynamic,40,32,100,Yes,Yes,STEEL_NOVAPRO,,,,Over-Ear,350,,Wireless,,,Estimated
-394,HYPERX_CLOUD,57,19,Cloud,HyperX Cloud,2014,,Discontinued,Gaming,Closed Back,Dynamic,53,60,98,No,No,,HYPERX_CLOUD2,,,Over-Ear,80,,,,,Estimated
-395,HYPERX_CLOUD2W,57,19,Cloud II Wireless,HyperX Cloud II Wireless,2020,,Active,Gaming,Closed Back,Dynamic,40,32,98,Yes,No,,,,,Over-Ear,150,,Wireless,,,Estimated
-396,HYPERX_CLOUDFLIGHT,57,19,Cloud Flight,HyperX Cloud Flight,2018,,Active,Gaming,Closed Back,Dynamic,40,32,98,Yes,No,,,,,Over-Ear,160,,Wireless,,,Estimated
-397,RAZER_KRAKENKITTYV2,59,20,Kraken Kitty V2,Razer Kraken Kitty V2,2022,,Active,Gaming,Closed Back,Dynamic,50,32,109,No,No,,,,,Over-Ear,100,,,,,Estimated
-398,RAZER_BARRACUDAPRO,103,20,Barracuda Pro,Razer Barracuda Pro,2022,,Active,Gaming,Closed Back,Dynamic,40,32,100,Yes,Yes,,,"ANC, hybrid gaming/lifestyle",,Over-Ear,200,,Wireless,,,Estimated
-399,RAZER_BLACKSHARKV2X,58,20,BlackShark V2 X,Razer BlackShark V2 X,2020,,Active,Gaming,Closed Back,Dynamic,40,32,100,No,No,,,,,Over-Ear,60,,,,,Estimated
-400,LOGI_G933,61,21,G933 Artemis Spectrum,Logitech G933 Artemis Spectrum,2015,,Discontinued,Gaming,Closed Back,Dynamic,40,39,107,Yes,No,,,,,Over-Ear,150,,Wireless,,,Estimated
-401,LOGI_GPROXWL,60,21,G Pro X Wireless,Logitech G Pro X Wireless,2020,,Active,Gaming,Closed Back,Dynamic,50,35,91,Yes,No,,,,,Over-Ear,200,,Wireless,,,Estimated
-402,CORSAIR_VOID,65,24,Void RGB Elite Wireless,Corsair Void RGB Elite Wireless,2019,,Active,Gaming,Closed Back,Dynamic,50,32,103,Yes,No,,,,,Over-Ear,100,,Wireless,,,Estimated
+390,STEEL_ARCTIS5,56,18,Arctis 5,SteelSeries Arctis 5,2017,,Discontinued,Gaming,Closed Back,Dynamic,40,32,98,No,No,,,,,Over-Ear,100,,3.5mm,,300,Estimated
+391,STEEL_NOVA1,55,18,Arctis Nova 1,SteelSeries Arctis Nova 1,2022,,Active,Gaming,Closed Back,Dynamic,40,32,98,No,No,,,,,Over-Ear,50,,3.5mm,,300,Estimated
+392,STEEL_NOVA7X,55,18,Arctis Nova 7X,SteelSeries Arctis Nova 7X,2022,,Active,Gaming,Closed Back,Dynamic,40,32,98,Yes,No,,,,,Over-Ear,180,,Wireless,,337,Estimated
+393,STEEL_NOVAPROOMNI,55,18,Arctis Nova Pro Omni,SteelSeries Arctis Nova Pro Omni,2025,,Active,Gaming,Closed Back,Dynamic,40,32,100,Yes,Yes,STEEL_NOVAPRO,,,,Over-Ear,350,,Wireless,,350,Estimated
+394,HYPERX_CLOUD,57,19,Cloud,HyperX Cloud,2014,,Discontinued,Gaming,Closed Back,Dynamic,53,60,98,No,No,,HYPERX_CLOUD2,,,Over-Ear,80,,3.5mm,,300,Estimated
+395,HYPERX_CLOUD2W,57,19,Cloud II Wireless,HyperX Cloud II Wireless,2020,,Active,Gaming,Closed Back,Dynamic,40,32,98,Yes,No,,,,,Over-Ear,150,,Wireless,,300,Estimated
+396,HYPERX_CLOUDFLIGHT,57,19,Cloud Flight,HyperX Cloud Flight,2018,,Active,Gaming,Closed Back,Dynamic,40,32,98,Yes,No,,,,,Over-Ear,160,,Wireless,,300,Estimated
+397,RAZER_KRAKENKITTYV2,59,20,Kraken Kitty V2,Razer Kraken Kitty V2,2022,,Active,Gaming,Closed Back,Dynamic,50,32,109,No,No,,,,,Over-Ear,100,,3.5mm,,320,Estimated
+398,RAZER_BARRACUDAPRO,103,20,Barracuda Pro,Razer Barracuda Pro,2022,,Active,Gaming,Closed Back,Dynamic,40,32,100,Yes,Yes,,,"ANC, hybrid gaming/lifestyle",,Over-Ear,200,,Wireless,,355,Estimated
+399,RAZER_BLACKSHARKV2X,58,20,BlackShark V2 X,Razer BlackShark V2 X,2020,,Active,Gaming,Closed Back,Dynamic,40,32,100,No,No,,,,,Over-Ear,60,,3.5mm,,240,Estimated
+400,LOGI_G933,61,21,G933 Artemis Spectrum,Logitech G933 Artemis Spectrum,2015,,Discontinued,Gaming,Closed Back,Dynamic,40,39,107,Yes,No,,,,,Over-Ear,150,,Wireless,,368,Estimated
+401,LOGI_GPROXWL,60,21,G Pro X Wireless,Logitech G Pro X Wireless,2020,,Active,Gaming,Closed Back,Dynamic,50,35,91,Yes,No,,,,,Over-Ear,200,,Wireless,,320,Estimated
+402,CORSAIR_VOID,65,24,Void RGB Elite Wireless,Corsair Void RGB Elite Wireless,2019,,Active,Gaming,Closed Back,Dynamic,50,32,103,Yes,No,,,,,Over-Ear,100,,Wireless,,348,Estimated
 403,TB_STEALTH600G2,63,23,Stealth 600 Gen 2,Turtle Beach Stealth 600 Gen 2,2020,,Active,Gaming,Closed Back,Dynamic,50,32,95,Yes,No,,,,,Over-Ear,100,,Wireless,No,290,Estimated
-404,TB_STEALTHPRO2,63,23,Stealth Pro II,Turtle Beach Stealth Pro II,2025,,Active,Gaming,Closed Back,Dynamic,50,32,95,Yes,Yes,TB_STEALTHPRO,,,,Over-Ear,250,,Wireless,,,Estimated
+404,TB_STEALTHPRO2,63,23,Stealth Pro II,Turtle Beach Stealth Pro II,2025,,Active,Gaming,Closed Back,Dynamic,50,32,95,Yes,Yes,TB_STEALTHPRO,,,,Over-Ear,250,,Wireless,,380,Estimated
 405,BO_H4,80,35,Beoplay H4,Bang & Olufsen Beoplay H4,2017,,Discontinued,Headphone,Closed Back,Dynamic,,32,104,Yes,No,,,,,On-Ear,300,V-Shaped,Wireless,No,235,Estimated
 406,BO_H9,80,35,Beoplay H9,Bang & Olufsen Beoplay H9,2017,,Discontinued,Headphone,Closed Back,Dynamic,,32,102,Yes,Yes,,,,,On-Ear,500,V-Shaped,Wireless,No,250,Estimated
 407,BO_PORTAL,105,35,Beoplay Portal,Bang & Olufsen Beoplay Portal,2021,,Active,Gaming,Closed Back,Dynamic,,32,98,Yes,Yes,,,Gaming/lifestyle hybrid,,Over-Ear,500,,Wireless,,,Estimated
@@ -439,12 +439,12 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 438,ANKER_LIFEQ30,86,40,Life Q30,Anker Soundcore Life Q30,2020,,Active,Headphone,Closed Back,Dynamic,40,32,100,Yes,Yes,,,,,Over-Ear,60,,Wireless,No,260,Estimated
 439,ANKER_LIFEQ20,86,40,Life Q20,Anker Soundcore Life Q20,2019,,Active,Headphone,Closed Back,Dynamic,40,32,100,Yes,Yes,,,,,Over-Ear,40,,Wireless,No,253,Estimated
 440,TECH_EAHA800M2,87,41,EAH-A800M2,Technics EAH-A800M2,2025,,Active,Headphone,Closed Back,Dynamic,40,32,100,Yes,Yes,TECH_EAHA800,,,,Over-Ear,380,V-Shaped,Wireless,No,,Estimated
-441,RAZER_KRAKENV4,59,20,Kraken V4,Razer Kraken V4,2025,,Active,Gaming,Closed Back,Dynamic,50,32,109,Yes,No,,,,,Over-Ear,150,,Wireless,,,Estimated
-442,RAZER_BLACKSHARKV3,58,20,BlackShark V3,Razer BlackShark V3,2025,,Active,Gaming,Closed Back,Dynamic,50,32,100,No,No,,,,,Over-Ear,150,,,,,Estimated
-443,STEEL_NOVA5X,55,18,Arctis Nova 5X,SteelSeries Arctis Nova 5X,2024,,Active,Gaming,Closed Back,Dynamic,40,32,98,Yes,No,,,,,Over-Ear,130,,Wireless,,,Estimated
-444,LOGI_G935,61,21,G935,Logitech G935,2019,,Active,Gaming,Closed Back,Dynamic,40,39,107,Yes,No,,,,,Over-Ear,170,,Wireless,,,Estimated
+441,RAZER_KRAKENV4,59,20,Kraken V4,Razer Kraken V4,2025,,Active,Gaming,Closed Back,Dynamic,50,32,109,Yes,No,,,,,Over-Ear,150,,Wireless,,320,Estimated
+442,RAZER_BLACKSHARKV3,58,20,BlackShark V3,Razer BlackShark V3,2025,,Active,Gaming,Closed Back,Dynamic,50,32,100,No,No,,,,,Over-Ear,150,,3.5mm,,280,Estimated
+443,STEEL_NOVA5X,55,18,Arctis Nova 5X,SteelSeries Arctis Nova 5X,2024,,Active,Gaming,Closed Back,Dynamic,40,32,98,Yes,No,,,,,Over-Ear,130,,Wireless,,275,Estimated
+444,LOGI_G935,61,21,G935,Logitech G935,2019,,Active,Gaming,Closed Back,Dynamic,40,39,107,Yes,No,,,,,Over-Ear,170,,Wireless,,300,Estimated
 445,ASTRO_A40,62,22,A40 TR Gen 2,Astro A40 TR (Gen 2),2019,,Active,Gaming,Open Back,Dynamic,40,48,118,No,No,,,,,Over-Ear,130,,3.5mm,No,368,Estimated
-446,CORSAIR_HS80MAX,65,24,HS80 Max Wireless,Corsair HS80 Max Wireless,2023,,Active,Gaming,Closed Back,Dynamic,50,32,100,Yes,No,,,,,Over-Ear,180,,Wireless,,,Estimated
+446,CORSAIR_HS80MAX,65,24,HS80 Max Wireless,Corsair HS80 Max Wireless,2023,,Active,Gaming,Closed Back,Dynamic,50,32,100,Yes,No,,,,,Over-Ear,180,,Wireless,,368,Estimated
 447,SENN_HD414,114,2,HD 414,Sennheiser HD 414,1968,,Discontinued,Headphone,Open Back,Dynamic,,2000,92,No,No,,,World's first open-back hi-fi headphone,,Over-Ear,50,,,,,Estimated
 448,SENN_HD580,4,2,HD 580 Precision,Sennheiser HD 580 Precision,1991,,Discontinued,Headphone,Open Back,Dynamic,,300,97,No,No,,SENN_HD600,Direct ancestor of the HD 600,,Over-Ear,350,,,,,Estimated
 449,SENN_HD540,114,2,HD 540 Reference,Sennheiser HD 540 Reference,1985,,Discontinued,Headphone,Open Back,Dynamic,,300,94,No,No,,,,,Over-Ear,450,,,,,Estimated
@@ -745,8 +745,8 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 744,JBL_CLUB950,,38,CLUB 950NC,JBL CLUB 950NC,2020,,Active,Headphone,Closed Back,Dynamic,40,32,103,Yes,Yes,,,ANC wireless over-ear; Club series,,Over-Ear,200,,Wireless,,,Estimated
 745,JBL_LIVE670,84,38,Live 670NC,JBL Live 670NC,2022,,Active,Headphone,Closed Back,Dynamic,40,32,104,Yes,Yes,,,ANC wireless on-ear; successor to Live 460NC,,Over-Ear,150,,Wireless,,,Estimated
 746,JBL_DUETNC,110,38,Duet NC,JBL Duet NC,2019,,Discontinued,Headphone,Closed Back,Dynamic,40,32,103,Yes,Yes,,,ANC wireless on-ear; foldable; mid-tier,,On-Ear,100,,Wireless,,,Estimated
-747,LOGI_G430,,21,G430,Logitech G430,2013,,Discontinued,Gaming,Closed Back,Dynamic,40,32,90,No,No,,,Wired surround-sound gaming; 40mm driver,,Over-Ear,80,,,No,,Estimated
-748,LOGI_G433,,21,G433,Logitech G433,2017,,Discontinued,Gaming,Closed Back,Dynamic,40,39,107,No,No,,,Wired DTS Headphone:X 7.1 surround,,Over-Ear,100,,USB,No,,Estimated
+747,LOGI_G430,,21,G430,Logitech G430,2013,,Discontinued,Gaming,Closed Back,Dynamic,40,32,90,No,No,,,Wired surround-sound gaming; 40mm driver,,Over-Ear,80,,USB,No,280,Estimated
+748,LOGI_G433,,21,G433,Logitech G433,2017,,Discontinued,Gaming,Closed Back,Dynamic,40,39,107,No,No,,,Wired DTS Headphone:X 7.1 surround,,Over-Ear,100,,USB,No,259,Estimated
 749,LOGI_G435,,21,G435 Lightspeed,Logitech G435 Lightspeed,2021,,Active,Gaming,Closed Back,Dynamic,40,32,93,Yes,No,,,Ultra-lightweight Lightspeed wireless; 165g,,Over-Ear,80,,Wireless,No,165,Estimated
 750,LOGI_G533,,21,G533,Logitech G533,2017,,Discontinued,Gaming,Closed Back,Dynamic,40,39,107,Yes,No,,,Wireless Dolby 7.1 gaming; 40mm Pro-G driver,,Over-Ear,150,,Wireless,No,350,Estimated
 751,LOGI_G635,,21,G635,Logitech G635,2018,,Discontinued,Gaming,Closed Back,Dynamic,50,39,107,No,No,,,Wired DTS Headphone:X 2.0; 50mm,,Over-Ear,150,,USB,No,375,Estimated
