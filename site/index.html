@@ -1098,7 +1098,47 @@ function distributeColumnWidths(cols, containerPx) {
     const flexWeight = flexible.reduce((s, c) => s + colW[c.key], 0);
     flexible.forEach(c => { px[c.key] -= deficit * (colW[c.key] / flexWeight); });
   }
+
+  // Ceiling pass: mirrors the floor pass above, but for columns carrying a `maxW` (set
+  // at runtime for Model — see computeModelMaxW — so it never grows past its longest
+  // actual value). A column over its ceiling gives the surplus back to whatever's still
+  // flexible, proportional to weight.
+  for (let iter = 0; iter < cols.length; iter++) {
+    let surplus = 0;
+    cols.forEach(c => {
+      if (!locked.has(c.key) && c.maxW && px[c.key] > c.maxW) {
+        surplus += px[c.key] - c.maxW;
+        px[c.key] = c.maxW;
+        locked.add(c.key);
+      }
+    });
+    if (surplus <= 0) break;
+    const flexible = cols.filter(c => !locked.has(c.key));
+    if (!flexible.length) break;
+    const flexWeight = flexible.reduce((s, c) => s + colW[c.key], 0);
+    flexible.forEach(c => { px[c.key] += surplus * (colW[c.key] / flexWeight); });
+  }
   return px;
+}
+
+// Model's default width shouldn't balloon past what its longest actual name needs. Unlike
+// the fixed-vocabulary columns (Design, Fit...) model names are open-ended free text, and
+// the longest one changes as the catalog grows, so this measures the live font against the
+// current data instead of a hardcoded guess — run once per load, before the first render.
+async function computeModelMaxW() {
+  try { await document.fonts.ready; } catch (e) {}
+  const probe = document.createElement("span");
+  probe.className = "model-name";
+  probe.style.cssText = "position:absolute; visibility:hidden; white-space:nowrap; left:-9999px; top:-9999px;";
+  document.body.appendChild(probe);
+  let maxTextW = 0;
+  state.rows.forEach(r => {
+    probe.textContent = r.model_name || "";
+    if (probe.scrollWidth > maxTextW) maxTextW = probe.scrollWidth;
+  });
+  probe.remove();
+  const col = COLS.find(c => c.key === "model_name");
+  if (col && maxTextW > 0) col.maxW = Math.ceil(maxTextW) + 24; // + cell's own horizontal padding & a small safety margin
 }
 
 // Re-applies distributeColumnWidths' output to the live <th> elements. Shared by the
@@ -1334,6 +1374,7 @@ async function load() {
       const data = await res.json();
       if (data.ok && data.products && data.products.length) {
         state.rows = data.products.map(p => ({ ...p, _brand: p._brand || "Unknown" }));
+        await computeModelMaxW();
         initFilters();
         buildColMenu();
         apply();
@@ -1365,6 +1406,7 @@ async function loadFromCSV() {
     mfrs.forEach(m => mfrName[m.manufacturer_id] = m.name);
     products.forEach(p => p._brand = mfrName[p.manufacturer_id] || "Unknown");
     state.rows = products;
+    await computeModelMaxW();
     initFilters();
     buildColMenu();
     apply();
