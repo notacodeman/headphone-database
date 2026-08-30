@@ -33,13 +33,13 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 32,SENN_HDB630,6,2,HDB 630,Sennheiser HDB 630,2025,,Active,Headphone,Closed Back,Dynamic,40,32,107,Yes,Yes,,,First wireless model in the audiophile 600 line,,Over-Ear,450,,Wireless,,355,Estimated
 33,SENN_ACCENTUM,7,2,Accentum Wireless,Sennheiser Accentum Wireless,2023,,Active,Headphone,Closed Back,Dynamic,36,18,107,Yes,Yes,,SENN_ACCENTUMPLUS,,,Over-Ear,230,V-Shaped,Wireless,No,240,Estimated
 34,SENN_ACCENTUMPLUS,7,2,Accentum Plus,Sennheiser Accentum Plus Wireless,2024,,Active,Headphone,Closed Back,Dynamic,36,18,107,Yes,Yes,SENN_ACCENTUM,,,,Over-Ear,280,V-Shaped,Wireless,No,280,Estimated
-35,PHIL_X1,8,3,X1,Philips Fidelio X1,2012,,Discontinued,Headphone,Open Back,Dynamic,50,30,100,No,No,,PHIL_X2,,,Over-Ear,300,,,,,Estimated
-36,PHIL_X2,8,3,X2,Philips Fidelio X2,2014,,Discontinued,Headphone,Open Back,Dynamic,50,30,100,No,No,PHIL_X1,PHIL_X2HR,,,Over-Ear,300,,,,,Estimated
-37,PHIL_X2HR,8,3,X2HR,Philips Fidelio X2HR,2017,,Active,Headphone,Open Back,Dynamic,50,30,100,No,No,PHIL_X2,PHIL_X3,Popular open-back value pick,,Over-Ear,200,,,,,Estimated
-38,PHIL_X3,8,3,X3,Philips Fidelio X3,2020,,Active,Headphone,Open Back,Dynamic,50,30,100,No,No,PHIL_X2HR,,,,Over-Ear,350,,,,,Estimated
-39,PHIL_L2,8,3,L2,Philips Fidelio L2,2013,,Discontinued,Headphone,Open Back,Dynamic,,32,100,No,No,,PHIL_L3,,,Over-Ear,250,,,,,Estimated
-40,PHIL_L3,8,3,L3,Philips Fidelio L3,2021,,Active,Headphone,Closed Back,Dynamic,,32,100,Yes,Yes,PHIL_L2,,,,Over-Ear,350,,Wireless,,,Estimated
-41,PHIL_SHP9500,9,3,SHP9500,Philips SHP9500,2014,,Active,Headphone,Open Back,Dynamic,50,32,101,No,No,,,Budget open-back favorite,,Over-Ear,80,,,,,Estimated
+35,PHIL_X1,8,3,X1,Philips Fidelio X1,2012,,Discontinued,Headphone,Open Back,Dynamic,50,30,100,No,No,,PHIL_X2,,,Over-Ear,300,,3.5mm,,375,Estimated
+36,PHIL_X2,8,3,X2,Philips Fidelio X2,2014,,Discontinued,Headphone,Open Back,Dynamic,50,30,100,No,No,PHIL_X1,PHIL_X2HR,,,Over-Ear,300,,3.5mm,,405,Estimated
+37,PHIL_X2HR,8,3,X2HR,Philips Fidelio X2HR,2017,,Active,Headphone,Open Back,Dynamic,50,30,100,No,No,PHIL_X2,PHIL_X3,Popular open-back value pick,,Over-Ear,200,,3.5mm,,405,Estimated
+38,PHIL_X3,8,3,X3,Philips Fidelio X3,2020,,Active,Headphone,Open Back,Dynamic,50,30,100,No,No,PHIL_X2HR,,,,Over-Ear,350,,3.5mm,,380,Estimated
+39,PHIL_L2,8,3,L2,Philips Fidelio L2,2013,,Discontinued,Headphone,Open Back,Dynamic,,32,100,No,No,,PHIL_L3,,,Over-Ear,250,,3.5mm,,220,Estimated
+40,PHIL_L3,8,3,L3,Philips Fidelio L3,2021,,Active,Headphone,Closed Back,Dynamic,,32,100,Yes,Yes,PHIL_L2,,,,Over-Ear,350,,Wireless,,260,Estimated
+41,PHIL_SHP9500,9,3,SHP9500,Philips SHP9500,2014,,Active,Headphone,Open Back,Dynamic,50,32,101,No,No,,,Budget open-back favorite,,Over-Ear,80,,3.5mm,,320,Estimated
 42,ATECH_M40X,10,4,ATH-M40x,Audio-Technica ATH-M40x,2014,,Active,Studio,Closed Back,Dynamic,40,35,98,No,No,,,,,Over-Ear,100,Neutral,,No,240,Verified
 43,ATECH_M50X,10,4,ATH-M50x,Audio-Technica ATH-M50x,2014,,Active,Studio,Closed Back,Dynamic,45,38,99,No,No,,,Best-selling studio monitor,,Over-Ear,150,U-Shaped,,Yes,285,Verified
 44,ATECH_M60X,10,4,ATH-M60x,Audio-Technica ATH-M60x,2019,,Active,Studio,Closed Back,Dynamic,45,28,106,No,No,,,,,Over-Ear,150,,3.5mm,,250,Estimated
@@ -85,27 +85,27 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 84,BEYER_AVENTHOW,18,6,Aventho Wireless,Beyerdynamic Aventho Wireless,2017,,Discontinued,Headphone,Closed Back,Dynamic,,32,108,Yes,No,,,,,On-Ear,450,,Wireless,,340,Estimated
 85,BEYER_MMX300,20,6,MMX 300,Beyerdynamic MMX 300,2014,,Active,Gaming,Closed Back,Dynamic,45,250,96,No,No,,,Gaming headset,,Over-Ear,300,,,,363,Verified
 86,BEYER_CUSTOM1,17,6,Custom One Pro,Beyerdynamic Custom One Pro,2012,,Active,Headphone,Closed Back,Dynamic,45,16,96,No,No,,,Adjustable bass sliders,,Over-Ear,200,,3.5mm,,210,Estimated
-87,BOSE_QC25,21,7,QuietComfort 25,Bose QuietComfort 25,2014,,Discontinued,Headphone,Closed Back,Dynamic,40,30,107,No,Yes,,BOSE_QC35,,,Over-Ear,300,,,,,Estimated
-88,BOSE_QC35,21,7,QuietComfort 35,Bose QuietComfort 35,2016,,Discontinued,Headphone,Closed Back,Dynamic,40,32,107,Yes,Yes,BOSE_QC25,BOSE_QC35II,,,Over-Ear,300,,Wireless,,,Estimated
+87,BOSE_QC25,21,7,QuietComfort 25,Bose QuietComfort 25,2014,,Discontinued,Headphone,Closed Back,Dynamic,40,30,107,No,Yes,,BOSE_QC35,,,Over-Ear,300,,3.5mm,,195,Estimated
+88,BOSE_QC35,21,7,QuietComfort 35,Bose QuietComfort 35,2016,,Discontinued,Headphone,Closed Back,Dynamic,40,32,107,Yes,Yes,BOSE_QC25,BOSE_QC35II,,,Over-Ear,300,,Wireless,,235,Estimated
 89,BOSE_QC35II,21,7,QuietComfort 35 II,Bose QuietComfort 35 II,2017,,Discontinued,Headphone,Closed Back,Dynamic,40,32,107,Yes,Yes,BOSE_QC35,BOSE_QC45,,,Over-Ear,350,V-Shaped,Wireless,No,235,Estimated
 90,BOSE_QC45,21,7,QuietComfort 45,Bose QuietComfort 45,2021,,Discontinued,Headphone,Closed Back,Dynamic,40,32,107,Yes,Yes,BOSE_QC35II,BOSE_QCHP,,,Over-Ear,330,V-Shaped,Wireless,No,238,Estimated
-91,BOSE_NC700,22,7,Noise Cancelling 700,Bose Noise Cancelling Headphones 700,2019,,Active,Headphone,Closed Back,Dynamic,40,32,107,Yes,Yes,,,Premium business/travel line,,Over-Ear,380,,Wireless,,,Estimated
-92,BOSE_QCULTRA,21,7,QuietComfort Ultra,Bose QuietComfort Ultra Headphones,2023,,Active,Headphone,Closed Back,Dynamic,40,32,107,Yes,Yes,,BOSE_QCULTRA2,Immersive spatial audio,,Over-Ear,430,,Wireless,,,Estimated
-93,BOSE_QCULTRA2,21,7,QuietComfort Ultra (2nd Gen),Bose QuietComfort Ultra Headphones (2nd Gen),2025,,Active,Headphone,Closed Back,Dynamic,40,32,107,Yes,Yes,BOSE_QCULTRA,,,,Over-Ear,450,,Wireless,,,Estimated
-94,BOSE_QCHP,21,7,QuietComfort Headphones,Bose QuietComfort Headphones,2024,,Active,Headphone,Closed Back,Dynamic,40,32,107,Yes,Yes,BOSE_QC45,,,,Over-Ear,350,,Wireless,,,Estimated
+91,BOSE_NC700,22,7,Noise Cancelling 700,Bose Noise Cancelling Headphones 700,2019,,Active,Headphone,Closed Back,Dynamic,40,32,107,Yes,Yes,,,Premium business/travel line,,Over-Ear,380,,Wireless,,254,Estimated
+92,BOSE_QCULTRA,21,7,QuietComfort Ultra,Bose QuietComfort Ultra Headphones,2023,,Active,Headphone,Closed Back,Dynamic,40,32,107,Yes,Yes,,BOSE_QCULTRA2,Immersive spatial audio,,Over-Ear,430,,Wireless,,253,Estimated
+93,BOSE_QCULTRA2,21,7,QuietComfort Ultra (2nd Gen),Bose QuietComfort Ultra Headphones (2nd Gen),2025,,Active,Headphone,Closed Back,Dynamic,40,32,107,Yes,Yes,BOSE_QCULTRA,,,,Over-Ear,450,,Wireless,,250,Estimated
+94,BOSE_QCHP,21,7,QuietComfort Headphones,Bose QuietComfort Headphones,2024,,Active,Headphone,Closed Back,Dynamic,40,32,107,Yes,Yes,BOSE_QC45,,,,Over-Ear,350,,Wireless,,240,Estimated
 95,AUDEZE_LCD2,23,8,LCD-2,Audeze LCD-2,2009,,Legacy Active,Headphone,Open Back,Planar Magnetic,106,70,101,No,No,,,The headphone that launched Audeze,,Over-Ear,1200,Warm Neutral,Dual mini-XLR,Yes,585,Verified
 96,AUDEZE_LCD3,23,8,LCD-3,Audeze LCD-3,2011,,Active,Headphone,Open Back,Planar Magnetic,106,110,102,No,No,,,,,Over-Ear,2000,Warm Neutral,Dual mini-XLR,Yes,550,Verified
 97,AUDEZE_LCDX,23,8,LCD-X,Audeze LCD-X,2013,,Active,Headphone,Open Back,Planar Magnetic,106,20,103,No,No,,,Studio reference,,Over-Ear,1200,Neutral,Dual mini-XLR,Yes,600,Verified
 98,AUDEZE_LCDXC,23,8,LCD-XC,Audeze LCD-XC,2013,,Active,Headphone,Closed Back,Planar Magnetic,106,20,103,No,No,,,,,Over-Ear,1300,U-Shaped,Dual mini-XLR,Yes,695,Verified
 99,AUDEZE_LCD4,23,8,LCD-4,Audeze LCD-4,2015,,Discontinued,Headphone,Open Back,Planar Magnetic,106,200,97,No,No,,,Former flagship,,Over-Ear,4000,Analytical,Dual mini-XLR,Yes,735,Verified
-100,AUDEZE_LCD1,23,8,LCD-1,Audeze LCD-1,2020,,Active,Headphone,Open Back,Planar Magnetic,90,16,99,No,No,,,Lightweight portable planar,,Over-Ear,399,,,,,Estimated
+100,AUDEZE_LCD1,23,8,LCD-1,Audeze LCD-1,2020,,Active,Headphone,Open Back,Planar Magnetic,90,16,99,No,No,,,Lightweight portable planar,,Over-Ear,399,,3.5mm,,250,Estimated
 101,AUDEZE_LCD5,23,8,LCD-5,Audeze LCD-5,2021,2026,Discontinued,Headphone,Open Back,Planar Magnetic,90,14,90,No,No,,AUDEZE_LCD5S,Flagship planar; replaced by LCD-5s,,Over-Ear,4500,Warm Neutral,Dual mini-XLR,Yes,420,Verified
 102,AUDEZE_LCD5S,23,8,LCD-5S,Audeze LCD-5S,2024,,Active,Headphone,Open Back,Planar Magnetic,90,14,90,No,No,AUDEZE_LCD5,,Studio-tuned LCD-5; different pad set and EQ voicing,,Over-Ear,4500,Warm Neutral,Dual mini-XLR,Yes,,Estimated
 103,AUDEZE_MM500,24,8,MM-500,Audeze MM-500,2022,,Active,Studio,Open Back,Planar Magnetic,,16,100,No,No,,,Co-developed with Manny Marroquin,,Over-Ear,1500,Neutral,3.5mm,Yes,360,Verified
 104,AUDEZE_MM100,24,8,MM-100,Audeze MM-100,2023,,Active,Studio,Open Back,Planar Magnetic,,16,103,No,No,,,,,Over-Ear,400,Warm Neutral,3.5mm,Yes,260,Verified
 105,AUDEZE_CRBN,26,8,CRBN,Audeze CRBN,2022,,Active,Headphone,Open Back,Electrostatic,,,102,No,No,,,Carbon-nanotube electrostatic,,Over-Ear,4500,,Electrostatic,,650,Estimated
 106,AUDEZE_MAXWELL,25,8,Maxwell,Audeze Maxwell,2023,,Active,Gaming,Closed Back,Planar Magnetic,,32,111,Yes,No,,AUDEZE_MAXWELL2,Wireless gaming planar,,Over-Ear,300,,Wireless,,265,Estimated
-107,AUDEZE_MAXWELL2,25,8,Maxwell 2,Audeze Maxwell 2,2025,,Active,Gaming,Closed Back,Planar Magnetic,,32,111,Yes,No,AUDEZE_MAXWELL,,,,Over-Ear,329,,Wireless,,,Estimated
+107,AUDEZE_MAXWELL2,25,8,Maxwell 2,Audeze Maxwell 2,2025,,Active,Gaming,Closed Back,Planar Magnetic,,32,111,Yes,No,AUDEZE_MAXWELL,,,,Over-Ear,329,,Wireless,,350,Estimated
 108,HIFIMAN_HE400,27,9,HE-400,HiFiMan HE-400,2011,,Discontinued,Headphone,Open Back,Planar Magnetic,,50,92,No,No,,HIFIMAN_HE400I,,,Over-Ear,400,,Dual 3.5mm,,440,Estimated
 109,HIFIMAN_HE400I,27,9,HE-400i,HiFiMan HE-400i,2014,,Discontinued,Headphone,Open Back,Planar Magnetic,,35,93,No,No,HIFIMAN_HE400,,,,Over-Ear,250,,Dual 3.5mm,,370,Estimated
 110,HIFIMAN_HE400SE,27,9,HE400SE,HiFiMan HE400SE,2021,,Active,Headphone,Open Back,Planar Magnetic,,32,91,No,No,,,Budget Stealth Magnet planar,,Over-Ear,110,Neutral Bright,Dual 3.5mm,Yes,390,Verified
@@ -133,9 +133,9 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 132,FOCAL_STELLIA,36,10,Stellia,Focal Stellia,2019,,Active,Headphone,Closed Back,Dynamic,40,35,106,No,No,,,Closed beryllium flagship,,Over-Ear,3000,Dark,3.5mm,Yes,500,Verified
 133,FOCAL_CELESTEE,36,10,Celestee,Focal Celestee,2021,,Active,Headphone,Closed Back,Dynamic,40,35,105,No,No,,,,,Over-Ear,1000,U-Shaped,3.5mm,Yes,420,Verified
 134,FOCAL_BATHYS,37,10,Bathys,Focal Bathys,2022,,Active,Headphone,Closed Back,Dynamic,40,35,106,Yes,Yes,,FOCAL_BATHYSMG,First Focal wireless ANC,,Over-Ear,800,U-Shaped,3.5mm,Yes,360,Verified
-135,FOCAL_BATHYSMG,37,10,Bathys MG,Focal Bathys MG,2025,,Active,Headphone,Closed Back,Dynamic,40,35,106,Yes,Yes,FOCAL_BATHYS,,Magnesium driver edition,,Over-Ear,1299,,Wireless,,,Estimated
-136,FOCAL_AZURYS,38,10,Azurys,Focal Azurys,2025,,Active,Headphone,Closed Back,Dynamic,40,35,106,No,No,,,Affordable closed-back,,Over-Ear,500,Neutral,,,335,Verified
-137,FOCAL_HADENYS,38,10,Hadenys,Focal Hadenys,2025,,Active,Headphone,Open Back,Dynamic,40,55,100,No,No,,,Affordable open-back,,Over-Ear,1600,Neutral,,,450,Verified
+135,FOCAL_BATHYSMG,37,10,Bathys MG,Focal Bathys MG,2025,,Active,Headphone,Closed Back,Dynamic,40,35,106,Yes,Yes,FOCAL_BATHYS,,Magnesium driver edition,,Over-Ear,1299,,Wireless,,450,Estimated
+136,FOCAL_AZURYS,38,10,Azurys,Focal Azurys,2025,,Active,Headphone,Closed Back,Dynamic,40,35,106,No,No,,,Affordable closed-back,,Over-Ear,500,Neutral,3.5mm,,335,Verified
+137,FOCAL_HADENYS,38,10,Hadenys,Focal Hadenys,2025,,Active,Headphone,Open Back,Dynamic,40,55,100,No,No,,,Affordable open-back,,Over-Ear,1600,Neutral,3.5mm,,450,Verified
 138,BW_P5,39,11,P5,Bowers & Wilkins P5,2010,,Discontinued,Headphone,Closed Back,Dynamic,,32,105,No,No,,,First B&W headphone,,On-Ear,300,,,,215,Estimated
 139,BW_P7,39,11,P7,Bowers & Wilkins P7,2013,,Discontinued,Headphone,Closed Back,Dynamic,,22,102,No,No,,,,,Over-Ear,400,,,,290,Estimated
 140,BW_P9,39,11,P9 Signature,Bowers & Wilkins P9 Signature,2016,,Discontinued,Headphone,Closed Back,Dynamic,,30,104,No,No,,,,,Over-Ear,900,Warm,,,350,Estimated
@@ -163,14 +163,14 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 162,MEZE_LIRIC,46,13,Liric,Meze Liric,2022,,Active,Headphone,Closed Back,Planar Magnetic,,31.6,101,No,No,,MEZE_LIRIC2,Closed planar,,Over-Ear,2000,Warm Neutral,3.5mm,Yes,333,Verified
 163,MEZE_LIRIC2,46,13,Liric 2nd Gen,Meze Liric 2nd Generation,2024,,Active,Headphone,Closed Back,Planar Magnetic,,31.6,102,No,No,MEZE_LIRIC,,,,Over-Ear,2000,,,,,Estimated
 164,MEZE_POET,46,13,Poet,Meze Poet,2024,,Active,Headphone,Open Back,Planar Magnetic,50,40,112,No,No,,,,,Over-Ear,6000,,,,,Estimated
-165,DCA_AEONFLOW,47,14,Aeon Flow,Dan Clark Audio Aeon Flow,2017,,Discontinued,Headphone,Closed Back,Planar Magnetic,,13,92,No,No,,,Originally MrSpeakers,,Over-Ear,799,,,,,Estimated
-166,DCA_AEON2,47,14,Aeon 2,Dan Clark Audio Aeon 2,2019,,Active,Headphone,Closed Back,Planar Magnetic,,13,92,No,No,,,,,Over-Ear,899,,,,,Estimated
+165,DCA_AEONFLOW,47,14,Aeon Flow,Dan Clark Audio Aeon Flow,2017,,Discontinued,Headphone,Closed Back,Planar Magnetic,,13,92,No,No,,,Originally MrSpeakers,,Over-Ear,799,,mini-XLR,,350,Estimated
+166,DCA_AEON2,47,14,Aeon 2,Dan Clark Audio Aeon 2,2019,,Active,Headphone,Closed Back,Planar Magnetic,,13,92,No,No,,,,,Over-Ear,899,,mini-XLR,,350,Estimated
 167,DCA_AEON2NOIRE,47,14,Aeon 2 Noire,Dan Clark Audio Aeon 2 Noire,2020,,Active,Headphone,Closed Back,Planar Magnetic,,13,92,No,No,,,,,Over-Ear,800,,mini-XLR,Yes,295,Estimated
 168,DCA_ETHER2,48,14,Ether 2,Dan Clark Audio Ether 2,2018,,Active,Headphone,Open Back,Planar Magnetic,,16,88,No,No,,,,,Over-Ear,1500,Warm Neutral,mini-XLR,Yes,290,Verified
 169,DCA_STEALTH,49,14,Stealth,Dan Clark Audio Stealth,2021,,Active,Headphone,Closed Back,Planar Magnetic,,23,86,No,No,,,"AMTS tuning, closed flagship",,Over-Ear,4000,Analytical,mini-XLR,Yes,415,Verified
 170,DCA_EXPANSE,49,14,Expanse,Dan Clark Audio Expanse,2022,,Active,Headphone,Open Back,Planar Magnetic,,23,91,No,No,,,Open-back sibling of Stealth,,Over-Ear,4000,Neutral Bright,mini-XLR,Yes,415,Verified
-171,DCA_E3,49,14,E3,Dan Clark Audio E3,2024,,Active,Headphone,Closed Back,Planar Magnetic,,16,92,No,No,,,Brings AMTS to lower price,,Over-Ear,899,,,,,Estimated
-172,DCA_CORINA,49,14,Corina,Dan Clark Audio Corina,2023,,Active,Headphone,Open Back,Electrostatic,,23,93,No,No,,,Electrostatic flagship,,Over-Ear,4300,,,,,Estimated
+171,DCA_E3,49,14,E3,Dan Clark Audio E3,2024,,Active,Headphone,Closed Back,Planar Magnetic,,16,92,No,No,,,Brings AMTS to lower price,,Over-Ear,899,,mini-XLR,,320,Estimated
+172,DCA_CORINA,49,14,Corina,Dan Clark Audio Corina,2023,,Active,Headphone,Open Back,Electrostatic,,23,93,No,No,,,Electrostatic flagship,,Over-Ear,4300,,mini-XLR,,450,Estimated
 173,APPLE_AIRPODSMAX,50,15,AirPods Max,Apple AirPods Max,2020,,Discontinued,Headphone,Closed Back,Dynamic,40,35,100,Yes,Yes,,APPLE_AIRPODSMAXUSBC,Lightning port,,Over-Ear,550,V-Shaped,Lightning,No,385,Estimated
 174,APPLE_AIRPODSMAXUSBC,50,15,AirPods Max (USB-C),Apple AirPods Max (USB-C),2024,,Active,Headphone,Closed Back,Dynamic,40,35,100,Yes,Yes,APPLE_AIRPODSMAX,,"USB-C, lossless audio support",,Over-Ear,550,V-Shaped,USB-C,No,385,Estimated
 175,BEATS_STUDIO2,51,16,Studio 2,Beats Studio 2 Wireless,2014,,Discontinued,Headphone,Closed Back,Dynamic,40,32,104,Yes,Yes,,BEATS_STUDIO3,,,Over-Ear,300,,Wireless,,,Estimated
@@ -220,9 +220,9 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 219,ABYSS_DIANA,68,26,Diana,Abyss Diana,2017,,Active,Headphone,Open Back,Planar Magnetic,,42,88,No,No,,ABYSS_DIANAV2,,,Over-Ear,2500,,,,330,Estimated
 220,ABYSS_DIANAV2,68,26,Diana V2,Abyss Diana V2,2020,,Active,Headphone,Open Back,Planar Magnetic,,42,88,No,No,ABYSS_DIANA,,,,Over-Ear,3000,,,,330,Estimated
 221,ZMF_AUTEUR,70,27,Auteur,ZMF Auteur,2017,,Active,Headphone,Open Back,Dynamic,,300,96,No,No,,,Hand-built wood,,Over-Ear,1500,Warm Neutral,Dual 3.5mm,Yes,430,Verified
-222,ZMF_VERITEOPEN,69,27,Verite Open,ZMF Verite Open,2019,,Active,Headphone,Open Back,Dynamic,,300,96,No,No,,,Beryllium-coated driver,,Over-Ear,2499,,,,,Estimated
-223,ZMF_VERITECLOSED,69,27,Verite Closed,ZMF Verite Closed,2019,,Active,Headphone,Closed Back,Dynamic,,300,96,No,No,,,,,Over-Ear,2749,,,,,Estimated
-224,ZMF_ATRIUM,71,27,Atrium,ZMF Atrium,2022,,Active,Headphone,Open Back,Dynamic,,300,96,No,No,,,,,Over-Ear,1699,,,,,Estimated
+222,ZMF_VERITEOPEN,69,27,Verite Open,ZMF Verite Open,2019,,Active,Headphone,Open Back,Dynamic,,300,96,No,No,,,Beryllium-coated driver,,Over-Ear,2499,,mini-XLR,,490,Estimated
+223,ZMF_VERITECLOSED,69,27,Verite Closed,ZMF Verite Closed,2019,,Active,Headphone,Closed Back,Dynamic,,300,96,No,No,,,,,Over-Ear,2749,,mini-XLR,,510,Estimated
+224,ZMF_ATRIUM,71,27,Atrium,ZMF Atrium,2022,,Active,Headphone,Open Back,Dynamic,,300,96,No,No,,,,,Over-Ear,1699,,mini-XLR,,476,Estimated
 225,ZMF_CALDERA,72,27,Caldera,ZMF Caldera,2023,,Active,Headphone,Open Back,Planar Magnetic,,55,96,No,No,,,First ZMF planar,,Over-Ear,2500,Warm,Dual 3.5mm,Yes,430,Verified
 226,STAX_SR009,73,28,SR-009,Stax SR-009,2011,,Active,Headphone,Open Back,Electrostatic,,,100,No,No,,,"Electrostatic earspeaker, needs energizer",,Over-Ear,4400,Bright,Electrostatic,,338,Verified
 227,STAX_SR009S,73,28,SR-009S,Stax SR-009S,2018,,Active,Headphone,Open Back,Electrostatic,,,101,No,No,,,,,Over-Ear,4400,Bright,Electrostatic,,338,Verified
@@ -230,9 +230,9 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 229,STAX_X9000,73,28,SR-X9000,Stax SR-X9000,2021,,Active,Headphone,Open Back,Electrostatic,,,104,No,No,,,Flagship electrostatic,,Over-Ear,4500,Bright,Electrostatic,,440,Verified
 230,FINAL_D8000,74,29,D8000,Final Audio D8000,2017,,Active,Headphone,Open Back,Planar Magnetic,50,60,98,No,No,,,AFDS planar tech,,Over-Ear,4000,,4.4mm Pentaconn,Yes,523,Verified
 231,FINAL_D8000PRO,74,29,D8000 Pro,Final Audio D8000 Pro,2019,,Active,Headphone,Open Back,Planar Magnetic,50,60,98,No,No,,,,,Over-Ear,4500,,4.4mm Pentaconn,Yes,523,Verified
-232,FOSTEX_TH900MK2,75,30,TH900 mk2,Fostex TH900 mk2,2015,,Active,Headphone,Closed Back,Dynamic,50,25,100,No,No,,,"Biodynamic driver, urushi finish",,Over-Ear,1499,Warm,Dual 3.5mm,Yes,,Verified
+232,FOSTEX_TH900MK2,75,30,TH900 mk2,Fostex TH900 mk2,2015,,Active,Headphone,Closed Back,Dynamic,50,25,100,No,No,,,"Biodynamic driver, urushi finish",,Over-Ear,1499,Warm,Dual 3.5mm,Yes,380,Verified
 233,FOSTEX_TH610,75,30,TH610,Fostex TH610,2016,,Discontinued,Headphone,Closed Back,Dynamic,50,25,96,No,No,,,,,Over-Ear,400,Warm,Dual 3.5mm,Yes,390,Verified
-234,FOSTEX_TH909,75,30,TH909,Fostex TH909,2018,,Active,Headphone,Open Back,Dynamic,50,25,100,No,No,,,,,Over-Ear,1699,,,,,Estimated
+234,FOSTEX_TH909,75,30,TH909,Fostex TH909,2018,,Active,Headphone,Open Back,Dynamic,50,25,100,No,No,,,,,Over-Ear,1699,,Dual 3.5mm,,350,Estimated
 235,DENON_D5200,76,31,AH-D5200,Denon AH-D5200,2017,,Active,Headphone,Closed Back,Dynamic,50,46,98,No,No,,,"Zebrawood, FreeEdge driver",,Over-Ear,899,,,,,Estimated
 236,DENON_D7200,76,31,AH-D7200,Denon AH-D7200,2016,,Active,Headphone,Closed Back,Dynamic,50,25,98,No,No,,,,,Over-Ear,1699,Warm,Dual 3.5mm,Yes,385,Estimated
 237,DENON_D9200,76,31,AH-D9200,Denon AH-D9200,2018,,Active,Headphone,Closed Back,Dynamic,50,16,98,No,No,,,Bamboo flagship,,Over-Ear,1000,Warm,Dual 3.5mm,Yes,,Estimated
@@ -332,11 +332,11 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 331,BEYER_MMX150,20,6,MMX 150,Beyerdynamic MMX 150,2022,,Active,Gaming,Closed Back,Dynamic,40,32,116,No,No,,,,,Over-Ear,100,,mini-XLR,,220,Estimated
 332,BEYER_MMX300_2,20,6,MMX 300 2nd Gen,Beyerdynamic MMX 300 (2nd Gen),2019,,Active,Gaming,Closed Back,Dynamic,45,250,96,No,No,BEYER_MMX300,,,,Over-Ear,300,,mini-XLR,,363,Estimated
 333,BEYER_TYGR300R,17,6,TYGR 300 R,Beyerdynamic TYGR 300 R,2020,,Active,Headphone,Open Back,Dynamic,45,32,102,No,No,,,Gaming-focused open-back; popular with audiophiles,,Over-Ear,200,,3.5mm,,345,Estimated
-334,BOSE_QC3,100,7,QuietComfort 3,Bose QuietComfort 3,2006,,Discontinued,Headphone,Closed Back,Dynamic,40,30,107,No,Yes,,,On-ear ANC,,On-Ear,350,,,,,Estimated
-335,BOSE_OE2,99,7,OE2,Bose OE2,2011,,Discontinued,Headphone,Closed Back,Dynamic,40,32,109,No,No,,,,,On-Ear,150,,,,,Estimated
-336,BOSE_AE2,99,7,AE2,Bose AE2,2010,,Discontinued,Headphone,Closed Back,Dynamic,40,32,109,No,No,,,,,Over-Ear,150,,,,,Estimated
-337,BOSE_SOUNDLINKAE,99,7,SoundLink Around-Ear II,Bose SoundLink Around-Ear II,2015,,Discontinued,Headphone,Closed Back,Dynamic,40,32,105,Yes,No,,,,,Over-Ear,230,,Wireless,,,Estimated
-338,BOSE_SOUNDLINKOE,99,7,SoundLink On-Ear,Bose SoundLink On-Ear,2016,,Discontinued,Headphone,Closed Back,Dynamic,40,32,105,Yes,No,,,,,On-Ear,200,,Wireless,,,Estimated
+334,BOSE_QC3,100,7,QuietComfort 3,Bose QuietComfort 3,2006,,Discontinued,Headphone,Closed Back,Dynamic,40,30,107,No,Yes,,,On-ear ANC,,On-Ear,350,,3.5mm,,200,Estimated
+335,BOSE_OE2,99,7,OE2,Bose OE2,2011,,Discontinued,Headphone,Closed Back,Dynamic,40,32,109,No,No,,,,,On-Ear,150,,3.5mm,,140,Estimated
+336,BOSE_AE2,99,7,AE2,Bose AE2,2010,,Discontinued,Headphone,Closed Back,Dynamic,40,32,109,No,No,,,,,Over-Ear,150,,3.5mm,,140,Estimated
+337,BOSE_SOUNDLINKAE,99,7,SoundLink Around-Ear II,Bose SoundLink Around-Ear II,2015,,Discontinued,Headphone,Closed Back,Dynamic,40,32,105,Yes,No,,,,,Over-Ear,230,,Wireless,,218,Estimated
+338,BOSE_SOUNDLINKOE,99,7,SoundLink On-Ear,Bose SoundLink On-Ear,2016,,Discontinued,Headphone,Closed Back,Dynamic,40,32,105,Yes,No,,,,,On-Ear,200,,Wireless,,210,Estimated
 339,HIFIMAN_HE500,27,9,HE-500,HiFiMan HE-500,2011,,Discontinued,Headphone,Open Back,Planar Magnetic,,38,89,No,No,,,Beloved early planar,,Over-Ear,700,,Dual 3.5mm,,500,Estimated
 340,HIFIMAN_HE6,27,9,HE-6,HiFiMan HE-6,2011,,Discontinued,Headphone,Open Back,Planar Magnetic,,50,83,No,No,,HIFIMAN_HE6SE,Famously power-hungry,,Over-Ear,1300,,Dual 3.5mm,,480,Estimated
 341,HIFIMAN_EDITIONX,28,9,Edition X,HiFiMan Edition X,2015,,Discontinued,Headphone,Open Back,Planar Magnetic,,25,103,No,No,,HIFIMAN_EDITIONXV2,,,Over-Ear,1799,,Dual 3.5mm,,399,Estimated
@@ -356,16 +356,16 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 355,HIFIMAN_JADE2,27,9,Jade II,HiFiMan Jade II,2019,,Active,Headphone,Open Back,Electrostatic,,,90,No,No,,,"Electrostatic, needs energizer",,Over-Ear,2500,,Electrostatic,,550,Estimated
 356,HIFIMAN_SHANGRILA,27,9,Shangri-La Jr,HiFiMan Shangri-La Jr,2017,,Active,Headphone,Open Back,Electrostatic,,,90,No,No,,,,,Over-Ear,8000,,Electrostatic,,420,Estimated
 357,HIFIMAN_AUDIVINA,27,9,Audivina,HiFiMan Audivina,2023,,Active,Headphone,Closed Back,Planar Magnetic,,14,91,No,No,,,Closed-back home listening,,Over-Ear,1699,,Dual 3.5mm,,420,Estimated
-358,FOCAL_SPIRITONE,101,10,Spirit One,Focal Spirit One,2012,,Discontinued,Headphone,Closed Back,Dynamic,40,32,103,No,No,,,,,Over-Ear,150,,,,,Estimated
-359,FOCAL_SPIRITCLASSIC,101,10,Spirit Classic,Focal Spirit Classic,2013,,Discontinued,Headphone,Closed Back,Dynamic,40,32,103,No,No,,,Audiophile-aimed closed-back; 40mm driver; launched alongside Spirit Professional,,Over-Ear,350,,,,,Estimated
-360,FOCAL_SPIRITPRO,101,10,Spirit Professional,Focal Spirit Professional,2013,,Discontinued,Studio,Closed Back,Dynamic,40,32,103,No,No,,,,,Over-Ear,350,,,,,Estimated
-361,FOCAL_LISTEN,38,10,Listen,Focal Listen,2016,,Discontinued,Headphone,Closed Back,Dynamic,40,32,116,No,No,,,,,On-Ear,280,,,,195,Estimated
-362,FOCAL_LISTENPRO,101,10,Listen Professional,Focal Listen Professional,2017,,Active,Studio,Closed Back,Dynamic,40,32,104,No,No,,,,,On-Ear,350,,,,180,Estimated
-363,FOCAL_LISTENWL,38,10,Listen Wireless,Focal Listen Wireless,2017,,Discontinued,Headphone,Closed Back,Dynamic,40,32,104,Yes,No,,,,,On-Ear,250,,Wireless,,,Estimated
-364,FOCAL_ELEX,35,10,Elex,Drop x Focal Elex,2017,,Active,Headphone,Open Back,Dynamic,40,80,104,No,No,,,Drop collaboration,,Over-Ear,699,,,,,Estimated
-365,FOCAL_CLEARPRO,35,10,Clear Professional,Focal Clear Professional,2018,,Active,Studio,Open Back,Dynamic,40,55,104,No,No,,,,,Over-Ear,1499,,,,,Estimated
-366,FOCAL_RADIANCE,36,10,Radiance,Focal Radiance,2019,,Discontinued,Headphone,Closed Back,Dynamic,40,35,105,No,No,,,Bentley edition,,Over-Ear,1290,,,,,Estimated
-367,FOCAL_CLEARMGPRO,35,10,Clear MG Professional,Focal Clear MG Professional,2021,,Active,Studio,Open Back,Dynamic,40,55,104,No,No,,,,,Over-Ear,1990,,,,,Estimated
+358,FOCAL_SPIRITONE,101,10,Spirit One,Focal Spirit One,2012,,Discontinued,Headphone,Closed Back,Dynamic,40,32,103,No,No,,,,,Over-Ear,150,,3.5mm,,200,Estimated
+359,FOCAL_SPIRITCLASSIC,101,10,Spirit Classic,Focal Spirit Classic,2013,,Discontinued,Headphone,Closed Back,Dynamic,40,32,103,No,No,,,Audiophile-aimed closed-back; 40mm driver; launched alongside Spirit Professional,,Over-Ear,350,,3.5mm,,320,Estimated
+360,FOCAL_SPIRITPRO,101,10,Spirit Professional,Focal Spirit Professional,2013,,Discontinued,Studio,Closed Back,Dynamic,40,32,103,No,No,,,,,Over-Ear,350,,3.5mm,,320,Estimated
+361,FOCAL_LISTEN,38,10,Listen,Focal Listen,2016,,Discontinued,Headphone,Closed Back,Dynamic,40,32,116,No,No,,,,,On-Ear,280,,3.5mm,,195,Estimated
+362,FOCAL_LISTENPRO,101,10,Listen Professional,Focal Listen Professional,2017,,Active,Studio,Closed Back,Dynamic,40,32,104,No,No,,,,,On-Ear,350,,3.5mm,,180,Estimated
+363,FOCAL_LISTENWL,38,10,Listen Wireless,Focal Listen Wireless,2017,,Discontinued,Headphone,Closed Back,Dynamic,40,32,104,Yes,No,,,,,On-Ear,250,,Wireless,,220,Estimated
+364,FOCAL_ELEX,35,10,Elex,Drop x Focal Elex,2017,,Active,Headphone,Open Back,Dynamic,40,80,104,No,No,,,Drop collaboration,,Over-Ear,699,,3.5mm,,450,Estimated
+365,FOCAL_CLEARPRO,35,10,Clear Professional,Focal Clear Professional,2018,,Active,Studio,Open Back,Dynamic,40,55,104,No,No,,,,,Over-Ear,1499,,3.5mm,,450,Estimated
+366,FOCAL_RADIANCE,36,10,Radiance,Focal Radiance,2019,,Discontinued,Headphone,Closed Back,Dynamic,40,35,105,No,No,,,Bentley edition,,Over-Ear,1290,,3.5mm,,350,Estimated
+367,FOCAL_CLEARMGPRO,35,10,Clear MG Professional,Focal Clear MG Professional,2021,,Active,Studio,Open Back,Dynamic,40,55,104,No,No,,,,,Over-Ear,1990,,3.5mm,,450,Estimated
 368,GRADO_SR125X,41,12,SR125x,Grado SR125x,2021,,Active,Headphone,Open Back,Dynamic,,32,99,No,No,,,,,On-Ear,175,Bright,3.5mm,No,175,Verified
 369,GRADO_SR225X,41,12,SR225x,Grado SR225x,2021,,Active,Headphone,Open Back,Dynamic,,32,99,No,No,,,,,On-Ear,250,Bright,3.5mm,No,190,Verified
 370,GRADO_SR80E,41,12,SR80e,Grado SR80e,2014,,Discontinued,Headphone,Open Back,Dynamic,,32,99,No,No,,GRADO_SR80X,,,On-Ear,100,,3.5mm,,190,Estimated
@@ -384,10 +384,10 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 383,BW_P7WIRELESS,39,11,P7 Wireless,Bowers & Wilkins P7 Wireless,2015,,Discontinued,Headphone,Closed Back,Dynamic,,22,102,Yes,No,,,,,Over-Ear,399,,Wireless,,,Estimated
 384,BW_PX5,40,11,PX5,Bowers & Wilkins PX5,2019,,Discontinued,Headphone,Closed Back,Dynamic,,32,100,Yes,Yes,,,On-ear ANC,,On-Ear,280,,Wireless,No,237,Estimated
 385,AUDEZE_LCD2C,23,8,LCD-2 Classic,Audeze LCD-2 Classic,2018,,Active,Headphone,Open Back,Planar Magnetic,106,70,101,No,No,,,,,Over-Ear,900,Warm Neutral,Dual mini-XLR,Yes,545,Verified
-386,AUDEZE_LCDGX,23,8,LCD-GX,Audeze LCD-GX,2019,,Active,Gaming,Open Back,Planar Magnetic,106,20,103,No,No,,,Open-back gaming,,Over-Ear,899,,,,,Estimated
-387,AUDEZE_LCD4Z,23,8,LCD-4z,Audeze LCD-4z,2017,,Active,Headphone,Open Back,Planar Magnetic,106,15,98,No,No,,,Low-impedance LCD-4,,Over-Ear,3995,,,,,Estimated
-388,AUDEZE_LCDXC2021,23,8,LCD-XC (2021),Audeze LCD-XC (2021),2021,,Active,Headphone,Closed Back,Planar Magnetic,106,20,103,No,No,AUDEZE_LCDXC,,,,Over-Ear,1799,,,,,Estimated
-389,AUDEZE_CRBN2,26,8,CRBN2,Audeze CRBN2,2024,,Active,Headphone,Open Back,Electrostatic,,,102,No,No,AUDEZE_CRBN,,,,Over-Ear,4500,,Electrostatic,,,Estimated
+386,AUDEZE_LCDGX,23,8,LCD-GX,Audeze LCD-GX,2019,,Active,Gaming,Open Back,Planar Magnetic,106,20,103,No,No,,,Open-back gaming,,Over-Ear,899,,Dual mini-XLR,,620,Estimated
+387,AUDEZE_LCD4Z,23,8,LCD-4z,Audeze LCD-4z,2017,,Active,Headphone,Open Back,Planar Magnetic,106,15,98,No,No,,,Low-impedance LCD-4,,Over-Ear,3995,,Dual mini-XLR,,600,Estimated
+388,AUDEZE_LCDXC2021,23,8,LCD-XC (2021),Audeze LCD-XC (2021),2021,,Active,Headphone,Closed Back,Planar Magnetic,106,20,103,No,No,AUDEZE_LCDXC,,,,Over-Ear,1799,,Dual mini-XLR,,611,Estimated
+389,AUDEZE_CRBN2,26,8,CRBN2,Audeze CRBN2,2024,,Active,Headphone,Open Back,Electrostatic,,,102,No,No,AUDEZE_CRBN,,,,Over-Ear,4500,,Electrostatic,,425,Estimated
 390,STEEL_ARCTIS5,56,18,Arctis 5,SteelSeries Arctis 5,2017,,Discontinued,Gaming,Closed Back,Dynamic,40,32,98,No,No,,,,,Over-Ear,100,,3.5mm,,300,Estimated
 391,STEEL_NOVA1,55,18,Arctis Nova 1,SteelSeries Arctis Nova 1,2022,,Active,Gaming,Closed Back,Dynamic,40,32,98,No,No,,,,,Over-Ear,50,,3.5mm,,300,Estimated
 392,STEEL_NOVA7X,55,18,Arctis Nova 7X,SteelSeries Arctis Nova 7X,2022,,Active,Gaming,Closed Back,Dynamic,40,32,98,Yes,No,,,,,Over-Ear,180,,Wireless,,337,Estimated
@@ -486,18 +486,18 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 485,GRADO_SR325I,41,12,SR325i,Grado SR325i,2008,,Discontinued,Headphone,Open Back,Dynamic,,32,99,No,No,,GRADO_SR325E,,,On-Ear,295,,3.5mm,,340,Estimated
 486,GRADO_GS1000,43,12,GS1000,Grado GS1000,2006,,Discontinued,Headphone,Open Back,Dynamic,,32,99,No,No,,,"First Statement-series, large bowl pads",,On-Ear,1000,,3.5mm,,420,Estimated
 487,GRADO_PS1000,102,12,PS1000,Grado PS1000,2009,,Discontinued,Headphone,Open Back,Dynamic,,32,99,No,No,,GRADO_PS1000E,,,On-Ear,1695,,3.5mm,,450,Estimated
-488,BOSE_TRIPORT,120,7,TriPort,Bose TriPort,2003,,Discontinued,Headphone,Closed Back,Dynamic,40,32,104,No,No,,BOSE_AE2,,,Over-Ear,100,,,,,Estimated
-489,BOSE_QC2,120,7,QuietComfort 2,Bose QuietComfort 2,2003,,Discontinued,Headphone,Closed Back,Dynamic,40,30,107,No,Yes,,,Defined consumer ANC,,Over-Ear,300,,,,,Estimated
-490,BOSE_QC15,21,7,QuietComfort 15,Bose QuietComfort 15,2009,,Discontinued,Headphone,Closed Back,Dynamic,40,30,107,No,Yes,,BOSE_QC25,Hugely popular wired ANC,,Over-Ear,300,,,,,Estimated
-491,PHIL_SHP2000,9,3,SHP2000,Philips SHP2000,2008,,Discontinued,Headphone,Open Back,Dynamic,40,32,102,No,No,,,,,Over-Ear,30,,,,,Estimated
+488,BOSE_TRIPORT,120,7,TriPort,Bose TriPort,2003,,Discontinued,Headphone,Closed Back,Dynamic,40,32,104,No,No,,BOSE_AE2,,,Over-Ear,100,,3.5mm,,155,Estimated
+489,BOSE_QC2,120,7,QuietComfort 2,Bose QuietComfort 2,2003,,Discontinued,Headphone,Closed Back,Dynamic,40,30,107,No,Yes,,,Defined consumer ANC,,Over-Ear,300,,3.5mm,,180,Estimated
+490,BOSE_QC15,21,7,QuietComfort 15,Bose QuietComfort 15,2009,,Discontinued,Headphone,Closed Back,Dynamic,40,30,107,No,Yes,,BOSE_QC25,Hugely popular wired ANC,,Over-Ear,300,,3.5mm,,180,Estimated
+491,PHIL_SHP2000,9,3,SHP2000,Philips SHP2000,2008,,Discontinued,Headphone,Open Back,Dynamic,40,32,102,No,No,,,,,Over-Ear,30,,3.5mm,,180,Estimated
 492,ULTRA_HFI580,79,34,HFI-580,Ultrasone HFI-580,2008,,Discontinued,Headphone,Closed Back,Dynamic,40,75,94,No,No,,,S-Logic surround positioning,,Over-Ear,130,,,,,Estimated
 493,DENON_D2000,76,31,AH-D2000,Denon AH-D2000,2007,,Discontinued,Headphone,Closed Back,Dynamic,50,25,106,No,No,,,Beloved bio-cellulose closed-back,,Over-Ear,350,,3.5mm,Yes,345,Estimated
 494,DENON_D5000,76,31,AH-D5000,Denon AH-D5000,2007,,Discontinued,Headphone,Closed Back,Dynamic,50,25,106,No,No,,,Mahogany-cup classic,,Over-Ear,600,Warm,3.5mm,Yes,360,Estimated
-495,FOSTEX_TH900,75,30,TH900,Fostex TH900,2011,,Discontinued,Headphone,Closed Back,Dynamic,50,25,100,No,No,,FOSTEX_TH900MK2,Original urushi-lacquer flagship,,Over-Ear,1500,,,,390,Estimated
-496,PHIL_L1,8,3,L1,Philips Fidelio L1,2012,,Discontinued,Headphone,Open Back,Dynamic,,32,100,No,No,,,First Fidelio over-ear flagship,,Over-Ear,200,,,,,Estimated
-497,PHIL_L4,8,3,L4,Philips Fidelio L4,2024,,Active,Headphone,Closed Back,Dynamic,,32,100,Yes,Yes,PHIL_L3,,Wireless ANC flagship,,Over-Ear,349,,Wireless,,,Estimated
-498,PHIL_SHP9600,9,3,SHP9600,Philips SHP9600,2020,,Active,Headphone,Open Back,Dynamic,50,32,106,No,No,PHIL_SHP9500,,,,Over-Ear,90,,,,,Estimated
-499,PHIL_H8505,8,3,Fidelio H1,Philips Fidelio H1,2014,,Discontinued,Headphone,Open Back,Dynamic,,27,104,No,No,,,,,Over-Ear,150,,,,,Estimated
+495,FOSTEX_TH900,75,30,TH900,Fostex TH900,2011,,Discontinued,Headphone,Closed Back,Dynamic,50,25,100,No,No,,FOSTEX_TH900MK2,Original urushi-lacquer flagship,,Over-Ear,1500,,Dual 3.5mm,,390,Estimated
+496,PHIL_L1,8,3,L1,Philips Fidelio L1,2012,,Discontinued,Headphone,Open Back,Dynamic,,32,100,No,No,,,First Fidelio over-ear flagship,,Over-Ear,200,,3.5mm,,285,Estimated
+497,PHIL_L4,8,3,L4,Philips Fidelio L4,2024,,Active,Headphone,Closed Back,Dynamic,,32,100,Yes,Yes,PHIL_L3,,Wireless ANC flagship,,Over-Ear,349,,Wireless,,280,Estimated
+498,PHIL_SHP9600,9,3,SHP9600,Philips SHP9600,2020,,Active,Headphone,Open Back,Dynamic,50,32,106,No,No,PHIL_SHP9500,,,,Over-Ear,90,,3.5mm,,305,Estimated
+499,PHIL_H8505,8,3,Fidelio H1,Philips Fidelio H1,2014,,Discontinued,Headphone,Open Back,Dynamic,,27,104,No,No,,,,,Over-Ear,150,,3.5mm,,190,Estimated
 500,SHURE_SRH240A,53,17,SRH240A,Shure SRH240A,2011,,Active,Studio,Closed Back,Dynamic,40,44,105,No,No,,,,,Over-Ear,50,,,,,Estimated
 501,SHURE_SRH440,53,17,SRH440,Shure SRH440,2009,,Active,Studio,Closed Back,Dynamic,40,44,105,No,No,,SHURE_SRH440A,,,Over-Ear,100,,,,218,Estimated
 502,SHURE_SRH440A,53,17,SRH440A,Shure SRH440A,2023,,Active,Studio,Closed Back,Dynamic,40,44,105,No,No,SHURE_SRH440,,,,Over-Ear,120,Analytical,3.5mm,Yes,159,Verified
@@ -507,13 +507,13 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 506,SHURE_SRH940,53,17,SRH940,Shure SRH940,2011,,Discontinued,Studio,Closed Back,Dynamic,40,42,100,No,No,,,,,Over-Ear,300,,,,305,Estimated
 507,SHURE_SRH1440,53,17,SRH1440,Shure SRH1440,2012,,Active,Studio,Open Back,Dynamic,40,44,100,No,No,,,,,Over-Ear,250,,,,,Estimated
 508,SHURE_AONIC40,54,17,AONIC 40,Shure AONIC 40,2022,,Active,Headphone,Closed Back,Dynamic,40,18,111,Yes,Yes,,,,,Over-Ear,230,,Wireless,,,Estimated
-509,ZMF_EIKON,123,27,Eikon,ZMF Eikon,2016,,Active,Headphone,Closed Back,Dynamic,,300,96,No,No,,,Bio-cellulose closed-back,,Over-Ear,1500,,,,420,Estimated
-510,ZMF_ATTICUS,124,27,Atticus,ZMF Atticus,2016,,Active,Headphone,Closed Back,Dynamic,,300,96,No,No,,,Warm 'ZMF house sound',,Over-Ear,1200,,,,430,Estimated
+509,ZMF_EIKON,123,27,Eikon,ZMF Eikon,2016,,Active,Headphone,Closed Back,Dynamic,,300,96,No,No,,,Bio-cellulose closed-back,,Over-Ear,1500,,mini-XLR,,420,Estimated
+510,ZMF_ATTICUS,124,27,Atticus,ZMF Atticus,2016,,Active,Headphone,Closed Back,Dynamic,,300,96,No,No,,,Warm 'ZMF house sound',,Over-Ear,1200,,mini-XLR,,430,Estimated
 511,ZMF_AEOLUS,124,27,Aeolus,ZMF Aeolus,2018,,Active,Headphone,Open Back,Dynamic,,300,96,No,No,,,Open-back Atticus sibling,,Over-Ear,1300,Warm Neutral,Dual 3.5mm,Yes,440,Verified
-512,ZMF_ATRIUMCLOSED,71,27,Atrium Closed,ZMF Atrium Closed,2023,,Active,Headphone,Closed Back,Dynamic,,300,96,No,No,,,,,Over-Ear,1799,,,,,Estimated
-513,ZMF_BOKEHOPEN,125,27,Bokeh Open,ZMF Bokeh Open,2024,,Active,Headphone,Open Back,Dynamic,,300,96,No,No,,,,,Over-Ear,1000,,,,,Estimated
-514,ZMF_BOKEHCLOSED,125,27,Bokeh Closed,ZMF Bokeh Closed,2024,,Active,Headphone,Closed Back,Dynamic,,300,96,No,No,,,,,Over-Ear,1100,,,,,Estimated
-515,ZMF_CALDERACLOSED,72,27,Caldera Closed,ZMF Caldera Closed,2024,,Active,Headphone,Closed Back,Planar Magnetic,,55,96,No,No,ZMF_CALDERA,,,,Over-Ear,3500,,,,,Estimated
+512,ZMF_ATRIUMCLOSED,71,27,Atrium Closed,ZMF Atrium Closed,2023,,Active,Headphone,Closed Back,Dynamic,,300,96,No,No,,,,,Over-Ear,1799,,mini-XLR,,500,Estimated
+513,ZMF_BOKEHOPEN,125,27,Bokeh Open,ZMF Bokeh Open,2024,,Active,Headphone,Open Back,Dynamic,,300,96,No,No,,,,,Over-Ear,1000,,mini-XLR,,480,Estimated
+514,ZMF_BOKEHCLOSED,125,27,Bokeh Closed,ZMF Bokeh Closed,2024,,Active,Headphone,Closed Back,Dynamic,,300,96,No,No,,,,,Over-Ear,1100,,mini-XLR,,500,Estimated
+515,ZMF_CALDERACLOSED,72,27,Caldera Closed,ZMF Caldera Closed,2024,,Active,Headphone,Closed Back,Planar Magnetic,,55,96,No,No,ZMF_CALDERA,,,,Over-Ear,3500,,mini-XLR,,500,Estimated
 516,STAX_SR007,73,28,SR-007 (Omega II),Stax SR-007 mk2,2003,,Active,Headphone,Open Back,Electrostatic,,,99,No,No,,,Omega II reference,,Over-Ear,2300,Dark,Electrostatic,,370,Verified
 517,STAX_SRL300,126,28,SR-L300,Stax SR-L300,2015,,Active,Headphone,Open Back,Electrostatic,,,103,No,No,,,,,Over-Ear,450,,Electrostatic,,400,Estimated
 518,STAX_SRL500,126,28,SR-L500,Stax SR-L500,2015,,Active,Headphone,Open Back,Electrostatic,,,101,No,No,,,,,Over-Ear,600,,Electrostatic,,415,Estimated
@@ -527,7 +527,7 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 526,SONY_MDRMA900,128,1,MDR-MA900,Sony MDR-MA900,2012,,Discontinued,Headphone,Open Back,Dynamic,70,12,103,No,No,,,Lightweight 70mm open-back,,Over-Ear,250,,3.5mm,,260,Estimated
 527,SONY_MDRMV1,128,1,MDR-MV1,Sony MDR-MV1,2023,,Active,Studio,Open Back,Dynamic,40,24,100,No,No,,,Open-back studio reference,,Over-Ear,300,,3.5mm/6.35mm,,223,Estimated
 528,SONY_MDRM1,128,1,MDR-M1,Sony MDR-M1,2024,,Active,Studio,Closed Back,Dynamic,40,50,102,No,No,,,Modern studio monitor,,Over-Ear,300,,3.5mm/6.35mm,,216,Estimated
-529,AUDEZE_LCD24,23,8,LCD-24,Audeze LCD-24 (Anniversary),2023,,Active,Headphone,Open Back,Planar Magnetic,106,70,101,No,No,,,Limited anniversary LCD,,Over-Ear,2999,,,,,Estimated
+529,AUDEZE_LCD24,23,8,LCD-24,Audeze LCD-24 (Anniversary),2023,,Active,Headphone,Open Back,Planar Magnetic,106,70,101,No,No,,,Limited anniversary LCD,,Over-Ear,2999,,Dual mini-XLR,,600,Estimated
 530,AUDEZE_PENROSE,25,8,Penrose,Audeze Penrose,2020,,Discontinued,Gaming,Closed Back,Planar Magnetic,,32,111,Yes,No,,,Wireless gaming predecessor to Maxwell,,Over-Ear,300,,Wireless,,345,Estimated
 531,MEZE_99CLASSICSWALNUT,45,13,99 Classics Walnut Gold,Meze 99 Classics Walnut Gold,2015,,Active,Headphone,Closed Back,Dynamic,40,32,103,No,No,,,Standard walnut/gold finish,,Over-Ear,309,,,Yes,,Estimated
 532,KOSS_PORTAPRO,130,43,Porta Pro,Koss Porta Pro,1984,,Legacy Active,Headphone,Open Back,Dynamic,25,60,101,No,No,,,"Iconic on-ear, in production since 1984",,On-Ear,50,,3.5mm,No,60,Verified
@@ -605,7 +605,7 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 604,MOONDROP_HORIZON,146,53,Horizon,Moondrop Horizon,2025,,Active,Headphone,Open Back,Dynamic,,32,100,No,No,,,"Dynamic driver, low-distortion",,Over-Ear,80,,,,,Estimated
 605,MOONDROP_EDGE,158,53,Edge,Moondrop Edge,2024,,Active,Headphone,Closed Back,Dynamic,,32,100,Yes,Yes,,,First Moondrop over-ear wireless ANC,,Over-Ear,150,,Wireless,,,Estimated
 606,MOONDROP_OLDFASHIONED,159,53,Old Fashioned,Moondrop Old Fashioned,2025,,Active,Headphone,Open Back,Dynamic,,60,96,No,No,,,"$25 retro on-ear, 40mm driver",,Over-Ear,219,,,,,Estimated
-607,AUDEZE_LCDS20,23,8,LCD-S20,Audeze LCD-S20,2025,,Active,Headphone,Open Back,Planar Magnetic,90,14,90,No,No,,,"Accessible LCD line w/ SLAM, $499",,Over-Ear,499,,,,,Estimated
+607,AUDEZE_LCDS20,23,8,LCD-S20,Audeze LCD-S20,2025,,Active,Headphone,Open Back,Planar Magnetic,90,14,90,No,No,,,"Accessible LCD line w/ SLAM, $499",,Over-Ear,499,,3.5mm,,480,Estimated
 608,SENN_HD480PRO,115,2,HD 480 Pro,Sennheiser HD 480 Pro,2026,,Active,Studio,Closed Back,Dynamic,,120,108,No,No,,,"Closed studio, flexible cable",,Over-Ear,399,,3.5mm,,290,Estimated
 609,GRADO_S550,43,12,Signature S550,Grado Signature S550,2026,,Active,Headphone,Open Back,Dynamic,,32,99,No,No,,,Debuted CanJam NYC 2026,,On-Ear,995,,3.5mm,,380,Estimated
 610,SENN_HD490PRO,4,2,HD 490 PRO,Sennheiser HD 490 PRO,2024,,Active,Studio,Open Back,Dynamic,38,130,96,No,No,,,Open-frame architecture; two swappable pad sets for mixing vs producing,,Over-Ear,400,Neutral,Sennheiser 2-pin,Yes,240,Verified
@@ -650,14 +650,14 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 649,KLIPSCH_REFONE,172,73,Reference ONE,Klipsch Reference ONE,2017,,Active,Headphone,Closed Back,Dynamic,,26,114,No,No,,,Oval ear design; oval-shaped 40mm driver,,On-Ear,199,,,,,Estimated
 650,RAAL_SR1A,173,74,SR1a,RAAL SR1a,2019,,Active,Headphone,Open Back,Ribbon,,,,No,No,,,True ribbon driver headphone; requires interface box; speaker-like sound,,Over-Ear,3500,,,,150,Estimated
 651,RAAL_CA1A,173,74,CA1a,RAAL CA1a,2022,,Active,Headphone,Open Back,Ribbon,,,,No,No,,,CA version of SR1a; closed-able with included attachment,,Over-Ear,3800,,,,,Estimated
-652,FOSTEX_T20RPMK3,,30,T20RP Mk3,Fostex T20RP MK3,2015,,Active,Studio,Open Back,Planar Magnetic,,50,98,No,No,,,Open-back RP studio; modding platform,,Over-Ear,299,,,,,Estimated
-653,FOSTEX_T40RPMK3,,30,T40RP Mk3,Fostex T40RP MK3,2015,,Active,Studio,Closed Back,Planar Magnetic,,50,97,No,No,,,Closed-back RP studio; modding platform,,Over-Ear,299,,,,,Estimated
+652,FOSTEX_T20RPMK3,,30,T20RP Mk3,Fostex T20RP MK3,2015,,Active,Studio,Open Back,Planar Magnetic,,50,98,No,No,,,Open-back RP studio; modding platform,,Over-Ear,299,,3.5mm/6.35mm,,305,Estimated
+653,FOSTEX_T40RPMK3,,30,T40RP Mk3,Fostex T40RP MK3,2015,,Active,Studio,Closed Back,Planar Magnetic,,50,97,No,No,,,Closed-back RP studio; modding platform,,Over-Ear,299,,3.5mm/6.35mm,,305,Estimated
 654,FOSTEX_T50RPMK3,,30,T50RP Mk3,Fostex T50RP MK3,2015,,Active,Studio,Semi-Open,Planar Magnetic,,50,92,No,No,,,The original headphone modding platform; RP driver,,Over-Ear,200,,3.5mm,Yes,320,Verified
 655,FOSTEX_T50RPMK4,,30,T50RP Mk4,Fostex T50RP MK4,2022,,Active,Studio,Semi-Open,Planar Magnetic,,50,92,No,No,FOSTEX_T50RPMK3,,Updated RP driver; detachable cable added,,Over-Ear,300,,3.5mm,Yes,320,Verified
-656,FOSTEX_T60RP,,30,T60RP,Fostex T60RP,2018,,Active,Studio,Semi-Open,Planar Magnetic,,50,97,No,No,,,Top of the RP studio line,,Over-Ear,199,,,,,Estimated
-657,FOSTEX_THXOO,75,30,TH-X00,Fostex TH-X00,2015,,Discontinued,Headphone,Closed Back,Dynamic,50,25,94,No,No,,,Massdrop collab; biodynamic 50mm; mahogany/purpleheart/ebony variants,,Over-Ear,399,,,,,Estimated
+656,FOSTEX_T60RP,,30,T60RP,Fostex T60RP,2018,,Active,Studio,Semi-Open,Planar Magnetic,,50,97,No,No,,,Top of the RP studio line,,Over-Ear,199,,3.5mm,,306,Estimated
+657,FOSTEX_THXOO,75,30,TH-X00,Fostex TH-X00,2015,,Discontinued,Headphone,Closed Back,Dynamic,50,25,94,No,No,,,Massdrop collab; biodynamic 50mm; mahogany/purpleheart/ebony variants,,Over-Ear,399,,Dual 3.5mm,,370,Estimated
 658,FOSTEX_TH600,75,30,TH600,Fostex TH600,2012,,Discontinued,Headphone,Closed Back,Dynamic,50,25,100,No,No,,,Mid-tier lacquer closed-back; predecessor to TH900,,Over-Ear,600,,Dual 3.5mm,Yes,400,Estimated
-659,FOSTEX_TH500RP,75,30,TH500RP,Fostex TH500RP,2014,,Discontinued,Headphone,Open Back,Planar Magnetic,,48,93,No,No,,,Open planar from Fostex; RP driver in TH chassis,,Over-Ear,699,,,,,Estimated
+659,FOSTEX_TH500RP,75,30,TH500RP,Fostex TH500RP,2014,,Discontinued,Headphone,Open Back,Planar Magnetic,,48,93,No,No,,,Open planar from Fostex; RP driver in TH chassis,,Over-Ear,699,,3.5mm/6.35mm,,350,Estimated
 660,YAMAHA_YH5000SE,136,45,YH-5000SE,Yamaha YH-5000SE,2022,,Active,Headphone,Open Back,Planar Magnetic,,34,98,No,No,,,Flagship orthodynamic; made in Japan; 5Hz-70kHz,,Over-Ear,6000,,,,,Estimated
 661,YAMAHA_YH4000,136,45,YH-4000,Yamaha YH-4000,2024,,Active,Headphone,Open Back,Planar Magnetic,,34,97,No,No,,,Open orthodynamic; step below YH-5000SE,,Over-Ear,2500,,,,,Estimated
 662,YAMAHA_HPHMT220,135,45,HPH-MT220,Yamaha HPH-MT220,2016,,Active,Studio,Closed Back,Dynamic,40,48,102,No,No,,,Studio closed-back; flat reference tuning,,Over-Ear,100,,,,,Estimated
@@ -665,10 +665,10 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 664,SONY_INZONEH7,,1,INZONE H7,Sony INZONE H7,2022,,Active,Gaming,Closed Back,Dynamic,40,32,100,Yes,No,,,Wireless gaming; no ANC,,Over-Ear,230,,Wireless,,260,Estimated
 665,SONY_INZONEH9,,1,INZONE H9,Sony INZONE H9,2022,,Active,Gaming,Closed Back,Dynamic,40,32,100,Yes,Yes,,,Wireless gaming with ANC; flagship INZONE,,Over-Ear,300,,Wireless,,330,Estimated
 666,SONY_MDR7520,2,1,MDR-7520,Sony MDR-7520,2011,,Discontinued,Studio,Closed Back,Dynamic,50,24,106,No,No,,,Pro studio closed-back; 50mm driver,,Over-Ear,400,,6.35mm,,310,Estimated
-667,AUDEZE_EL8O,,8,EL-8 Open,Audeze EL-8 Open,2015,,Discontinued,Headphone,Open Back,Planar Magnetic,100,30,102,No,No,,,Entry-level Audeze planar; thin-film driver,,Over-Ear,699,,,,,Estimated
-668,AUDEZE_EL8C,,8,EL-8 Closed,Audeze EL-8 Closed,2015,,Discontinued,Headphone,Closed Back,Planar Magnetic,100,30,102,No,No,,,Closed-back entry Audeze,,Over-Ear,699,,,,,Estimated
-669,AUDEZE_LCDMX4,23,8,LCD-MX4,Audeze LCD-MX4,2017,,Active,Headphone,Open Back,Planar Magnetic,106,20,103,No,No,,,High efficiency 106mm planar; 1.5 Tesla Fluxor magnets,,Over-Ear,2495,,,,,Estimated
-670,AUDEZE_MOBIUS,,8,Mobius,Audeze Mobius,2018,,Active,Gaming,Closed Back,Planar Magnetic,,10,111,Yes,Yes,,,3D planar gaming headset; head tracking; Waves Nx audio,,Over-Ear,399,,Wireless,,,Estimated
+667,AUDEZE_EL8O,,8,EL-8 Open,Audeze EL-8 Open,2015,,Discontinued,Headphone,Open Back,Planar Magnetic,100,30,102,No,No,,,Entry-level Audeze planar; thin-film driver,,Over-Ear,699,,3.5mm,,430,Estimated
+668,AUDEZE_EL8C,,8,EL-8 Closed,Audeze EL-8 Closed,2015,,Discontinued,Headphone,Closed Back,Planar Magnetic,100,30,102,No,No,,,Closed-back entry Audeze,,Over-Ear,699,,3.5mm,,460,Estimated
+669,AUDEZE_LCDMX4,23,8,LCD-MX4,Audeze LCD-MX4,2017,,Active,Headphone,Open Back,Planar Magnetic,106,20,103,No,No,,,High efficiency 106mm planar; 1.5 Tesla Fluxor magnets,,Over-Ear,2495,,Dual mini-XLR,,595,Estimated
+670,AUDEZE_MOBIUS,,8,Mobius,Audeze Mobius,2018,,Active,Gaming,Closed Back,Planar Magnetic,,10,111,Yes,Yes,,,3D planar gaming headset; head tracking; Waves Nx audio,,Over-Ear,399,,Wireless,,350,Estimated
 671,BEYER_DT1350,17,6,DT 1350,Beyerdynamic DT 1350,2011,,Active,Headphone,Closed Back,Dynamic,35,80,96,No,No,,,Premium on-ear; Tesla driver; high isolation,,On-Ear,350,,,,230,Estimated
 672,BEYER_DT177XGO,17,6,DT 177X Go,Beyerdynamic DT 177X Go,2020,,Active,Headphone,Closed Back,Dynamic,45,250,102,No,No,,,Drop + Beyerdynamic collab; DT 1770 driver; 250Ω,,Over-Ear,300,,3.5mm,,300,Estimated
 673,BEYER_DT250,17,6,DT 250,Beyerdynamic DT 250,1998,,Active,Studio,Closed Back,Dynamic,45,250,96,No,No,,,Broadcast/monitoring classic; still in production,,Over-Ear,200,,3.5mm/6.35mm,,200,Estimated
@@ -687,9 +687,9 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 686,SENN_GSP300,4,2,GSP 300,Sennheiser GSP 300,2017,,Active,Gaming,Closed Back,Dynamic,,28,113,No,No,,,Entry gaming closed-back,,Over-Ear,80,,3.5mm,,270,Estimated
 687,KOSS_KPH40,,43,KPH40 Utility,Koss KPH40 Utility,2022,,Active,Headphone,Open Back,Dynamic,30,60,101,No,No,,,KPH30i successor; on-ear; wide soundstage for price,,On-Ear,40,,3.5mm,No,56,Estimated
 688,KOSS_KPH7,,43,KPH7,Koss KPH7,1985,,Legacy Active,Headphone,Open Back,Dynamic,25,60,101,No,No,,,Classic folding on-ear; budget favorite,,On-Ear,35,,,No,,Estimated
-689,DCA_ETHERFLOW,48,14,Ether Flow,Dan Clark Audio Ether Flow,2016,,Discontinued,Headphone,Open Back,Planar Magnetic,,23,93,No,No,,,Tuning filter system; MrSpeakers era,,Over-Ear,1499,,,,,Estimated
-690,DCA_ETHERCFLOW,48,14,Ether C Flow,Dan Clark Audio Ether C Flow,2016,,Discontinued,Headphone,Closed Back,Planar Magnetic,,23,93,No,No,,,Closed-back Ether Flow; MrSpeakers era,,Over-Ear,1799,,,,,Estimated
-691,DCA_AEONOPEN,47,14,Aeon Open,Dan Clark Audio Aeon Open,2018,,Discontinued,Headphone,Open Back,Planar Magnetic,,13,93,No,No,,,Open-back Aeon; foldable planar,,Over-Ear,799,,,,,Estimated
+689,DCA_ETHERFLOW,48,14,Ether Flow,Dan Clark Audio Ether Flow,2016,,Discontinued,Headphone,Open Back,Planar Magnetic,,23,93,No,No,,,Tuning filter system; MrSpeakers era,,Over-Ear,1499,,mini-XLR,,425,Estimated
+690,DCA_ETHERCFLOW,48,14,Ether C Flow,Dan Clark Audio Ether C Flow,2016,,Discontinued,Headphone,Closed Back,Planar Magnetic,,23,93,No,No,,,Closed-back Ether Flow; MrSpeakers era,,Over-Ear,1799,,mini-XLR,,460,Estimated
+691,DCA_AEONOPEN,47,14,Aeon Open,Dan Clark Audio Aeon Open,2018,,Discontinued,Headphone,Open Back,Planar Magnetic,,13,93,No,No,,,Open-back Aeon; foldable planar,,Over-Ear,799,,mini-XLR,,350,Estimated
 692,JBL_QUANTUM100,106,38,Quantum 100,JBL Quantum 100,2020,,Active,Gaming,Closed Back,Dynamic,40,32,100,No,No,,,Entry gaming wired headset,,Over-Ear,30,,3.5mm,,190,Estimated
 693,JBL_QUANTUM400,106,38,Quantum 400,JBL Quantum 400,2020,,Active,Gaming,Closed Back,Dynamic,50,32,100,No,No,,,Gaming headset with USB and RGB,,Over-Ear,100,,3.5mm,,275,Estimated
 694,JBL_QUANTUM800,106,38,Quantum 800,JBL Quantum 800,2020,,Active,Gaming,Closed Back,Dynamic,50,32,100,Yes,Yes,,,Wireless ANC gaming flagship,,Over-Ear,200,,Wireless,,342,Estimated
@@ -732,14 +732,14 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 731,ULTRA_HFI2400,,34,HFI-2400,Ultrasone HFI-2400,2009,,Discontinued,Headphone,Semi-Open,Dynamic,40,75,96,No,No,,,S-Logic Plus; higher-tier HFI,,Over-Ear,300,,,,230,Estimated
 732,ULTRA_SIGPURE,,34,Signature Pure,Ultrasone Signature Pure,2020,,Active,Headphone,Closed Back,Dynamic,40,35,96,No,No,,,Refined S-Logic; clean reference tuning,,Over-Ear,700,,,,290,Estimated
 733,ULTRA_TRIB7,79,34,Tribute 7,Ultrasone Tribute 7,2014,,Discontinued,Headphone,Closed Back,Dynamic,40,32,96,No,No,,,Limited 25th anniversary; gold-plated; 700 units only,,Over-Ear,999,,,,,Estimated
-734,DCA_MADDOG,48,14,Mad Dog,Dan Clark Audio Mad Dog,2012,,Discontinued,Headphone,Closed Back,Planar Magnetic,,50,91,No,No,,,MrSpeakers era; T50RP-based closed planar; the one that started it all,,Over-Ear,300,,,,385,Estimated
-735,DCA_VOCE,48,14,Voce,Dan Clark Audio Voce,2017,,Active,Headphone,Open Back,Electrostatic,,,,No,No,,,DCA electrostatic; requires compatible energizer,,Over-Ear,3500,,,,455,Estimated
-736,DCA_NOIRECLOSED,48,14,Noire,Dan Clark Audio Noire,2021,,Active,Headphone,Closed Back,Planar Magnetic,,23,90,No,No,,,Closed-back planar; tuned for music production,,Over-Ear,800,,mini-XLR,Yes,,Estimated
-737,FOSTEX_T50RPMK2,,30,T50RP Mk2,Fostex T50RP MK2,2011,,Discontinued,Studio,Semi-Open,Planar Magnetic,,50,92,No,No,,FOSTEX_T50RPMK3,Pre-Mk3; detachable cable not yet available; still the modding base,,Over-Ear,200,,,,,Estimated
-738,FOSTEX_TXO,75,30,T-X0,Fostex T-X0,2016,,Discontinued,Headphone,Closed Back,Dynamic,50,25,100,No,No,,,Biodynamic 50mm driver; base for Massdrop TH-X00; premium Fostex tech,,Over-Ear,400,,,Yes,280,Estimated
-739,FOSTEX_TXOII,75,30,T-X0 II,Fostex T-X0 II,2019,,Active,Headphone,Closed Back,Dynamic,50,25,100,No,No,,,Updated T-X0 driver; improved housing,,Over-Ear,349,,,,,Estimated
-740,FOSTEX_TR80,,30,TR-80,Fostex TR-80,2012,,Active,Studio,Open Back,Dynamic,50,80,100,No,No,,,Open reference monitor; large 50mm driver,,Over-Ear,150,,,Yes,294,Estimated
-741,FOSTEX_TH616,75,30,TH616,Fostex TH616,2020,,Active,Headphone,Closed Back,Dynamic,50,25,100,No,No,,,Mid-tier TH closed-back; 50mm driver,,Over-Ear,699,,,,,Estimated
+734,DCA_MADDOG,48,14,Mad Dog,Dan Clark Audio Mad Dog,2012,,Discontinued,Headphone,Closed Back,Planar Magnetic,,50,91,No,No,,,MrSpeakers era; T50RP-based closed planar; the one that started it all,,Over-Ear,300,,mini-XLR,,385,Estimated
+735,DCA_VOCE,48,14,Voce,Dan Clark Audio Voce,2017,,Active,Headphone,Open Back,Electrostatic,,,,No,No,,,DCA electrostatic; requires compatible energizer,,Over-Ear,3500,,Electrostatic,,455,Estimated
+736,DCA_NOIRECLOSED,48,14,Noire,Dan Clark Audio Noire,2021,,Active,Headphone,Closed Back,Planar Magnetic,,23,90,No,No,,,Closed-back planar; tuned for music production,,Over-Ear,800,,mini-XLR,Yes,500,Estimated
+737,FOSTEX_T50RPMK2,,30,T50RP Mk2,Fostex T50RP MK2,2011,,Discontinued,Studio,Semi-Open,Planar Magnetic,,50,92,No,No,,FOSTEX_T50RPMK3,Pre-Mk3; detachable cable not yet available; still the modding base,,Over-Ear,200,,3.5mm/6.35mm,,325,Estimated
+738,FOSTEX_TXO,75,30,T-X0,Fostex T-X0,2016,,Discontinued,Headphone,Closed Back,Dynamic,50,25,100,No,No,,,Biodynamic 50mm driver; base for Massdrop TH-X00; premium Fostex tech,,Over-Ear,400,,3.5mm,Yes,280,Estimated
+739,FOSTEX_TXOII,75,30,T-X0 II,Fostex T-X0 II,2019,,Active,Headphone,Closed Back,Dynamic,50,25,100,No,No,,,Updated T-X0 driver; improved housing,,Over-Ear,349,,3.5mm,,280,Estimated
+740,FOSTEX_TR80,,30,TR-80,Fostex TR-80,2012,,Active,Studio,Open Back,Dynamic,50,80,100,No,No,,,Open reference monitor; large 50mm driver,,Over-Ear,150,,3.5mm,Yes,294,Estimated
+741,FOSTEX_TH616,75,30,TH616,Fostex TH616,2020,,Active,Headphone,Closed Back,Dynamic,50,25,100,No,No,,,Mid-tier TH closed-back; 50mm driver,,Over-Ear,699,,Dual 3.5mm,,380,Estimated
 742,JBL_CLUBONE,,38,CLUB ONE,JBL CLUB ONE,2020,,Active,Headphone,Closed Back,Dynamic,40,32,105,Yes,Yes,,,Premium ANC flagship; adaptive noise cancelling; True Adaptive Sound,,Over-Ear,300,Bassy,Wireless,,289,Estimated
 743,JBL_CLUB700,,38,CLUB 700BT,JBL CLUB 700BT,2020,,Active,Headphone,Closed Back,Dynamic,40,32,103,Yes,No,,,Wireless on-ear; Club series entry,,On-Ear,120,,Wireless,,236,Estimated
 744,JBL_CLUB950,,38,CLUB 950NC,JBL CLUB 950NC,2020,,Active,Headphone,Closed Back,Dynamic,40,32,103,Yes,Yes,,,ANC wireless over-ear; Club series,,Over-Ear,200,,Wireless,,292,Estimated
@@ -803,7 +803,7 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 802,BEYER_MMX300PRO,20,6,MMX 300 Pro,Beyerdynamic MMX 300 Pro,2024,,Active,Gaming,Closed Back,Dynamic,45,48,100,No,No,,,Pro gaming closed-back; STELLAR.45 driver,,Over-Ear,300,,mini-XLR,,350,Verified
 803,HIFIMAN_SUSVARAUNV,27,9,Susvara Unveiled,HiFiMan Susvara Unveiled,2023,,Active,Headphone,Open Back,Planar Magnetic,,60,83,No,No,HIFIMAN_SUSVARA,,Susvara with exposed driver; limited production; premium over standard Susvara,,Over-Ear,8000,,Dual 3.5mm,,465,Estimated
 804,MEZE_EMPYREAN3,46,13,Empyrean 3,Meze Audio Empyrean 3,2025,,Active,Headphone,Open Back,Planar Magnetic,,31.6,102,No,No,,,Third-gen isodynamic planar; new Rinaro PCOCC driver,,Over-Ear,4500,Warm,mini-XLR,Yes,430,Estimated
-805,FOCAL_DIABLO,,10,Celestee Diablo,Focal Celestee Diablo,2024,,Active,Headphone,Closed Back,Dynamic,40,35,105,No,No,FOCAL_CELESTEE,,Celestee variant with unique Diablo orange finish; same driver,,Over-Ear,1490,,,,,Estimated
+805,FOCAL_DIABLO,,10,Celestee Diablo,Focal Celestee Diablo,2024,,Active,Headphone,Closed Back,Dynamic,40,35,105,No,No,FOCAL_CELESTEE,,Celestee variant with unique Diablo orange finish; same driver,,Over-Ear,1490,,3.5mm,,435,Estimated
 806,HD_HELIOS,174,75,Helios,HarmonicDyne Helios,2019,,Active,Headphone,Open Back,Dynamic,50,32,104,No,No,,,Debut model; 50mm bio-film driver; wood cups,,Over-Ear,100,,,,,Estimated
 807,HD_ZEUS,174,75,Zeus,HarmonicDyne Zeus,2020,,Active,Headphone,Open Back,Dynamic,50,32,99,No,No,,,Nickel-plated 50mm driver; walnut cups,,Over-Ear,220,,,,,Estimated
 808,HD_POSEIDON,174,75,Poseidon,HarmonicDyne Poseidon,2021,,Active,Headphone,Open Back,Dynamic,50,32,104,No,No,,,Upgraded bio-film driver; flagship dynamic before G200,,Over-Ear,270,,,,,Estimated
@@ -862,8 +862,8 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 861,DENON_D1001,76,31,AH-D1001,Denon AH-D1001,2007,,Discontinued,Headphone,Closed Back,Dynamic,40,25,104,No,No,,,Biodynamic entry-level; cult favorite for the price,,Over-Ear,199,,,,,Estimated
 862,DENON_D1100,76,31,AH-D1100,Denon AH-D1100,2010,,Discontinued,Headphone,Closed Back,Dynamic,40,25,104,No,No,,DENON_D1001,Successor to D1001; improved bio-cellulose driver,,Over-Ear,200,,,,255,Estimated
 863,DENON_D400,76,31,AH-D400,Denon AH-D400,2011,,Discontinued,Headphone,Closed Back,Dynamic,40,25,96,No,No,,,Entry audiophile closed-back,,Over-Ear,249,,,,,Estimated
-864,DCA_AEONCLOSED,47,14,Aeon Closed,Dan Clark Audio Aeon Closed,2017,,Discontinued,Headphone,Closed Back,Planar Magnetic,,13,92,No,No,,,Original Aeon; first compact folding DCA planar; MrSpeakers era,,Over-Ear,799,,,,,Estimated
-865,DCA_ETHERCX,48,14,Ether CX,Dan Clark Audio Ether CX,2017,,Discontinued,Headphone,Closed Back,Planar Magnetic,,23,93,No,No,,,Closed version of Ether C with tuning filter system,,Over-Ear,1299,,,,,Estimated
+864,DCA_AEONCLOSED,47,14,Aeon Closed,Dan Clark Audio Aeon Closed,2017,,Discontinued,Headphone,Closed Back,Planar Magnetic,,13,92,No,No,,,Original Aeon; first compact folding DCA planar; MrSpeakers era,,Over-Ear,799,,mini-XLR,,350,Estimated
+865,DCA_ETHERCX,48,14,Ether CX,Dan Clark Audio Ether CX,2017,,Discontinued,Headphone,Closed Back,Planar Magnetic,,23,93,No,No,,,Closed version of Ether C with tuning filter system,,Over-Ear,1299,,mini-XLR,,425,Estimated
 866,PIONEER_HDJ500,138,46,HDJ-500,Pioneer DJ HDJ-500,2011,,Discontinued,Studio,Closed Back,Dynamic,40,32,102,No,No,,,DJ entry; 40mm driver,,Over-Ear,100,,,,,Estimated
 867,PIONEER_HDJ1000,138,46,HDJ-1000,Pioneer DJ HDJ-1000,2002,,Discontinued,Studio,Closed Back,Dynamic,50,40,106,No,No,,,The DJ reference standard; 50mm driver,,Over-Ear,300,,,,,Estimated
 868,PIONEER_SEA1000,,46,SE-A1000,Pioneer SE-A1000,2001,,Discontinued,Headphone,Open Back,Dynamic,50,32,100,No,No,,,Open-back audiophile; 50mm driver; wide soundstage,,Over-Ear,200,,,,,Estimated
@@ -878,8 +878,8 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 877,BEYER_T51I,,6,T 51i,Beyerdynamic T 51i,2013,,Discontinued,Headphone,Closed Back,Dynamic,40,32,111,No,No,,,T51p with 3-button iOS remote; 32Ω,,On-Ear,250,,3.5mm,,190,Estimated
 878,BEYER_T90,,6,T 90,Beyerdynamic T 90,2012,,Discontinued,Headphone,Open Back,Dynamic,45,250,102,No,No,,,Open Tesla flagship; 250Ω; 102 dB sensitivity; 45mm Tesla driver,,Over-Ear,600,,mini-XLR,,320,Estimated
 879,SENN_HE1,,2,Orpheus HE-1,Sennheiser Orpheus HE-1,2016,,Active,Headphone,Open Back,Electrostatic,,,,No,No,,,"~€55,000 flagship electrostatic system; built-in amp/DAC; marble and glass construction",,Over-Ear,55000,,Electrostatic,,440,Verified
-880,ZMF_ORI,,27,Ori,ZMF Ori,2015,,Discontinued,Headphone,Closed Back,Planar Magnetic,,50,96,No,No,,ZMF_ORI3,ZMF's first headphone; T50RP Mk2 driver in handcrafted wood cups,,Over-Ear,600,,,,350,Estimated
-881,ZMF_ORI3,,27,Ori 3.0,ZMF Ori 3.0,2025,,Active,Headphone,Closed Back,Planar Magnetic,80,35,96,No,No,ZMF_ORI,,Complete redesign; 80mm CAMS planar; torrefied Black Limba cups,,Over-Ear,2200,,,,,Estimated
+880,ZMF_ORI,,27,Ori,ZMF Ori,2015,,Discontinued,Headphone,Closed Back,Planar Magnetic,,50,96,No,No,,ZMF_ORI3,ZMF's first headphone; T50RP Mk2 driver in handcrafted wood cups,,Over-Ear,600,,mini-XLR,,350,Estimated
+881,ZMF_ORI3,,27,Ori 3.0,ZMF Ori 3.0,2025,,Active,Headphone,Closed Back,Planar Magnetic,80,35,96,No,No,ZMF_ORI,,Complete redesign; 80mm CAMS planar; torrefied Black Limba cups,,Over-Ear,2200,,mini-XLR,,400,Estimated
 882,AKG_K240DF,,5,K240 DF,AKG K240 DF,1975,,Discontinued,Studio,Semi-Open,Dynamic,,600,88,No,No,,,Vienna-made 600Ω; diffuse-field compensation; audiophile vintage classic,,Over-Ear,80,,mini-XLR,,220,Estimated
 883,AKG_K240M,,5,K240M,AKG K240M,1975,,Discontinued,Studio,Semi-Open,Dynamic,,600,88,No,No,,,Vienna-made 600Ω monitor; sibling to K240 DF; highly regarded vintage,,Over-Ear,70,,mini-XLR,,215,Estimated
 884,MONO_M560,160,64,M560,Monoprice Monolith M560,2018,,Active,Headphone,Semi-Open,Planar Magnetic,,42,100,No,No,,,Semi-open planar; 42Ω; wood trim; different driver from M570,,Over-Ear,220,,,,,Estimated
@@ -893,4 +893,4 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 892,GRADO_GH2,,12,GH2,Grado GH2,2016,,Discontinued,Headphone,Open Back,Dynamic,,32,99,No,No,,,Heritage Series 2; cocobolo wood cups; limited edition,,On-Ear,175,,3.5mm,No,380,Estimated
 893,GRADO_GH3,,12,GH3,Grado GH3,2018,,Discontinued,Headphone,Open Back,Dynamic,,32,99,No,No,,,Heritage Series 3; Norwegian pine; on-ear S-cushions,,On-Ear,250,,3.5mm,No,380,Estimated
 894,GRADO_GH4,,12,GH4,Grado GH4,2018,,Discontinued,Headphone,Open Back,Dynamic,,32,99,No,No,GRADO_GH2,,Heritage Series 4; Norwegian pine full-size; successor to GH2 line,,On-Ear,300,,3.5mm,No,240,Estimated
-895,ZMF_TESSIDERA,,27,Tessidera,ZMF Tessidera,2025,,Active,Headphone,Open Back,Planar Magnetic,,35,96,No,No,,,First ZMF planar with 1-micron diaphragm; CAMS magnet system,,Over-Ear,2500,,,,,Estimated
+895,ZMF_TESSIDERA,,27,Tessidera,ZMF Tessidera,2025,,Active,Headphone,Open Back,Planar Magnetic,,35,96,No,No,,,First ZMF planar with 1-micron diaphragm; CAMS magnet system,,Over-Ear,2500,,mini-XLR,,480,Estimated
