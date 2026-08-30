@@ -1025,7 +1025,17 @@ const COMPARE_COL_W = 44;
 // fills the container exactly and never overflows. Dragging a divider moves
 // weight from that column to its right neighbor, keeping the total constant.
 const colW = {};
-function loadColW(){ COLS.forEach(c=>colW[c.key]=c.w); try{ const s=JSON.parse(localStorage.getItem("archive_colw")||"null"); if(s) COLS.forEach(c=>{ if(typeof s[c.key]==="number") colW[c.key]=s[c.key]; });}catch(e){} }
+// Keys the visitor has personally dragged to a custom width — computeModelDefaultW
+// checks this so it never overwrites a choice the visitor already made.
+const colWCustomized = new Set();
+function loadColW(){
+  COLS.forEach(c=>colW[c.key]=c.w);
+  colWCustomized.clear();
+  try{
+    const s=JSON.parse(localStorage.getItem("archive_colw")||"null");
+    if(s) COLS.forEach(c=>{ if(typeof s[c.key]==="number"){ colW[c.key]=s[c.key]; colWCustomized.add(c.key); } });
+  }catch(e){}
+}
 function saveColW(){ try{ localStorage.setItem("archive_colw",JSON.stringify(colW)); }catch(e){} }
 // Per-column "small" mode for fixed columns that define a wSmall (currently Design and
 // Fit) — toggled by dragging their handle, see startResize.
@@ -1098,34 +1108,19 @@ function distributeColumnWidths(cols, containerPx) {
     const flexWeight = flexible.reduce((s, c) => s + colW[c.key], 0);
     flexible.forEach(c => { px[c.key] -= deficit * (colW[c.key] / flexWeight); });
   }
-
-  // Ceiling pass: mirrors the floor pass above, but for columns carrying a `maxW` (set
-  // at runtime for Model — see computeModelMaxW — so it never grows past its longest
-  // actual value). A column over its ceiling gives the surplus back to whatever's still
-  // flexible, proportional to weight.
-  for (let iter = 0; iter < cols.length; iter++) {
-    let surplus = 0;
-    cols.forEach(c => {
-      if (!locked.has(c.key) && c.maxW && px[c.key] > c.maxW) {
-        surplus += px[c.key] - c.maxW;
-        px[c.key] = c.maxW;
-        locked.add(c.key);
-      }
-    });
-    if (surplus <= 0) break;
-    const flexible = cols.filter(c => !locked.has(c.key));
-    if (!flexible.length) break;
-    const flexWeight = flexible.reduce((s, c) => s + colW[c.key], 0);
-    flexible.forEach(c => { px[c.key] += surplus * (colW[c.key] / flexWeight); });
-  }
   return px;
 }
 
-// Model's default width shouldn't balloon past what its longest actual name needs. Unlike
-// the fixed-vocabulary columns (Design, Fit...) model names are open-ended free text, and
-// the longest one changes as the catalog grows, so this measures the live font against the
-// current data instead of a hardcoded guess — run once per load, before the first render.
-async function computeModelMaxW() {
+// Model's starting weight shouldn't balloon past what its longest actual name needs.
+// Unlike the fixed-vocabulary columns (Design, Fit...) model names are open-ended free
+// text, and the longest one changes as the catalog grows, so this measures the live font
+// against the current data instead of a hardcoded guess — run once per load, before the
+// first render. It only sets the *default* — a visitor who has already dragged Model to
+// their own width (colWCustomized) keeps it, and once set this is a normal flexible
+// weight like any other: distributeColumnWidths can still grow it past this if there's
+// slack space, or shrink it (down to its minW) if the visitor drags it smaller.
+async function computeModelDefaultW() {
+  if (colWCustomized.has("model_name")) return;
   try { await document.fonts.ready; } catch (e) {}
   const probe = document.createElement("span");
   probe.className = "model-name";
@@ -1137,8 +1132,7 @@ async function computeModelMaxW() {
     if (probe.scrollWidth > maxTextW) maxTextW = probe.scrollWidth;
   });
   probe.remove();
-  const col = COLS.find(c => c.key === "model_name");
-  if (col && maxTextW > 0) col.maxW = Math.ceil(maxTextW) + 24; // + cell's own horizontal padding & a small safety margin
+  if (maxTextW > 0) colW.model_name = Math.ceil(maxTextW) + 24; // + cell's own horizontal padding & a small safety margin
 }
 
 // Re-applies distributeColumnWidths' output to the live <th> elements. Shared by the
@@ -1374,7 +1368,7 @@ async function load() {
       const data = await res.json();
       if (data.ok && data.products && data.products.length) {
         state.rows = data.products.map(p => ({ ...p, _brand: p._brand || "Unknown" }));
-        await computeModelMaxW();
+        await computeModelDefaultW();
         initFilters();
         buildColMenu();
         apply();
@@ -1406,7 +1400,7 @@ async function loadFromCSV() {
     mfrs.forEach(m => mfrName[m.manufacturer_id] = m.name);
     products.forEach(p => p._brand = mfrName[p.manufacturer_id] || "Unknown");
     state.rows = products;
-    await computeModelMaxW();
+    await computeModelDefaultW();
     initFilters();
     buildColMenu();
     apply();
