@@ -939,7 +939,7 @@ const COLS = [
   // and a plain 4-digit value allow. Design keeps its full header too, but a small
   // mode still makes sense there since "Design" fits within its compact width.
   { key: "release_year",   label: "Year", on: true, sortable: true, w: 51, fixed: true, tight: true, center: true },
-  { key: "design",     label: "Design", on: true, sortable: true, w: 116, wSmall: 74, fixed: true },
+  { key: "design",     label: "Design", on: true, sortable: true, w: 116, wSmall: 65, fixed: true },
   { key: "fit",            label: "Fit",         on: true,  sortable: true,  w: 92,  wSmall: 58, fixed: true },
   { key: "driver_type",    label: "Driver",      on: false, sortable: true,  w: 130, minW: 90 },
   { key: "driver_size_mm", label: "Driver Size", on: false, sortable: true,  w: 120, minW: 90 },
@@ -1665,7 +1665,8 @@ function render() {
     const canResize = c.fixed ? !!c.wSmall : true;
     const rz = canResize ? `<span class="resizer" data-key="${c.key}"></span>` : "";
     const widthStyle = c.fixed ? `${fixedColW(c)}px` : (dataAreaPx > 0 ? (colPx[c.key] / dataAreaPx * 100) + "%" : colPct(c.key) + "%");
-    const thClsList = [c.center && "col-center", c.tight && "col-tight"].filter(Boolean).join(" ");
+    const isTight = c.tight || (c.wSmall && state.small[c.key]);
+    const thClsList = [c.center && "col-center", isTight && "col-tight"].filter(Boolean).join(" ");
     const thCls = thClsList ? ` class="${thClsList}"` : "";
     html += `<th scope="col" data-key="${c.key}" style="width:${widthStyle}"${sortAttr}${thCls}><span>${c.label}</span>${rz}</th>`;
   });
@@ -1680,7 +1681,8 @@ function render() {
     const full = !selected && compareSet.size >= COMPARE_MAX;
     html += `<tr class="datarow${z}" data-id="${intId}">` +
       cols.map(c => {
-        const tdCls = [c.center && "col-center", c.tight && "col-tight"].filter(Boolean).join(" ");
+        const isTight = c.tight || (c.wSmall && state.small[c.key]);
+        const tdCls = [c.center && "col-center", isTight && "col-tight"].filter(Boolean).join(" ");
         return `<td data-key="${c.key}"${tdCls ? ` class="${tdCls}"` : ""}>${cellValue(r, c.key)}</td>`;
       }).join("") +
       `<td class="cmpcol"><button class="cmpbtn${selected?" cmpbtn--on":""}" data-cid="${intId}" aria-pressed="${selected}" ${full?"disabled":""} title="${selected?"Remove from comparison":(full?"Maximum 3 selected":"Add to comparison")}"></button></td>` +
