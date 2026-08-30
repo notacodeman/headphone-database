@@ -506,6 +506,8 @@
   thead th.dragging-col { opacity: 0.4; }
   #colDropIndicator { position: fixed; width: 3px; background: var(--accent);
     z-index: 30; display: none; pointer-events: none; }
+  /* Applied to a column's cells when COLS marks it `center: true` (currently Impedance). */
+  td.col-center { text-align: center; }
   tbody tr:hover { background: var(--paper-2); }
   tbody td { padding: 0.7rem 0.6rem; font-size: 0.86rem; vertical-align: top;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -892,13 +894,11 @@ const RAW_BASE = "https://raw.githubusercontent.com/notacodeman/headphone-databa
 // (a 4-digit year, a short enum), so it never wastes flex space or gets squeezed. `w` is
 // sized to the longest value that column actually shows today (measured against the real
 // header/cell fonts, not guessed) — re-measure if a column's content set changes.
-// A fixed column can opt into a drag handle two different ways: `wSmall` (Design, Fit)
-// snaps between the normal and this compact width once the drag passes
-// FIXED_DRAG_THRESHOLD, since there's no in-between size that makes sense for
-// content this short; `resizable: true` (Impedance) instead resizes continuously like a
-// flexible column, just without ever donating/taking space in the weight-based split — for
-// a fixed column that has no compact alternate form but still shouldn't be permanently
-// locked. Neither flag (e.g. Year) means no handle at all: truly fixed, tight by default.
+// A fixed column can opt into a drag handle via `wSmall` (Design, Fit): dragging it snaps
+// between the normal and this compact width once the drag passes FIXED_DRAG_THRESHOLD,
+// since there's no in-between size that makes sense for content this short. Without it
+// (Year, Impedance) there's no handle at all: a single width, immovable. `center: true`
+// (Impedance) centers that column's values instead of the default left alignment.
 const COLS = [
   { key: "_brand",         label: "Brand",       on: true,  sortable: true,  w: 130, minW: 110 },
   { key: "model_name",     label: "Model",       on: true,  sortable: true,  w: 180, minW: 150 },
@@ -912,7 +912,7 @@ const COLS = [
   { key: "fit",            label: "Fit",         on: true,  sortable: true,  w: 92,  wSmall: 58, fixed: true },
   { key: "driver_type",    label: "Driver",      on: false, sortable: true,  w: 130, minW: 90 },
   { key: "driver_size_mm", label: "Driver Size", on: false, sortable: true,  w: 120, minW: 90 },
-  { key: "impedance_ohms", label: "Impedance",   on: true,  sortable: true,  w: 101, fixed: true, resizable: true },
+  { key: "impedance_ohms", label: "Impedance",   on: true,  sortable: true,  w: 101, fixed: true, center: true },
   { key: "sensitivity_db", label: "Sensitivity", on: false, sortable: true,  w: 130, minW: 90 },
   { key: "status",         label: "Status",      on: false, sortable: true,  w: 130, minW: 90 },
   { key: "_flags",         label: "Wireless/ANC", on: false, sortable: false, w: 120, minW: 90 },
@@ -1002,9 +1002,7 @@ function loadColSmall(){ try{ const s=JSON.parse(localStorage.getItem("archive_c
 function saveColSmall(){ try{ localStorage.setItem("archive_colsmall",JSON.stringify(state.small)); }catch(e){} }
 // The effective width of a fixed column right now (its compact width when in small mode).
 function fixedColW(c){
-  if (c.wSmall) return state.small[c.key] ? c.wSmall : c.w;
-  if (c.resizable) return colW[c.key]; // freely dragged — colW is seeded from c.w and persisted like any other column
-  return c.w;
+  return c.wSmall ? (state.small[c.key] ? c.wSmall : c.w) : c.w;
 }
 
 // ---- Column order ----
@@ -1089,12 +1087,6 @@ function reflowColumnWidths() {
     const th = tbl.querySelector(`th[data-key="${c.key}"]`);
     if (th) th.style.width = (px[c.key] / dataAreaPx * 100) + "%";
   });
-  // A freely-resizable fixed column (Impedance) doesn't take part in the split above, but
-  // still needs its own <th> updated directly while it's being dragged.
-  dataCols.filter(c => c.fixed && c.resizable).forEach(c => {
-    const th = tbl.querySelector(`th[data-key="${c.key}"]`);
-    if (th) th.style.width = fixedColW(c) + "px";
-  });
 }
 // Sizes #tablewrap's own scroll area to exactly whatever vertical space is left in the
 // viewport below it, down to the footer, so the table scrolls internally instead of the
@@ -1130,10 +1122,6 @@ let resizing = null;
 // since there's no useful in-between size for content this short.
 let fixedDrag = null;
 const FIXED_DRAG_THRESHOLD = 15;
-// Dragging a `resizable` fixed column's handle (Impedance) resizes it continuously, same
-// feel as a flexible column, just without it ever joining the weight-based split.
-let fixedFreeDrag = null;
-const FIXED_FREE_MINW = 40;
 // Dragging a header body (anywhere but the resizer) reorders columns instead of resizing.
 // Distinguished from a plain click-to-sort by movement: under HEADER_DRAG_THRESHOLD px it's
 // still a click when the mouse comes up; past it, it's a reorder and the click that
@@ -1204,12 +1192,6 @@ document.addEventListener("mousemove", e => {
     }
     return;
   }
-  if (fixedFreeDrag) {
-    const delta = e.clientX - fixedFreeDrag.startX;
-    colW[fixedFreeDrag.key] = Math.max(FIXED_FREE_MINW, fixedFreeDrag.startW + delta);
-    reflowColumnWidths();
-    return;
-  }
   if (!resizing) return;
   const tbl = document.querySelector("#tablewrap table");
   if (!tbl) return;
@@ -1259,7 +1241,6 @@ document.addEventListener("mouseup", () => {
     return;
   }
   if (fixedDrag) { fixedDrag = null; document.body.style.userSelect = ""; saveColSmall(); return; }
-  if (fixedFreeDrag) { fixedFreeDrag = null; document.body.style.userSelect = ""; saveColW(); return; }
   if (resizing){ resizing=null; document.body.style.userSelect=""; saveColW(); }
 });
 function startResize(e){
@@ -1268,12 +1249,6 @@ function startResize(e){
   if (col && col.fixed && col.wSmall) {
     // Snaps between two states rather than resizing continuously.
     fixedDrag = { key, startX: e.clientX, startSmall: !!state.small[key] };
-    document.body.style.userSelect = "none";
-    e.preventDefault(); e.stopPropagation();
-    return;
-  }
-  if (col && col.fixed && col.resizable) {
-    fixedFreeDrag = { key, startX: e.clientX, startW: colW[key] };
     document.body.style.userSelect = "none";
     e.preventDefault(); e.stopPropagation();
     return;
@@ -1652,11 +1627,11 @@ function render() {
   let html = `<table class="autofit"><thead><tr>`;
   cols.forEach(c => {
     const sortAttr = c.sortable ? (state.sortKey === c.key ? ` aria-sort="${state.sortDir}"` : ' aria-sort="none"') : "";
-    // A fixed column only gets a handle if it has somewhere to go: wSmall (snap) or
-    // resizable (free drag). A column with neither (e.g. Year) is truly fixed. Flexible
-    // columns always get one, including the last — dragging it still works, since the
+    // A fixed column only gets a handle if it has a compact form to snap to (wSmall).
+    // Without one (Year, Impedance) it's a single immovable width. Flexible columns
+    // always get one, including the last — dragging it still works, since the
     // redistribution math isn't limited to adjacent columns.
-    const canResize = c.fixed ? (c.wSmall || c.resizable) : true;
+    const canResize = c.fixed ? !!c.wSmall : true;
     const rz = canResize ? `<span class="resizer" data-key="${c.key}"></span>` : "";
     const widthStyle = c.fixed ? `${fixedColW(c)}px` : (dataAreaPx > 0 ? (colPx[c.key] / dataAreaPx * 100) + "%" : colPct(c.key) + "%");
     html += `<th scope="col" data-key="${c.key}" style="width:${widthStyle}"${sortAttr}><span>${c.label}</span>${rz}</th>`;
@@ -1671,7 +1646,7 @@ function render() {
     const selected = compareSet.has(intId);
     const full = !selected && compareSet.size >= COMPARE_MAX;
     html += `<tr class="datarow${z}" data-id="${intId}">` +
-      cols.map(c => `<td data-key="${c.key}">${cellValue(r, c.key)}</td>`).join("") +
+      cols.map(c => `<td data-key="${c.key}"${c.center ? ' class="col-center"' : ""}>${cellValue(r, c.key)}</td>`).join("") +
       `<td class="cmpcol"><button class="cmpbtn${selected?" cmpbtn--on":""}" data-cid="${intId}" aria-pressed="${selected}" ${full?"disabled":""} title="${selected?"Remove from comparison":(full?"Maximum 3 selected":"Add to comparison")}"></button></td>` +
       `<td class="caretcol"><button class="expandbtn" aria-expanded="false" aria-label="Show details for ${esc(label)}"><span class="caret" aria-hidden="true">\u203A</span></button></td>` +
       `</tr>`;
