@@ -506,8 +506,9 @@
   thead th.dragging-col { opacity: 0.4; }
   #colDropIndicator { position: fixed; width: 3px; background: var(--accent);
     z-index: 30; display: none; pointer-events: none; }
-  /* Applied to a column's cells when COLS marks it `center: true` (currently Impedance). */
-  td.col-center { text-align: center; }
+  /* Applied to a column's header and cells when COLS marks it `center: true` (Year,
+     Impedance) — both the label and the values center within the column's width. */
+  th.col-center, td.col-center { text-align: center; }
   /* Applied to a column's th+td when COLS marks it `tight: true` (Year, Impedance) — the
      standard 0.6rem side padding is generous for columns already trimmed to fit a short
      header word, so this shaves it down and the column's `w` is measured against this
@@ -903,7 +904,8 @@ const RAW_BASE = "https://raw.githubusercontent.com/notacodeman/headphone-databa
 // between the normal and this compact width once the drag passes FIXED_DRAG_THRESHOLD,
 // since there's no in-between size that makes sense for content this short. Without it
 // (Year, Impedance) there's no handle at all: a single width, immovable. `center: true`
-// (Impedance) centers that column's values instead of the default left alignment.
+// (Year, Impedance) centers both that column's header and its values instead of the
+// default left alignment.
 const COLS = [
   { key: "_brand",         label: "Brand",       on: true,  sortable: true,  w: 130, minW: 110 },
   { key: "model_name",     label: "Model",       on: true,  sortable: true,  w: 180, minW: 150 },
@@ -912,7 +914,7 @@ const COLS = [
   // wider than "normal"), so it's just a single width, kept as tight as the header
   // and a plain 4-digit value allow. Design keeps its full header too, but a small
   // mode still makes sense there since "Design" fits within its compact width.
-  { key: "release_year",   label: "Year", on: true, sortable: true, w: 51, fixed: true, tight: true },
+  { key: "release_year",   label: "Year", on: true, sortable: true, w: 51, fixed: true, tight: true, center: true },
   { key: "design",     label: "Design", on: true, sortable: true, w: 116, wSmall: 80, fixed: true },
   { key: "fit",            label: "Fit",         on: true,  sortable: true,  w: 92,  wSmall: 58, fixed: true },
   { key: "driver_type",    label: "Driver",      on: false, sortable: true,  w: 130, minW: 90 },
@@ -1639,7 +1641,8 @@ function render() {
     const canResize = c.fixed ? !!c.wSmall : true;
     const rz = canResize ? `<span class="resizer" data-key="${c.key}"></span>` : "";
     const widthStyle = c.fixed ? `${fixedColW(c)}px` : (dataAreaPx > 0 ? (colPx[c.key] / dataAreaPx * 100) + "%" : colPct(c.key) + "%");
-    const thCls = c.tight ? ' class="col-tight"' : "";
+    const thClsList = [c.center && "col-center", c.tight && "col-tight"].filter(Boolean).join(" ");
+    const thCls = thClsList ? ` class="${thClsList}"` : "";
     html += `<th scope="col" data-key="${c.key}" style="width:${widthStyle}"${sortAttr}${thCls}><span>${c.label}</span>${rz}</th>`;
   });
   html += `<th scope="col" class="cmpcol" style="width:${COMPARE_COL_W}px"><span class="vh">Compare</span></th>`;
