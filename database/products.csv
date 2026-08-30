@@ -814,9 +814,9 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 813,PSB_M4U8,176,76,M4U 8,PSB M4U 8,2017,,Active,Headphone,Closed Back,Dynamic,40,32,100,Yes,Yes,,,Wireless ANC; RoomFeel; Harman-inspired tuning,,Over-Ear,400,,Wireless,No,300,Estimated
 814,EMU_TEAK,177,77,Teak,E-Mu Teak,2016,,Discontinued,Headphone,Closed Back,Dynamic,50,26,105,No,No,,,Fostex T-X0 driver; teak wood cups; biodynamic,,Over-Ear,350,,3.5mm,Yes,380,Estimated
 815,EMU_PURPLEHEART,177,77,Purpleheart,E-Mu Purpleheart,2016,,Discontinued,Headphone,Closed Back,Dynamic,50,26,105,No,No,,,Fostex T-X0 driver; purpleheart wood cups; sister to Teak,,Over-Ear,350,,3.5mm,Yes,380,Estimated
-816,STAX_SR1,126,28,SR-1,Stax SR-1,1960,,Discontinued,Headphone,Open Back,Electrostatic,,,,No,No,,,The first Stax headphone; launched electrostatic headphones,,Over-Ear,200,,Electrostatic,No,300,Estimated
-817,STAX_SR3,126,28,SR-3,Stax SR-3,1966,,Discontinued,Headphone,Open Back,Electrostatic,,,,No,No,,,Classic vintage electrostatic,,Over-Ear,150,,Electrostatic,No,280,Estimated
-818,STAX_SR5,126,28,SR-5,Stax SR-5,1970,,Discontinued,Headphone,Open Back,Electrostatic,,,,No,No,,,Normal-bias classic,,Over-Ear,200,,Electrostatic,No,300,Estimated
+816,STAX_SR1,126,28,SR-1,Stax SR-1,1960,,Discontinued,Headphone,Open Back,Electrostatic,,,95,No,No,,,The first Stax headphone; launched electrostatic headphones,,Over-Ear,200,,Electrostatic,No,300,Estimated
+817,STAX_SR3,126,28,SR-3,Stax SR-3,1966,,Discontinued,Headphone,Open Back,Electrostatic,,,95,No,No,,,Classic vintage electrostatic,,Over-Ear,150,,Electrostatic,No,280,Estimated
+818,STAX_SR5,126,28,SR-5,Stax SR-5,1970,,Discontinued,Headphone,Open Back,Electrostatic,,,110,No,No,,,Normal-bias classic,,Over-Ear,200,,Electrostatic,No,300,Estimated
 819,STAX_SR84,126,28,SR-84,Stax SR-84,1993,,Discontinued,Headphone,Open Back,Electrostatic,,,100,No,No,,,Budget Lambda Normal Bias,,Over-Ear,450,,Electrostatic,No,360,Estimated
 820,STAX_SR207,126,28,SR-207,Stax SR-207,2007,,Discontinued,Headphone,Open Back,Electrostatic,,,98,No,No,,STAX_SRL300,Lambda Normal Bias entry; entry into the Stax world,,Over-Ear,300,,Electrostatic,No,285,Estimated
 821,STAX_SR507,126,28,SR-507,Stax SR-507,2010,,Discontinued,Headphone,Open Back,Electrostatic,,,101,No,No,,STAX_SRL500,Lambda Pro Bias; mid-tier,,Over-Ear,600,,Electrostatic,No,358,Estimated
@@ -877,7 +877,7 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 876,BEYER_T51P,,6,T 51p,Beyerdynamic T 51p,2013,,Discontinued,Headphone,Closed Back,Dynamic,40,60,102,No,No,,,Portable Tesla on-ear; 60Ω; premium portable,,On-Ear,300,,3.5mm,No,190,Estimated
 877,BEYER_T51I,,6,T 51i,Beyerdynamic T 51i,2013,,Discontinued,Headphone,Closed Back,Dynamic,40,32,111,No,No,,,T51p with 3-button iOS remote; 32Ω,,On-Ear,250,,3.5mm,No,190,Estimated
 878,BEYER_T90,,6,T 90,Beyerdynamic T 90,2012,,Discontinued,Headphone,Open Back,Dynamic,45,250,102,No,No,,,Open Tesla flagship; 250Ω; 102 dB sensitivity; 45mm Tesla driver,,Over-Ear,600,,mini-XLR,Yes,320,Estimated
-879,SENN_HE1,,2,Orpheus HE-1,Sennheiser Orpheus HE-1,2016,,Active,Headphone,Open Back,Electrostatic,,,,No,No,,,"~€55,000 flagship electrostatic system; built-in amp/DAC; marble and glass construction",,Over-Ear,55000,,Electrostatic,No,440,Verified
+879,SENN_HE1,,2,Orpheus HE-1,Sennheiser Orpheus HE-1,2016,,Active,Headphone,Open Back,Electrostatic,,,114,No,No,,,"~€55,000 flagship electrostatic system; built-in amp/DAC; marble and glass construction",,Over-Ear,55000,,Electrostatic,No,440,Verified
 880,ZMF_ORI,,27,Ori,ZMF Ori,2015,,Discontinued,Headphone,Closed Back,Planar Magnetic,,50,96,No,No,,ZMF_ORI3,ZMF's first headphone; T50RP Mk2 driver in handcrafted wood cups,,Over-Ear,600,,mini-XLR,Yes,350,Estimated
 881,ZMF_ORI3,,27,Ori 3.0,ZMF Ori 3.0,2025,,Active,Headphone,Closed Back,Planar Magnetic,80,35,96,No,No,ZMF_ORI,,Complete redesign; 80mm CAMS planar; torrefied Black Limba cups,,Over-Ear,2200,,mini-XLR,Yes,400,Estimated
 882,AKG_K240DF,,5,K240 DF,AKG K240 DF,1975,,Discontinued,Studio,Semi-Open,Dynamic,,600,88,No,No,,,Vienna-made 600Ω; diffuse-field compensation; audiophile vintage classic,,Over-Ear,80,,mini-XLR,Yes,220,Estimated
