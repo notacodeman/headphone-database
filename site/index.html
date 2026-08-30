@@ -1113,26 +1113,34 @@ function distributeColumnWidths(cols, containerPx) {
 
 // Model's starting weight shouldn't balloon past what its longest actual name needs.
 // Unlike the fixed-vocabulary columns (Design, Fit...) model names are open-ended free
-// text, and the longest one changes as the catalog grows, so this measures the live font
-// against the current data instead of a hardcoded guess — run once per load, before the
-// first render. It only sets the *default* — a visitor who has already dragged Model to
-// their own width (colWCustomized) keeps it, and once set this is a normal flexible
-// weight like any other: distributeColumnWidths can still grow it past this if there's
-// slack space, or shrink it (down to its minW) if the visitor drags it smaller.
-async function computeModelDefaultW() {
+// text, and the longest one changes as the catalog grows, so this measures the live,
+// already-rendered table instead of a hardcoded guess — run once after the first render.
+// It only sets the *default* — a visitor who has already dragged Model to their own width
+// (colWCustomized) keeps it, and once set this is a normal flexible weight like any other:
+// distributeColumnWidths can still grow it past this if there's slack space, or shrink it
+// (down to its minW) if the visitor drags it smaller.
+//
+// Shrinks the real column to force every cell's scrollWidth to report its true unclipped
+// content width (padding included), then takes the max across the whole rendered tbody.
+// An earlier version flipped the table to auto layout/width instead, but that measures the
+// whole table at once and the detail rows' colspan bled extra width into the calculation —
+// ~40px too generous. Per-cell scrollWidth isn't affected by colspan, only by this column.
+async function fitModelDefaultWidth() {
   if (colWCustomized.has("model_name")) return;
   try { await document.fonts.ready; } catch (e) {}
-  const probe = document.createElement("span");
-  probe.className = "model-name";
-  probe.style.cssText = "position:absolute; visibility:hidden; white-space:nowrap; left:-9999px; top:-9999px;";
-  document.body.appendChild(probe);
-  let maxTextW = 0;
-  state.rows.forEach(r => {
-    probe.textContent = r.model_name || "";
-    if (probe.scrollWidth > maxTextW) maxTextW = probe.scrollWidth;
+  const th = document.querySelector('#tablewrap table thead th[data-key="model_name"]');
+  if (!th) return;
+  const prevWidth = th.style.width;
+  th.style.width = "10px";
+  let maxW = 0;
+  document.querySelectorAll('#tablewrap table tbody tr.datarow td[data-key="model_name"]').forEach(td => {
+    if (td.scrollWidth > maxW) maxW = td.scrollWidth;
   });
-  probe.remove();
-  if (maxTextW > 0) colW.model_name = Math.ceil(maxTextW) + 24; // + cell's own horizontal padding & a small safety margin
+  th.style.width = prevWidth;
+  if (maxW > 0) {
+    colW.model_name = Math.ceil(maxW) + 10; // 10px of breathing room past the longest name's exact fit
+    render();
+  }
 }
 
 // Re-applies distributeColumnWidths' output to the live <th> elements. Shared by the
@@ -1368,10 +1376,10 @@ async function load() {
       const data = await res.json();
       if (data.ok && data.products && data.products.length) {
         state.rows = data.products.map(p => ({ ...p, _brand: p._brand || "Unknown" }));
-        await computeModelDefaultW();
         initFilters();
         buildColMenu();
         apply();
+        await fitModelDefaultWidth();
         updateCompareBar();
         handleFocusParam();
         document.getElementById("source").innerHTML =
@@ -1400,10 +1408,10 @@ async function loadFromCSV() {
     mfrs.forEach(m => mfrName[m.manufacturer_id] = m.name);
     products.forEach(p => p._brand = mfrName[p.manufacturer_id] || "Unknown");
     state.rows = products;
-    await computeModelDefaultW();
     initFilters();
     buildColMenu();
     apply();
+    await fitModelDefaultWidth();
     updateCompareBar();
     handleFocusParam();
     fitTableHeight();
