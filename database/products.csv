@@ -5,26 +5,26 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 4,SONY_MDRZ7,2,1,MDR-Z7,Sony MDR-Z7,2014,,Discontinued,Headphone,Closed Back,Dynamic,70,70,102,No,No,,SONY_MDRZ7M2,70mm driver,,Over-Ear,700,Warm,3.5mm,,,Estimated
 5,SONY_MDRZ7M2,2,1,MDR-Z7M2,Sony MDR-Z7M2,2018,,Active,Headphone,Closed Back,Dynamic,70,70,102,No,No,SONY_MDRZ7,,,,Over-Ear,400,Warm Neutral,4.4mm Pentaconn,Yes,350,Verified
 6,SONY_MDRZ1R,2,1,MDR-Z1R,Sony MDR-Z1R,2016,,Active,Headphone,Closed Back,Dynamic,70,64,100,No,No,,,Signature Series flagship,,Over-Ear,2300,Warm Neutral,4.4mm Pentaconn,Yes,385,Verified
-7,SONY_MDR1000X,1,1,MDR-1000X,Sony MDR-1000X,2016,,Discontinued,Headphone,Closed Back,Dynamic,40,46,103,Yes,Yes,,SONY_WH1000XM2,First in the 1000X line,,Over-Ear,,,,,,Estimated
+7,SONY_MDR1000X,1,1,MDR-1000X,Sony MDR-1000X,2016,,Discontinued,Headphone,Closed Back,Dynamic,40,46,103,Yes,Yes,,SONY_WH1000XM2,First in the 1000X line,,Over-Ear,400,,,,,Estimated
 8,SONY_WH1000XM2,1,1,WH-1000XM2,Sony WH-1000XM2,2017,,Discontinued,Headphone,Closed Back,Dynamic,40,46,103,Yes,Yes,SONY_MDR1000X,SONY_WH1000XM3,,,Over-Ear,350,,Wireless,,275,Estimated
 9,SONY_WH1000XM3,1,1,WH-1000XM3,Sony WH-1000XM3,2018,,Discontinued,Headphone,Closed Back,Dynamic,40,47,104,Yes,Yes,SONY_WH1000XM2,SONY_WH1000XM4,,,Over-Ear,350,V-Shaped,Wireless,,255,Estimated
 10,SONY_WH1000XM4,1,1,WH-1000XM4,Sony WH-1000XM4,2020,,Discontinued,Headphone,Closed Back,Dynamic,40,48,101,Yes,Yes,SONY_WH1000XM3,SONY_WH1000XM5,,,Over-Ear,350,V-Shaped,Wireless,No,254,Estimated
 11,SONY_WH1000XM5,1,1,WH-1000XM5,Sony WH-1000XM5,2022,,Active,Headphone,Closed Back,Dynamic,30,48,101,Yes,Yes,SONY_WH1000XM4,SONY_WH1000XM6,Flagship ANC,,Over-Ear,400,V-Shaped,Wireless,No,250,Estimated
 12,SONY_WH1000XM6,1,1,WH-1000XM6,Sony WH-1000XM6,2025,,Active,Headphone,Closed Back,Dynamic,30,16,100,Yes,Yes,SONY_WH1000XM5,,"Foldable redesign, QN3 processor",,Over-Ear,450,V-Shaped,Wireless,No,254,Estimated
 13,SONY_WHH900N,1,1,WH-H900N,Sony WH-H900N (h.ear on 2),2017,,Discontinued,Headphone,Closed Back,Dynamic,40,48,101,Yes,Yes,,,,,On-Ear,300,,,,,Estimated
-14,SONY_ULTWEAR,3,1,ULT WEAR,Sony ULT WEAR,2024,,Active,Headphone,Closed Back,Dynamic,40,16,100,Yes,Yes,,,Bass-focused ANC,,Over-Ear,,,,,,Estimated
+14,SONY_ULTWEAR,3,1,ULT WEAR,Sony ULT WEAR,2024,,Active,Headphone,Closed Back,Dynamic,40,16,100,Yes,Yes,,,Bass-focused ANC,,Over-Ear,200,,,,,Estimated
 15,SENN_HD600,4,2,HD 600,Sennheiser HD 600,1997,,Legacy Active,Headphone,Open Back,Dynamic,,300,97,No,No,,SENN_HD650,"Reference open-back, still in production",,Over-Ear,400,Neutral,Sennheiser 2-pin,Yes,260,Verified
 16,SENN_HD650,4,2,HD 650,Sennheiser HD 650,2003,,Legacy Active,Headphone,Open Back,Dynamic,,300,103,No,No,SENN_HD600,SENN_HD660S,,,Over-Ear,500,Warm Neutral,Sennheiser 2-pin,Yes,260,Verified
-17,SENN_HD700,4,2,HD 700,Sennheiser HD 700,2012,,Discontinued,Headphone,Open Back,Dynamic,,150,103,No,No,,,,,Over-Ear,,,,,,Estimated
+17,SENN_HD700,4,2,HD 700,Sennheiser HD 700,2012,,Discontinued,Headphone,Open Back,Dynamic,,150,103,No,No,,,,,Over-Ear,1000,,,,,Estimated
 18,SENN_HD800,4,2,HD 800,Sennheiser HD 800,2009,,Legacy Active,Headphone,Open Back,Dynamic,56,300,102,No,No,,SENN_HD800S,56mm ring radiator,,Over-Ear,1500,Bright,Sennheiser twist-lock,Yes,330,Verified
 19,SENN_HD800S,4,2,HD 800 S,Sennheiser HD 800 S,2015,,Active,Headphone,Open Back,Dynamic,56,300,102,No,No,SENN_HD800,,,,Over-Ear,1700,Neutral Bright,Sennheiser twist-lock,Yes,330,Verified
 20,SENN_HD820,4,2,HD 820,Sennheiser HD 820,2018,,Active,Headphone,Closed Back,Dynamic,56,300,103,No,No,,,"Closed-back flagship, glass earcups",,Over-Ear,2400,Bright,Sennheiser twist-lock,Yes,380,Verified
 21,SENN_HD660S,4,2,HD 660S,Sennheiser HD 660S,2017,,Discontinued,Headphone,Open Back,Dynamic,,150,104,No,No,SENN_HD650,SENN_HD660S2,,,Over-Ear,500,Warm Neutral,Sennheiser 2-pin,Yes,260,Verified
 22,SENN_HD660S2,4,2,HD 660S2,Sennheiser HD 660S2,2023,,Active,Headphone,Open Back,Dynamic,38,300,104,No,No,SENN_HD660S,,,,Over-Ear,600,Warm Neutral,Sennheiser 2-pin,Yes,260,Verified
 23,SENN_HD560S,4,2,HD 560S,Sennheiser HD 560S,2020,,Active,Headphone,Open Back,Dynamic,,120,110,No,No,,,Reference value pick,,Over-Ear,200,Neutral,3.5mm,Yes,240,Estimated
-24,SENN_HD400PRO,4,2,HD 400 Pro,Sennheiser HD 400 Pro,2021,,Active,Headphone,Open Back,Dynamic,,120,110,No,No,,,Budget open-back reference; replaceable earpads,,Over-Ear,,,,,,Estimated
+24,SENN_HD400PRO,4,2,HD 400 Pro,Sennheiser HD 400 Pro,2021,,Active,Headphone,Open Back,Dynamic,,120,110,No,No,,,Budget open-back reference; replaceable earpads,,Over-Ear,100,,,,,Estimated
 25,SENN_HD620S,4,2,HD 620S,Sennheiser HD 620S,2024,,Active,Headphone,Closed Back,Dynamic,,150,107,No,No,,,Closed-back addition to 600 line,,Over-Ear,450,,Sennheiser 2-pin,Yes,330,Verified
-26,SENN_HD550,4,2,HD 550,Sennheiser HD 550,2025,,Active,Headphone,Open Back,Dynamic,,50,112,No,No,,,,,Over-Ear,,,,,,Estimated
+26,SENN_HD550,4,2,HD 550,Sennheiser HD 550,2025,,Active,Headphone,Open Back,Dynamic,,50,112,No,No,,,,,Over-Ear,350,,,,,Estimated
 27,SENN_MOMENTUM,5,2,Momentum,Sennheiser Momentum,2013,,Discontinued,Headphone,Closed Back,Dynamic,42,18,110,No,No,,SENN_MOMENTUM2,Original Momentum over-ear,,On-Ear,280,,,,,Estimated
 28,SENN_MOMENTUM2,5,2,Momentum 2.0,Sennheiser Momentum 2.0,2015,,Discontinued,Headphone,Closed Back,Dynamic,42,18,113,No,No,SENN_MOMENTUM,SENN_MOMENTUM3,,,Over-Ear,350,,,,190,Estimated
 29,SENN_MOMENTUM3,5,2,Momentum 3 Wireless,Sennheiser Momentum 3 Wireless,2019,,Discontinued,Headphone,Closed Back,Dynamic,42,18,106,Yes,Yes,SENN_MOMENTUM2,SENN_MOMENTUM4,,,Over-Ear,350,V-Shaped,Wireless,No,,Verified
@@ -261,13 +261,13 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 260,NOTHING_HEADPHONE1,88,42,Headphone (1),Nothing Headphone (1),2025,,Active,Headphone,Closed Back,Dynamic,40,32,100,Yes,Yes,,,"First Nothing over-ear, KEF-tuned",,Over-Ear,,,,,,Estimated
 261,SENN_HD518,89,2,HD 518,Sennheiser HD 518,2010,,Discontinued,Headphone,Open Back,Dynamic,,50,108,No,No,,,,,Over-Ear,150,,3.5mm,Yes,238,Estimated
 262,SENN_HD558,89,2,HD 558,Sennheiser HD 558,2010,,Discontinued,Headphone,Open Back,Dynamic,,50,112,No,No,,SENN_HD559,,,Over-Ear,180,,3.5mm,Yes,260,Estimated
-263,SENN_HD598,89,2,HD 598,Sennheiser HD 598,2010,,Discontinued,Headphone,Open Back,Dynamic,,50,112,No,No,,SENN_HD599,Popular mid-tier open-back,,Over-Ear,,,,,,Estimated
-264,SENN_HD598CS,89,2,HD 598 CS,Sennheiser HD 598 CS,2016,,Discontinued,Headphone,Closed Back,Dynamic,,23,115,No,No,,,Closed-back 598; Amazon exclusive; 23Ω; uses 569 driver,,Over-Ear,,,,,,Estimated
-265,SENN_HD559,89,2,HD 559,Sennheiser HD 559,2016,,Active,Headphone,Open Back,Dynamic,,50,108,No,No,SENN_HD558,,,,Over-Ear,,,,,,Estimated
+263,SENN_HD598,89,2,HD 598,Sennheiser HD 598,2010,,Discontinued,Headphone,Open Back,Dynamic,,50,112,No,No,,SENN_HD599,Popular mid-tier open-back,,Over-Ear,250,,,,,Estimated
+264,SENN_HD598CS,89,2,HD 598 CS,Sennheiser HD 598 CS,2016,,Discontinued,Headphone,Closed Back,Dynamic,,23,115,No,No,,,Closed-back 598; Amazon exclusive; 23Ω; uses 569 driver,,Over-Ear,200,,,,,Estimated
+265,SENN_HD559,89,2,HD 559,Sennheiser HD 559,2016,,Active,Headphone,Open Back,Dynamic,,50,108,No,No,SENN_HD558,,,,Over-Ear,120,,,,,Estimated
 266,SENN_HD569,89,2,HD 569,Sennheiser HD 569,2016,,Active,Headphone,Closed Back,Dynamic,,23,115,No,No,,,,,Over-Ear,200,U-Shaped,3.5mm,Yes,229,Estimated
 267,SENN_HD579,89,2,HD 579,Sennheiser HD 579,2016,,Active,Headphone,Open Back,Dynamic,,50,106,No,No,,,,,Over-Ear,200,,3.5mm,Yes,218,Estimated
 268,SENN_HD599,89,2,HD 599,Sennheiser HD 599,2016,,Active,Headphone,Open Back,Dynamic,,50,106,No,No,SENN_HD598,,,,Over-Ear,250,,3.5mm,Yes,223,Estimated
-269,SENN_HD505,89,2,HD 505,Sennheiser HD 505,2025,,Active,Headphone,Open Back,Dynamic,,50,112,No,No,,,,,Over-Ear,,,,,,Estimated
+269,SENN_HD505,89,2,HD 505,Sennheiser HD 505,2025,,Active,Headphone,Open Back,Dynamic,,50,112,No,No,,,,,Over-Ear,200,,,,,Estimated
 270,SENN_HD25,4,2,HD 25,Sennheiser HD 25,2010,,Active,Studio,Closed Back,Dynamic,25,70,120,No,No,,,On-ear DJ/monitoring standard,,On-Ear,170,Bright,3.5mm,No,140,Verified
 271,SENN_HD250BT,4,2,HD 250BT,Sennheiser HD 250BT,2020,,Active,Headphone,Closed Back,Dynamic,40,18,115,Yes,No,,,,,On-Ear,200,,Wireless,No,227,Estimated
 272,SENN_HD350BT,4,2,HD 350BT,Sennheiser HD 350BT,2019,,Active,Headphone,Closed Back,Dynamic,40,18,108,Yes,No,,,,,Over-Ear,100,,Wireless,No,155,Estimated
@@ -276,26 +276,26 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 275,SENN_HD4_50BTNC,4,2,HD 4.50 BTNC,Sennheiser HD 4.50 BTNC,2016,,Discontinued,Headphone,Closed Back,Dynamic,38,18,113,Yes,Yes,,,,,Over-Ear,200,,Wireless,No,229,Estimated
 276,SENN_PXC550,90,2,PXC 550 Wireless,Sennheiser PXC 550 Wireless,2016,,Discontinued,Headphone,Closed Back,Dynamic,40,150,105,Yes,Yes,,SENN_PXC550II,,,Over-Ear,350,,Wireless,No,227,Verified
 277,SENN_PXC550II,90,2,PXC 550-II Wireless,Sennheiser PXC 550-II Wireless,2019,,Discontinued,Headphone,Closed Back,Dynamic,40,150,105,Yes,Yes,SENN_PXC550,,,,Over-Ear,350,,Wireless,No,227,Verified
-278,SENN_HD58X,4,2,HD 58X Jubilee,Drop x Sennheiser HD 58X Jubilee,2018,,Active,Headphone,Open Back,Dynamic,,150,104,No,No,,,Drop collaboration,,Over-Ear,,,,,,Estimated
-279,SENN_HD6XX,4,2,HD 6XX,Drop x Sennheiser HD 6XX,2016,,Active,Headphone,Open Back,Dynamic,,300,103,No,No,,,Drop-exclusive HD 650 variant,,Over-Ear,,,,,,Estimated
-280,SENN_HD8XX,4,2,HD 8XX,Drop x Sennheiser HD 8XX,2020,,Active,Headphone,Open Back,Dynamic,56,300,102,No,No,,,Drop-exclusive HD 800 variant,,Over-Ear,,,,,,Estimated
+278,SENN_HD58X,4,2,HD 58X Jubilee,Drop x Sennheiser HD 58X Jubilee,2018,,Active,Headphone,Open Back,Dynamic,,150,104,No,No,,,Drop collaboration,,Over-Ear,150,,,,,Estimated
+279,SENN_HD6XX,4,2,HD 6XX,Drop x Sennheiser HD 6XX,2016,,Active,Headphone,Open Back,Dynamic,,300,103,No,No,,,Drop-exclusive HD 650 variant,,Over-Ear,220,,,,,Estimated
+280,SENN_HD8XX,4,2,HD 8XX,Drop x Sennheiser HD 8XX,2020,,Active,Headphone,Open Back,Dynamic,56,300,102,No,No,,,Drop-exclusive HD 800 variant,,Over-Ear,1100,,,,,Estimated
 281,SONY_MDR7506,91,1,MDR-7506,Sony MDR-7506,1991,,Legacy Active,Studio,Closed Back,Dynamic,40,63,106,No,No,,,"Studio monitoring standard, still produced",,Over-Ear,100,Bright,3.5mm/6.35mm,No,230,Verified
-282,SONY_MDRV6,91,1,MDR-V6,Sony MDR-V6,1985,,Discontinued,Studio,Closed Back,Dynamic,40,63,106,No,No,,SONY_MDR7506,,,Over-Ear,,,,,,Estimated
+282,SONY_MDRV6,91,1,MDR-V6,Sony MDR-V6,1985,,Discontinued,Studio,Closed Back,Dynamic,40,63,106,No,No,,SONY_MDR7506,,,Over-Ear,100,,,,,Estimated
 283,SONY_MDR7510,91,1,MDR-7510,Sony MDR-7510,2010,,Discontinued,Studio,Closed Back,Dynamic,40,24,106,No,No,,,,,Over-Ear,200,,3.5mm,,,Estimated
-284,SONY_CD900ST,91,1,MDR-CD900ST,Sony MDR-CD900ST,1989,,Legacy Active,Studio,Closed Back,Dynamic,40,63,106,No,No,,,Japanese studio standard,,Over-Ear,,,,,,Estimated
+284,SONY_CD900ST,91,1,MDR-CD900ST,Sony MDR-CD900ST,1989,,Legacy Active,Studio,Closed Back,Dynamic,40,63,106,No,No,,,Japanese studio standard,,Over-Ear,150,,,,,Estimated
 285,SONY_ZX110,92,1,MDR-ZX110,Sony MDR-ZX110,2014,,Active,Headphone,Closed Back,Dynamic,30,24,98,No,No,,,Budget on-ear,,On-Ear,30,,,,107,Estimated
 286,SONY_ZX310,92,1,MDR-ZX310,Sony MDR-ZX310,2014,,Active,Headphone,Closed Back,Dynamic,30,24,98,No,No,,,,,On-Ear,50,,,,,Estimated
-287,SONY_ZX750BN,92,1,MDR-ZX750BN,Sony MDR-ZX750BN,2014,,Discontinued,Headphone,Closed Back,Dynamic,40,40,103,Yes,Yes,,,,,Over-Ear,,,,,,Estimated
+287,SONY_ZX750BN,92,1,MDR-ZX750BN,Sony MDR-ZX750BN,2014,,Discontinued,Headphone,Closed Back,Dynamic,40,40,103,Yes,Yes,,,,,Over-Ear,130,,,,,Estimated
 288,SONY_XB650,93,1,MDR-XB650BT,Sony MDR-XB650BT,2016,,Discontinued,Headphone,Closed Back,Dynamic,40,24,103,Yes,No,,,Extra Bass,,On-Ear,80,,,,,Estimated
-289,SONY_XB950B1,93,1,MDR-XB950B1,Sony MDR-XB950B1,2016,,Discontinued,Headphone,Closed Back,Dynamic,40,24,103,Yes,No,,,,,Over-Ear,,,,,,Estimated
-290,SONY_XB900N,93,1,WH-XB900N,Sony WH-XB900N,2018,,Discontinued,Headphone,Closed Back,Dynamic,40,48,100,Yes,Yes,,SONY_XB910N,Extra Bass ANC,,Over-Ear,,,,,,Estimated
-291,SONY_XB910N,93,1,WH-XB910N,Sony WH-XB910N,2021,,Active,Headphone,Closed Back,Dynamic,30,48,103,Yes,Yes,SONY_XB900N,,,,Over-Ear,,,,,,Estimated
+289,SONY_XB950B1,93,1,MDR-XB950B1,Sony MDR-XB950B1,2016,,Discontinued,Headphone,Closed Back,Dynamic,40,24,103,Yes,No,,,,,Over-Ear,100,,,,,Estimated
+290,SONY_XB900N,93,1,WH-XB900N,Sony WH-XB900N,2018,,Discontinued,Headphone,Closed Back,Dynamic,40,48,100,Yes,Yes,,SONY_XB910N,Extra Bass ANC,,Over-Ear,148,,,,,Estimated
+291,SONY_XB910N,93,1,WH-XB910N,Sony WH-XB910N,2021,,Active,Headphone,Closed Back,Dynamic,30,48,103,Yes,Yes,SONY_XB900N,,,,Over-Ear,248,,,,,Estimated
 292,SONY_CH500,94,1,WH-CH500,Sony WH-CH500,2018,,Discontinued,Headphone,Closed Back,Dynamic,30,32,100,Yes,No,,,,,On-Ear,60,,,No,130,Estimated
 293,SONY_CH510,94,1,WH-CH510,Sony WH-CH510,2019,,Active,Headphone,Closed Back,Dynamic,30,32,98,Yes,No,,,,,On-Ear,60,,,No,,Estimated
 294,SONY_CH520,94,1,WH-CH520,Sony WH-CH520,2023,,Active,Headphone,Closed Back,Dynamic,30,32,100,Yes,No,,,,,On-Ear,60,,,No,,Estimated
-295,SONY_CH700N,94,1,WH-CH700N,Sony WH-CH700N,2018,,Discontinued,Headphone,Closed Back,Dynamic,40,48,100,Yes,Yes,,SONY_CH710N,,,Over-Ear,,,,,,Estimated
-296,SONY_CH710N,94,1,WH-CH710N,Sony WH-CH710N,2020,,Discontinued,Headphone,Closed Back,Dynamic,30,48,100,Yes,Yes,SONY_CH700N,SONY_CH720N,,,Over-Ear,,,,,,Estimated
-297,SONY_CH720N,94,1,WH-CH720N,Sony WH-CH720N,2023,,Active,Headphone,Closed Back,Dynamic,30,48,100,Yes,Yes,SONY_CH710N,,,,Over-Ear,,,,,,Estimated
+295,SONY_CH700N,94,1,WH-CH700N,Sony WH-CH700N,2018,,Discontinued,Headphone,Closed Back,Dynamic,40,48,100,Yes,Yes,,SONY_CH710N,,,Over-Ear,148,,,,,Estimated
+296,SONY_CH710N,94,1,WH-CH710N,Sony WH-CH710N,2020,,Discontinued,Headphone,Closed Back,Dynamic,30,48,100,Yes,Yes,SONY_CH700N,SONY_CH720N,,,Over-Ear,80,,,,,Estimated
+297,SONY_CH720N,94,1,WH-CH720N,Sony WH-CH720N,2023,,Active,Headphone,Closed Back,Dynamic,30,48,100,Yes,Yes,SONY_CH710N,,,,Over-Ear,150,,,,,Estimated
 298,ATECH_A550Z,95,4,ATH-A550Z,Audio-Technica ATH-A550Z,2014,,Active,Headphone,Closed Back,Dynamic,53,44,99,No,No,,,,,Over-Ear,,,,,,Estimated
 299,ATECH_A990Z,95,4,ATH-A990Z,Audio-Technica ATH-A990Z,2014,,Active,Headphone,Closed Back,Dynamic,53,44,99,No,No,,,"Art Monitor, D.A.D.S.",,Over-Ear,,,,,,Estimated
 300,ATECH_A1000Z,95,4,ATH-A1000Z,Audio-Technica ATH-A1000Z,2014,,Active,Headphone,Closed Back,Dynamic,53,44,101,No,No,,,,,Over-Ear,,,A2DC,Yes,,Estimated
@@ -418,10 +418,10 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 417,BEATS_SOLO2,52,16,Solo 2,Beats Solo 2,2014,,Discontinued,Headphone,Closed Back,Dynamic,40,32,110,No,No,,BEATS_SOLO3,,,On-Ear,,,,,,Estimated
 418,BEATS_SOLOPRO,52,16,Solo Pro,Beats Solo Pro,2019,,Discontinued,Headphone,Closed Back,Dynamic,40,32,110,Yes,Yes,,,On-ear ANC,,On-Ear,300,,Wireless,,260,Estimated
 419,BEATS_EP,52,16,EP,Beats EP,2016,,Active,Headphone,Closed Back,Dynamic,40,32,110,No,No,,,Budget wired on-ear,,On-Ear,,Bassy,,No,155,Estimated
-420,SONY_MDR100ABN,112,1,MDR-100ABN,Sony MDR-100ABN (h.ear on),2015,,Discontinued,Headphone,Closed Back,Dynamic,40,46,103,Yes,Yes,,SONY_WHH900N,h.ear series ANC,,Over-Ear,,,,,,Estimated
-421,SONY_MDR100AAP,112,1,MDR-100AAP,Sony MDR-100AAP (h.ear on),2015,,Discontinued,Headphone,Closed Back,Dynamic,40,24,105,No,No,,,,,Over-Ear,,,,,,Estimated
-422,SONY_MDR10R,2,1,MDR-10R,Sony MDR-10R,2013,,Discontinued,Headphone,Closed Back,Dynamic,40,24,105,No,No,,,,,Over-Ear,,,,,,Estimated
-423,SONY_MDR10RBT,2,1,MDR-10RBT,Sony MDR-10RBT,2013,,Discontinued,Headphone,Closed Back,Dynamic,40,32,102,Yes,No,,,,,Over-Ear,,,,,,Estimated
+420,SONY_MDR100ABN,112,1,MDR-100ABN,Sony MDR-100ABN (h.ear on),2015,,Discontinued,Headphone,Closed Back,Dynamic,40,46,103,Yes,Yes,,SONY_WHH900N,h.ear series ANC,,Over-Ear,249,,,,,Estimated
+421,SONY_MDR100AAP,112,1,MDR-100AAP,Sony MDR-100AAP (h.ear on),2015,,Discontinued,Headphone,Closed Back,Dynamic,40,24,105,No,No,,,,,Over-Ear,199,,,,,Estimated
+422,SONY_MDR10R,2,1,MDR-10R,Sony MDR-10R,2013,,Discontinued,Headphone,Closed Back,Dynamic,40,24,105,No,No,,,,,Over-Ear,200,,,,,Estimated
+423,SONY_MDR10RBT,2,1,MDR-10RBT,Sony MDR-10RBT,2013,,Discontinued,Headphone,Closed Back,Dynamic,40,32,102,Yes,No,,,,,Over-Ear,250,,,,,Estimated
 424,JBL_EVEREST700,109,38,Everest 700,JBL Everest 700,2015,,Discontinued,Headphone,Closed Back,Dynamic,40,32,103,Yes,No,,,,,Over-Ear,,,,,,Estimated
 425,JBL_EVEREST710,109,38,Everest 710,JBL Everest 710,2016,,Discontinued,Headphone,Closed Back,Dynamic,40,32,103,Yes,No,,,,,Over-Ear,,,,,,Estimated
 426,JBL_EVERESTELITE750,109,38,Everest Elite 750NC,JBL Everest Elite 750NC,2016,,Discontinued,Headphone,Closed Back,Dynamic,40,32,105,Yes,Yes,,,,,Over-Ear,,,,,,Estimated
@@ -445,23 +445,23 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 444,LOGI_G935,61,21,G935,Logitech G935,2019,,Active,Gaming,Closed Back,Dynamic,40,39,107,Yes,No,,,,,Over-Ear,,,,,,Estimated
 445,ASTRO_A40,62,22,A40 TR Gen 2,Astro A40 TR (Gen 2),2019,,Active,Gaming,Open Back,Dynamic,40,48,118,No,No,,,,,Over-Ear,130,,3.5mm,No,368,Estimated
 446,CORSAIR_HS80MAX,65,24,HS80 Max Wireless,Corsair HS80 Max Wireless,2023,,Active,Gaming,Closed Back,Dynamic,50,32,100,Yes,No,,,,,Over-Ear,,,,,,Estimated
-447,SENN_HD414,114,2,HD 414,Sennheiser HD 414,1968,,Discontinued,Headphone,Open Back,Dynamic,,2000,92,No,No,,,World's first open-back hi-fi headphone,,Over-Ear,,,,,,Estimated
-448,SENN_HD580,4,2,HD 580 Precision,Sennheiser HD 580 Precision,1991,,Discontinued,Headphone,Open Back,Dynamic,,300,97,No,No,,SENN_HD600,Direct ancestor of the HD 600,,Over-Ear,,,,,,Estimated
-449,SENN_HD540,114,2,HD 540 Reference,Sennheiser HD 540 Reference,1985,,Discontinued,Headphone,Open Back,Dynamic,,300,94,No,No,,,,,Over-Ear,,,,,,Estimated
-450,SENN_HD25_1,4,2,HD 25-1,Sennheiser HD 25-1,1988,,Legacy Active,Studio,Closed Back,Dynamic,25,70,120,No,No,,,On-ear monitoring/DJ standard,,On-Ear,,Bright,3.5mm,No,140,Verified
+447,SENN_HD414,114,2,HD 414,Sennheiser HD 414,1968,,Discontinued,Headphone,Open Back,Dynamic,,2000,92,No,No,,,World's first open-back hi-fi headphone,,Over-Ear,50,,,,,Estimated
+448,SENN_HD580,4,2,HD 580 Precision,Sennheiser HD 580 Precision,1991,,Discontinued,Headphone,Open Back,Dynamic,,300,97,No,No,,SENN_HD600,Direct ancestor of the HD 600,,Over-Ear,350,,,,,Estimated
+449,SENN_HD540,114,2,HD 540 Reference,Sennheiser HD 540 Reference,1985,,Discontinued,Headphone,Open Back,Dynamic,,300,94,No,No,,,,,Over-Ear,450,,,,,Estimated
+450,SENN_HD25_1,4,2,HD 25-1,Sennheiser HD 25-1,1988,,Legacy Active,Studio,Closed Back,Dynamic,25,70,120,No,No,,,On-ear monitoring/DJ standard,,On-Ear,150,Bright,3.5mm,No,140,Verified
 451,SENN_HD555,89,2,HD 555,Sennheiser HD 555,2005,,Discontinued,Headphone,Open Back,Dynamic,,50,112,No,No,,SENN_HD558,,,Over-Ear,150,,,,260,Estimated
-452,SENN_HD595,89,2,HD 595,Sennheiser HD 595,2005,,Discontinued,Headphone,Open Back,Dynamic,,50,112,No,No,,SENN_HD598,,,Over-Ear,,,,,,Estimated
+452,SENN_HD595,89,2,HD 595,Sennheiser HD 595,2005,,Discontinued,Headphone,Open Back,Dynamic,,50,112,No,No,,SENN_HD598,,,Over-Ear,200,,,,,Estimated
 453,SENN_HD280PRO,115,2,HD 280 Pro,Sennheiser HD 280 Pro,2003,,Active,Studio,Closed Back,Dynamic,40,64,113,No,No,,,Studio monitoring staple,,Over-Ear,100,Neutral,,,,Verified
 454,SENN_HD202,115,2,HD 202,Sennheiser HD 202,2003,,Discontinued,Headphone,Closed Back,Dynamic,40,32,111,No,No,,,,,On-Ear,50,,,,,Estimated
 455,SENN_PX100,114,2,PX 100,Sennheiser PX 100,2003,,Discontinued,Headphone,Open Back,Dynamic,25,32,108,No,No,,,Portable on-ear,,On-Ear,60,,,,,Estimated
 456,SENN_PX200,114,2,PX 200,Sennheiser PX 200,2004,,Discontinued,Headphone,Closed Back,Dynamic,25,32,108,No,No,,,,,On-Ear,90,,,,,Estimated
-457,SENN_HE60,114,2,HE 60 (Orpheus),Sennheiser HE 60 / HEV 70,1991,,Discontinued,Headphone,Open Back,Electrostatic,,,,No,No,,,Baby Orpheus electrostatic,,Over-Ear,,,,,,Estimated
-458,SONY_MDRSA5000,116,1,MDR-SA5000,Sony MDR-SA5000,2004,,Discontinued,Headphone,Open Back,Dynamic,50,70,102,No,No,,,Lightweight magnesium open-back,,Over-Ear,,,,,,Estimated
-459,SONY_MDRR10,116,1,MDR-R10,Sony MDR-R10,1989,,Discontinued,Headphone,Closed Back,Dynamic,50,40,100,No,No,,,Legendary wood-cup flagship,,Over-Ear,,,,,,Estimated
-460,SONY_MDRCD3000,116,1,MDR-CD3000,Sony MDR-CD3000,1991,,Discontinued,Headphone,Closed Back,Dynamic,50,32,104,No,No,,,,,Over-Ear,,,,,,Estimated
+457,SENN_HE60,114,2,HE 60 (Orpheus),Sennheiser HE 60 / HEV 70,1991,,Discontinued,Headphone,Open Back,Electrostatic,,,,No,No,,,Baby Orpheus electrostatic,,Over-Ear,1500,,,,,Estimated
+458,SONY_MDRSA5000,116,1,MDR-SA5000,Sony MDR-SA5000,2004,,Discontinued,Headphone,Open Back,Dynamic,50,70,102,No,No,,,Lightweight magnesium open-back,,Over-Ear,700,,,,,Estimated
+459,SONY_MDRR10,116,1,MDR-R10,Sony MDR-R10,1989,,Discontinued,Headphone,Closed Back,Dynamic,50,40,100,No,No,,,Legendary wood-cup flagship,,Over-Ear,2500,,,,,Estimated
+460,SONY_MDRCD3000,116,1,MDR-CD3000,Sony MDR-CD3000,1991,,Discontinued,Headphone,Closed Back,Dynamic,50,32,104,No,No,,,,,Over-Ear,600,,,,,Estimated
 461,SONY_QUALIA010,116,1,Qualia 010 (MDR-Q010),Sony Qualia 010,2004,,Discontinued,Headphone,Open Back,Dynamic,70,8,104,No,No,,,Qualia-series flagship,,Over-Ear,2000,,,,,Estimated
-462,SONY_MDRV600,91,1,MDR-V600,Sony MDR-V600,1992,,Discontinued,Studio,Closed Back,Dynamic,40,45,106,No,No,,,,,Over-Ear,,,,,,Estimated
-463,SONY_MDR7509HD,91,1,MDR-7509HD,Sony MDR-7509HD,2003,,Discontinued,Studio,Closed Back,Dynamic,50,24,107,No,No,,,Larger-driver pro model,,Over-Ear,,,,,,Estimated
+462,SONY_MDRV600,91,1,MDR-V600,Sony MDR-V600,1992,,Discontinued,Studio,Closed Back,Dynamic,40,45,106,No,No,,,,,Over-Ear,150,,,,,Estimated
+463,SONY_MDR7509HD,91,1,MDR-7509HD,Sony MDR-7509HD,2003,,Discontinued,Studio,Closed Back,Dynamic,50,24,107,No,No,,,Larger-driver pro model,,Over-Ear,300,,,,,Estimated
 464,SONY_MDRXB700,93,1,MDR-XB700,Sony MDR-XB700,2009,,Discontinued,Headphone,Closed Back,Dynamic,50,24,106,No,No,,,Original Extra Bass over-ear,,Over-Ear,120,Bassy,,,,Estimated
 465,AKG_K1000,117,5,K1000,AKG K1000,1989,,Discontinued,Headphone,Open Back,Dynamic,,120,74,No,No,,,"Ear-speaker, hinged off-ear design",,Over-Ear,,,,,,Estimated
 466,AKG_K240SEXTETT,117,5,K240 Sextett,AKG K240 Sextett,1979,,Discontinued,Headphone,Semi-Open,Dynamic,30,600,92,No,No,,,Passive-radiator classic,,Over-Ear,,,,,,Estimated
@@ -524,9 +524,9 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 523,FINAL_SONOROUSX,127,29,Sonorous X,Final Audio Sonorous X,2015,,Discontinued,Headphone,Closed Back,Dynamic,50,75,93,No,No,,,Flagship closed dynamic,,Over-Ear,3000,,,,,Estimated
 524,ABYSS_DIANATC,129,26,Diana TC,Abyss Diana TC,2021,,Active,Headphone,Open Back,Planar Magnetic,,46,90,No,No,,,Diana with TC driver tech,,Over-Ear,4000,,,,350,Estimated
 525,ABYSS_DIANAMR,68,26,Diana MR,Abyss Diana MR,2023,,Active,Headphone,Open Back,Planar Magnetic,,42,91,No,No,,,,,Over-Ear,4000,,,,,Estimated
-526,SONY_MDRMA900,128,1,MDR-MA900,Sony MDR-MA900,2012,,Discontinued,Headphone,Open Back,Dynamic,70,12,103,No,No,,,Lightweight 70mm open-back,,Over-Ear,,,,,,Estimated
-527,SONY_MDRMV1,128,1,MDR-MV1,Sony MDR-MV1,2023,,Active,Studio,Open Back,Dynamic,40,24,100,No,No,,,Open-back studio reference,,Over-Ear,,,,,,Estimated
-528,SONY_MDRM1,128,1,MDR-M1,Sony MDR-M1,2024,,Active,Studio,Closed Back,Dynamic,40,50,102,No,No,,,Modern studio monitor,,Over-Ear,,,,,,Estimated
+526,SONY_MDRMA900,128,1,MDR-MA900,Sony MDR-MA900,2012,,Discontinued,Headphone,Open Back,Dynamic,70,12,103,No,No,,,Lightweight 70mm open-back,,Over-Ear,250,,,,,Estimated
+527,SONY_MDRMV1,128,1,MDR-MV1,Sony MDR-MV1,2023,,Active,Studio,Open Back,Dynamic,40,24,100,No,No,,,Open-back studio reference,,Over-Ear,300,,,,,Estimated
+528,SONY_MDRM1,128,1,MDR-M1,Sony MDR-M1,2024,,Active,Studio,Closed Back,Dynamic,40,50,102,No,No,,,Modern studio monitor,,Over-Ear,300,,,,,Estimated
 529,AUDEZE_LCD24,23,8,LCD-24,Audeze LCD-24 (Anniversary),2023,,Active,Headphone,Open Back,Planar Magnetic,106,70,101,No,No,,,Limited anniversary LCD,,Over-Ear,,,,,,Estimated
 530,AUDEZE_PENROSE,25,8,Penrose,Audeze Penrose,2020,,Discontinued,Gaming,Closed Back,Planar Magnetic,,32,111,Yes,No,,,Wireless gaming predecessor to Maxwell,,Over-Ear,300,,,,345,Estimated
 531,MEZE_99CLASSICSWALNUT,45,13,99 Classics Walnut Gold,Meze 99 Classics Walnut Gold,2015,,Active,Headphone,Closed Back,Dynamic,40,32,103,No,No,,,Standard walnut/gold finish,,Over-Ear,,,,Yes,,Estimated
@@ -606,7 +606,7 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 605,MOONDROP_EDGE,158,53,Edge,Moondrop Edge,2024,,Active,Headphone,Closed Back,Dynamic,,32,100,Yes,Yes,,,First Moondrop over-ear wireless ANC,,Over-Ear,150,,,,,Estimated
 606,MOONDROP_OLDFASHIONED,159,53,Old Fashioned,Moondrop Old Fashioned,2025,,Active,Headphone,Open Back,Dynamic,,60,96,No,No,,,"$25 retro on-ear, 40mm driver",,Over-Ear,,,,,,Estimated
 607,AUDEZE_LCDS20,23,8,LCD-S20,Audeze LCD-S20,2025,,Active,Headphone,Open Back,Planar Magnetic,90,14,90,No,No,,,"Accessible LCD line w/ SLAM, $499",,Over-Ear,,,,,,Estimated
-608,SENN_HD480PRO,115,2,HD 480 Pro,Sennheiser HD 480 Pro,2026,,Active,Studio,Closed Back,Dynamic,,120,108,No,No,,,"Closed studio, flexible cable",,Over-Ear,,,,,,Estimated
+608,SENN_HD480PRO,115,2,HD 480 Pro,Sennheiser HD 480 Pro,2026,,Active,Studio,Closed Back,Dynamic,,120,108,No,No,,,"Closed studio, flexible cable",,Over-Ear,399,,,,,Estimated
 609,GRADO_S550,43,12,Signature S550,Grado Signature S550,2026,,Active,Headphone,Open Back,Dynamic,,32,99,No,No,,,Debuted CanJam NYC 2026,,On-Ear,,,,,,Estimated
 610,SENN_HD490PRO,4,2,HD 490 PRO,Sennheiser HD 490 PRO,2024,,Active,Studio,Open Back,Dynamic,38,130,96,No,No,,,Open-frame architecture; two swappable pad sets for mixing vs producing,,Over-Ear,400,Neutral,Sennheiser 2-pin,Yes,240,Verified
 611,AKG_K872,,5,K872,AKG K872,2016,,Active,Studio,Closed Back,Dynamic,53,36,110,No,No,,,Flagship closed-back; 53mm 1.5 Tesla drivers,,Over-Ear,1500,Analytical,3.5mm,Yes,340,Verified
@@ -661,9 +661,9 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 660,YAMAHA_YH5000SE,136,45,YH-5000SE,Yamaha YH-5000SE,2022,,Active,Headphone,Open Back,Planar Magnetic,,34,98,No,No,,,Flagship orthodynamic; made in Japan; 5Hz-70kHz,,Over-Ear,,,,,,Estimated
 661,YAMAHA_YH4000,136,45,YH-4000,Yamaha YH-4000,2024,,Active,Headphone,Open Back,Planar Magnetic,,34,97,No,No,,,Open orthodynamic; step below YH-5000SE,,Over-Ear,,,,,,Estimated
 662,YAMAHA_HPHMT220,135,45,HPH-MT220,Yamaha HPH-MT220,2016,,Active,Studio,Closed Back,Dynamic,40,48,102,No,No,,,Studio closed-back; flat reference tuning,,Over-Ear,,,,,,Estimated
-663,SONY_INZONEH3,,1,INZONE H3,Sony INZONE H3,2022,,Active,Gaming,Closed Back,Dynamic,40,32,98,No,No,,,Wired gaming headset; 40mm drivers,,Over-Ear,,,,,,Estimated
-664,SONY_INZONEH7,,1,INZONE H7,Sony INZONE H7,2022,,Active,Gaming,Closed Back,Dynamic,40,32,100,Yes,No,,,Wireless gaming; no ANC,,Over-Ear,,,,,,Estimated
-665,SONY_INZONEH9,,1,INZONE H9,Sony INZONE H9,2022,,Active,Gaming,Closed Back,Dynamic,40,32,100,Yes,Yes,,,Wireless gaming with ANC; flagship INZONE,,Over-Ear,,,,,,Estimated
+663,SONY_INZONEH3,,1,INZONE H3,Sony INZONE H3,2022,,Active,Gaming,Closed Back,Dynamic,40,32,98,No,No,,,Wired gaming headset; 40mm drivers,,Over-Ear,100,,,,,Estimated
+664,SONY_INZONEH7,,1,INZONE H7,Sony INZONE H7,2022,,Active,Gaming,Closed Back,Dynamic,40,32,100,Yes,No,,,Wireless gaming; no ANC,,Over-Ear,230,,,,,Estimated
+665,SONY_INZONEH9,,1,INZONE H9,Sony INZONE H9,2022,,Active,Gaming,Closed Back,Dynamic,40,32,100,Yes,Yes,,,Wireless gaming with ANC; flagship INZONE,,Over-Ear,300,,,,,Estimated
 666,SONY_MDR7520,2,1,MDR-7520,Sony MDR-7520,2011,,Discontinued,Studio,Closed Back,Dynamic,50,24,106,No,No,,,Pro studio closed-back; 50mm driver,,Over-Ear,400,,6.35mm,,,Estimated
 667,AUDEZE_EL8O,,8,EL-8 Open,Audeze EL-8 Open,2015,,Discontinued,Headphone,Open Back,Planar Magnetic,100,30,102,No,No,,,Entry-level Audeze planar; thin-film driver,,Over-Ear,,,,,,Estimated
 668,AUDEZE_EL8C,,8,EL-8 Closed,Audeze EL-8 Closed,2015,,Discontinued,Headphone,Closed Back,Planar Magnetic,100,30,102,No,No,,,Closed-back entry Audeze,,Over-Ear,,,,,,Estimated
@@ -678,13 +678,13 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 677,AKG_K267,,5,K267 Tiesto,AKG K267 Tiesto,2012,,Discontinued,Headphone,Closed Back,Dynamic,50,32,114,No,No,,,DJ collaboration; three-position bass adjustment,,Over-Ear,,,,,,Estimated
 678,SENN_AMPERIOR,4,2,Amperior,Sennheiser Amperior,2012,,Discontinued,Headphone,Closed Back,Dynamic,30,18,110,No,No,,,Aluminum-cup HD 25 variant; iPhone-compatible,,On-Ear,300,Bright,,No,143,Verified
 679,SENN_HD201,4,2,HD 201,Sennheiser HD 201,2004,,Discontinued,Headphone,Closed Back,Dynamic,40,32,108,No,No,,,Entry-level budget closed-back,,On-Ear,130,,,,,Estimated
-680,SENN_HD203,4,2,HD 203,Sennheiser HD 203,2006,,Discontinued,Headphone,Closed Back,Dynamic,40,32,110,No,No,,,DJ-oriented entry-level,,On-Ear,,,,,,Estimated
+680,SENN_HD203,4,2,HD 203,Sennheiser HD 203,2006,,Discontinued,Headphone,Closed Back,Dynamic,40,32,110,No,No,,,DJ-oriented entry-level,,On-Ear,40,,,,,Estimated
 681,SENN_HD219,4,2,HD 219,Sennheiser HD 219,2010,,Discontinued,Headphone,Closed Back,Dynamic,40,32,115,No,No,,,,,On-Ear,50,,,,,Estimated
 682,SENN_HD229,4,2,HD 229,Sennheiser HD 229,2010,,Discontinued,Headphone,Closed Back,Dynamic,40,32,115,No,No,,,,,On-Ear,70,,,,,Estimated
 683,SENN_HD238,4,2,HD 238,Sennheiser HD 238,2008,,Discontinued,Headphone,Open Back,Dynamic,40,32,112,No,No,,,Portable open-back; popular value pick in its era,,On-Ear,80,,,,,Estimated
-684,SENN_GAMEONE,4,2,GAME ONE,Sennheiser GAME ONE,2014,,Active,Gaming,Open Back,Dynamic,,50,110,No,No,,,Open-back gaming headset; HD 558 driver,,Over-Ear,,,,,,Estimated
-685,SENN_GSP600,4,2,GSP 600,Sennheiser GSP 600,2018,,Active,Gaming,Closed Back,Dynamic,,28,112,No,No,,,Pro closed-back gaming; broadcast-quality boom mic,,Over-Ear,,,,,,Estimated
-686,SENN_GSP300,4,2,GSP 300,Sennheiser GSP 300,2017,,Active,Gaming,Closed Back,Dynamic,,28,113,No,No,,,Entry gaming closed-back,,Over-Ear,,,,,,Estimated
+684,SENN_GAMEONE,4,2,GAME ONE,Sennheiser GAME ONE,2014,,Active,Gaming,Open Back,Dynamic,,50,110,No,No,,,Open-back gaming headset; HD 558 driver,,Over-Ear,150,,,,,Estimated
+685,SENN_GSP600,4,2,GSP 600,Sennheiser GSP 600,2018,,Active,Gaming,Closed Back,Dynamic,,28,112,No,No,,,Pro closed-back gaming; broadcast-quality boom mic,,Over-Ear,250,,,,,Estimated
+686,SENN_GSP300,4,2,GSP 300,Sennheiser GSP 300,2017,,Active,Gaming,Closed Back,Dynamic,,28,113,No,No,,,Entry gaming closed-back,,Over-Ear,80,,,,,Estimated
 687,KOSS_KPH40,,43,KPH40 Utility,Koss KPH40 Utility,2022,,Active,Headphone,Open Back,Dynamic,30,60,101,No,No,,,KPH30i successor; on-ear; wide soundstage for price,,On-Ear,40,,3.5mm,No,56,Estimated
 688,KOSS_KPH7,,43,KPH7,Koss KPH7,1985,,Legacy Active,Headphone,Open Back,Dynamic,25,60,101,No,No,,,Classic folding on-ear; budget favorite,,On-Ear,35,,,No,,Estimated
 689,DCA_ETHERFLOW,48,14,Ether Flow,Dan Clark Audio Ether Flow,2016,,Discontinued,Headphone,Open Back,Planar Magnetic,,23,93,No,No,,,Tuning filter system; MrSpeakers era,,Over-Ear,,,,,,Estimated
@@ -839,18 +839,18 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 838,ATECH_L5000,13,4,ATH-L5000,Audio-Technica ATH-L5000,2017,,Active,Headphone,Closed Back,Dynamic,58,36,100,No,No,,,Lambskin leather; 58mm driver; ultra-premium closed-back,,Over-Ear,,,,,,Estimated
 839,ATECH_DSR9BT,13,4,ATH-DSR9BT,Audio-Technica ATH-DSR9BT,2016,,Discontinued,Headphone,Closed Back,Dynamic,,32,98,Yes,No,,,Full digital wireless; first to send digital signal to driver,,Over-Ear,350,,,,,Estimated
 840,ATECH_G1,10,4,ATH-G1,Audio-Technica ATH-G1,2019,,Active,Gaming,Closed Back,Dynamic,45,45,98,No,No,,,Wired gaming headset; lightweight; boom mic,,Over-Ear,,,,,,Estimated
-841,SONY_MDRV500,2,1,MDR-V500,Sony MDR-V500,2001,,Discontinued,Headphone,Closed Back,Dynamic,50,24,106,No,No,,,DJ classic; 50mm driver,,Over-Ear,,,,,,Estimated
-842,SONY_MDRV700,2,1,MDR-V700,Sony MDR-V700,1999,,Discontinued,Headphone,Closed Back,Dynamic,50,24,106,No,No,,,Iconic DJ headphone; large 50mm driver,,Over-Ear,,,,,,Estimated
-843,SONY_MDRSA3000,2,1,MDR-SA3000,Sony MDR-SA3000,2004,,Discontinued,Headphone,Open Back,Dynamic,50,32,100,No,No,,,Open-air premium; 50mm driver,,Over-Ear,,,,,,Estimated
-844,SONY_MDRF1,2,1,MDR-F1,Sony MDR-F1,1998,,Discontinued,Headphone,Open Back,Dynamic,50,24,100,No,No,,,Radical open-air baffle design; 50mm driver; no earcup,,Over-Ear,,,,,,Estimated
-845,SONY_MDRCD2000,2,1,MDR-CD2000,Sony MDR-CD2000,1995,,Discontinued,Headphone,Open Back,Dynamic,50,32,106,No,No,,,Reference flagship of its era,,Over-Ear,,,,,,Estimated
+841,SONY_MDRV500,2,1,MDR-V500,Sony MDR-V500,2001,,Discontinued,Headphone,Closed Back,Dynamic,50,24,106,No,No,,,DJ classic; 50mm driver,,Over-Ear,100,,,,,Estimated
+842,SONY_MDRV700,2,1,MDR-V700,Sony MDR-V700,1999,,Discontinued,Headphone,Closed Back,Dynamic,50,24,106,No,No,,,Iconic DJ headphone; large 50mm driver,,Over-Ear,200,,,,,Estimated
+843,SONY_MDRSA3000,2,1,MDR-SA3000,Sony MDR-SA3000,2004,,Discontinued,Headphone,Open Back,Dynamic,50,32,100,No,No,,,Open-air premium; 50mm driver,,Over-Ear,400,,,,,Estimated
+844,SONY_MDRF1,2,1,MDR-F1,Sony MDR-F1,1998,,Discontinued,Headphone,Open Back,Dynamic,50,24,100,No,No,,,Radical open-air baffle design; 50mm driver; no earcup,,Over-Ear,200,,,,,Estimated
+845,SONY_MDRCD2000,2,1,MDR-CD2000,Sony MDR-CD2000,1995,,Discontinued,Headphone,Open Back,Dynamic,50,32,106,No,No,,,Reference flagship of its era,,Over-Ear,300,,,,,Estimated
 846,SONY_MDRXB1000,2,1,MDR-XB1000,Sony MDR-XB1000,2010,,Discontinued,Headphone,Closed Back,Dynamic,70,24,108,No,No,,,Extreme bass XB flagship; 70mm driver; sub-bass focused,,Over-Ear,200,Bassy,,,320,Estimated
-847,SENN_HD205,4,2,HD 205,Sennheiser HD 205,2003,,Discontinued,Headphone,Closed Back,Dynamic,40,32,110,No,No,,,DJ-style entry closed-back; rotatable cup,,On-Ear,,,,,,Estimated
+847,SENN_HD205,4,2,HD 205,Sennheiser HD 205,2003,,Discontinued,Headphone,Closed Back,Dynamic,40,32,110,No,No,,,DJ-style entry closed-back; rotatable cup,,On-Ear,50,,,,,Estimated
 848,SENN_HD218,4,2,HD 218,Sennheiser HD 218,2010,,Discontinued,Headphone,Closed Back,Dynamic,40,32,115,No,No,,,Budget consumer closed,,On-Ear,60,,,,,Estimated
 849,SENN_HD228,4,2,HD 228,Sennheiser HD 228,2010,,Discontinued,Headphone,Closed Back,Dynamic,40,32,115,No,No,,,Budget bass-heavy consumer,,On-Ear,70,,,,,Estimated
 850,SENN_HD239,4,2,HD 239,Sennheiser HD 239,2013,,Discontinued,Headphone,Open Back,Dynamic,40,32,108,No,No,,,Semi-open budget; warm sound,,On-Ear,80,,,,,Estimated
 851,SENN_HD419,4,2,HD 419,Sennheiser HD 419,2012,,Discontinued,Headphone,Closed Back,Dynamic,40,32,110,No,No,,,Budget closed; replaceable cable,,On-Ear,60,,,,,Estimated
-852,SENN_HD424,4,2,HD 424,Sennheiser HD 424,1973,,Discontinued,Headphone,Open Back,Dynamic,,400,91,No,No,,,Iconic vintage; one of Sennheiser's best-selling ever,,Over-Ear,,,,,,Estimated
+852,SENN_HD424,4,2,HD 424,Sennheiser HD 424,1973,,Discontinued,Headphone,Open Back,Dynamic,,400,91,No,No,,,Iconic vintage; one of Sennheiser's best-selling ever,,Over-Ear,70,,,,,Estimated
 853,SENN_HD428,4,2,HD 428,Sennheiser HD 428,2011,,Discontinued,Headphone,Closed Back,Dynamic,40,32,110,No,No,,,Budget closed consumer,,On-Ear,80,,,,,Estimated
 854,SENN_HD438,4,2,HD 438,Sennheiser HD 438,2011,,Discontinued,Headphone,Closed Back,Dynamic,40,32,110,No,No,,,Folding closed consumer; tangle-free cable,,On-Ear,100,,,,,Estimated
 855,JBL_E45BT,,38,E45BT,JBL E45BT,2016,,Discontinued,Headphone,Closed Back,Dynamic,40,32,103,Yes,No,,,Wireless on-ear; 40mm driver,,On-Ear,100,,,,,Estimated
