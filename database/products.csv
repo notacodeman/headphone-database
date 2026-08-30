@@ -173,15 +173,15 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 172,DCA_CORINA,49,14,Corina,Dan Clark Audio Corina,2023,,Active,Headphone,Open Back,Electrostatic,,23,93,No,No,,,Electrostatic flagship,,Over-Ear,4300,,,,,Estimated
 173,APPLE_AIRPODSMAX,50,15,AirPods Max,Apple AirPods Max,2020,,Discontinued,Headphone,Closed Back,Dynamic,40,35,100,Yes,Yes,,APPLE_AIRPODSMAXUSBC,Lightning port,,Over-Ear,550,V-Shaped,Lightning,No,385,Estimated
 174,APPLE_AIRPODSMAXUSBC,50,15,AirPods Max (USB-C),Apple AirPods Max (USB-C),2024,,Active,Headphone,Closed Back,Dynamic,40,35,100,Yes,Yes,APPLE_AIRPODSMAX,,"USB-C, lossless audio support",,Over-Ear,550,V-Shaped,USB-C,No,385,Estimated
-175,BEATS_STUDIO2,51,16,Studio 2,Beats Studio 2 Wireless,2014,,Discontinued,Headphone,Closed Back,Dynamic,40,32,104,Yes,Yes,,BEATS_STUDIO3,,,Over-Ear,,,,,,Estimated
+175,BEATS_STUDIO2,51,16,Studio 2,Beats Studio 2 Wireless,2014,,Discontinued,Headphone,Closed Back,Dynamic,40,32,104,Yes,Yes,,BEATS_STUDIO3,,,Over-Ear,300,,,,,Estimated
 176,BEATS_STUDIO3,51,16,Studio 3,Beats Studio 3 Wireless,2017,,Discontinued,Headphone,Closed Back,Dynamic,40,32,104,Yes,Yes,BEATS_STUDIO2,BEATS_STUDIOPRO,,,Over-Ear,350,V-Shaped,Wireless,No,260,Estimated
 177,BEATS_STUDIOPRO,51,16,Studio Pro,Beats Studio Pro,2023,,Active,Headphone,Closed Back,Dynamic,40,32,104,Yes,Yes,BEATS_STUDIO3,,,,Over-Ear,350,V-Shaped,Wireless,No,260,Estimated
 178,BEATS_SOLO3,52,16,Solo 3,Beats Solo 3 Wireless,2016,,Discontinued,Headphone,Closed Back,Dynamic,40,32,110,Yes,No,,BEATS_SOLO4,,,On-Ear,200,V-Shaped,Wireless,,215,Estimated
 179,BEATS_SOLO4,52,16,Solo 4,Beats Solo 4,2024,,Active,Headphone,Closed Back,Dynamic,40,32,110,Yes,No,BEATS_SOLO3,,,,On-Ear,200,V-Shaped,Wireless,,220,Estimated
 180,SHURE_SRH1540,53,17,SRH1540,Shure SRH1540,2014,,Active,Studio,Closed Back,Dynamic,46,46,99,No,No,,,,,Over-Ear,500,Analytical,MMCX,Yes,322,Verified
 181,SHURE_SRH1840,53,17,SRH1840,Shure SRH1840,2011,,Active,Studio,Open Back,Dynamic,40,65,99,No,No,,,,,Over-Ear,500,Neutral,3.5mm,Yes,369,Verified
-182,SHURE_AONIC50,54,17,AONIC 50,Shure AONIC 50,2020,,Discontinued,Headphone,Closed Back,Dynamic,40,24,96,Yes,Yes,,SHURE_AONIC50G2,,,Over-Ear,,,,,,Estimated
-183,SHURE_AONIC50G2,54,17,AONIC 50 Gen 2,Shure AONIC 50 Gen 2,2023,,Active,Headphone,Closed Back,Dynamic,40,24,96,Yes,Yes,SHURE_AONIC50,,,,Over-Ear,,,,,,Estimated
+182,SHURE_AONIC50,54,17,AONIC 50,Shure AONIC 50,2020,,Discontinued,Headphone,Closed Back,Dynamic,40,24,96,Yes,Yes,,SHURE_AONIC50G2,,,Over-Ear,350,,,,,Estimated
+183,SHURE_AONIC50G2,54,17,AONIC 50 Gen 2,Shure AONIC 50 Gen 2,2023,,Active,Headphone,Closed Back,Dynamic,40,24,96,Yes,Yes,SHURE_AONIC50,,,,Over-Ear,400,,,,,Estimated
 184,STEEL_ARCTIS7,56,18,Arctis 7,SteelSeries Arctis 7,2017,,Discontinued,Gaming,Closed Back,Dynamic,40,32,98,Yes,No,,,,,Over-Ear,150,,,,,Estimated
 185,STEEL_ARCTISPRO,56,18,Arctis Pro Wireless,SteelSeries Arctis Pro Wireless,2018,,Discontinued,Gaming,Closed Back,Dynamic,40,32,98,Yes,No,,,,,Over-Ear,330,,,,,Estimated
 186,STEEL_NOVAPRO,55,18,Arctis Nova Pro Wireless,SteelSeries Arctis Nova Pro Wireless,2022,,Active,Gaming,Closed Back,Dynamic,40,32,100,Yes,Yes,,,"Dual hot-swap batteries, ANC",,Over-Ear,350,,,,,Estimated
@@ -252,8 +252,8 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 251,JBL_TOUR1,83,38,Tour One,JBL Tour One,2020,,Discontinued,Headphone,Closed Back,Dynamic,40,32,105,Yes,Yes,,JBL_TOUR1M2,,,Over-Ear,300,,,,,Estimated
 252,JBL_TOUR1M2,83,38,Tour One M2,JBL Tour One M2,2023,,Active,Headphone,Closed Back,Dynamic,40,32,105,Yes,Yes,JBL_TOUR1,,,,Over-Ear,300,,,,,Estimated
 253,JBL_LIVE660,84,38,Live 660NC,JBL Live 660NC,2021,,Active,Headphone,Closed Back,Dynamic,40,32,104,Yes,Yes,,,,,Over-Ear,200,,,,,Estimated
-254,SKULL_CRUSHERANC2,85,39,Crusher ANC 2,Skullcandy Crusher ANC 2,2023,,Active,Headphone,Closed Back,Dynamic,40,32,95,Yes,Yes,,,Sensory bass,,Over-Ear,,,,,,Estimated
-255,SKULL_CRUSHEREVO,85,39,Crusher Evo,Skullcandy Crusher Evo,2021,,Active,Headphone,Closed Back,Dynamic,40,32,95,Yes,No,,,,,Over-Ear,,,,,,Estimated
+254,SKULL_CRUSHERANC2,85,39,Crusher ANC 2,Skullcandy Crusher ANC 2,2023,,Active,Headphone,Closed Back,Dynamic,40,32,95,Yes,Yes,,,Sensory bass,,Over-Ear,200,,,,,Estimated
+255,SKULL_CRUSHEREVO,85,39,Crusher Evo,Skullcandy Crusher Evo,2021,,Active,Headphone,Closed Back,Dynamic,40,32,95,Yes,No,,,,,Over-Ear,150,,,,,Estimated
 256,ANKER_SPACEQ45,86,40,Space Q45,Anker Soundcore Space Q45,2022,,Active,Headphone,Closed Back,Dynamic,40,32,98,Yes,Yes,,,,,Over-Ear,80,V-Shaped,Wireless,No,270,Estimated
 257,ANKER_SPACEONE,86,40,Space One,Anker Soundcore Space One,2023,,Active,Headphone,Closed Back,Dynamic,40,32,98,Yes,Yes,,,,,Over-Ear,80,V-Shaped,Wireless,No,265,Estimated
 258,ANKER_SPACEONEPRO,86,40,Space One Pro,Anker Soundcore Space One Pro,2024,,Active,Headphone,Closed Back,Dynamic,40,32,98,Yes,Yes,,,,,Over-Ear,100,,Wireless,,,Estimated
@@ -409,15 +409,15 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 408,JBL_LIVE770NC,84,38,Live 770NC,JBL Live 770NC,2023,,Active,Headphone,Closed Back,Dynamic,40,32,104,Yes,Yes,,,,,Over-Ear,250,V-Shaped,,,232,Estimated
 409,JBL_QUANTUM910,106,38,Quantum 910 Wireless,JBL Quantum 910 Wireless,2022,,Active,Gaming,Closed Back,Dynamic,50,32,100,Yes,Yes,,,,,Over-Ear,250,,,,,Estimated
 410,MARSHALL_MIDANC,82,37,Mid ANC,Marshall Mid ANC,2018,,Discontinued,Headphone,Closed Back,Dynamic,40,32,95,Yes,Yes,,,,,On-Ear,200,,Wireless,No,210,Estimated
-411,SKULL_HESH3,85,39,Hesh 3,Skullcandy Hesh 3,2018,,Discontinued,Headphone,Closed Back,Dynamic,40,40,105,Yes,No,,,,,Over-Ear,,,,,,Estimated
-412,SKULL_CRUSHERANC,85,39,Crusher ANC,Skullcandy Crusher ANC,2019,,Discontinued,Headphone,Closed Back,Dynamic,40,32,95,Yes,Yes,,SKULL_CRUSHERANC2,,,Over-Ear,,,,,,Estimated
-413,BEATS_STUDIO2013,51,16,Studio (2013),Beats Studio (2013),2013,,Discontinued,Headphone,Closed Back,Dynamic,40,32,104,No,Yes,,BEATS_STUDIO2,Redesigned wired Studio,,Over-Ear,,,,,,Estimated
-414,BEATS_MIXR,107,16,Mixr,Beats Mixr,2011,,Discontinued,Headphone,Closed Back,Dynamic,40,32,110,No,No,,,"DJ on-ear, David Guetta",,On-Ear,,Bassy,,No,197,Estimated
-415,BEATS_PRO,107,16,Pro,Beats Pro,2011,,Discontinued,Headphone,Closed Back,Dynamic,40,32,104,No,No,,,All-metal over-ear,,Over-Ear,,,,,,Estimated
-416,BEATS_EXECUTIVE,108,16,Executive,Beats Executive,2012,,Discontinued,Headphone,Closed Back,Dynamic,40,32,104,No,Yes,,,Aluminum ANC over-ear,,Over-Ear,,,,,,Estimated
-417,BEATS_SOLO2,52,16,Solo 2,Beats Solo 2,2014,,Discontinued,Headphone,Closed Back,Dynamic,40,32,110,No,No,,BEATS_SOLO3,,,On-Ear,,,,,,Estimated
+411,SKULL_HESH3,85,39,Hesh 3,Skullcandy Hesh 3,2018,,Discontinued,Headphone,Closed Back,Dynamic,40,40,105,Yes,No,,,,,Over-Ear,100,,,,,Estimated
+412,SKULL_CRUSHERANC,85,39,Crusher ANC,Skullcandy Crusher ANC,2019,,Discontinued,Headphone,Closed Back,Dynamic,40,32,95,Yes,Yes,,SKULL_CRUSHERANC2,,,Over-Ear,200,,,,,Estimated
+413,BEATS_STUDIO2013,51,16,Studio (2013),Beats Studio (2013),2013,,Discontinued,Headphone,Closed Back,Dynamic,40,32,104,No,Yes,,BEATS_STUDIO2,Redesigned wired Studio,,Over-Ear,200,,,,,Estimated
+414,BEATS_MIXR,107,16,Mixr,Beats Mixr,2011,,Discontinued,Headphone,Closed Back,Dynamic,40,32,110,No,No,,,"DJ on-ear, David Guetta",,On-Ear,200,Bassy,,No,197,Estimated
+415,BEATS_PRO,107,16,Pro,Beats Pro,2011,,Discontinued,Headphone,Closed Back,Dynamic,40,32,104,No,No,,,All-metal over-ear,,Over-Ear,400,,,,,Estimated
+416,BEATS_EXECUTIVE,108,16,Executive,Beats Executive,2012,,Discontinued,Headphone,Closed Back,Dynamic,40,32,104,No,Yes,,,Aluminum ANC over-ear,,Over-Ear,300,,,,,Estimated
+417,BEATS_SOLO2,52,16,Solo 2,Beats Solo 2,2014,,Discontinued,Headphone,Closed Back,Dynamic,40,32,110,No,No,,BEATS_SOLO3,,,On-Ear,200,,,,,Estimated
 418,BEATS_SOLOPRO,52,16,Solo Pro,Beats Solo Pro,2019,,Discontinued,Headphone,Closed Back,Dynamic,40,32,110,Yes,Yes,,,On-ear ANC,,On-Ear,300,,Wireless,,260,Estimated
-419,BEATS_EP,52,16,EP,Beats EP,2016,,Active,Headphone,Closed Back,Dynamic,40,32,110,No,No,,,Budget wired on-ear,,On-Ear,,Bassy,,No,155,Estimated
+419,BEATS_EP,52,16,EP,Beats EP,2016,,Active,Headphone,Closed Back,Dynamic,40,32,110,No,No,,,Budget wired on-ear,,On-Ear,130,Bassy,,No,155,Estimated
 420,SONY_MDR100ABN,112,1,MDR-100ABN,Sony MDR-100ABN (h.ear on),2015,,Discontinued,Headphone,Closed Back,Dynamic,40,46,103,Yes,Yes,,SONY_WHH900N,h.ear series ANC,,Over-Ear,249,,,,,Estimated
 421,SONY_MDR100AAP,112,1,MDR-100AAP,Sony MDR-100AAP (h.ear on),2015,,Discontinued,Headphone,Closed Back,Dynamic,40,24,105,No,No,,,,,Over-Ear,199,,,,,Estimated
 422,SONY_MDR10R,2,1,MDR-10R,Sony MDR-10R,2013,,Discontinued,Headphone,Closed Back,Dynamic,40,24,105,No,No,,,,,Over-Ear,200,,,,,Estimated
@@ -428,10 +428,10 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 427,JBL_TUNE750,110,38,Tune 750BTNC,JBL Tune 750BTNC,2019,,Discontinued,Headphone,Closed Back,Dynamic,40,32,104,Yes,Yes,,,,,Over-Ear,130,,,,,Estimated
 428,JBL_TUNE760,110,38,Tune 760NC,JBL Tune 760NC,2021,,Active,Headphone,Closed Back,Dynamic,40,32,104,Yes,Yes,,,,,Over-Ear,100,,,,,Estimated
 429,JBL_TUNE770,110,38,Tune 770NC,JBL Tune 770NC,2023,,Active,Headphone,Closed Back,Dynamic,40,32,104,Yes,Yes,,,,,Over-Ear,100,,,,,Estimated
-430,SKULL_HESH2,111,39,Hesh 2 Wireless,Skullcandy Hesh 2 Wireless,2015,,Discontinued,Headphone,Closed Back,Dynamic,40,40,105,Yes,No,,,,,Over-Ear,,,,,,Estimated
-431,SKULL_HESHANC,111,39,Hesh ANC,Skullcandy Hesh ANC,2020,,Active,Headphone,Closed Back,Dynamic,40,32,98,Yes,Yes,,,,,Over-Ear,,,,,,Estimated
-432,SKULL_HESHEVO,111,39,Hesh Evo,Skullcandy Hesh Evo,2020,,Active,Headphone,Closed Back,Dynamic,40,40,95,Yes,No,,,,,Over-Ear,,,,,,Estimated
-433,SKULL_CRUSHER540,85,39,Crusher 540 Active,Skullcandy Crusher 540 Active,2025,,Active,Headphone,Closed Back,Dynamic,40,32,95,Yes,No,,,"Sensory bass, fitness-focused",,Over-Ear,,,,,,Estimated
+430,SKULL_HESH2,111,39,Hesh 2 Wireless,Skullcandy Hesh 2 Wireless,2015,,Discontinued,Headphone,Closed Back,Dynamic,40,40,105,Yes,No,,,,,Over-Ear,100,,,,,Estimated
+431,SKULL_HESHANC,111,39,Hesh ANC,Skullcandy Hesh ANC,2020,,Active,Headphone,Closed Back,Dynamic,40,32,98,Yes,Yes,,,,,Over-Ear,150,,,,,Estimated
+432,SKULL_HESHEVO,111,39,Hesh Evo,Skullcandy Hesh Evo,2020,,Active,Headphone,Closed Back,Dynamic,40,40,95,Yes,No,,,,,Over-Ear,80,,,,,Estimated
+433,SKULL_CRUSHER540,85,39,Crusher 540 Active,Skullcandy Crusher 540 Active,2025,,Active,Headphone,Closed Back,Dynamic,40,32,95,Yes,No,,,"Sensory bass, fitness-focused",,Over-Ear,100,,,,,Estimated
 434,MARSHALL_MAJOR2,113,37,Major II,Marshall Major II,2014,,Discontinued,Headphone,Closed Back,Dynamic,40,64,103,No,No,,MARSHALL_MAJOR3,,,On-Ear,100,,,No,170,Estimated
 435,MARSHALL_MAJOR3,113,37,Major III,Marshall Major III,2018,,Discontinued,Headphone,Closed Back,Dynamic,40,64,103,Yes,No,MARSHALL_MAJOR2,MARSHALL_MAJOR4,,,On-Ear,100,,,No,165,Estimated
 436,MARSHALL_MONITOR,82,37,Monitor,Marshall Monitor,2013,,Discontinued,Headphone,Closed Back,Dynamic,40,64,99,No,No,,MARSHALL_MONITOR2,,,Over-Ear,250,,,,249,Estimated
@@ -498,15 +498,15 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 497,PHIL_L4,8,3,L4,Philips Fidelio L4,2024,,Active,Headphone,Closed Back,Dynamic,,32,100,Yes,Yes,PHIL_L3,,Wireless ANC flagship,,Over-Ear,349,,,,,Estimated
 498,PHIL_SHP9600,9,3,SHP9600,Philips SHP9600,2020,,Active,Headphone,Open Back,Dynamic,50,32,106,No,No,PHIL_SHP9500,,,,Over-Ear,90,,,,,Estimated
 499,PHIL_H8505,8,3,Fidelio H1,Philips Fidelio H1,2014,,Discontinued,Headphone,Open Back,Dynamic,,27,104,No,No,,,,,Over-Ear,150,,,,,Estimated
-500,SHURE_SRH240A,53,17,SRH240A,Shure SRH240A,2011,,Active,Studio,Closed Back,Dynamic,40,44,105,No,No,,,,,Over-Ear,,,,,,Estimated
+500,SHURE_SRH240A,53,17,SRH240A,Shure SRH240A,2011,,Active,Studio,Closed Back,Dynamic,40,44,105,No,No,,,,,Over-Ear,50,,,,,Estimated
 501,SHURE_SRH440,53,17,SRH440,Shure SRH440,2009,,Active,Studio,Closed Back,Dynamic,40,44,105,No,No,,SHURE_SRH440A,,,Over-Ear,100,,,,218,Estimated
-502,SHURE_SRH440A,53,17,SRH440A,Shure SRH440A,2023,,Active,Studio,Closed Back,Dynamic,40,44,105,No,No,SHURE_SRH440,,,,Over-Ear,,Analytical,3.5mm,Yes,159,Verified
-503,SHURE_SRH840,53,17,SRH840,Shure SRH840,2009,,Active,Studio,Closed Back,Dynamic,40,44,99,No,No,,SHURE_SRH840A,,,Over-Ear,,,,,,Estimated
-504,SHURE_SRH840A,53,17,SRH840A,Shure SRH840A,2023,,Active,Studio,Closed Back,Dynamic,40,44,99,No,No,SHURE_SRH840,,,,Over-Ear,,Neutral,3.5mm,Yes,218,Verified
+502,SHURE_SRH440A,53,17,SRH440A,Shure SRH440A,2023,,Active,Studio,Closed Back,Dynamic,40,44,105,No,No,SHURE_SRH440,,,,Over-Ear,120,Analytical,3.5mm,Yes,159,Verified
+503,SHURE_SRH840,53,17,SRH840,Shure SRH840,2009,,Active,Studio,Closed Back,Dynamic,40,44,99,No,No,,SHURE_SRH840A,,,Over-Ear,200,,,,,Estimated
+504,SHURE_SRH840A,53,17,SRH840A,Shure SRH840A,2023,,Active,Studio,Closed Back,Dynamic,40,44,99,No,No,SHURE_SRH840,,,,Over-Ear,200,Neutral,3.5mm,Yes,218,Verified
 505,SHURE_SRH750DJ,122,17,SRH750DJ,Shure SRH750DJ,2010,,Discontinued,Studio,Closed Back,Dynamic,50,32,105,No,No,,,,,Over-Ear,200,,,,269,Estimated
 506,SHURE_SRH940,53,17,SRH940,Shure SRH940,2011,,Discontinued,Studio,Closed Back,Dynamic,40,42,100,No,No,,,,,Over-Ear,300,,,,305,Estimated
 507,SHURE_SRH1440,53,17,SRH1440,Shure SRH1440,2012,,Active,Studio,Open Back,Dynamic,40,44,100,No,No,,,,,Over-Ear,250,,,,,Estimated
-508,SHURE_AONIC40,54,17,AONIC 40,Shure AONIC 40,2022,,Active,Headphone,Closed Back,Dynamic,40,18,111,Yes,Yes,,,,,Over-Ear,,,,,,Estimated
+508,SHURE_AONIC40,54,17,AONIC 40,Shure AONIC 40,2022,,Active,Headphone,Closed Back,Dynamic,40,18,111,Yes,Yes,,,,,Over-Ear,230,,,,,Estimated
 509,ZMF_EIKON,123,27,Eikon,ZMF Eikon,2016,,Active,Headphone,Closed Back,Dynamic,,300,96,No,No,,,Bio-cellulose closed-back,,Over-Ear,1500,,,,420,Estimated
 510,ZMF_ATTICUS,124,27,Atticus,ZMF Atticus,2016,,Active,Headphone,Closed Back,Dynamic,,300,96,No,No,,,Warm 'ZMF house sound',,Over-Ear,1200,,,,430,Estimated
 511,ZMF_AEOLUS,124,27,Aeolus,ZMF Aeolus,2018,,Active,Headphone,Open Back,Dynamic,,300,96,No,No,,,Open-back Atticus sibling,,Over-Ear,1300,Warm Neutral,Dual 3.5mm,Yes,440,Verified
@@ -547,10 +547,10 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 546,YAMAHA_YHL700A,136,45,YH-L700A,Yamaha YH-L700A,2021,,Active,Headphone,Closed Back,Dynamic,,32,100,Yes,Yes,,,3D field ANC,,Over-Ear,300,,,,305,Estimated
 547,YAMAHA_YHE700A,136,45,YH-E700A,Yamaha YH-E700A,2021,,Active,Headphone,Closed Back,Dynamic,,32,100,Yes,Yes,,,,,Over-Ear,300,,,,,Estimated
 548,YAMAHA_HP1,135,45,HP-1,Yamaha HP-1,1976,,Discontinued,Headphone,Open Back,Planar Magnetic,,470,91,No,No,,,Orthodynamic classic by Mark Levinson,,Over-Ear,1000,,,,,Estimated
-549,PIONEER_SEMONITOR5,137,46,SE-Monitor 5,Pioneer SE-Monitor 5,2017,,Active,Headphone,Closed Back,Dynamic,,200,90,No,No,,,Flagship hi-res closed-back,,Over-Ear,,,,,,Estimated
-550,PIONEER_SEMASTER1,137,46,SE-Master 1,Pioneer SE-Master 1,2015,,Discontinued,Headphone,Open Back,Dynamic,53,50,101,No,No,,,Hand-built flagship,,Over-Ear,,,,,395,Estimated
-551,PIONEER_HDJX10,138,46,HDJ-X10,Pioneer HDJ-X10,2017,,Active,Studio,Closed Back,Dynamic,50,32,106,No,No,,,Pro DJ headphone,,Over-Ear,,,,,334,Estimated
-552,PIONEER_HDJ2000,138,46,HDJ-2000,Pioneer HDJ-2000,2010,,Discontinued,Studio,Closed Back,Dynamic,50,32,108,No,No,,,,,Over-Ear,,,,,330,Estimated
+549,PIONEER_SEMONITOR5,137,46,SE-Monitor 5,Pioneer SE-Monitor 5,2017,,Active,Headphone,Closed Back,Dynamic,,200,90,No,No,,,Flagship hi-res closed-back,,Over-Ear,300,,,,,Estimated
+550,PIONEER_SEMASTER1,137,46,SE-Master 1,Pioneer SE-Master 1,2015,,Discontinued,Headphone,Open Back,Dynamic,53,50,101,No,No,,,Hand-built flagship,,Over-Ear,2000,,,,395,Estimated
+551,PIONEER_HDJX10,138,46,HDJ-X10,Pioneer HDJ-X10,2017,,Active,Studio,Closed Back,Dynamic,50,32,106,No,No,,,Pro DJ headphone,,Over-Ear,350,,,,334,Estimated
+552,PIONEER_HDJ2000,138,46,HDJ-2000,Pioneer HDJ-2000,2010,,Discontinued,Studio,Closed Back,Dynamic,50,32,108,No,No,,,,,Over-Ear,350,,,,330,Estimated
 553,AIAIAI_TMA1,139,47,TMA-1,AIAIAI TMA-1,2010,,Discontinued,Studio,Closed Back,Dynamic,40,32,100,No,No,,AIAIAI_TMA2,,,Over-Ear,,,,Yes,,Estimated
 554,AIAIAI_TMA2,139,47,TMA-2 (Modular),AIAIAI TMA-2 Modular,2015,,Active,Studio,Closed Back,Dynamic,40,32,100,No,No,AIAIAI_TMA1,,Fully modular system,,Over-Ear,,,,Yes,,Estimated
 555,AIAIAI_TMA2STUDIO,139,47,TMA-2 Studio,AIAIAI TMA-2 Studio,2018,,Active,Studio,Closed Back,Dynamic,40,32,100,No,No,,,,,Over-Ear,,,,Yes,,Estimated
@@ -864,10 +864,10 @@ id,product_id,family_id,manufacturer_id,model_name,full_name,release_year,discon
 863,DENON_D400,76,31,AH-D400,Denon AH-D400,2011,,Discontinued,Headphone,Closed Back,Dynamic,40,25,96,No,No,,,Entry audiophile closed-back,,Over-Ear,,,,,,Estimated
 864,DCA_AEONCLOSED,47,14,Aeon Closed,Dan Clark Audio Aeon Closed,2017,,Discontinued,Headphone,Closed Back,Planar Magnetic,,13,92,No,No,,,Original Aeon; first compact folding DCA planar; MrSpeakers era,,Over-Ear,799,,,,,Estimated
 865,DCA_ETHERCX,48,14,Ether CX,Dan Clark Audio Ether CX,2017,,Discontinued,Headphone,Closed Back,Planar Magnetic,,23,93,No,No,,,Closed version of Ether C with tuning filter system,,Over-Ear,1299,,,,,Estimated
-866,PIONEER_HDJ500,138,46,HDJ-500,Pioneer DJ HDJ-500,2011,,Discontinued,Studio,Closed Back,Dynamic,40,32,102,No,No,,,DJ entry; 40mm driver,,Over-Ear,,,,,,Estimated
-867,PIONEER_HDJ1000,138,46,HDJ-1000,Pioneer DJ HDJ-1000,2002,,Discontinued,Studio,Closed Back,Dynamic,50,40,106,No,No,,,The DJ reference standard; 50mm driver,,Over-Ear,,,,,,Estimated
-868,PIONEER_SEA1000,,46,SE-A1000,Pioneer SE-A1000,2001,,Discontinued,Headphone,Open Back,Dynamic,50,32,100,No,No,,,Open-back audiophile; 50mm driver; wide soundstage,,Over-Ear,,,,,,Estimated
-869,PIONEER_HDJCUE1,138,46,DJ HDJ-CUE1BT,Pioneer DJ HDJ-CUE1BT,2019,,Active,Studio,Closed Back,Dynamic,40,32,104,Yes,No,,,Wireless DJ monitoring,,Over-Ear,,,,,,Estimated
+866,PIONEER_HDJ500,138,46,HDJ-500,Pioneer DJ HDJ-500,2011,,Discontinued,Studio,Closed Back,Dynamic,40,32,102,No,No,,,DJ entry; 40mm driver,,Over-Ear,100,,,,,Estimated
+867,PIONEER_HDJ1000,138,46,HDJ-1000,Pioneer DJ HDJ-1000,2002,,Discontinued,Studio,Closed Back,Dynamic,50,40,106,No,No,,,The DJ reference standard; 50mm driver,,Over-Ear,300,,,,,Estimated
+868,PIONEER_SEA1000,,46,SE-A1000,Pioneer SE-A1000,2001,,Discontinued,Headphone,Open Back,Dynamic,50,32,100,No,No,,,Open-back audiophile; 50mm driver; wide soundstage,,Over-Ear,200,,,,,Estimated
+869,PIONEER_HDJCUE1,138,46,DJ HDJ-CUE1BT,Pioneer DJ HDJ-CUE1BT,2019,,Active,Studio,Closed Back,Dynamic,40,32,104,Yes,No,,,Wireless DJ monitoring,,Over-Ear,100,,,,,Estimated
 870,AQ_NIGHTHAWK,178,78,NightHawk,Audioquest NightHawk,2015,,Discontinued,Headphone,Semi-Open,Dynamic,50,25,99,No,No,,AQ_NIGHTHAWKCARBON,Liquid Wood cups; 50mm biocellulose; semi-open,,Over-Ear,,,,,,Estimated
 871,AQ_NIGHTHAWKCARBON,178,78,NightHawk Carbon,Audioquest NightHawk Carbon,2016,,Discontinued,Headphone,Semi-Open,Dynamic,50,25,99,No,No,AQ_NIGHTHAWK,,Updated NightHawk; carbon finish; carbon-fabric earpads,,Over-Ear,,,,,,Estimated
 872,AQ_NIGHTOWL,179,78,NightOwl,Audioquest NightOwl,2015,,Discontinued,Headphone,Closed Back,Dynamic,50,25,99,No,No,,AQ_NIGHTOWLCARBON,Closed-back companion to NightHawk; aperiodic damping,,Over-Ear,,,,,,Estimated
