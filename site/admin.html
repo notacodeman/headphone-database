@@ -59,6 +59,22 @@
   .sugg-field label { display:block; font-size:.55rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin-bottom:.1rem; }
   .sugg-val { font-size:.78rem; color:var(--ink); padding:.28rem .4rem; border:1px solid var(--line); background:var(--paper-2); min-height:1.4rem; word-break:break-word; }
   .sugg-val a { color:var(--accent-2); }
+  .sugg-pick { display:flex; gap:.6rem; align-items:center; flex-wrap:wrap; margin-bottom:.8rem; font-size:.76rem; }
+  .sugg-pick label { font-size:.55rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); }
+  .sugg-pick input { flex:0 1 22rem; padding:.28rem .4rem; border:1px solid var(--line); background:var(--paper);
+    font-family:inherit; font-size:.76rem; color:var(--ink); }
+  .sugg-pick input:focus { outline:none; border-color:var(--accent); }
+  .sugg-pick .picked { color:var(--muted); }
+  .sugg-pick .picked.ok { color:var(--accent-2); font-weight:600; }
+  .sugg-changes { width:100%; table-layout:auto; margin-bottom:.8rem; border:1px solid var(--line); }
+  .sugg-changes th { position:static; background:var(--paper-2); cursor:default; font-size:.55rem; padding:.3rem .5rem; border-bottom:1px solid var(--line); }
+  .sugg-changes td { font-size:.76rem; padding:.3rem .5rem; white-space:normal; vertical-align:middle; }
+  .sugg-changes td.cur { color:var(--muted); }
+  .sugg-changes input[type=text] { width:100%; padding:.2rem .35rem; border:1px solid var(--line); background:var(--paper);
+    font-family:inherit; font-size:.76rem; color:var(--ink); }
+  .sugg-changes tr.same td { opacity:.5; }
+  .sugg-note { width:100%; min-height:42px; padding:.28rem .4rem; border:1px solid var(--line); background:var(--paper);
+    font-family:inherit; font-size:.76rem; color:var(--ink); resize:vertical; margin-bottom:.8rem; }
   .tablewrap { max-width:1400px; margin:0 auto;
     border-left:1px solid var(--line); border-right:1px solid var(--line);
     overflow-x:auto; overflow-y:auto; max-height:calc(100vh - 200px); }
@@ -298,6 +314,7 @@ let resizing=null;
 // Rebuilds the admin table from state, including the inline-expanded edit row when one is
 // open. Re-attaches all row/resizer/button handlers since the markup is regenerated wholesale.
 function render(){
+  const suggDraft=readSuggPanel(expandedSugg);
   const q=document.getElementById('q').value.toLowerCase();
   let rows=all.filter(p=>p._isNew||(!(q)||(p._brand+' '+p.model_name+' '+p.full_name+' '+(p.notes||'')).toLowerCase().includes(q)));
   rows=sortRows(rows);
@@ -379,6 +396,7 @@ function render(){
     const ew=document.getElementById('ew_'+expandedId);
     if(p&&ew&&!ew.innerHTML)populateEditWrap(ew,p);
   }
+  if(expandedSugg!==null){writeSuggPanel(expandedSugg,suggDraft);refreshSugg(expandedSugg);}
 }
 
 // Global resize handlers
@@ -470,7 +488,7 @@ async function saveEdit(pid){
     p._brand=(mfrs.find(m=>String(m.manufacturer_id)===String(p.manufacturer_id))||{}).name||'';
     const idx=all.findIndex(x=>x.product_id===p.product_id);
     if(idx>=0)all[idx]={...all[idx],...p};else all=all.filter(x=>!x._isNew).concat([p]);
-    expandedId=p.product_id;toast('Saved');render();
+    expandedId=p.product_id;ensureDatalists();toast('Saved');render();
   }catch(e){toast('Error: '+e.message);}
 }
 
@@ -482,7 +500,7 @@ function cancelEdit(){
 function confirmDelete(pid){
   confirm2('Delete '+pid+'? This cannot be undone.',async()=>{
     try{
-      const res=await fetch('/api/admin/products',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({_delete:true,product_id:pid})});
+      const res=await fetch('/api/admin/products',{method:'DELETE',headers:{'Content-Type':'application/json'},body:JSON.stringify({product_id:pid})});
       const d=await res.json();if(!d.ok)throw new Error(d.error||'');
       all=all.filter(x=>x.product_id!==pid);expandedId=null;toast('Deleted');render();
     }catch(e){toast('Error: '+e.message);}
@@ -510,47 +528,146 @@ async function toggleConf(pid){
   }catch(e){toast('Error: '+e.message);}
 }
 
-// ---- Suggestion queue ----
-// Renders the pending community-suggestion list shown alongside the catalog, with controls
-// to accept, reject, mark reviewed, or delete each one via the admin suggestions endpoint.
-// Builds the expanded review panel for one suggestion: every submitted field as a
-// definition list, the source link, the submitter, and inline Accept/Reject buttons.
-// Empty fields are omitted so a sparse suggestion stays compact.
-function suggDetail(s){
-  // Mirror the product edit panel's structure: a Fraunces heading, a read-only grid of the
-  // submitted fields laid out exactly like the editable fields, then a meta line and actions.
-  const field=(label,v,unit)=>'<div class="sugg-field"><label>'+esc(label)+'</label><div class="sugg-val">'+(v?esc(v)+(unit||''):'\u2014')+'</div></div>';
-  const grid='<div class="sugg-grid">'+
-    field('Headphone',s.headphone)+
-    field('Driver size',s.driver_size_mm,' mm')+
-    field('Impedance',s.impedance_ohms,' \u03A9')+
-    field('Sensitivity',s.sensitivity_db,' dB')+
-    field('Connector',s.connector)+
-    field('Detachable cable',s.detachable)+
-    field('Weight',s.weight_g,' g')+
-    '</div>';
-  const note= s.notes ? '<div class="sugg-field span-all"><label>Notes</label><div class="sugg-val">'+esc(s.notes)+'</div></div>' : '';
-  const src= s.source ? '<div class="sugg-field span-all"><label>Source</label><div class="sugg-val"><a href="'+esc(s.source)+'" target="_blank" rel="noopener">'+esc(s.source)+'</a></div></div>' : '';
-  const noteSrc = (note||src) ? '<div class="sugg-grid">'+note+src+'</div>' : '';
-  const meta='<div class="edit-meta"><span>Submitted by: <strong>'+esc(s.submitter||'\u2014')+'</strong></span><span>Submitted: <strong>'+esc((s.created_at||'').slice(0,10)||'\u2014')+'</strong></span></div>';
-  return '<h3>Reviewing suggestion: '+esc(s.headphone||'\u2014')+'</h3>'+grid+noteSrc+meta+
-    '<div class="edit-actions"><span></span><div class="edit-actions-right">'+
-    '<button class="btn btn-ghost" onclick="actSugg('+s.id+',\'reject\')">Reject</button>'+
-    '<button class="btn btn-primary" onclick="actSugg('+s.id+',\'accept\')">Accept</button></div></div>';
+// ---- Suggestion review ----
+// Suggestion form field -> product column it can change.
+const SUGG_FIELDS=[
+  {from:'driver_size_mm', to:'driver_size_mm',   label:'Driver size (mm)'},
+  {from:'impedance_ohms', to:'impedance_ohms',   label:'Impedance (Ω)'},
+  {from:'sensitivity_db', to:'sensitivity_db',   label:'Sensitivity (dB)'},
+  {from:'connector',      to:'connector_type',   label:'Connector', opts:OPT_CONNECTOR},
+  {from:'detachable',     to:'detachable_cable', label:'Detachable cable', opts:OPT_DETACHABLE},
+  {from:'weight_g',       to:'weight_g',         label:'Weight (g)'},
+];
+
+const normName = s => String(s||'').toLowerCase().replace(/[^a-z0-9]/g,'');
+const productLabel = p => ((p._brand||'')+' '+(p.model_name||'')).trim();
+
+// The public form offers "Brand Model" from the catalog, so an exact match is common.
+function guessProduct(headphone){
+  const target=normName(headphone);
+  if(!target)return null;
+  return all.find(p=>!p._isNew&&(normName(productLabel(p))===target||normName(p.full_name)===target))||null;
 }
 
-// Toggles the expanded review panel for a suggestion row, mirroring toggleEdit() for
-// products but tracked in its own expandedSugg variable so the two don't interfere.
+function suggDetail(s){
+  const guess=guessProduct(s.headphone);
+  const rows=SUGG_FIELDS.filter(f=>s[f.from]).map(f=>{
+    const list=f.opts?' list="opts_'+f.to+'"':'';
+    return '<tr data-field="'+f.to+'">'+
+      '<td>'+esc(f.label)+'</td>'+
+      '<td class="cur">—</td>'+
+      '<td><input type="text" value="'+esc(s[f.from])+'"'+list+' oninput="refreshSugg('+s.id+')" aria-label="New '+esc(f.label)+'"></td>'+
+      '<td class="caretcol"><input type="checkbox" checked aria-label="Apply '+esc(f.label)+'"></td></tr>';
+  }).join('');
+  const changes=rows
+    ?'<table class="sugg-changes"><thead><tr><th>Field</th><th>Current</th><th>New value</th><th>Apply</th></tr></thead><tbody>'+rows+'</tbody></table>'
+    :'<p class="edit-meta">No spec fields filled in — see the notes below. Accepting will only log the suggestion.</p>';
+  const note=s.notes?'<div class="sugg-field span-all"><label>Submitter notes</label><div class="sugg-val">'+esc(s.notes)+'</div></div>':'';
+  const src=s.source?'<div class="sugg-field span-all"><label>Source</label><div class="sugg-val"><a href="'+esc(s.source)+'" target="_blank" rel="noopener">'+esc(s.source)+'</a></div></div>':'';
+  const meta='<div class="edit-meta"><span>Submitted by: <strong>'+esc(s.submitter||'—')+'</strong></span><span>Submitted: <strong>'+esc((s.created_at||'').slice(0,10)||'—')+'</strong></span></div>';
+  return '<h3>Reviewing suggestion: '+esc(s.headphone||'—')+'</h3>'+
+    '<div class="sugg-pick"><label for="sp_'+s.id+'">Applies to</label>'+
+      '<input id="sp_'+s.id+'" list="productOpts" placeholder="Product ID" value="'+esc(guess?guess.product_id:'')+'" oninput="refreshSugg('+s.id+')">'+
+      '<span class="picked" id="spn_'+s.id+'"></span></div>'+
+    changes+
+    ((note||src)?'<div class="sugg-grid">'+note+src+'</div>':'')+meta+
+    '<textarea class="sugg-note" id="snote_'+s.id+'" placeholder="Note for the log (optional)"></textarea>'+
+    '<div class="edit-actions"><span></span><div class="edit-actions-right">'+
+    '<button class="btn btn-ghost" onclick="rejectSugg('+s.id+')">Reject</button>'+
+    '<button class="btn btn-primary" onclick="acceptSugg('+s.id+')">Accept &amp; apply</button></div></div>';
+}
+
+// Fills in the "Current" column for whichever product is picked. Updates the panel in
+// place rather than calling render(), so typed values and the note aren't lost.
+function refreshSugg(id){
+  const pid=(document.getElementById('sp_'+id)?.value||'').trim();
+  const p=all.find(x=>x.product_id===pid&&!x._isNew);
+  const label=document.getElementById('spn_'+id);
+  if(!label)return;
+  label.textContent=p?productLabel(p):(pid?'No product with that ID':'Pick a product');
+  label.className='picked'+(p?' ok':'');
+  document.querySelectorAll('[data-sugg-detail="'+id+'"] tr[data-field]').forEach(tr=>{
+    const cur=p?String(p[tr.dataset.field]??''):'';
+    tr.querySelector('.cur').textContent=p?(cur||'—'):'—';
+    tr.classList.toggle('same',!!p&&cur===tr.querySelector('input[type=text]').value.trim());
+  });
+}
+
+// render() rebuilds the whole table, so an open review panel's inputs are read
+// before and written back after, otherwise typing in the search box would wipe them.
+function readSuggPanel(id){
+  const pick=document.getElementById('sp_'+id);
+  if(id===null||!pick)return null;
+  const fields={};
+  document.querySelectorAll('[data-sugg-detail="'+id+'"] tr[data-field]').forEach(tr=>{
+    fields[tr.dataset.field]={value:tr.querySelector('input[type=text]').value,apply:tr.querySelector('input[type=checkbox]').checked};
+  });
+  return {pick:pick.value,note:document.getElementById('snote_'+id).value,fields};
+}
+
+function writeSuggPanel(id,draft){
+  if(!draft)return;
+  document.getElementById('sp_'+id).value=draft.pick;
+  document.getElementById('snote_'+id).value=draft.note;
+  document.querySelectorAll('[data-sugg-detail="'+id+'"] tr[data-field]').forEach(tr=>{
+    const f=draft.fields[tr.dataset.field];if(!f)return;
+    tr.querySelector('input[type=text]').value=f.value;
+    tr.querySelector('input[type=checkbox]').checked=f.apply;
+  });
+}
+
+// One shared datalist for the product picker, plus one per fixed-vocabulary field.
+function ensureDatalists(){
+  let host=document.getElementById('suggLists');
+  if(!host){host=document.createElement('div');host.id='suggLists';document.body.appendChild(host);}
+  const products=all.filter(p=>!p._isNew).slice().sort((a,b)=>productLabel(a).localeCompare(productLabel(b)));
+  host.innerHTML='<datalist id="productOpts">'+products.map(p=>'<option value="'+esc(p.product_id)+'">'+esc(productLabel(p))+'</option>').join('')+'</datalist>'+
+    SUGG_FIELDS.filter(f=>f.opts).map(f=>'<datalist id="opts_'+f.to+'">'+f.opts.map(o=>'<option value="'+esc(o)+'">').join('')+'</datalist>').join('');
+}
+
 function toggleSugg(id){
-  expandedSugg = (expandedSugg===id) ? null : id;
+  expandedSugg=(expandedSugg===id)?null:id;
   render();
 }
 
-async function actSugg(id,action){
+async function postSugg(payload){
+  const res=await fetch('/api/admin/suggestions',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+  const d=await res.json();
+  if(!d.ok)throw new Error(d.error||'Request failed');
+  return d;
+}
+
+function resolveLocally(id,fields){
+  const s=suggs.find(x=>x.id===id);
+  if(s)Object.assign(s,fields);
+  expandedSugg=null;
+  render();
+}
+
+async function acceptSugg(id){
+  const product_id=(document.getElementById('sp_'+id).value||'').trim();
+  const p=all.find(x=>x.product_id===product_id&&!x._isNew);
+  if(!p){toast('Pick the product this applies to');return;}
+  const changes={};
+  document.querySelectorAll('[data-sugg-detail="'+id+'"] tr[data-field]').forEach(tr=>{
+    if(tr.querySelector('input[type=checkbox]').checked)changes[tr.dataset.field]=tr.querySelector('input[type=text]').value.trim();
+  });
+  const note=document.getElementById('snote_'+id).value;
   try{
-    const res=await fetch('/api/admin/suggestions',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id,action})});
-    const d=await res.json();if(!d.ok)throw new Error(d.error||'');
-    suggs=suggs.filter(s=>s.id!==id);toast(action==='accept'?'Accepted':'Rejected');render();
+    const d=await postSugg({id,action:'accept',product_id,changes,note});
+    for(const [field,c] of Object.entries(d.applied))p[field]=c.to;
+    const n=Object.keys(d.applied).length;
+    resolveLocally(id,{status:'accepted',product_id});
+    toast(n?'Applied '+n+' change'+(n===1?'':'s')+' to '+productLabel(p):'Accepted — no values changed');
+  }catch(e){toast('Error: '+e.message);}
+}
+
+async function rejectSugg(id){
+  const note=document.getElementById('snote_'+id).value;
+  try{
+    await postSugg({id,action:'reject',note});
+    resolveLocally(id,{status:'rejected'});
+    toast('Rejected');
   }catch(e){toast('Error: '+e.message);}
 }
 
@@ -588,6 +705,7 @@ async function load(){
     if(!pData.ok)throw new Error('Products API error: '+(pData.error||'no message'));
     all=pData.products||[];mfrs=(mData.ok&&mData.manufacturers)?mData.manufacturers:[];suggs=(sData.ok&&sData.suggestions)?sData.suggestions:[];
     document.getElementById('source').textContent=all.length+' headphones \u00b7 '+mfrs.length+' brands';
+    ensureDatalists();
     render();
   }catch(e){document.getElementById('tablewrap').innerHTML='<div class="empty"><strong>Load failed:</strong> '+esc(e.message)+'</div>';}
 }
