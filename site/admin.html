@@ -166,18 +166,64 @@
   .confirm-box p { margin-bottom:1.2rem; font-size:.9rem; }
   .confirm-box .btns { display:flex; gap:.5rem; justify-content:flex-end; }
   .vh { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+  /* ---- View tabs ----
+     The catalog editor and the suggestion log share this one page (everything admin lives
+     under /admin and /api/admin, the paths Cloudflare Access protects). */
+  button.qlink { background:none; font-family:inherit; cursor:pointer; }
+  .qlink.tab[aria-selected="true"] { background:var(--ink); color:var(--paper); border-color:var(--ink); }
+  .tabcount { font-variant-numeric:tabular-nums; opacity:.75; }
+  /* ---- Suggestion log ----
+     Read-mostly history of every suggestion. Overrides the catalog table's fixed layout and
+     nowrap cells, since log rows are few columns and the detail panel holds free text. */
+  .status-filters { display:flex; gap:.4rem; flex-wrap:wrap; }
+  .status-filters button { font-family:inherit; font-size:.62rem; text-transform:uppercase; letter-spacing:.1em;
+    background:none; border:1px solid var(--line); padding:.35rem .75rem; cursor:pointer; color:var(--ink); border-radius:99px; }
+  .status-filters button:hover { border-color:var(--ink); }
+  .status-filters button.active { background:var(--ink); border-color:var(--ink); color:var(--paper); }
+  .status-filters button[data-status="pending"].active  { background:var(--accent);   border-color:var(--accent); }
+  .status-filters button[data-status="accepted"].active { background:#2d7a3a;         border-color:#2d7a3a; }
+  .status-filters button[data-status="rejected"].active { background:var(--muted);    border-color:var(--muted); }
+  table.logtable { table-layout:auto; }
+  table.logtable thead th { cursor:default; }
+  table.logtable thead th:hover { color:var(--muted); }
+  table.logtable td { white-space:normal; }
+  table.logtable .col-id { width:4.5rem; }
+  table.logtable .col-when { width:7.5rem; }
+  table.logtable .col-status { width:7rem; }
+  table.logtable td.col-id { font-variant-numeric:tabular-nums; color:var(--muted); }
+  table.logtable td.col-when { white-space:nowrap; color:var(--muted); font-size:.76rem; }
+  tr.logrow.expanded > td, tr.logrow.expanded + tr.editrow > td { background:#f3e3d6; }
+  @media (max-width:560px) { table.logtable .col-id { display:none; } }
+  tr.logrow.expanded .caret { transform:rotate(90deg); color:var(--accent); }
+  .pill { display:inline-block; font-size:.6rem; text-transform:uppercase; letter-spacing:.08em;
+    border:1px solid var(--line); border-radius:99px; padding:.05rem .5rem; white-space:nowrap; }
+  .pill.pending  { border-color:var(--accent);   color:var(--accent); }
+  .pill.reviewed { border-color:var(--accent-2); color:var(--accent-2); }
+  .pill.accepted { border-color:#2d7a3a; color:#2d7a3a; background:rgba(45,122,58,0.08); }
+  .pill.rejected { border-color:var(--muted); color:var(--muted); }
+  .log-outcome { margin-top:.4rem; padding-top:.7rem; border-top:1px dashed var(--line); font-size:.78rem; }
+  .log-outcome ul { list-style:none; margin:.3rem 0; }
+  .log-outcome .from { color:var(--muted); text-decoration:line-through; }
+  .log-outcome .note { font-style:italic; margin-top:.3rem; }
+  .log-outcome .btn { margin-top:.6rem; }
+  .sugg-val a { overflow-wrap:anywhere; }
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
 </style>
 </head>
 <body>
 <header class="admin-header">
   <div class="admin-title">The Headphone Archive<span>Catalog Editor</span></div>
-  <nav class="quicklinks">
-    <a class="qlink" href="index.html" target="_blank">&#8599; Public site</a>
-    <a class="qlink" href="admin-suggestions.html">Suggestion log</a>
-    <span class="qlink warn" id="importBtn" style="cursor:pointer">Reset from CSV</span>
+  <nav class="quicklinks" aria-label="Admin views">
+    <div role="tablist" class="quicklinks">
+      <button type="button" class="qlink tab" role="tab" id="tabCatalog" aria-controls="catalogView" aria-selected="true">Catalog editor</button>
+      <button type="button" class="qlink tab" role="tab" id="tabLog" aria-controls="logView" aria-selected="false">Suggestion log <span class="tabcount" id="logCount"></span></button>
+    </div>
+    <a class="qlink" href="/" target="_blank" rel="noopener">&#8599; Public site</a>
+    <button type="button" class="qlink warn" id="importBtn">Reset from CSV</button>
   </nav>
 </header>
 
+<section id="catalogView" role="tabpanel" aria-labelledby="tabCatalog">
 <div class="controls">
   <input type="text" id="q" placeholder="Search model, brand, keyword&hellip;" autocomplete="off">
   <button class="btn btn-primary" id="addBtn">+ Add headphone</button>
@@ -186,6 +232,21 @@
 
 
 <div class="tablewrap" id="tablewrap"><div class="loading">Fetching catalog&hellip;</div></div>
+</section>
+
+<section id="logView" role="tabpanel" aria-labelledby="tabLog" hidden>
+<div class="controls">
+  <input type="text" id="logQ" placeholder="Search by ID, headphone, source, submitter, notes&hellip;" autocomplete="off" aria-label="Search suggestions">
+  <div class="status-filters" role="group" aria-label="Filter by status">
+    <button type="button" data-status="all" class="active">All</button>
+    <button type="button" data-status="pending">Pending</button>
+    <button type="button" data-status="accepted">Accepted</button>
+    <button type="button" data-status="rejected">Rejected</button>
+  </div>
+</div>
+<p class="sub" id="logSub">Loading&hellip;</p>
+<div class="tablewrap" id="logwrap"><div class="loading">Fetching suggestions&hellip;</div></div>
+</section>
 
 <footer><span id="source"></span></footer>
 <div id="toast"></div>
@@ -658,6 +719,7 @@ async function acceptSugg(id){
     for(const [field,c] of Object.entries(d.applied))p[field]=c.to;
     const n=Object.keys(d.applied).length;
     resolveLocally(id,{status:'accepted',product_id});
+    reloadSuggestions();
     toast(n?'Applied '+n+' change'+(n===1?'':'s')+' to '+productLabel(p):'Accepted — no values changed');
   }catch(e){toast('Error: '+e.message);}
 }
@@ -667,9 +729,120 @@ async function rejectSugg(id){
   try{
     await postSugg({id,action:'reject',note});
     resolveLocally(id,{status:'rejected'});
+    reloadSuggestions();
     toast('Rejected');
   }catch(e){toast('Error: '+e.message);}
 }
+
+// ---- Suggestion log ----
+// Every suggestion ever submitted (suggestions are never deleted), with search, status
+// filters, an expandable detail panel, and Reopen for rejected ones. Uses the same `suggs`
+// array as the pending rows in the catalog view.
+let logStatus='all', expandedLog=null, catalogStale=false;
+
+// Labels for the applied_changes JSON, keyed by product column.
+const CHANGE_LABELS={driver_size_mm:'Driver size',impedance_ohms:'Impedance',sensitivity_db:'Sensitivity',
+  connector_type:'Connector',detachable_cable:'Detachable cable',weight_g:'Weight'};
+
+function logField(label,val,unit){
+  return val?'<div class="sugg-field"><label>'+esc(label)+'</label><div class="sugg-val">'+esc(val)+(unit||'')+'</div></div>':'';
+}
+
+function logOutcome(s){
+  if(s.status==='pending')return '<div class="log-outcome">Still pending \u2014 review it in the Catalog editor tab.</div>';
+  let html='<div class="log-outcome"><strong>'+esc(s.status)+'</strong>'+(s.resolved_at?' on '+esc(s.resolved_at.slice(0,10)):'');
+  if(s.product_id)html+=' \u00b7 applied to <strong>'+esc(s.product_id)+'</strong>';
+  let changes={};
+  try{changes=JSON.parse(s.applied_changes||'{}');}catch(e){}
+  const keys=Object.keys(changes);
+  if(keys.length){
+    html+='<ul>'+keys.map(k=>'<li>'+esc(CHANGE_LABELS[k]||k)+': <span class="from">'+esc(changes[k].from||'\u2014')+'</span> &rarr; '+esc(changes[k].to||'\u2014')+'</li>').join('')+'</ul>';
+  }else if(s.status==='accepted'){html+='<div>No catalog values changed.</div>';}
+  if(s.admin_note)html+='<div class="note">'+esc(s.admin_note)+'</div>';
+  if(s.status==='rejected')html+='<button type="button" class="btn btn-ghost" data-reopen="'+esc(s.id)+'">Reopen</button>';
+  return html+'</div>';
+}
+
+function logDetail(s){
+  return '<div class="sugg-grid">'+
+    logField('Driver size',s.driver_size_mm,' mm')+logField('Impedance',s.impedance_ohms,' \u03A9')+
+    logField('Sensitivity',s.sensitivity_db,' dB')+logField('Connector',s.connector)+
+    logField('Detachable cable',s.detachable)+logField('Weight',s.weight_g,' g')+
+    (s.notes?'<div class="sugg-field span-all"><label>Submitter notes</label><div class="sugg-val">'+esc(s.notes)+'</div></div>':'')+
+    (s.source?'<div class="sugg-field span-all"><label>Source</label><div class="sugg-val"><a href="'+esc(s.source)+'" target="_blank" rel="noopener">'+esc(s.source)+'</a></div></div>':'')+
+    '</div><div class="edit-meta"><span>Submitted by: <strong>'+esc(s.submitter||'\u2014')+'</strong></span><span>Submitted: <strong>'+esc(s.created_at||'\u2014')+'</strong></span></div>'+
+    logOutcome(s);
+}
+
+function renderLog(){
+  const pending=suggs.filter(s=>s.status==='pending').length;
+  document.getElementById('logCount').textContent=pending?'('+pending+' pending)':'';
+  const q=document.getElementById('logQ').value.toLowerCase();
+  let rows=suggs.filter(s=>logStatus==='all'||s.status===logStatus);
+  if(q)rows=rows.filter(s=>('#'+s.id+' '+[s.headphone,s.source,s.submitter,s.notes,s.status].join(' ')).toLowerCase().includes(q));
+  const counts={pending:0,accepted:0,rejected:0,reviewed:0};
+  suggs.forEach(s=>{if(s.status in counts)counts[s.status]++;});
+  const parts=[suggs.length+' total'];
+  Object.entries(counts).forEach(([k,n])=>{if(n)parts.push(n+' '+k);});
+  document.getElementById('logSub').textContent=parts.join(' \u00b7 ')+((q||logStatus!=='all')?' \u00b7 '+rows.length+' shown':'')+' \u00b7 click a row for details';
+  const wrap=document.getElementById('logwrap');
+  if(!rows.length){wrap.innerHTML='<div class="empty">No suggestions match.</div>';return;}
+  let html='<table class="logtable"><thead><tr><th class="col-id">ID</th><th>Headphone</th><th class="col-when">Submitted</th><th class="col-status">Status</th><th class="caretcol"><span class="vh">Details</span></th></tr></thead><tbody>';
+  rows.forEach((s,i)=>{
+    const isExp=expandedLog===s.id, z=i%2?' zebra':'';
+    html+='<tr class="datarow logrow'+z+(isExp?' expanded':'')+'" data-log="'+esc(s.id)+'">'+
+      '<td class="col-id">#'+esc(s.id)+'</td><td class="model-cell">'+esc(s.headphone)+'</td>'+
+      '<td class="col-when">'+esc((s.created_at||'').slice(0,10))+'</td>'+
+      '<td class="col-status"><span class="pill '+esc(s.status)+'">'+esc(s.status)+'</span></td>'+
+      '<td class="caretcol"><button class="expandbtn" aria-expanded="'+isExp+'" aria-label="Details for suggestion '+esc(s.id)+'"><span class="caret">&#x203A;</span></button></td></tr>'+
+      '<tr class="editrow'+z+'"'+(isExp?'':' hidden')+'><td colspan="5"><div class="editwrap">'+logDetail(s)+'</div></td></tr>';
+  });
+  wrap.innerHTML=html+'</tbody></table>';
+  wrap.querySelectorAll('tr.logrow').forEach(tr=>tr.addEventListener('click',e=>{
+    if(e.target.closest('a'))return;
+    const id=parseInt(tr.dataset.log,10);
+    expandedLog=expandedLog===id?null:id;renderLog();
+  }));
+  wrap.querySelectorAll('[data-reopen]').forEach(b=>b.addEventListener('click',()=>reopenSugg(parseInt(b.dataset.reopen,10))));
+}
+
+async function reopenSugg(id){
+  try{
+    await postSugg({id,action:'reopen'});
+    toast('Reopened \u2014 it is back in the Catalog editor queue');
+    await reloadSuggestions();
+  }catch(e){toast('Error: '+e.message);}
+}
+
+// Re-fetches suggestions so the log shows server-side fields (resolved_at, applied_changes).
+// The catalog table is only redrawn when visible, so an open product edit isn't wiped.
+async function reloadSuggestions(){
+  try{
+    const res=await fetch('/api/admin/suggestions');
+    const d=await res.json();if(!d.ok)throw new Error(d.error||'');
+    suggs=d.suggestions||[];
+  }catch(e){toast('Could not refresh the suggestion log: '+e.message);return;}
+  renderLog();
+  if(document.getElementById('catalogView').hidden)catalogStale=true;else render();
+}
+
+// Tabs: the current view is kept in the URL hash (/admin#log) so a reload or link lands on it.
+function showView(view){
+  const isLog=view==='log';
+  document.getElementById('catalogView').hidden=isLog;
+  document.getElementById('logView').hidden=!isLog;
+  document.getElementById('tabCatalog').setAttribute('aria-selected',String(!isLog));
+  document.getElementById('tabLog').setAttribute('aria-selected',String(isLog));
+  history.replaceState(null,'',isLog?'#log':location.pathname+location.search);
+  if(!isLog&&catalogStale){catalogStale=false;render();}
+}
+document.getElementById('tabCatalog').addEventListener('click',()=>showView('catalog'));
+document.getElementById('tabLog').addEventListener('click',()=>showView('log'));
+document.getElementById('logQ').addEventListener('input',()=>{renderLog();document.getElementById('logwrap').scrollTop=0;});
+document.querySelectorAll('.status-filters button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.status-filters button').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');logStatus=b.dataset.status;renderLog();document.getElementById('logwrap').scrollTop=0;
+}));
 
 document.getElementById('importBtn').addEventListener('click',()=>{
   confirm2('Reset D1 from the GitHub CSV? This overwrites all current data.',async()=>{
@@ -707,12 +880,19 @@ async function load(){
     document.getElementById('source').textContent=all.length+' headphones \u00b7 '+mfrs.length+' brands';
     ensureDatalists();
     render();
-  }catch(e){document.getElementById('tablewrap').innerHTML='<div class="empty"><strong>Load failed:</strong> '+esc(e.message)+'</div>';}
+    if(sData.ok)renderLog();
+    else document.getElementById('logwrap').innerHTML='<div class="empty"><strong>Could not load suggestions:</strong> '+esc(sData.error||'unknown error')+'. Check the D1 binding and that the suggestions table exists.</div>';
+  }catch(e){
+    const msg='<div class="empty"><strong>Load failed:</strong> '+esc(e.message)+'</div>';
+    document.getElementById('tablewrap').innerHTML=msg;document.getElementById('logwrap').innerHTML=msg;
+  }
 }
 
-loadColW();load();
+loadColW();
+if(location.hash==='#log')showView('log');
+load();
 document.getElementById('q').addEventListener('input',render);
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&expandedId!==null)cancelEdit();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&expandedId!==null&&!document.getElementById('catalogView').hidden)cancelEdit();});
 </script>
 </body>
 </html>
