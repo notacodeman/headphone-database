@@ -7,15 +7,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Spline+Sans+Mono:wght@300..700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='2' y='2' width='28' height='28' rx='6' fill='%23c2410c'/%3E%3Cpath d='M9 19v-3a7 7 0 0 1 14 0v3' fill='none' stroke='%23f4f0e8' stroke-width='2.5'/%3E%3Crect x='7' y='18' width='5' height='8' rx='1.5' fill='%23f4f0e8'/%3E%3Crect x='20' y='18' width='5' height='8' rx='1.5' fill='%23f4f0e8'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="shared.css">
 <style>
   /* Faint ruled-paper lines behind the form. */
   body { background-image: repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(0,0,0,0.02) 28px, rgba(0,0,0,0.02) 29px); }
 
   header { max-width: 760px; margin: 0 auto; padding: 2.5rem 2rem 1.5rem; border-bottom: 2px solid var(--ink); }
-  .back-link { display: inline-block; margin-bottom: 1.2rem; font-size: 0.72rem; text-transform: uppercase;
-    letter-spacing: 0.14em; color: var(--accent-2); text-decoration: none; }
-  .back-link:hover { color: var(--accent); }
   h1 { font-family: 'Fraunces', serif; font-weight: 900; font-size: clamp(2rem, 5vw, 3.2rem); line-height: 0.95; letter-spacing: -0.02em; }
   h1 em { font-style: italic; color: var(--accent); }
   .intro { max-width: 760px; margin: 1.5rem auto 0; padding: 0 2rem; font-size: 0.9rem; color: var(--muted); }
@@ -54,8 +52,12 @@
 </style>
 </head>
 <body>
+<div class="banner"><div class="in">
+  <a class="logo" href="index.html" title="Back to the catalog"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="2" width="28" height="28" rx="6" fill="#c2410c"/><path d="M9 19v-3a7 7 0 0 1 14 0v3" fill="none" stroke="#f4f0e8" stroke-width="2.5"/><rect x="7" y="18" width="5" height="8" rx="1.5" fill="#f4f0e8"/><rect x="20" y="18" width="5" height="8" rx="1.5" fill="#f4f0e8"/></svg>Headphone Archive</a>
+  <div class="crumbs"><a href="index.html">Catalog</a> &rsaquo; <b>Suggest an edit</b></div>
+  <a class="home" href="https://codeman.club">&larr; codeman.club</a>
+</div></div>
 <header>
-  <a class="back-link" href="index.html">&larr; Back to the Archive</a>
   <h1>Suggest an <em>Edit</em></h1>
 </header>
 

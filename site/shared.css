@@ -12,6 +12,7 @@
   --accent-2: #1e3a2f;
   --line: #d6cdbd;
   --muted: #8a8071;
+  --banner-muted: #a89e8e;
   --pad: clamp(1rem, 3vw, 2rem);
 }
 
@@ -22,6 +23,31 @@ html, body {
   color: var(--ink);
   font-family: 'Spline Sans Mono', monospace;
   line-height: 1.5;
+}
+
+/* ---- Top banner, the same on every public page (matches steam. and tournament.codeman.club) ----
+   Logo returns to the catalog, crumbs show where you are, codeman.club link sits at the right. */
+.banner { background: var(--ink); border-bottom: 1px solid #000; }
+.banner .in { max-width: 1400px; margin: 0 auto; padding: 14px var(--pad);
+  display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+.banner .logo { display: flex; align-items: center; gap: 10px; color: var(--paper); text-decoration: none;
+  font-size: 0.95rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+.banner .logo:hover { color: #fff; }
+.banner .logo svg { width: 28px; height: 28px; flex-shrink: 0; }
+.banner .crumbs { font-size: 0.8rem; color: var(--banner-muted); }
+.banner .crumbs a { color: inherit; text-decoration: none; }
+.banner .crumbs a:hover { color: var(--paper); }
+/* The page accent is too dark on the banner, so the current page uses a lighter orange. */
+.banner .crumbs b { font-weight: 600; color: #f0864f; }
+.banner .home { margin-left: auto; font-size: 0.8rem; color: var(--banner-muted); text-decoration: none; white-space: nowrap; }
+.banner .home:hover { color: var(--paper); }
+.banner a:focus-visible { outline-color: var(--paper); }
+
+/* On phones the banner wraps, so the codeman.club link stays up next to the logo. */
+@media (max-width: 600px) {
+  .banner .in { gap: 10px 16px; }
+  .banner .home { order: 1; }
+  .banner .crumbs { order: 2; width: 100%; }
 }
 
 /* Hidden on screen, still read by screen readers. */

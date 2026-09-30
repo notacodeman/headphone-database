@@ -7,17 +7,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Spline+Sans+Mono:wght@300..700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='2' y='2' width='28' height='28' rx='6' fill='%23c2410c'/%3E%3Cpath d='M9 19v-3a7 7 0 0 1 14 0v3' fill='none' stroke='%23f4f0e8' stroke-width='2.5'/%3E%3Crect x='7' y='18' width='5' height='8' rx='1.5' fill='%23f4f0e8'/%3E%3Crect x='20' y='18' width='5' height='8' rx='1.5' fill='%23f4f0e8'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="shared.css">
 <style>
-  /* ---- Nav ---- */
-  .site-nav { max-width: 1300px; margin: 0 auto; padding: 1rem 2rem; border-bottom: 2px solid var(--ink);
-    display: flex; justify-content: space-between; align-items: center; }
-  .site-nav a { color: var(--ink); text-decoration: none; }
-  .site-nav a:hover { color: var(--accent); }
-  .site-name { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 700; }
-  .nav-links { display: flex; gap: 1.5rem; align-items: center; }
-  .nav-link { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; }
-
   /* ---- Brand header ---- */
   .brand-hero { max-width: 1300px; margin: 0 auto; padding: 3.5rem 2rem 2rem; border-bottom: 1px solid var(--line); }
   .eyebrow { margin-bottom: 0.6rem; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); }
@@ -89,13 +81,11 @@
 </head>
 <body>
 
-<nav class="site-nav">
-  <a href="index.html" class="site-name">The Headphone Archive</a>
-  <div class="nav-links">
-    <a href="brands.html" class="nav-link">&#9674; All Brands</a>
-    <a href="index.html" class="nav-link">&larr; Back to archive</a>
-  </div>
-</nav>
+<div class="banner"><div class="in">
+  <a class="logo" href="index.html" title="Back to the catalog"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="2" width="28" height="28" rx="6" fill="#c2410c"/><path d="M9 19v-3a7 7 0 0 1 14 0v3" fill="none" stroke="#f4f0e8" stroke-width="2.5"/><rect x="7" y="18" width="5" height="8" rx="1.5" fill="#f4f0e8"/><rect x="20" y="18" width="5" height="8" rx="1.5" fill="#f4f0e8"/></svg>Headphone Archive</a>
+  <div class="crumbs"><a href="index.html">Catalog</a> &rsaquo; <a href="brands.html">Brands</a> &rsaquo; <b id="crumbBrand">Brand</b></div>
+  <a class="home" href="https://codeman.club">&larr; codeman.club</a>
+</div></div>
 
 <div id="brandHero"><div class="loading-state">Loading brand&hellip;</div></div>
 <div id="brandContent"></div>
@@ -217,6 +207,7 @@ function summaryHtml(products) {
 
 function render(brand, products) {
   document.title = `${brand.name} — The Headphone Archive`;
+  document.getElementById("crumbBrand").textContent = brand.name;
   const statusClass = brand.status === "Active" ? "active" : "discontinued";
   document.getElementById("brandHero").innerHTML = `
     <div class="brand-hero">
