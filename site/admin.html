@@ -4,895 +4,1055 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin — The Headphone Archive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Spline+Sans+Mono:wght@300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,900&family=Spline+Sans+Mono:wght@400;500;600&display=swap');
-  /* ---- Design tokens (admin) ----
-     Same neon-noir palette and fonts as the public site, kept in sync so the editor feels
-     like part of the archive. The styles below cover the editable table, the inline edit
-     grid, the version-history panel, and the suggestion queue. */
-  :root { --ink:#1a1714; --paper:#f4f0e8; --paper-2:#eae3d6; --accent:#c2410c;
-    --accent-2:#1e3a2f; --line:#d6cdbd; --muted:#8a8071; --card:#ede7d9;
-    --pad: clamp(1rem, 3vw, 2rem); }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  html,body { background:var(--paper); color:var(--ink);
-    font-family:'Spline Sans Mono',monospace; line-height:1.5; }
-  .admin-header { border-bottom:2px solid var(--ink); padding:1.2rem var(--pad);
-    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:.75rem; }
-  .admin-title { font-family:'Fraunces',serif; font-size:1.5rem; font-weight:700; }
-  .admin-title span { color:var(--muted); font-size:.75rem; font-family:'Spline Sans Mono',monospace;
-    font-weight:400; display:block; text-transform:uppercase; letter-spacing:.1em; }
-  .quicklinks { display:flex; gap:.5rem; flex-wrap:wrap; }
-  .qlink { font-size:.65rem; text-transform:uppercase; letter-spacing:.1em; text-decoration:none;
-    color:var(--ink); border:1px solid var(--line); border-radius:99px; padding:.3rem .75rem; transition:background .12s; }
-  .qlink:hover { background:var(--ink); color:var(--paper); }
-  .qlink.warn { border-color:var(--accent); color:var(--accent); }
-  .qlink.warn:hover { background:var(--accent); color:var(--paper); }
-  .controls { display:flex; gap:.6rem; align-items:center; flex-wrap:wrap;
-    padding:1rem var(--pad) .5rem; max-width:1400px; margin:0 auto; }
-  .controls input { flex:1; min-width:160px; padding:.55rem .7rem;
-    border:1px solid var(--ink); background:var(--paper); font-family:inherit; font-size:.85rem; color:var(--ink); }
-  .controls input:focus { outline:none; border-color:var(--accent); }
-  .btn { font-family:inherit; font-size:.72rem; text-transform:uppercase; letter-spacing:.1em;
-    cursor:pointer; padding:.55rem 1rem; border-radius:2px; border:1px solid var(--ink); transition:background .12s,color .12s; }
-  .btn-primary { background:var(--ink); color:var(--paper); }
-  .btn-primary:hover { background:var(--accent-2); border-color:var(--accent-2); }
-  .btn-ghost { background:none; color:var(--ink); }
-  .btn-ghost:hover { background:var(--paper-2); }
-  .btn-danger { border-color:var(--accent); color:var(--accent); background:none; }
-  .btn-danger:hover { background:var(--accent); color:var(--paper); }
-  .sub { font-size:.72rem; color:var(--muted); padding:.3rem var(--pad); max-width:1400px; margin:0 auto; }
-  .sugg-area { max-width:1400px; margin:0 auto; padding:0 var(--pad) .5rem; }
-  /* Suggestion rows live in the main table but are tinted amber so they read as pending
-     community input, not confirmed catalog entries. The badge replaces the Brand cell and
-     the actions row sits inside the expanded review panel. */
-  tr.suggrow td { background:rgba(194,65,12,0.07); }
-  tr.datarow.suggrow:hover td { background:rgba(194,65,12,0.13); }
-  tr.suggrow.expanded td { background:rgba(194,65,12,0.13); }
-  .sugg-badge { display:inline-block; font-size:.6rem; text-transform:uppercase; letter-spacing:.08em;
-    color:var(--accent); border:1px solid var(--accent); border-radius:99px; padding:.05rem .4rem; }
-  /* Suggestion review grid mirrors .edit-grid so an expanded suggestion looks like the product
-     editor — same label styling and density — but the values are read-only, not form inputs. */
-  .sugg-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:.4rem .6rem; margin-bottom:.8rem; }
-  @media (max-width:1100px) { .sugg-grid { grid-template-columns:repeat(4,1fr); } }
-  @media (max-width:760px)  { .sugg-grid { grid-template-columns:repeat(2,1fr); } }
-  .sugg-field.span-all { grid-column:1/-1; }
-  .sugg-field label { display:block; font-size:.55rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin-bottom:.1rem; }
-  .sugg-val { font-size:.78rem; color:var(--ink); padding:.28rem .4rem; border:1px solid var(--line); background:var(--paper-2); min-height:1.4rem; word-break:break-word; }
-  .sugg-val a { color:var(--accent-2); }
-  .sugg-pick { display:flex; gap:.6rem; align-items:center; flex-wrap:wrap; margin-bottom:.8rem; font-size:.76rem; }
-  .sugg-pick label { font-size:.55rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); }
-  .sugg-pick input { flex:0 1 22rem; padding:.28rem .4rem; border:1px solid var(--line); background:var(--paper);
-    font-family:inherit; font-size:.76rem; color:var(--ink); }
-  .sugg-pick input:focus { outline:none; border-color:var(--accent); }
-  .sugg-pick .picked { color:var(--muted); }
-  .sugg-pick .picked.ok { color:var(--accent-2); font-weight:600; }
-  .sugg-changes { width:100%; table-layout:auto; margin-bottom:.8rem; border:1px solid var(--line); }
-  .sugg-changes th { position:static; background:var(--paper-2); cursor:default; font-size:.55rem; padding:.3rem .5rem; border-bottom:1px solid var(--line); }
-  .sugg-changes td { font-size:.76rem; padding:.3rem .5rem; white-space:normal; vertical-align:middle; }
-  .sugg-changes td.cur { color:var(--muted); }
-  .sugg-changes input[type=text] { width:100%; padding:.2rem .35rem; border:1px solid var(--line); background:var(--paper);
-    font-family:inherit; font-size:.76rem; color:var(--ink); }
-  .sugg-changes tr.same td { opacity:.5; }
-  .sugg-note { width:100%; min-height:42px; padding:.28rem .4rem; border:1px solid var(--line); background:var(--paper);
-    font-family:inherit; font-size:.76rem; color:var(--ink); resize:vertical; margin-bottom:.8rem; }
-  .tablewrap { max-width:1400px; margin:0 auto;
-    border-left:1px solid var(--line); border-right:1px solid var(--line);
-    overflow-x:auto; overflow-y:auto; max-height:calc(100vh - 200px); }
-  table { width:100%; min-width:0; border-collapse:collapse; table-layout:fixed; }
-  thead th { position:sticky; top:0; z-index:10; background:var(--paper-2);
-    text-align:left; font-size:.62rem; text-transform:uppercase; letter-spacing:.12em;
-    color:var(--muted); padding:.45rem .55rem; border-bottom:2px solid var(--ink);
-    cursor:pointer; user-select:none; white-space:nowrap; }
-  thead th:hover { color:var(--accent); }
+  /* Everything admin lives on this one page, under /admin and /api/admin: the two paths
+     Cloudflare Access protects. */
+
+  /* ---- Header, tabs, buttons ---- */
+  .admin-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;
+    padding: 1.2rem var(--pad); border-bottom: 2px solid var(--ink); }
+  .admin-title { font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 700; }
+  .admin-title span { display: block; font-family: 'Spline Sans Mono', monospace; font-size: 0.75rem; font-weight: 400;
+    text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+  .header-links, .tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .chip { padding: 0.3rem 0.75rem; background: none; border: 1px solid var(--line); border-radius: 99px; cursor: pointer;
+    font-family: inherit; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--ink); text-decoration: none; transition: background 0.12s; }
+  .chip:hover, .chip[aria-selected="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+  .chip.warning { border-color: var(--accent); color: var(--accent); }
+  .chip.warning:hover { background: var(--accent); color: var(--paper); }
+  .tab-count { font-variant-numeric: tabular-nums; opacity: 0.75; }
+
+  .button { padding: 0.55rem 1rem; border: 1px solid var(--ink); border-radius: 2px; cursor: pointer;
+    font-family: inherit; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em;
+    transition: background 0.12s, color 0.12s; }
+  .button.primary { background: var(--ink); color: var(--paper); }
+  .button.primary:hover { background: var(--accent-2); border-color: var(--accent-2); }
+  .button.ghost { background: none; color: var(--ink); }
+  .button.ghost:hover { background: var(--paper-2); }
+  .button.danger { background: none; border-color: var(--accent); color: var(--accent); }
+  .button.danger:hover { background: var(--accent); color: var(--paper); }
+
+  /* ---- Toolbars ---- */
+  .controls { max-width: 1400px; margin: 0 auto; padding: 1rem var(--pad) 0.5rem;
+    display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap; }
+  .controls input { flex: 1; min-width: 160px; padding: 0.55rem 0.7rem; border: 1px solid var(--ink);
+    background: var(--paper); font-family: inherit; font-size: 0.85rem; color: var(--ink); }
+  .controls input:focus { outline: none; border-color: var(--accent); }
+  .summary { max-width: 1400px; margin: 0 auto; padding: 0.3rem var(--pad); font-size: 0.72rem; color: var(--muted); }
+  .status-filters { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+  .status-filters button { padding: 0.35rem 0.75rem; background: none; border: 1px solid var(--line); border-radius: 99px;
+    cursor: pointer; font-family: inherit; font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink); }
+  .status-filters button:hover { border-color: var(--ink); }
+  .status-filters button.active { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+  .status-filters button.active[data-status="pending"] { background: var(--accent); border-color: var(--accent); }
+  .status-filters button.active[data-status="accepted"] { background: #2d7a3a; border-color: #2d7a3a; }
+  .status-filters button.active[data-status="rejected"] { background: var(--muted); border-color: var(--muted); }
+
+  /* ---- Tables ---- */
+  .table-wrap { max-width: 1400px; max-height: calc(100vh - 200px); margin: 0 auto; overflow: auto;
+    border-left: 1px solid var(--line); border-right: 1px solid var(--line); }
+  table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+  thead th { position: sticky; top: 0; z-index: 10; padding: 0.45rem 0.55rem; background: var(--paper-2);
+    border-bottom: 2px solid var(--ink); text-align: left; white-space: nowrap; cursor: pointer; user-select: none;
+    font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); }
+  thead th:hover { color: var(--accent); }
   thead th[aria-sort="ascending"], thead th[aria-sort="descending"] { color: var(--accent); border-bottom: 3px solid var(--accent); }
-  thead th > span:first-child { display:inline-block; max-width:calc(100% - 10px);
-    overflow:hidden; text-overflow:clip; vertical-align:bottom; }
-  .resizer { position:absolute; top:0; right:0; width:9px; height:100%; cursor:col-resize; user-select:none; }
-  .resizer::before { content:""; position:absolute; right:0; top:25%; height:50%; width:1px; background:var(--line); }
-  .resizer:hover::before { right:0; top:0; height:100%; width:2px; background:var(--accent); }
-  tbody tr { border-bottom:1px solid var(--line); }
-  tbody tr.datarow { background:var(--paper); cursor:pointer; transition:background .1s; }
-  tbody tr.datarow.zebra { background:#ece4d4; }
-  tbody tr.datarow:hover, tbody tr.datarow.zebra:hover { background:#d6cebc; }
-  tbody td { padding:.55rem .55rem; font-size:.82rem; vertical-align:top; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .caretcol { width:2rem; text-align:center; }
-  .expandbtn { background:none; border:none; cursor:pointer; color:var(--muted); font-size:1.1rem; line-height:1; padding:.2rem .4rem; }
-  .caret { display:inline-block; transition:transform .15s ease; }
-  tr.datarow.expanded .caret { transform:rotate(90deg); color:var(--accent); }
-  .model-cell { font-family:'Fraunces',serif; font-size:.95rem; font-weight:600; }
-  .tag { font-size:.65rem; padding:.1rem .4rem; border:1px solid var(--line); border-radius:99px; white-space:nowrap; }
-  .tag.active { border-color:var(--accent-2); color:var(--accent-2); }
-  .tag.disc { color:var(--muted); }
-  .spec-val { font-variant-numeric:tabular-nums; }
-  .spec-empty { color:var(--line); }
-  .flags { color:var(--accent); }
-  tr.editrow > td { padding:0; border-bottom:2px solid var(--ink); }
-  tr.editrow.zebra > td { background:#ece4d4; }
-  .editwrap { padding:1rem 1.25rem; border-left:3px solid var(--accent); }
-  .editwrap h3 { font-family:'Fraunces',serif; font-size:1rem; margin-bottom:.7rem;
-    padding-bottom:.4rem; border-bottom:1px solid var(--line); color:var(--accent); }
-  .edit-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:.4rem .6rem; margin-bottom:.8rem; }
-  @media (max-width:1100px) { .edit-grid { grid-template-columns:repeat(4,1fr); } }
-  @media (max-width:760px)  { .edit-grid { grid-template-columns:repeat(2,1fr); } }
-  .edit-grid .span2 { grid-column:span 2; }
-  .edit-grid .span4 { grid-column:span 3; }
-  .edit-grid label { display:block; font-size:.55rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin-bottom:.1rem; }
-  .edit-grid input,.edit-grid select,.edit-grid textarea {
-    width:100%; padding:.28rem .4rem; border:1px solid var(--line); background:var(--paper);
-    font-family:inherit; font-size:.76rem; color:var(--ink); }
-  .edit-grid input:focus,.edit-grid select:focus,.edit-grid textarea:focus { outline:none; border-color:var(--accent); }
-  .edit-grid input:disabled { background:var(--paper-2); color:var(--muted); cursor:not-allowed; }
-  .edit-grid textarea { resize:vertical; min-height:42px; }
-  .edit-meta { display:flex; flex-wrap:wrap; gap:.6rem 1.5rem; margin-bottom:.85rem;
-    font-size:.72rem; color:var(--muted); align-items:center; }
-  .edit-meta strong { color:var(--ink); }
-  .conf-badge { font-size:.65rem; padding:.15rem .5rem; border-radius:99px; font-weight:600;
-    letter-spacing:.04em; text-transform:uppercase; }
-  .conf-verified { background:#d1fae5; color:#065f46; }
-  .conf-est { background:#fef3c7; color:#92400e; }
-  .edit-actions { display:flex; justify-content:space-between; align-items:center;
-    gap:.5rem; padding-bottom:1rem; border-bottom:1px solid var(--line); }
-  .edit-actions-right { display:flex; gap:.5rem; }
-  .edit-hist { margin-top:1rem; }
-  .edit-hist-head { font-size:.6rem; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-bottom:.5rem; }
-  .hist-list { list-style:none; border:1px solid var(--line); border-radius:4px; overflow:hidden; }
-  .hist-item { padding:.4rem .75rem; border-bottom:1px solid var(--line);
-    font-size:.73rem; cursor:pointer; display:flex; gap:.75rem; align-items:center; transition:background .1s; }
-  .hist-item:last-child { border-bottom:none; }
-  .hist-item:hover { background:var(--paper-2); }
-  .hist-when { font-family:monospace; flex-shrink:0; }
-  .hist-badge { color:var(--muted); }
-  .hist-item .arrow { margin-left:auto; color:var(--muted); font-size:.8rem; }
-  .hist-detail { padding:.75rem; background:var(--paper-2); border-top:2px solid var(--accent); display:none; }
-  .hist-detail.open { display:block; }
-  .hist-detail-when { font-size:.68rem; color:var(--muted); margin-bottom:.5rem; }
-  .hist-fields { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
-    gap:.3rem 1rem; max-height:200px; overflow-y:auto; font-size:.71rem; }
-  .hf { padding:.1rem 0; }
-  .hf dt { font-size:.58rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); }
-  .hf dd { color:var(--ink); }
-  .hf.changed dt,.hf.changed dd { color:var(--accent); font-weight:600; }
-  .hist-none { padding:.75rem; font-size:.75rem; color:var(--muted); }
-  #toast { position:fixed; bottom:1.5rem; left:50%; transform:translateX(-50%) translateY(60px);
-    background:var(--ink); color:var(--paper); font-size:.8rem; padding:.6rem 1.2rem;
-    border-radius:4px; opacity:0; transition:all .25s ease; z-index:99; pointer-events:none; }
-  #toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
-  .empty,.loading { text-align:center; padding:3rem 1rem; color:var(--muted); font-size:.85rem; }
-  footer { padding:1.5rem var(--pad); border-top:1px solid var(--line); font-size:.7rem; color:var(--muted); max-width:1400px; margin:0 auto; }
-  .confirm-overlay { position:fixed; inset:0; background:rgba(26,23,20,.55);
-    display:flex; align-items:center; justify-content:center; z-index:50; }
-  .confirm-overlay[hidden] { display:none; }
-  .confirm-box { background:var(--paper); border:2px solid var(--ink); padding:1.5rem 2rem; max-width:380px; width:90%; }
-  .confirm-box p { margin-bottom:1.2rem; font-size:.9rem; }
-  .confirm-box .btns { display:flex; gap:.5rem; justify-content:flex-end; }
-  .vh { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
-  /* ---- View tabs ----
-     The catalog editor and the suggestion log share this one page (everything admin lives
-     under /admin and /api/admin, the paths Cloudflare Access protects). */
-  button.qlink { background:none; font-family:inherit; cursor:pointer; }
-  .qlink.tab[aria-selected="true"] { background:var(--ink); color:var(--paper); border-color:var(--ink); }
-  .tabcount { font-variant-numeric:tabular-nums; opacity:.75; }
-  /* ---- Suggestion log ----
-     Read-mostly history of every suggestion. Overrides the catalog table's fixed layout and
-     nowrap cells, since log rows are few columns and the detail panel holds free text. */
-  .status-filters { display:flex; gap:.4rem; flex-wrap:wrap; }
-  .status-filters button { font-family:inherit; font-size:.62rem; text-transform:uppercase; letter-spacing:.1em;
-    background:none; border:1px solid var(--line); padding:.35rem .75rem; cursor:pointer; color:var(--ink); border-radius:99px; }
-  .status-filters button:hover { border-color:var(--ink); }
-  .status-filters button.active { background:var(--ink); border-color:var(--ink); color:var(--paper); }
-  .status-filters button[data-status="pending"].active  { background:var(--accent);   border-color:var(--accent); }
-  .status-filters button[data-status="accepted"].active { background:#2d7a3a;         border-color:#2d7a3a; }
-  .status-filters button[data-status="rejected"].active { background:var(--muted);    border-color:var(--muted); }
-  table.logtable { table-layout:auto; }
-  table.logtable thead th { cursor:default; }
-  table.logtable thead th:hover { color:var(--muted); }
-  table.logtable td { white-space:normal; }
-  table.logtable .col-id { width:4.5rem; }
-  table.logtable .col-when { width:7.5rem; }
-  table.logtable .col-status { width:7rem; }
-  table.logtable td.col-id { font-variant-numeric:tabular-nums; color:var(--muted); }
-  table.logtable td.col-when { white-space:nowrap; color:var(--muted); font-size:.76rem; }
-  tr.logrow.expanded > td, tr.logrow.expanded + tr.editrow > td { background:#f3e3d6; }
-  @media (max-width:560px) { table.logtable .col-id { display:none; } }
-  tr.logrow.expanded .caret { transform:rotate(90deg); color:var(--accent); }
-  .pill { display:inline-block; font-size:.6rem; text-transform:uppercase; letter-spacing:.08em;
-    border:1px solid var(--line); border-radius:99px; padding:.05rem .5rem; white-space:nowrap; }
-  .pill.pending  { border-color:var(--accent);   color:var(--accent); }
-  .pill.reviewed { border-color:var(--accent-2); color:var(--accent-2); }
-  .pill.accepted { border-color:#2d7a3a; color:#2d7a3a; background:rgba(45,122,58,0.08); }
-  .pill.rejected { border-color:var(--muted); color:var(--muted); }
-  .log-outcome { margin-top:.4rem; padding-top:.7rem; border-top:1px dashed var(--line); font-size:.78rem; }
-  .log-outcome ul { list-style:none; margin:.3rem 0; }
-  .log-outcome .from { color:var(--muted); text-decoration:line-through; }
-  .log-outcome .note { font-style:italic; margin-top:.3rem; }
-  .log-outcome .btn { margin-top:.6rem; }
-  .sugg-val a { overflow-wrap:anywhere; }
-  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+  thead th > span:first-child { display: inline-block; max-width: calc(100% - 10px); overflow: hidden; vertical-align: bottom; }
+  .resizer { position: absolute; top: 0; right: 0; width: 9px; height: 100%; cursor: col-resize; user-select: none; }
+  .resizer::before { content: ""; position: absolute; right: 0; top: 25%; height: 50%; width: 1px; background: var(--line); }
+  .resizer:hover::before { top: 0; height: 100%; width: 2px; background: var(--accent); }
+
+  tbody tr { border-bottom: 1px solid var(--line); }
+  tbody td { padding: 0.55rem; font-size: 0.82rem; vertical-align: top; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  tr.row { background: var(--paper); cursor: pointer; transition: background 0.1s; }
+  tr.row.zebra, tr.panel-row.zebra > td { background: var(--zebra); }
+  tr.row:hover { background: var(--row-hover); }
+  /* An open row and its panel share one highlight. */
+  tr.row.expanded > td, tr.row.expanded + tr.panel-row > td { background: #f3e3d6; }
+  tr.panel-row > td { padding: 0; border-bottom: 2px solid var(--ink); white-space: normal; }
+  .caret-col { width: 2rem; text-align: center; }
+  .expand-button { padding: 0.2rem 0.4rem; background: none; border: none; cursor: pointer; font-size: 1.1rem; line-height: 1; color: var(--muted); }
+  .caret { display: inline-block; transition: transform 0.15s ease; }
+  tr.expanded .caret { transform: rotate(90deg); color: var(--accent); }
+
+  .model-cell { font-family: 'Fraunces', serif; font-size: 0.95rem; font-weight: 600; }
+  .tag { padding: 0.1rem 0.4rem; border: 1px solid var(--line); border-radius: 99px; font-size: 0.65rem; white-space: nowrap; }
+  .tag.active { border-color: var(--accent-2); color: var(--accent-2); }
+  .tag.discontinued { color: var(--muted); }
+  .spec-empty { color: var(--line); }
+  .flags { color: var(--accent); }
+
+  /* Pending suggestions sit at the top of the catalog table, tinted so they read as
+     community input rather than catalog rows. */
+  tr.suggestion > td, tr.suggestion.panel-row > td { background: rgba(194,65,12,0.07); }
+  tr.suggestion:hover > td, tr.suggestion.expanded > td, tr.suggestion.expanded + tr.panel-row > td { background: rgba(194,65,12,0.13); }
+  .suggestion-badge { display: inline-block; padding: 0.05rem 0.4rem; border: 1px solid var(--accent); border-radius: 99px;
+    font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); }
+
+  /* ---- Expanded panels: product editor, suggestion review, log entry ---- */
+  .panel { padding: 1rem 1.25rem; border-left: 3px solid var(--accent); }
+  .panel h3 { margin-bottom: 0.7rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--line);
+    font-family: 'Fraunces', serif; font-size: 1rem; color: var(--accent); }
+  .field-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0.4rem 0.6rem; margin-bottom: 0.8rem; }
+  @media (max-width: 1100px) { .field-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  @media (max-width: 760px) { .field-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .field-grid .span-2 { grid-column: span 2; }
+  .field-grid .span-3 { grid-column: span 3; }
+  .field-grid .span-all { grid-column: 1 / -1; }
+  .field-grid label, .small-label { display: block; margin-bottom: 0.1rem; font-size: 0.55rem; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--muted); }
+  .panel input, .panel select, .panel textarea { width: 100%; padding: 0.28rem 0.4rem; border: 1px solid var(--line);
+    background: var(--paper); font-family: inherit; font-size: 0.76rem; color: var(--ink); }
+  .panel input:focus, .panel select:focus, .panel textarea:focus { outline: none; border-color: var(--accent); }
+  .panel input:disabled { background: var(--paper-2); color: var(--muted); cursor: not-allowed; }
+  .panel textarea { min-height: 42px; margin-bottom: 0.8rem; resize: vertical; }
+  .field-grid textarea { margin-bottom: 0; }
+  .panel input[type=checkbox] { width: auto; }
+  .read-only { min-height: 1.4rem; padding: 0.28rem 0.4rem; border: 1px solid var(--line); background: var(--paper-2);
+    font-size: 0.78rem; overflow-wrap: anywhere; }
+  .read-only a { color: var(--accent-2); }
+
+  .meta { display: flex; flex-wrap: wrap; gap: 0.6rem 1.5rem; align-items: center; margin-bottom: 0.85rem;
+    font-size: 0.72rem; color: var(--muted); }
+  .meta strong { color: var(--ink); }
+  .confidence { padding: 0.15rem 0.5rem; border-radius: 99px; font-size: 0.65rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.04em; }
+  .confidence.verified { background: #d1fae5; color: #065f46; }
+  .confidence.estimated { background: #fef3c7; color: #92400e; }
+  .text-button { padding: 0; background: none; border: none; cursor: pointer; font-family: inherit; font-size: 0.65rem;
+    text-decoration: underline; color: var(--muted); }
+  .panel-actions { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem;
+    padding-bottom: 1rem; border-bottom: 1px solid var(--line); }
+  .panel-actions .right { display: flex; gap: 0.5rem; margin-left: auto; }
+
+  /* Change history under the editor. Each entry is the product as it was before that save. */
+  .history { margin-top: 1rem; }
+  .history-list { list-style: none; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+  .history-item { border-bottom: 1px solid var(--line); font-size: 0.73rem; }
+  .history-item:last-child { border-bottom: none; }
+  .history-summary { display: flex; gap: 0.75rem; align-items: center; width: 100%; padding: 0.4rem 0.75rem;
+    background: none; border: none; cursor: pointer; font-family: inherit; font-size: inherit; color: inherit; text-align: left; }
+  .history-summary:hover { background: var(--paper-2); }
+  .history-summary .muted { color: var(--muted); }
+  .history-summary .arrow { margin-left: auto; color: var(--muted); }
+  .history-detail { padding: 0.75rem; background: var(--paper-2); border-top: 2px solid var(--accent); }
+  .history-fields { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.3rem 1rem;
+    max-height: 200px; overflow-y: auto; font-size: 0.71rem; }
+  .history-fields dt { font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+  .history-fields .changed dt, .history-fields .changed dd { font-weight: 600; color: var(--accent); }
+  .history-note { padding: 0.75rem; font-size: 0.75rem; color: var(--muted); }
+
+  /* Suggestion review: pick the product, then choose which values to apply. */
+  .product-picker { display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap; margin-bottom: 0.8rem; font-size: 0.76rem; }
+  .product-picker input { flex: 0 1 22rem; }
+  .picked-name { color: var(--muted); }
+  .picked-name.found { font-weight: 600; color: var(--accent-2); }
+  .changes-table { margin-bottom: 0.8rem; border: 1px solid var(--line); table-layout: auto; }
+  .changes-table th { position: static; padding: 0.3rem 0.5rem; border-bottom: 1px solid var(--line); cursor: default; font-size: 0.55rem; }
+  .changes-table td { padding: 0.3rem 0.5rem; font-size: 0.76rem; white-space: normal; vertical-align: middle; }
+  .changes-table td.current { color: var(--muted); }
+  .changes-table tr.unchanged td { opacity: 0.5; }
+
+  /* Suggestion log */
+  .log-table { table-layout: auto; }
+  .log-table thead th { cursor: default; }
+  .log-table thead th:hover { color: var(--muted); }
+  .log-table td { white-space: normal; }
+  .log-table .id-col { width: 4.5rem; }
+  .log-table .date-col { width: 7.5rem; }
+  .log-table .status-col { width: 7rem; }
+  .log-table td.id-col { font-variant-numeric: tabular-nums; color: var(--muted); }
+  .log-table td.date-col { white-space: nowrap; font-size: 0.76rem; color: var(--muted); }
+  @media (max-width: 560px) { .log-table .id-col { display: none; } }
+  .status-pill { display: inline-block; padding: 0.05rem 0.5rem; border: 1px solid var(--line); border-radius: 99px;
+    font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
+  .status-pill.pending { border-color: var(--accent); color: var(--accent); }
+  .status-pill.reviewed { border-color: var(--accent-2); color: var(--accent-2); }
+  .status-pill.accepted { border-color: #2d7a3a; background: rgba(45,122,58,0.08); color: #2d7a3a; }
+  .status-pill.rejected { border-color: var(--muted); color: var(--muted); }
+  .outcome { margin-top: 0.4rem; padding-top: 0.7rem; border-top: 1px dashed var(--line); font-size: 0.78rem; }
+  .outcome ul { margin: 0.3rem 0; list-style: none; }
+  .outcome .old-value { color: var(--muted); text-decoration: line-through; }
+  .outcome .note { margin-top: 0.3rem; font-style: italic; }
+  .outcome .button { margin-top: 0.6rem; }
+
+  /* ---- Footer, messages, dialogs ---- */
+  .empty, .loading { padding: 3rem 1rem; text-align: center; font-size: 0.85rem; color: var(--muted); }
+  footer { max-width: 1400px; margin: 0 auto; padding: 1.5rem var(--pad); border-top: 1px solid var(--line); font-size: 0.7rem; color: var(--muted); }
+  #toast { position: fixed; bottom: 1.5rem; left: 50%; z-index: 99; padding: 0.6rem 1.2rem; border-radius: 4px;
+    background: var(--ink); color: var(--paper); font-size: 0.8rem; opacity: 0; pointer-events: none;
+    transform: translateX(-50%) translateY(60px); transition: all 0.25s ease; }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .confirm-overlay { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center;
+    background: rgba(26,23,20,0.55); }
+  .confirm-overlay[hidden] { display: none; }
+  .confirm-box { width: 90%; max-width: 380px; padding: 1.5rem 2rem; background: var(--paper); border: 2px solid var(--ink); }
+  .confirm-box p { margin-bottom: 1.2rem; font-size: 0.9rem; }
+  .confirm-box .buttons { display: flex; gap: 0.5rem; justify-content: flex-end; }
 </style>
 </head>
 <body>
 <header class="admin-header">
   <div class="admin-title">The Headphone Archive<span>Catalog Editor</span></div>
-  <nav class="quicklinks" aria-label="Admin views">
-    <div role="tablist" class="quicklinks">
-      <button type="button" class="qlink tab" role="tab" id="tabCatalog" aria-controls="catalogView" aria-selected="true">Catalog editor</button>
-      <button type="button" class="qlink tab" role="tab" id="tabLog" aria-controls="logView" aria-selected="false">Suggestion log <span class="tabcount" id="logCount"></span></button>
+  <nav class="header-links" aria-label="Admin">
+    <div class="tabs" role="tablist">
+      <button type="button" class="chip" role="tab" id="catalogTab" aria-controls="catalogView" aria-selected="true">Catalog editor</button>
+      <button type="button" class="chip" role="tab" id="logTab" aria-controls="logView" aria-selected="false">Suggestion log <span class="tab-count" id="pendingCount"></span></button>
     </div>
-    <a class="qlink" href="/" target="_blank" rel="noopener">&#8599; Public site</a>
-    <button type="button" class="qlink warn" id="importBtn">Reset from CSV</button>
+    <a class="chip" href="/" target="_blank" rel="noopener">&#8599; Public site</a>
+    <button type="button" class="chip warning" id="importButton">Reset from CSV</button>
   </nav>
 </header>
 
-<section id="catalogView" role="tabpanel" aria-labelledby="tabCatalog">
-<div class="controls">
-  <input type="text" id="q" placeholder="Search model, brand, keyword&hellip;" autocomplete="off">
-  <button class="btn btn-primary" id="addBtn">+ Add headphone</button>
-</div>
-<p class="sub" id="sub">Loading&hellip;</p>
-
-
-<div class="tablewrap" id="tablewrap"><div class="loading">Fetching catalog&hellip;</div></div>
-</section>
-
-<section id="logView" role="tabpanel" aria-labelledby="tabLog" hidden>
-<div class="controls">
-  <input type="text" id="logQ" placeholder="Search by ID, headphone, source, submitter, notes&hellip;" autocomplete="off" aria-label="Search suggestions">
-  <div class="status-filters" role="group" aria-label="Filter by status">
-    <button type="button" data-status="all" class="active">All</button>
-    <button type="button" data-status="pending">Pending</button>
-    <button type="button" data-status="accepted">Accepted</button>
-    <button type="button" data-status="rejected">Rejected</button>
+<section id="catalogView" role="tabpanel" aria-labelledby="catalogTab">
+  <div class="controls">
+    <input type="text" id="catalogSearch" placeholder="Search model, brand, keyword&hellip;" autocomplete="off" aria-label="Search the catalog">
+    <button class="button primary" id="addButton">+ Add headphone</button>
   </div>
-</div>
-<p class="sub" id="logSub">Loading&hellip;</p>
-<div class="tablewrap" id="logwrap"><div class="loading">Fetching suggestions&hellip;</div></div>
+  <p class="summary" id="catalogSummary">Loading&hellip;</p>
+  <div class="table-wrap" id="catalogTable"><div class="loading">Fetching catalog&hellip;</div></div>
 </section>
 
-<footer><span id="source"></span></footer>
-<div id="toast"></div>
-<div class="confirm-overlay" id="confirmOverlay" hidden>
+<section id="logView" role="tabpanel" aria-labelledby="logTab" hidden>
+  <div class="controls">
+    <input type="text" id="logSearch" placeholder="Search by ID, headphone, source, submitter, notes&hellip;" autocomplete="off" aria-label="Search suggestions">
+    <div class="status-filters" role="group" aria-label="Filter by status">
+      <button type="button" data-status="all" class="active">All</button>
+      <button type="button" data-status="pending">Pending</button>
+      <button type="button" data-status="accepted">Accepted</button>
+      <button type="button" data-status="rejected">Rejected</button>
+    </div>
+  </div>
+  <p class="summary" id="logSummary">Loading&hellip;</p>
+  <div class="table-wrap" id="logTable"><div class="loading">Fetching suggestions&hellip;</div></div>
+</section>
+
+<footer id="footerCounts"></footer>
+<div id="toast" role="status"></div>
+<div class="confirm-overlay" id="confirmDialog" role="dialog" aria-modal="true" hidden>
   <div class="confirm-box">
-    <p id="confirmMsg">Are you sure?</p>
-    <div class="btns">
-      <button class="btn btn-ghost" id="confirmNo">Cancel</button>
-      <button class="btn btn-danger" id="confirmYes">Confirm</button>
+    <p id="confirmMessage"></p>
+    <div class="buttons">
+      <button class="button ghost" id="confirmNo">Cancel</button>
+      <button class="button danger" id="confirmYes">Confirm</button>
     </div>
   </div>
 </div>
+<datalist id="productOptions"></datalist>
 
+<script src="shared.js"></script>
 <script>
-const esc = s => String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+// ---- Settings ----
+
+const COLUMN_WIDTH_KEY = "admin_colw"; // saved column widths; keep the name so old saves load
+const CARET_COL_WIDTH = 40;
+const MIN_COLUMN_WIDTH = 45;
+const TOAST_MS = 2800;
+
+const COLUMNS = [
+  { key: "id",             label: "ID",       width: 55 },
+  { key: "_brand",         label: "Brand",    width: 130 },
+  { key: "model_name",     label: "Model",    width: 200 },
+  { key: "release_year",   label: "Year",     width: 70 },
+  { key: "status",         label: "Status",   width: 105 },
+  { key: "design",         label: "Design",   width: 115 },
+  { key: "fit",            label: "Fit",      width: 95 },
+  { key: "driver_type",    label: "Driver",   width: 130 },
+  { key: "impedance_ohms", label: "Ω",   width: 65 },
+  { key: "sensitivity_db", label: "dB",       width: 65 },
+  { key: "wireless",       label: "WL/ANC",   width: 90 },
+];
+
+// Choices for the editor's dropdowns. These match the values in the catalog today. If a
+// product has a value that isn't listed, the editor adds it as an option so a save never
+// blanks it out.
+const OPTIONS = {
+  status: ["Active", "Discontinued", "Legacy Active"],
+  category: ["Headphone", "Studio", "Gaming"],
+  design: ["Open Back", "Closed Back", "Semi-Open"],
+  fit: ["Over-Ear", "On-Ear"],
+  driver: ["Dynamic", "Planar Magnetic", "Electrostatic", "Ribbon", "AMT", "Hybrid"],
+  yesNo: ["Yes", "No"],
+  signature: ["Neutral", "Warm Neutral", "Neutral Bright", "Warm", "Bright", "Analytical", "V-Shaped", "U-Shaped", "Bassy", "Dark"],
+  connector: ["3.5mm", "6.35mm", "3.5mm/6.35mm", "Dual 3.5mm", "4.4mm Pentaconn", "mini-XLR", "Dual mini-XLR",
+    "A2DC", "MMCX", "Sennheiser 2-pin", "Sennheiser twist-lock", "Electrostatic", "USB", "USB-C", "Lightning", "Wireless"],
+};
+
+// Every field in the product editor. Rendering and saving both walk this list.
+const EDITOR_FIELDS = [
+  { key: "product_id",        label: "Product ID", lockedAfterCreate: true },
+  { key: "manufacturer_id",   label: "Brand", type: "brand" },
+  { key: "model_name",        label: "Model name" },
+  { key: "full_name",         label: "Full name", span: 2 },
+  { key: "release_year",      label: "Year" },
+  { key: "discontinued_year", label: "Disc. year" },
+  { key: "status",            label: "Status", options: OPTIONS.status },
+  { key: "category",          label: "Category", options: OPTIONS.category },
+  { key: "design",            label: "Design", options: OPTIONS.design },
+  { key: "fit",               label: "Fit", options: OPTIONS.fit },
+  { key: "driver_type",       label: "Driver type", options: OPTIONS.driver },
+  { key: "driver_size_mm",    label: "Driver size (mm)" },
+  { key: "impedance_ohms",    label: "Impedance (Ω)" },
+  { key: "sensitivity_db",    label: "Sensitivity (dB)" },
+  { key: "msrp_usd",          label: "MSRP at release (USD)" },
+  { key: "weight_g",          label: "Weight (g)" },
+  { key: "sound_signature",   label: "Sound signature", options: OPTIONS.signature, allowBlank: true },
+  { key: "connector_type",    label: "Connector", options: OPTIONS.connector, allowBlank: true },
+  { key: "detachable_cable",  label: "Detachable cable", options: OPTIONS.yesNo, allowBlank: true },
+  { key: "wireless",          label: "Wireless", options: OPTIONS.yesNo },
+  { key: "anc",               label: "ANC", options: OPTIONS.yesNo },
+  { key: "predecessor",       label: "Predecessor ID", span: 2 },
+  { key: "successor",         label: "Successor ID", span: 2 },
+  { key: "notes",             label: "Notes", type: "textarea", span: 3 },
+];
+
+// Fields shown when comparing history snapshots.
+const HISTORY_FIELDS = {
+  model_name: "Model", full_name: "Full name", release_year: "Year", discontinued_year: "Disc. year",
+  status: "Status", category: "Category", design: "Design", fit: "Fit", driver_type: "Driver",
+  driver_size_mm: "Driver size", impedance_ohms: "Impedance", sensitivity_db: "Sensitivity",
+  wireless: "Wireless", anc: "ANC", msrp_usd: "MSRP (USD)", weight_g: "Weight",
+  sound_signature: "Sound signature", connector_type: "Connector", detachable_cable: "Detachable cable",
+  predecessor: "Predecessor", successor: "Successor", notes: "Notes",
+};
+
+// Suggestion form field -> the product column it can change.
+const SUGGESTION_FIELDS = [
+  { from: "driver_size_mm", to: "driver_size_mm",   label: "Driver size (mm)" },
+  { from: "impedance_ohms", to: "impedance_ohms",   label: "Impedance (Ω)" },
+  { from: "sensitivity_db", to: "sensitivity_db",   label: "Sensitivity (dB)" },
+  { from: "connector",      to: "connector_type",   label: "Connector", options: OPTIONS.connector },
+  { from: "detachable",     to: "detachable_cable", label: "Detachable cable", options: OPTIONS.yesNo },
+  { from: "weight_g",       to: "weight_g",         label: "Weight (g)" },
+];
+const CHANGE_LABELS = {
+  driver_size_mm: "Driver size", impedance_ohms: "Impedance", sensitivity_db: "Sensitivity",
+  connector_type: "Connector", detachable_cable: "Detachable cable", weight_g: "Weight",
+};
+
 // ---- State ----
-// Module-level state for the admin editor: all products, the brand list, the suggestion
-// queue, the active sort, and which row (if any) is expanded for inline editing.
-let all=[], mfrs=[], suggs=[], sortKey='release_year', sortDir='descending', expandedId=null;
-// Tracks which suggestion row (by suggestion id) is currently expanded. Kept separate
-// from expandedId (products) so opening a suggestion doesn't disturb an open product edit.
-let expandedSugg=null;
-let openHistIdx={};
 
-const COLS=[
-  {key:'id',           label:'ID',       w:55},
-  {key:'_brand',       label:'Brand',    w:130},
-  {key:'model_name',   label:'Model',    w:200},
-  {key:'release_year', label:'Year',     w:70},
-  {key:'status',       label:'Status',   w:105},
-  {key:'design',       label:'Design',   w:115},
-  {key:'fit',          label:'Fit',      w:95},
-  {key:'driver_type',  label:'Driver',   w:130},
-  {key:'impedance_ohms',label:'\u03A9', w:65},
-  {key:'sensitivity_db',label:'dB',      w:65},
-  {key:'wireless',     label:'WL/ANC',   w:90},
-];
-const CARET_W=40;
-const colW={};
-function loadColW(){COLS.forEach(c=>colW[c.key]=c.w);try{const s=JSON.parse(localStorage.getItem('admin_colw')||'null');if(s)Object.assign(colW,s);}catch(e){}}
-function saveColW(){try{localStorage.setItem('admin_colw',JSON.stringify(colW));}catch(e){}}
-function visTotalW(){return COLS.reduce((s,c)=>s+colW[c.key],0)+CARET_W;}
+let products = [];
+let brands = [];
+let suggestions = [];
+let sortKey = "release_year";
+let sortDir = "descending";
+let openProductId = null;     // product whose editor is open
+let openSuggestionId = null;  // pending suggestion whose review panel is open
+let openLogId = null;         // suggestion expanded in the log
+let logStatus = "all";
+let catalogNeedsRender = false; // set when data changes while the catalog tab is hidden
+const histories = new Map();  // product_id -> loaded history entries
+const openHistoryEntry = {};  // product_id -> index of the expanded history entry
+const columnWidths = {};
+let resizing = null;
 
-// ---- Dropdown option sets ----
-// Allowed values for each categorical field, kept in sync with the VALID_* constants in
-// _generate_data.py so the editor can only ever produce values the data pipeline accepts.
-const OPT_STATUS=['Active','Discontinued','Legacy Active'];
-const OPT_DESIGN=['Open Back','Closed Back','Semi-Open'];
-const OPT_FIT=['Over-Ear','On-Ear'];
-const OPT_DRIVER=['Dynamic','Planar Magnetic','Electrostatic','Ribbon','AMT','Hybrid'];
-const OPT_WIRELESS=['Yes','No'];
-const OPT_CATEGORY=['Headphone','Studio','Gaming'];
-const OPT_SIGNATURE=['Neutral','Balanced','Warm','Bright','V-Shaped','Bass-Heavy','Dark'];
-const OPT_CONNECTOR=['3.5mm','6.35mm','3.5mm + 6.35mm','XLR','USB-C','Lightning','Proprietary','Wireless'];
-const OPT_DETACHABLE=['Yes','No'];
+const byId = id => document.getElementById(id);
+const brandLabel = product => `${product._brand || ""} ${product.model_name || ""}`.trim();
+const isPending = suggestion => suggestion.status === "pending";
 
-// ---- Edit-form field definitions ----
-// Declarative description of every field in the inline editor: key, label, control type,
-// grid span, and (for selects) its option set. render and save both iterate this list, so
-// adding an editable field means adding one entry here and nothing else.
-const FIELDS=[
-  {key:'product_id',     label:'Product ID',      type:'input',    span:1, disabled:true},
-  {key:'manufacturer_id',label:'Brand',           type:'mfr',      span:1},
-  {key:'model_name',     label:'Model name',      type:'input',    span:1},
-  {key:'full_name',      label:'Full name',       type:'input',    span:2},
-  {key:'release_year',   label:'Year',            type:'input',    span:1},
-  {key:'discontinued_year',label:'Disc. year',    type:'input',    span:1},
-  {key:'status',         label:'Status',          type:'select',   span:1, opts:OPT_STATUS},
-  {key:'category',       label:'Category',        type:'select',   span:1, opts:OPT_CATEGORY},
-  {key:'design',         label:'Design',          type:'select',   span:1, opts:OPT_DESIGN},
-  {key:'fit',            label:'Fit',             type:'select',   span:1, opts:OPT_FIT},
-  {key:'driver_type',    label:'Driver type',     type:'select',   span:1, opts:OPT_DRIVER},
-  {key:'driver_size_mm', label:'Driver size (mm)',type:'input',    span:1},
-  {key:'impedance_ohms', label:'Impedance (\u03A9)',type:'input', span:1},
-  {key:'sensitivity_db', label:'Sensitivity (dB)',type:'input',    span:1},
-  {key:'msrp_usd',       label:'MSRP at release (USD)',type:'input',span:1},
-  {key:'weight_g',       label:'Weight (g)',      type:'input',    span:1},
-  {key:'sound_signature',label:'Sound signature', type:'select',   span:1, opts:OPT_SIGNATURE, blank:true},
-  {key:'connector_type', label:'Connector',       type:'select',   span:1, opts:OPT_CONNECTOR, blank:true},
-  {key:'detachable_cable',label:'Detachable cable',type:'select',  span:1, opts:OPT_DETACHABLE, blank:true},
-  {key:'wireless',       label:'Wireless',        type:'select',   span:1, opts:OPT_WIRELESS},
-  {key:'anc',            label:'ANC',             type:'select',   span:1, opts:OPT_WIRELESS},
-  {key:'predecessor',    label:'Predecessor ID',  type:'input',    span:2},
-  {key:'successor',      label:'Successor ID',    type:'input',    span:2},
-  {key:'notes',          label:'Notes',           type:'textarea', span:4},
-];
+// ---- API ----
 
-// Human-readable labels for the version-history diff view, mapping raw column keys to the
-// names shown when comparing a product's current values against a historical snapshot.
-const HIST_LABELS={model_name:'Model',full_name:'Full name',release_year:'Year',
-  discontinued_year:'Disc. year',status:'Status',category:'Category',design:'Design',fit:'Fit',
-  driver_type:'Driver',driver_size_mm:'Driver size',impedance_ohms:'Impedance',
-  sensitivity_db:'Sensitivity',wireless:'Wireless',anc:'ANC',
-  msrp_usd:'MSRP (USD)',weight_g:'Weight',sound_signature:'Sound signature',
-  connector_type:'Connector',detachable_cable:'Detachable cable',
-  predecessor:'Predecessor',successor:'Successor',notes:'Notes'};
-
-// ---- Cell rendering ----
-// Returns the display HTML for one table cell, with special formatting for brand, year,
-// status, wireless flags, and spec columns; everything else is escaped plain text.
-function cellVal(p,key){
-  if(key==='_brand')return esc(p._brand||'');
-  if(key==='model_name')return '<span class="model-cell">'+esc(p.model_name)+'</span>';
-  if(key==='release_year')return esc(p.release_year)+(p.discontinued_year?'\u2013'+esc(p.discontinued_year):'');
-  if(key==='status'){const c=/disc/i.test(p.status)?'disc':'active';return '<span class="tag '+c+'">'+esc(p.status)+'</span>';}
-  if(key==='wireless'){const f=[];if(p.wireless==='Yes')f.push('WL');if(p.anc==='Yes')f.push('ANC');return f.length?'<span class="flags">'+f.join(' &middot; ')+'</span>':'<span class="spec-empty">&mdash;</span>';}
-  if(key==='impedance_ohms')return p.impedance_ohms?'<span class="spec-val">'+esc(p.impedance_ohms)+' \u03A9</span>':'<span class="spec-empty">&mdash;</span>';
-  if(key==='sensitivity_db')return p.sensitivity_db?'<span class="spec-val">'+esc(p.sensitivity_db)+' dB</span>':'<span class="spec-empty">&mdash;</span>';
-  return esc(p[key]??'');
+// Calls an admin endpoint and returns its JSON, or throws an error that says how to fix it.
+async function api(path, options = {}) {
+  if (options.body) {
+    options = { ...options, headers: { "Content-Type": "application/json" }, body: JSON.stringify(options.body) };
+  }
+  const response = await fetch(path, options);
+  if (response.status === 404) throw new Error(`${path} not found. Are the Pages Functions deployed?`);
+  let data;
+  try { data = await response.json(); }
+  catch (e) { throw new Error(`${path} didn't return JSON (${response.status}). Your Access session may have expired: refresh to log in.`); }
+  if (!data.ok) throw new Error(data.error || `${path} failed (${response.status})`);
+  return data;
 }
 
-// Sorts rows by the active column, comparing numerically when both values parse as numbers
-// and falling back to locale-aware string comparison otherwise. Direction follows sortDir.
-function sortRows(rows){
-  return [...rows].sort((a,b)=>{
-    let av=a[sortKey]??'',bv=b[sortKey]??'';
-    if(sortKey==='_brand'){av=a._brand??'';bv=b._brand??'';}
-    const an=parseFloat(av),bn=parseFloat(bv);
-    const cmp=!isNaN(an)&&!isNaN(bn)?an-bn:String(av).localeCompare(String(bv));
-    return sortDir==='ascending'?cmp:-cmp;
+// ---- Toast and confirm ----
+
+let toastTimer;
+function toast(message) {
+  const element = byId("toast");
+  element.textContent = message;
+  element.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => element.classList.remove("show"), TOAST_MS);
+}
+
+function confirmThen(message, onConfirm) {
+  byId("confirmMessage").textContent = message;
+  byId("confirmDialog").hidden = false;
+  const close = () => { byId("confirmDialog").hidden = true; };
+  byId("confirmYes").onclick = () => { close(); onConfirm(); };
+  byId("confirmNo").onclick = close;
+}
+
+// ---- Column widths ----
+
+function loadColumnWidths() {
+  COLUMNS.forEach(col => columnWidths[col.key] = col.width);
+  try { Object.assign(columnWidths, JSON.parse(localStorage.getItem(COLUMN_WIDTH_KEY) || "null")); } catch (e) {}
+}
+function saveColumnWidths() {
+  try { localStorage.setItem(COLUMN_WIDTH_KEY, JSON.stringify(columnWidths)); } catch (e) {}
+}
+const tableWidth = () => COLUMNS.reduce((sum, col) => sum + columnWidths[col.key], 0) + CARET_COL_WIDTH;
+
+document.addEventListener("mousemove", event => {
+  if (!resizing) return;
+  columnWidths[resizing.key] = Math.max(MIN_COLUMN_WIDTH, resizing.startWidth + event.clientX - resizing.startX);
+  const header = document.querySelector(`#catalogTable th[data-key="${resizing.key}"]`);
+  if (header) header.style.width = columnWidths[resizing.key] + "px";
+  byId("catalogTable").querySelector("table").style.minWidth = tableWidth() + "px";
+});
+document.addEventListener("mouseup", () => {
+  if (!resizing) return;
+  saveColumnWidths();
+  resizing = null;
+});
+
+// ---- Catalog table ----
+
+function cellHtml(product, key) {
+  const empty = '<span class="spec-empty">&mdash;</span>';
+  switch (key) {
+    case "model_name": return `<span class="model-cell">${escapeHtml(product.model_name)}</span>`;
+    case "release_year": return escapeHtml(product.release_year) + (product.discontinued_year ? "–" + escapeHtml(product.discontinued_year) : "");
+    case "status": return `<span class="tag ${/disc/i.test(product.status) ? "discontinued" : "active"}">${escapeHtml(product.status)}</span>`;
+    case "wireless": {
+      const flags = [product.wireless === "Yes" && "WL", product.anc === "Yes" && "ANC"].filter(Boolean);
+      return flags.length ? `<span class="flags">${flags.join(" &middot; ")}</span>` : empty;
+    }
+    case "impedance_ohms": return product.impedance_ohms ? escapeHtml(product.impedance_ohms) + " Ω" : empty;
+    case "sensitivity_db": return product.sensitivity_db ? escapeHtml(product.sensitivity_db) + " dB" : empty;
+    default: return escapeHtml(product[key]);
+  }
+}
+
+// Numbers compare numerically, everything else as text.
+function sortedProducts(rows) {
+  return [...rows].sort((a, b) => {
+    const x = a[sortKey] ?? "", y = b[sortKey] ?? "";
+    const bothNumbers = !isNaN(parseFloat(x)) && !isNaN(parseFloat(y));
+    const order = bothNumbers ? parseFloat(x) - parseFloat(y) : String(x).localeCompare(String(y));
+    return sortDir === "ascending" ? order : -order;
   });
 }
 
-let resizing=null;
-// ---- Main table render ----
-// Rebuilds the admin table from state, including the inline-expanded edit row when one is
-// open. Re-attaches all row/resizer/button handlers since the markup is regenerated wholesale.
-function render(){
-  const suggDraft=readSuggPanel(expandedSugg);
-  const q=document.getElementById('q').value.toLowerCase();
-  let rows=all.filter(p=>p._isNew||(!(q)||(p._brand+' '+p.model_name+' '+p.full_name+' '+(p.notes||'')).toLowerCase().includes(q)));
-  rows=sortRows(rows);
-  document.getElementById('sub').textContent=all.filter(p=>!p._isNew).length+' headphones \u00b7 '+rows.filter(p=>!p._isNew).length+' shown \u00b7 click a row to edit';
-  if(!rows.length && !suggs.some(s=>s.status==='pending')){document.getElementById('tablewrap').innerHTML='<div class="empty">No matches.</div>';return;}
-  const tw=visTotalW();
-  let html='<table style="min-width:'+tw+'px"><thead><tr>';
-  COLS.forEach(c=>{
-    const sa=sortKey===c.key?' aria-sort="'+sortDir+'"':' aria-sort="none"';
-    html+='<th style="width:'+colW[c.key]+'px" data-key="'+c.key+'"'+sa+'><span>'+esc(c.label)+'</span><span class="resizer" data-key="'+c.key+'" tabindex="-1"></span></th>';
-  });
-  html+='<th style="width:'+CARET_W+'px" class="caretcol"><span class="vh">Edit</span></th></tr></thead><tbody>';
-  // Pending community suggestions are pinned to the top of the same table, tinted via the
-  // .suggrow class so they read as distinct from real catalog rows. The suggestion's free-text
-  // name fills the Model cell; whatever specs it included show in their columns, rest blank.
-  const pendingSuggs=suggs.filter(s=>s.status==='pending');
-  pendingSuggs.forEach(s=>{
-    const isExp=expandedSugg===s.id;
-    html+='<tr class="datarow suggrow'+(isExp?' expanded':'')+'" data-sugg="'+s.id+'">';
-    COLS.forEach(c=>{
-      let v='';
-      if(c.key==='_brand') v='<span class="sugg-badge">Suggestion</span>';
-      else if(c.key==='model_name') v=esc(s.headphone||'');
-      else if(c.key==='impedance_ohms') v=esc(s.impedance_ohms||'');
-      else if(c.key==='sensitivity_db') v=esc(s.sensitivity_db||'');
-      else if(c.key==='id') v='';
-      html+='<td>'+v+'</td>';
-    });
-    html+='<td class="caretcol"><button class="expandbtn" aria-label="Review suggestion"><span class="caret">&#x203A;</span></button></td></tr>';
-    html+='<tr class="editrow suggrow"'+(isExp?'':' hidden')+' data-sugg-detail="'+s.id+'"><td colspan="'+(COLS.length+1)+'"><div class="editwrap">'+suggDetail(s)+'</div></td></tr>';
-  });
-  rows.forEach((p,i)=>{
-    const z=i%2?' zebra':'';
-    const pid=p.product_id;
-    const isExp=expandedId===pid;
-    html+='<tr class="datarow'+z+(isExp?' expanded':'')+'" data-id="'+esc(pid)+'">';
-    COLS.forEach(c=>{html+='<td>'+cellVal(p,c.key)+'</td>';});
-    html+='<td class="caretcol"><button class="expandbtn" aria-label="Edit '+esc(p.model_name||'new')+'"><span class="caret">&#x203A;</span></button></td></tr>';
-    html+='<tr class="editrow'+z+'"'+(isExp?'':' hidden')+' data-pid="'+esc(pid)+'"><td colspan="'+(COLS.length+1)+'"><div class="editwrap" id="ew_'+esc(pid)+'"></div></td></tr>';
-  });
-  html+='</tbody></table>';
-  document.getElementById('tablewrap').innerHTML=html;
+function suggestionRowHtml(suggestion) {
+  const cells = COLUMNS.map(col => {
+    if (col.key === "_brand") return '<td><span class="suggestion-badge">Suggestion</span></td>';
+    if (col.key === "model_name") return `<td>${escapeHtml(suggestion.headphone)}</td>`;
+    if (col.key === "impedance_ohms" || col.key === "sensitivity_db") return `<td>${escapeHtml(suggestion[col.key])}</td>`;
+    return "<td></td>";
+  }).join("");
+  const open = openSuggestionId === suggestion.id;
+  return `<tr class="row suggestion${open ? " expanded" : ""}" data-suggestion-id="${suggestion.id}">${cells}` +
+    `<td class="caret-col"><button class="expand-button" aria-label="Review suggestion"><span class="caret">&#x203A;</span></button></td></tr>` +
+    `<tr class="panel-row suggestion"${open ? "" : " hidden"}><td colspan="${COLUMNS.length + 1}">` +
+    `<div class="panel" id="review-${suggestion.id}">${reviewPanelHtml(suggestion)}</div></td></tr>`;
+}
 
-  // Wire sort
-  document.querySelectorAll('thead th[data-key]').forEach(th=>{
-    th.setAttribute('tabindex','0');
-    const doSort=()=>{const k=th.getAttribute('data-key');if(sortKey===k)sortDir=sortDir==='ascending'?'descending':'ascending';else{sortKey=k;sortDir='ascending';}render();};
-    th.addEventListener('click',e=>{if(e.target.closest('.resizer'))return;doSort();});
-    th.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();doSort();}});
-  });
+function productRowHtml(product, index) {
+  const zebra = index % 2 ? " zebra" : "";
+  const open = openProductId === product.product_id;
+  const id = escapeHtml(product.product_id);
+  return `<tr class="row${zebra}${open ? " expanded" : ""}" data-product-id="${id}">` +
+    COLUMNS.map(col => `<td>${cellHtml(product, col.key)}</td>`).join("") +
+    `<td class="caret-col"><button class="expand-button" aria-label="Edit ${escapeHtml(product.model_name || "new")}"><span class="caret">&#x203A;</span></button></td></tr>` +
+    `<tr class="panel-row${zebra}"${open ? "" : " hidden"}><td colspan="${COLUMNS.length + 1}">` +
+    `<div class="panel" id="editor-${id}"></div></td></tr>`;
+}
 
-  // Wire row expand
-  document.querySelectorAll('tr.datarow').forEach(tr=>{
-    const sid=tr.getAttribute('data-sugg');
-    if(sid!==null){
-      // Suggestion row: clicking it (but not its action buttons) toggles the review panel.
-      const handler=e=>{if(e.target.closest('button')||e.target.tagName==='A')return;toggleSugg(parseInt(sid,10));};
-      tr.addEventListener('click',handler);
-      const btn=tr.querySelector('.expandbtn');
-      if(btn)btn.addEventListener('click',e=>{e.stopPropagation();toggleSugg(parseInt(sid,10));});
+function renderCatalog() {
+  // The table is rebuilt from scratch, so keep whatever was typed into an open review panel.
+  const reviewDraft = readReviewDraft(openSuggestionId);
+  const search = byId("catalogSearch").value.toLowerCase();
+  const rows = sortedProducts(products.filter(product => product._isNew ||
+    !search || [product._brand, product.model_name, product.full_name, product.notes].join(" ").toLowerCase().includes(search)));
+  const pending = suggestions.filter(isPending);
+  const saved = products.filter(product => !product._isNew).length;
+  byId("catalogSummary").textContent = `${saved} headphones · ${rows.filter(product => !product._isNew).length} shown · click a row to edit`;
+  if (!rows.length && !pending.length) {
+    byId("catalogTable").innerHTML = '<div class="empty">No matches.</div>';
+    return;
+  }
+
+  const headers = COLUMNS.map(col =>
+    `<th style="width:${columnWidths[col.key]}px" data-key="${col.key}" tabindex="0" aria-sort="${sortKey === col.key ? sortDir : "none"}">` +
+    `<span>${escapeHtml(col.label)}</span><span class="resizer" data-key="${col.key}"></span></th>`
+  ).join("");
+  byId("catalogTable").innerHTML = `<table style="min-width:${tableWidth()}px"><thead><tr>${headers}` +
+    `<th style="width:${CARET_COL_WIDTH}px" class="caret-col"><span class="visually-hidden">Edit</span></th></tr></thead><tbody>` +
+    pending.map(suggestionRowHtml).join("") + rows.map(productRowHtml).join("") + "</tbody></table>";
+
+  const openProduct = products.find(product => product.product_id === openProductId);
+  if (openProduct) fillEditor(openProduct);
+  if (openSuggestionId !== null) {
+    writeReviewDraft(openSuggestionId, reviewDraft);
+    refreshReview(openSuggestionId);
+  }
+}
+
+// Redraws the catalog now, or when its tab is next shown, so an edit open there isn't lost.
+function renderCatalogWhenVisible() {
+  if (byId("catalogView").hidden) catalogNeedsRender = true;
+  else renderCatalog();
+}
+
+function toggleProduct(productId) {
+  openProductId = openProductId === productId ? null : productId;
+  renderCatalog();
+  if (openProductId) {
+    requestAnimationFrame(() => byId("editor-" + productId)?.closest("tr").scrollIntoView({ behavior: "smooth", block: "nearest" }));
+  }
+}
+
+function toggleSuggestion(id) {
+  openSuggestionId = openSuggestionId === id ? null : id;
+  renderCatalog();
+}
+
+// ---- Product editor ----
+
+function editorControl(field, product, isNew) {
+  const value = product[field.key] ?? "";
+  const id = "field-" + field.key;
+  if (field.type === "textarea") return `<textarea id="${id}">${escapeHtml(value)}</textarea>`;
+  if (field.type === "brand") {
+    return `<select id="${id}">` + brands.map(brand =>
+      `<option value="${brand.manufacturer_id}"${String(brand.manufacturer_id) === String(product.manufacturer_id) ? " selected" : ""}>${escapeHtml(brand.name)}</option>`
+    ).join("") + "</select>";
+  }
+  if (field.options) {
+    const choices = [...(field.allowBlank ? [""] : []), ...field.options];
+    if (value && !choices.includes(value)) choices.push(value);
+    return `<select id="${id}">` + choices.map(choice =>
+      `<option value="${escapeHtml(choice)}"${choice === value ? " selected" : ""}>${choice ? escapeHtml(choice) : "—"}</option>`
+    ).join("") + "</select>";
+  }
+  const locked = field.lockedAfterCreate && !isNew ? " disabled" : "";
+  return `<input id="${id}" value="${escapeHtml(value)}"${locked}>`;
+}
+
+function fillEditor(product) {
+  const panel = byId("editor-" + product.product_id);
+  if (!panel) return;
+  const isNew = !!product._isNew;
+  const confidence = product.spec_confidence || "Estimated";
+  const fields = EDITOR_FIELDS.map(field =>
+    `<div class="${field.span ? "span-" + field.span : ""}"><label for="field-${field.key}">${escapeHtml(field.label)}</label>${editorControl(field, product, isNew)}</div>`
+  ).join("");
+  panel.innerHTML = `
+    <h3>${isNew ? "New headphone" : "Editing: " + escapeHtml(brandLabel(product))}</h3>
+    <div class="field-grid">${fields}</div>
+    <div class="meta">
+      <span>Added: <strong>${escapeHtml(product.date_added || "—")}</strong></span>
+      <span>Updated: <strong>${escapeHtml(product.date_updated || "—")}</strong></span>
+      <span>Specs: <span class="confidence ${confidence === "Verified" ? "verified" : "estimated"}">${escapeHtml(confidence)}</span>
+        ${isNew ? "" : '<button class="text-button" data-action="toggle-confidence">toggle</button>'}</span>
+    </div>
+    <div class="panel-actions">
+      ${isNew ? "" : '<button class="button danger" data-action="delete">Delete</button>'}
+      <div class="right">
+        <button class="button ghost" data-action="cancel">Cancel</button>
+        <button class="button primary" data-action="save">Save changes</button>
+      </div>
+    </div>
+    ${isNew ? "" : '<div class="history"><div class="small-label">Change history</div><ul class="history-list"><li class="history-note">Loading…</li></ul></div>'}`;
+  if (!isNew) loadHistory(product.product_id);
+}
+
+async function saveProduct() {
+  const product = {};
+  EDITOR_FIELDS.forEach(field => { product[field.key] = byId("field-" + field.key).value.trim(); });
+  if (!product.product_id || !product.model_name) return toast("Product ID and Model name are required");
+  try {
+    await api("/api/admin/products", { method: "POST", body: product });
+    product._brand = brands.find(brand => String(brand.manufacturer_id) === product.manufacturer_id)?.name || "";
+    const existing = products.find(other => other.product_id === product.product_id && !other._isNew);
+    if (existing) Object.assign(existing, product);
+    else products = products.filter(other => !other._isNew).concat(product);
+    // A new product is saved under the ID typed in, not its placeholder.
+    openProductId = product.product_id;
+    histories.delete(product.product_id);
+    fillProductOptions();
+    toast("Saved");
+    renderCatalog();
+  } catch (e) { toast("Error: " + e.message); }
+}
+
+function closeEditor() {
+  products = products.filter(product => !product._isNew);
+  openProductId = null;
+  renderCatalog();
+}
+
+function deleteProduct(productId) {
+  confirmThen(`Delete ${productId}? This cannot be undone.`, async () => {
+    try {
+      await api("/api/admin/products", { method: "DELETE", body: { product_id: productId } });
+      products = products.filter(product => product.product_id !== productId);
+      openProductId = null;
+      toast("Deleted");
+      renderCatalog();
+    } catch (e) { toast("Error: " + e.message); }
+  });
+}
+
+// Flips Verified/Estimated and saves straight away.
+async function toggleConfidence(productId) {
+  const product = products.find(other => other.product_id === productId);
+  const next = product.spec_confidence === "Verified" ? "Estimated" : "Verified";
+  try {
+    await api("/api/admin/products", { method: "POST", body: { ...product, spec_confidence: next } });
+    product.spec_confidence = next;
+    const badge = byId("editor-" + productId).querySelector(".confidence");
+    badge.textContent = next;
+    badge.className = "confidence " + next.toLowerCase();
+    histories.delete(productId);
+    loadHistory(productId);
+    toast("Marked as " + next);
+  } catch (e) { toast("Error: " + e.message); }
+}
+
+function addProduct() {
+  products = products.filter(product => !product._isNew);
+  const draft = {
+    _isNew: true, product_id: "NEW_" + Date.now(), model_name: "", full_name: "",
+    manufacturer_id: brands[0]?.manufacturer_id || 1, release_year: new Date().getFullYear(),
+    status: "Active", category: "Headphone", design: "Closed Back", fit: "Over-Ear",
+    driver_type: "Dynamic", wireless: "No", anc: "No", spec_confidence: "Estimated",
+  };
+  products.unshift(draft);
+  openProductId = draft.product_id;
+  renderCatalog();
+}
+
+// ---- Change history ----
+
+async function loadHistory(productId) {
+  if (!histories.has(productId)) {
+    try {
+      histories.set(productId, (await api("/api/admin/history?product_id=" + encodeURIComponent(productId))).history);
+    } catch (e) {
+      const list = byId("editor-" + productId)?.querySelector(".history-list");
+      if (list) list.innerHTML = `<li class="history-note">Could not load history: ${escapeHtml(e.message)}</li>`;
       return;
     }
-    const pid=tr.getAttribute('data-id');
-    const handler=e=>{if(e.target.closest('button')||e.target.tagName==='A')return;toggleEdit(pid);};
-    tr.addEventListener('click',handler);
-    const btn=tr.querySelector('.expandbtn');
-    if(btn)btn.addEventListener('click',e=>{e.stopPropagation();toggleEdit(pid);});
-  });
-
-  // Wire resize
-  resizing=null;
-  document.querySelectorAll('.resizer').forEach(rz=>{
-    rz.addEventListener('mousedown',e=>{e.preventDefault();resizing={key:rz.getAttribute('data-key'),startX:e.clientX,startW:colW[rz.getAttribute('data-key')]};});
-  });
-
-  // Populate expanded row if any
-  if(expandedId!==null){
-    const p=all.find(x=>x.product_id===expandedId);
-    const ew=document.getElementById('ew_'+expandedId);
-    if(p&&ew&&!ew.innerHTML)populateEditWrap(ew,p);
   }
-  if(expandedSugg!==null){writeSuggPanel(expandedSugg,suggDraft);refreshSugg(expandedSugg);}
+  renderHistory(productId);
 }
 
-// Global resize handlers
-document.addEventListener('mousemove',e=>{
-  if(!resizing)return;
-  const th=document.querySelector('th[data-key="'+resizing.key+'"]');
-  colW[resizing.key]=Math.max(45,resizing.startW+(e.clientX-resizing.startX));
-  if(th)th.style.width=colW[resizing.key]+'px';
-  const tbl=document.querySelector('table');
-  if(tbl)tbl.style.minWidth=visTotalW()+'px';
-});
-document.addEventListener('mouseup',()=>{if(resizing){saveColW();resizing=null;}});
-
-function toggleEdit(pid){
-  if(expandedId===pid){expandedId=null;render();return;}
-  expandedId=pid;openHistIdx={};render();
-  requestAnimationFrame(()=>{const ew=document.getElementById('ew_'+pid);if(ew)ew.closest('tr').scrollIntoView({behavior:'smooth',block:'nearest'});});
-}
-
-function populateEditWrap(wrap,p){
-  const isNew=!!p._isNew;
-  const pid=p.product_id;
-  let html='<h3>'+(isNew?'New headphone':'Editing: '+esc((p._brand||'')+' '+(p.model_name||'')))+'</h3>';
-  html+='<div class="edit-grid">';
-  FIELDS.forEach(f=>{
-    const spanCls=f.span>1?' span'+f.span:'';
-    const val=p[f.key]??'';
-    const dis=(f.disabled&&!isNew)?' disabled':'';
-    let ctrl='';
-    if(f.type==='textarea'){ctrl='<textarea id="ef_'+f.key+'"'+dis+'>'+esc(val)+'</textarea>';}
-    else if(f.type==='mfr'){
-      const opts=mfrs.map(m=>'<option value="'+m.manufacturer_id+'"'+(String(m.manufacturer_id)===String(p.manufacturer_id)?' selected':'')+'>'+esc(m.name)+'</option>').join('');
-      ctrl='<select id="ef_'+f.key+'">'+opts+'</select>';
-    }else if(f.type==='select'){
-      const blank=f.blank?'<option value=""'+(val===''?' selected':'')+'>\u2014</option>':'';
-      const opts=(f.opts||[]).map(o=>'<option'+(o===val?' selected':'')+'>'+esc(o)+'</option>').join('');
-      ctrl='<select id="ef_'+f.key+'">'+blank+opts+'</select>';
-    }else{ctrl='<input id="ef_'+f.key+'" value="'+esc(val)+'"'+dis+'>';}
-    html+='<div class="'+spanCls+'"><label for="ef_'+f.key+'">'+esc(f.label)+'</label>'+ctrl+'</div>';
-  });
-  html+='</div>';
-  const conf=p.spec_confidence||'Estimated';
-  html+='<div class="edit-meta"><span>Added: <strong>'+esc(p.date_added||'\u2014')+'</strong></span><span>Updated: <strong>'+esc(p.date_updated||'\u2014')+'</strong></span><span>Specs: <span class="conf-badge '+(conf==='Verified'?'conf-verified':'conf-est')+'" id="confBadge_'+esc(pid)+'">'+esc(conf)+'</span> <button style="background:none;border:none;cursor:pointer;font-size:.65rem;text-decoration:underline;color:var(--muted)" onclick="toggleConf('+JSON.stringify(pid)+')">toggle</button></span></div>';
-  html+='<div class="edit-actions">'+(!isNew?'<button class="btn btn-danger" onclick="confirmDelete('+JSON.stringify(pid)+')">Delete</button>':'<span></span>')+'<div class="edit-actions-right"><button class="btn btn-ghost" onclick="cancelEdit()">Cancel</button><button class="btn btn-primary" onclick="saveEdit('+JSON.stringify(pid)+')">Save changes</button></div></div>';
-  if(!isNew){html+='<div class="edit-hist"><div class="edit-hist-head">Change history</div><ul class="hist-list" id="hl_'+esc(pid)+'"><li class="hist-none">Loading\u2026</li></ul></div>';}
-  wrap.innerHTML=html;
-  if(!isNew)loadInlineHistory(pid);
-}
-
-// Lazily fetches and renders a product's edit history into its expanded row, only when the
-// history section is opened. Keeps the initial table load light by deferring this call.
-async function loadInlineHistory(pid){
-  const list=document.getElementById('hl_'+pid);if(!list)return;
-  try{
-    const res=await fetch('/api/admin/history?product_id='+encodeURIComponent(pid));
-    const d=await res.json();if(!d.ok)throw new Error();
-    const hist=d.history;
-    if(!hist.length){list.innerHTML='<li class="hist-none">No history yet \u2014 changes appear here after the first save.</li>';return;}
-    buildHistList(list,hist,pid);
-  }catch(e){list.innerHTML='<li class="hist-none">Could not load history.</li>';}
-}
-
-function buildHistList(list,hist,pid){
-  if(openHistIdx[pid]===undefined)openHistIdx[pid]=-1;
-  list.innerHTML=hist.map((entry,i)=>{
-    const prev=i+1<hist.length?hist[i+1].snapshot:null;
-    const when=(entry.edited_at||'').slice(0,16).replace('T',' ');
-    const changed=prev?Object.keys(HIST_LABELS).filter(k=>String(prev[k]??'')!==String(entry.snapshot[k]??'')).length:0;
-    const badge=prev?changed+' field'+(changed===1?'':'s')+' changed':'initial state';
-    const isOpen=openHistIdx[pid]===i;
-    let detHtml='';
-    if(isOpen){
-      const fields=Object.keys(HIST_LABELS).map(k=>{const val=entry.snapshot[k]??'';const ch=prev&&String(prev[k]??'')!==String(val);return'<div class="hf'+(ch?' changed':'')+'"><dt>'+HIST_LABELS[k]+'</dt><dd>'+esc(val||'\u2014')+'</dd></div>';}).join('');
-      detHtml='<div class="hist-detail open"><div class="hist-detail-when">State before edit on '+esc(when)+'</div><div class="hist-fields">'+fields+'</div></div>';
-    }
-    return'<li class="hist-item" onclick="toggleHistEntry('+JSON.stringify(pid)+','+i+','+JSON.stringify(hist)+')"><span class="hist-when">'+esc(when)+'</span><span class="hist-badge">'+badge+'</span><span class="arrow">'+(isOpen?'\u25be':'\u25b8')+'</span>'+detHtml+'</li>';
-  }).join('');
-}
-
-function toggleHistEntry(pid,idx,hist){openHistIdx[pid]=openHistIdx[pid]===idx?-1:idx;const list=document.getElementById('hl_'+pid);if(list)buildHistList(list,hist,pid);}
-
-async function saveEdit(pid){
-  const p={};
-  FIELDS.forEach(f=>{const el=document.getElementById('ef_'+f.key);if(el)p[f.key]=el.value.trim();});
-  if(!p.product_id||!p.model_name){toast('Product ID and Model name required');return;}
-  try{
-    const res=await fetch('/api/admin/products',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)});
-    const d=await res.json();if(!d.ok)throw new Error(d.error||'');
-    p._brand=(mfrs.find(m=>String(m.manufacturer_id)===String(p.manufacturer_id))||{}).name||'';
-    const idx=all.findIndex(x=>x.product_id===p.product_id);
-    if(idx>=0)all[idx]={...all[idx],...p};else all=all.filter(x=>!x._isNew).concat([p]);
-    expandedId=p.product_id;ensureDatalists();toast('Saved');render();
-  }catch(e){toast('Error: '+e.message);}
-}
-
-function cancelEdit(){
-  all=all.filter(p=>!p._isNew);
-  expandedId=null;openHistIdx={};render();
-}
-
-function confirmDelete(pid){
-  confirm2('Delete '+pid+'? This cannot be undone.',async()=>{
-    try{
-      const res=await fetch('/api/admin/products',{method:'DELETE',headers:{'Content-Type':'application/json'},body:JSON.stringify({product_id:pid})});
-      const d=await res.json();if(!d.ok)throw new Error(d.error||'');
-      all=all.filter(x=>x.product_id!==pid);expandedId=null;toast('Deleted');render();
-    }catch(e){toast('Error: '+e.message);}
-  });
-}
-
-document.getElementById('addBtn').addEventListener('click',()=>{
-  all=all.filter(p=>!p._isNew);
-  const blank={_isNew:true,product_id:'NEW_'+Date.now(),model_name:'',full_name:'',
-    manufacturer_id:mfrs[0]?.manufacturer_id||1,release_year:new Date().getFullYear(),
-    status:'Active',category:'Headphone',design:'Closed Back',fit:'Over-Ear',
-    driver_type:'Dynamic',wireless:'No',anc:'No',spec_confidence:'Estimated'};
-  all.unshift(blank);expandedId=blank.product_id;render();
-});
-
-async function toggleConf(pid){
-  const badge=document.getElementById('confBadge_'+pid);if(!badge)return;
-  const p=all.find(x=>x.product_id===pid);if(!p)return;
-  const next=(p.spec_confidence||'Estimated')==='Verified'?'Estimated':'Verified';
-  try{
-    const updated={...p,spec_confidence:next};
-    const res=await fetch('/api/admin/products',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(updated)});
-    const d=await res.json();if(!d.ok)throw new Error(d.error||'');
-    p.spec_confidence=next;badge.textContent=next;badge.className='conf-badge '+(next==='Verified'?'conf-verified':'conf-est');toast('Marked as '+next);
-  }catch(e){toast('Error: '+e.message);}
+// Entries are newest first. Comparing each with the one below it shows what that save changed.
+function renderHistory(productId) {
+  const list = byId("editor-" + productId)?.querySelector(".history-list");
+  if (!list) return;
+  const entries = histories.get(productId) || [];
+  if (!entries.length) {
+    list.innerHTML = '<li class="history-note">No history yet — changes appear here after the first save.</li>';
+    return;
+  }
+  list.innerHTML = entries.map((entry, i) => {
+    const previous = entries[i + 1]?.snapshot;
+    const differs = key => previous && String(previous[key] ?? "") !== String(entry.snapshot[key] ?? "");
+    const changedCount = Object.keys(HISTORY_FIELDS).filter(differs).length;
+    const when = (entry.edited_at || "").slice(0, 16).replace("T", " ");
+    const isOpen = openHistoryEntry[productId] === i;
+    const detail = !isOpen ? "" : `<div class="history-detail"><div class="small-label">State before edit on ${escapeHtml(when)}</div><dl class="history-fields">` +
+      Object.entries(HISTORY_FIELDS).map(([key, label]) =>
+        `<div${differs(key) ? ' class="changed"' : ""}><dt>${label}</dt><dd>${escapeHtml(entry.snapshot[key] || "—")}</dd></div>`
+      ).join("") + "</dl></div>";
+    return `<li class="history-item"><button class="history-summary" data-history-index="${i}">` +
+      `<span>${escapeHtml(when)}</span><span class="muted">${previous ? `${changedCount} field${changedCount === 1 ? "" : "s"} changed` : "initial state"}</span>` +
+      `<span class="arrow">${isOpen ? "▾" : "▸"}</span></button>${detail}</li>`;
+  }).join("");
 }
 
 // ---- Suggestion review ----
-// Suggestion form field -> product column it can change.
-const SUGG_FIELDS=[
-  {from:'driver_size_mm', to:'driver_size_mm',   label:'Driver size (mm)'},
-  {from:'impedance_ohms', to:'impedance_ohms',   label:'Impedance (Ω)'},
-  {from:'sensitivity_db', to:'sensitivity_db',   label:'Sensitivity (dB)'},
-  {from:'connector',      to:'connector_type',   label:'Connector', opts:OPT_CONNECTOR},
-  {from:'detachable',     to:'detachable_cable', label:'Detachable cable', opts:OPT_DETACHABLE},
-  {from:'weight_g',       to:'weight_g',         label:'Weight (g)'},
-];
 
-const normName = s => String(s||'').toLowerCase().replace(/[^a-z0-9]/g,'');
-const productLabel = p => ((p._brand||'')+' '+(p.model_name||'')).trim();
+const normalizeName = text => String(text || "").toLowerCase().replace(/[^a-z0-9]/g, "");
 
-// The public form offers "Brand Model" from the catalog, so an exact match is common.
-function guessProduct(headphone){
-  const target=normName(headphone);
-  if(!target)return null;
-  return all.find(p=>!p._isNew&&(normName(productLabel(p))===target||normName(p.full_name)===target))||null;
+// The public form suggests "Brand Model" names from the catalog, so an exact match is common.
+function guessProduct(headphone) {
+  const target = normalizeName(headphone);
+  if (!target) return null;
+  return products.find(product => !product._isNew &&
+    (normalizeName(brandLabel(product)) === target || normalizeName(product.full_name) === target)) || null;
 }
 
-function suggDetail(s){
-  const guess=guessProduct(s.headphone);
-  const rows=SUGG_FIELDS.filter(f=>s[f.from]).map(f=>{
-    const list=f.opts?' list="opts_'+f.to+'"':'';
-    return '<tr data-field="'+f.to+'">'+
-      '<td>'+esc(f.label)+'</td>'+
-      '<td class="cur">—</td>'+
-      '<td><input type="text" value="'+esc(s[f.from])+'"'+list+' oninput="refreshSugg('+s.id+')" aria-label="New '+esc(f.label)+'"></td>'+
-      '<td class="caretcol"><input type="checkbox" checked aria-label="Apply '+esc(f.label)+'"></td></tr>';
-  }).join('');
-  const changes=rows
-    ?'<table class="sugg-changes"><thead><tr><th>Field</th><th>Current</th><th>New value</th><th>Apply</th></tr></thead><tbody>'+rows+'</tbody></table>'
-    :'<p class="edit-meta">No spec fields filled in — see the notes below. Accepting will only log the suggestion.</p>';
-  const note=s.notes?'<div class="sugg-field span-all"><label>Submitter notes</label><div class="sugg-val">'+esc(s.notes)+'</div></div>':'';
-  const src=s.source?'<div class="sugg-field span-all"><label>Source</label><div class="sugg-val"><a href="'+esc(s.source)+'" target="_blank" rel="noopener">'+esc(s.source)+'</a></div></div>':'';
-  const meta='<div class="edit-meta"><span>Submitted by: <strong>'+esc(s.submitter||'—')+'</strong></span><span>Submitted: <strong>'+esc((s.created_at||'').slice(0,10)||'—')+'</strong></span></div>';
-  return '<h3>Reviewing suggestion: '+esc(s.headphone||'—')+'</h3>'+
-    '<div class="sugg-pick"><label for="sp_'+s.id+'">Applies to</label>'+
-      '<input id="sp_'+s.id+'" list="productOpts" placeholder="Product ID" value="'+esc(guess?guess.product_id:'')+'" oninput="refreshSugg('+s.id+')">'+
-      '<span class="picked" id="spn_'+s.id+'"></span></div>'+
-    changes+
-    ((note||src)?'<div class="sugg-grid">'+note+src+'</div>':'')+meta+
-    '<textarea class="sugg-note" id="snote_'+s.id+'" placeholder="Note for the log (optional)"></textarea>'+
-    '<div class="edit-actions"><span></span><div class="edit-actions-right">'+
-    '<button class="btn btn-ghost" onclick="rejectSugg('+s.id+')">Reject</button>'+
-    '<button class="btn btn-primary" onclick="acceptSugg('+s.id+')">Accept &amp; apply</button></div></div>';
+function reviewPanelHtml(suggestion) {
+  const id = suggestion.id;
+  const guess = guessProduct(suggestion.headphone);
+  const changeRows = SUGGESTION_FIELDS.filter(field => suggestion[field.from]).map(field => `
+    <tr data-field="${field.to}">
+      <td>${escapeHtml(field.label)}</td>
+      <td class="current">—</td>
+      <td><input type="text" value="${escapeHtml(suggestion[field.from])}"${field.options ? ` list="options-${field.to}"` : ""} aria-label="New ${escapeHtml(field.label)}"></td>
+      <td class="caret-col"><input type="checkbox" checked aria-label="Apply ${escapeHtml(field.label)}"></td>
+    </tr>`).join("");
+  const changes = changeRows
+    ? `<table class="changes-table"><thead><tr><th>Field</th><th>Current</th><th>New value</th><th>Apply</th></tr></thead><tbody>${changeRows}</tbody></table>`
+    : '<p class="meta">No spec fields filled in — see the notes below. Accepting will only log the suggestion.</p>';
+  const readOnly = (label, html) => `<div class="span-all"><span class="small-label">${label}</span><div class="read-only">${html}</div></div>`;
+  const notes = suggestion.notes ? readOnly("Submitter notes", escapeHtml(suggestion.notes)) : "";
+  const source = suggestion.source
+    ? readOnly("Source", `<a href="${escapeHtml(suggestion.source)}" target="_blank" rel="noopener">${escapeHtml(suggestion.source)}</a>`) : "";
+  return `
+    <h3>Reviewing suggestion: ${escapeHtml(suggestion.headphone || "—")}</h3>
+    <div class="product-picker">
+      <label class="small-label" for="pick-${id}">Applies to</label>
+      <input id="pick-${id}" list="productOptions" placeholder="Product ID" value="${escapeHtml(guess?.product_id || "")}">
+      <span class="picked-name"></span>
+    </div>
+    ${changes}
+    ${notes || source ? `<div class="field-grid">${notes}${source}</div>` : ""}
+    <div class="meta">
+      <span>Submitted by: <strong>${escapeHtml(suggestion.submitter || "—")}</strong></span>
+      <span>Submitted: <strong>${escapeHtml((suggestion.created_at || "").slice(0, 10) || "—")}</strong></span>
+    </div>
+    <textarea class="review-note" placeholder="Note for the log (optional)" aria-label="Note for the log"></textarea>
+    <div class="panel-actions"><div class="right">
+      <button class="button ghost" data-action="reject">Reject</button>
+      <button class="button primary" data-action="accept">Accept &amp; apply</button>
+    </div></div>`;
 }
 
-// Fills in the "Current" column for whichever product is picked. Updates the panel in
-// place rather than calling render(), so typed values and the note aren't lost.
-function refreshSugg(id){
-  const pid=(document.getElementById('sp_'+id)?.value||'').trim();
-  const p=all.find(x=>x.product_id===pid&&!x._isNew);
-  const label=document.getElementById('spn_'+id);
-  if(!label)return;
-  label.textContent=p?productLabel(p):(pid?'No product with that ID':'Pick a product');
-  label.className='picked'+(p?' ok':'');
-  document.querySelectorAll('[data-sugg-detail="'+id+'"] tr[data-field]').forEach(tr=>{
-    const cur=p?String(p[tr.dataset.field]??''):'';
-    tr.querySelector('.cur').textContent=p?(cur||'—'):'—';
-    tr.classList.toggle('same',!!p&&cur===tr.querySelector('input[type=text]').value.trim());
+const reviewPanel = id => byId("review-" + id);
+const pickedProduct = id => {
+  const productId = (reviewPanel(id)?.querySelector(`#pick-${id}`).value || "").trim();
+  return products.find(product => product.product_id === productId && !product._isNew);
+};
+
+// Shows the picked product's current values next to the suggested ones. Updates the panel
+// in place, so typed values survive.
+function refreshReview(id) {
+  const panel = reviewPanel(id);
+  if (!panel) return;
+  const product = pickedProduct(id);
+  const typedId = panel.querySelector(`#pick-${id}`).value.trim();
+  const pickedName = panel.querySelector(".picked-name");
+  pickedName.textContent = product ? brandLabel(product) : typedId ? "No product with that ID" : "Pick a product";
+  pickedName.classList.toggle("found", !!product);
+  panel.querySelectorAll("tr[data-field]").forEach(row => {
+    const current = product ? String(product[row.dataset.field] ?? "") : "";
+    row.querySelector(".current").textContent = current || "—";
+    row.classList.toggle("unchanged", !!product && current === row.querySelector("input[type=text]").value.trim());
   });
 }
 
-// render() rebuilds the whole table, so an open review panel's inputs are read
-// before and written back after, otherwise typing in the search box would wipe them.
-function readSuggPanel(id){
-  const pick=document.getElementById('sp_'+id);
-  if(id===null||!pick)return null;
-  const fields={};
-  document.querySelectorAll('[data-sugg-detail="'+id+'"] tr[data-field]').forEach(tr=>{
-    fields[tr.dataset.field]={value:tr.querySelector('input[type=text]').value,apply:tr.querySelector('input[type=checkbox]').checked};
+function readReviewDraft(id) {
+  const panel = id === null ? null : reviewPanel(id);
+  if (!panel) return null;
+  return {
+    productId: panel.querySelector(`#pick-${id}`).value,
+    note: panel.querySelector(".review-note").value,
+    fields: [...panel.querySelectorAll("tr[data-field]")].map(row => ({
+      value: row.querySelector("input[type=text]").value,
+      apply: row.querySelector("input[type=checkbox]").checked,
+    })),
+  };
+}
+
+function writeReviewDraft(id, draft) {
+  const panel = reviewPanel(id);
+  if (!draft || !panel) return;
+  panel.querySelector(`#pick-${id}`).value = draft.productId;
+  panel.querySelector(".review-note").value = draft.note;
+  panel.querySelectorAll("tr[data-field]").forEach((row, i) => {
+    row.querySelector("input[type=text]").value = draft.fields[i].value;
+    row.querySelector("input[type=checkbox]").checked = draft.fields[i].apply;
   });
-  return {pick:pick.value,note:document.getElementById('snote_'+id).value,fields};
 }
 
-function writeSuggPanel(id,draft){
-  if(!draft)return;
-  document.getElementById('sp_'+id).value=draft.pick;
-  document.getElementById('snote_'+id).value=draft.note;
-  document.querySelectorAll('[data-sugg-detail="'+id+'"] tr[data-field]').forEach(tr=>{
-    const f=draft.fields[tr.dataset.field];if(!f)return;
-    tr.querySelector('input[type=text]').value=f.value;
-    tr.querySelector('input[type=checkbox]').checked=f.apply;
-  });
-}
-
-// One shared datalist for the product picker, plus one per fixed-vocabulary field.
-function ensureDatalists(){
-  let host=document.getElementById('suggLists');
-  if(!host){host=document.createElement('div');host.id='suggLists';document.body.appendChild(host);}
-  const products=all.filter(p=>!p._isNew).slice().sort((a,b)=>productLabel(a).localeCompare(productLabel(b)));
-  host.innerHTML='<datalist id="productOpts">'+products.map(p=>'<option value="'+esc(p.product_id)+'">'+esc(productLabel(p))+'</option>').join('')+'</datalist>'+
-    SUGG_FIELDS.filter(f=>f.opts).map(f=>'<datalist id="opts_'+f.to+'">'+f.opts.map(o=>'<option value="'+esc(o)+'">').join('')+'</datalist>').join('');
-}
-
-function toggleSugg(id){
-  expandedSugg=(expandedSugg===id)?null:id;
-  render();
-}
-
-async function postSugg(payload){
-  const res=await fetch('/api/admin/suggestions',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-  const d=await res.json();
-  if(!d.ok)throw new Error(d.error||'Request failed');
-  return d;
-}
-
-function resolveLocally(id,fields){
-  const s=suggs.find(x=>x.id===id);
-  if(s)Object.assign(s,fields);
-  expandedSugg=null;
-  render();
-}
-
-async function acceptSugg(id){
-  const product_id=(document.getElementById('sp_'+id).value||'').trim();
-  const p=all.find(x=>x.product_id===product_id&&!x._isNew);
-  if(!p){toast('Pick the product this applies to');return;}
-  const changes={};
-  document.querySelectorAll('[data-sugg-detail="'+id+'"] tr[data-field]').forEach(tr=>{
-    if(tr.querySelector('input[type=checkbox]').checked)changes[tr.dataset.field]=tr.querySelector('input[type=text]').value.trim();
-  });
-  const note=document.getElementById('snote_'+id).value;
-  try{
-    const d=await postSugg({id,action:'accept',product_id,changes,note});
-    for(const [field,c] of Object.entries(d.applied))p[field]=c.to;
-    const n=Object.keys(d.applied).length;
-    resolveLocally(id,{status:'accepted',product_id});
-    reloadSuggestions();
-    toast(n?'Applied '+n+' change'+(n===1?'':'s')+' to '+productLabel(p):'Accepted — no values changed');
-  }catch(e){toast('Error: '+e.message);}
-}
-
-async function rejectSugg(id){
-  const note=document.getElementById('snote_'+id).value;
-  try{
-    await postSugg({id,action:'reject',note});
-    resolveLocally(id,{status:'rejected'});
-    reloadSuggestions();
-    toast('Rejected');
-  }catch(e){toast('Error: '+e.message);}
-}
-
-// ---- Suggestion log ----
-// Every suggestion ever submitted (suggestions are never deleted), with search, status
-// filters, an expandable detail panel, and Reopen for rejected ones. Uses the same `suggs`
-// array as the pending rows in the catalog view.
-let logStatus='all', expandedLog=null, catalogStale=false;
-
-// Labels for the applied_changes JSON, keyed by product column.
-const CHANGE_LABELS={driver_size_mm:'Driver size',impedance_ohms:'Impedance',sensitivity_db:'Sensitivity',
-  connector_type:'Connector',detachable_cable:'Detachable cable',weight_g:'Weight'};
-
-function logField(label,val,unit){
-  return val?'<div class="sugg-field"><label>'+esc(label)+'</label><div class="sugg-val">'+esc(val)+(unit||'')+'</div></div>':'';
-}
-
-function logOutcome(s){
-  if(s.status==='pending')return '<div class="log-outcome">Still pending \u2014 review it in the Catalog editor tab.</div>';
-  let html='<div class="log-outcome"><strong>'+esc(s.status)+'</strong>'+(s.resolved_at?' on '+esc(s.resolved_at.slice(0,10)):'');
-  if(s.product_id)html+=' \u00b7 applied to <strong>'+esc(s.product_id)+'</strong>';
-  let changes={};
-  try{changes=JSON.parse(s.applied_changes||'{}');}catch(e){}
-  const keys=Object.keys(changes);
-  if(keys.length){
-    html+='<ul>'+keys.map(k=>'<li>'+esc(CHANGE_LABELS[k]||k)+': <span class="from">'+esc(changes[k].from||'\u2014')+'</span> &rarr; '+esc(changes[k].to||'\u2014')+'</li>').join('')+'</ul>';
-  }else if(s.status==='accepted'){html+='<div>No catalog values changed.</div>';}
-  if(s.admin_note)html+='<div class="note">'+esc(s.admin_note)+'</div>';
-  if(s.status==='rejected')html+='<button type="button" class="btn btn-ghost" data-reopen="'+esc(s.id)+'">Reopen</button>';
-  return html+'</div>';
-}
-
-function logDetail(s){
-  return '<div class="sugg-grid">'+
-    logField('Driver size',s.driver_size_mm,' mm')+logField('Impedance',s.impedance_ohms,' \u03A9')+
-    logField('Sensitivity',s.sensitivity_db,' dB')+logField('Connector',s.connector)+
-    logField('Detachable cable',s.detachable)+logField('Weight',s.weight_g,' g')+
-    (s.notes?'<div class="sugg-field span-all"><label>Submitter notes</label><div class="sugg-val">'+esc(s.notes)+'</div></div>':'')+
-    (s.source?'<div class="sugg-field span-all"><label>Source</label><div class="sugg-val"><a href="'+esc(s.source)+'" target="_blank" rel="noopener">'+esc(s.source)+'</a></div></div>':'')+
-    '</div><div class="edit-meta"><span>Submitted by: <strong>'+esc(s.submitter||'\u2014')+'</strong></span><span>Submitted: <strong>'+esc(s.created_at||'\u2014')+'</strong></span></div>'+
-    logOutcome(s);
-}
-
-function renderLog(){
-  const pending=suggs.filter(s=>s.status==='pending').length;
-  document.getElementById('logCount').textContent=pending?'('+pending+' pending)':'';
-  const q=document.getElementById('logQ').value.toLowerCase();
-  let rows=suggs.filter(s=>logStatus==='all'||s.status===logStatus);
-  if(q)rows=rows.filter(s=>('#'+s.id+' '+[s.headphone,s.source,s.submitter,s.notes,s.status].join(' ')).toLowerCase().includes(q));
-  const counts={pending:0,accepted:0,rejected:0,reviewed:0};
-  suggs.forEach(s=>{if(s.status in counts)counts[s.status]++;});
-  const parts=[suggs.length+' total'];
-  Object.entries(counts).forEach(([k,n])=>{if(n)parts.push(n+' '+k);});
-  document.getElementById('logSub').textContent=parts.join(' \u00b7 ')+((q||logStatus!=='all')?' \u00b7 '+rows.length+' shown':'')+' \u00b7 click a row for details';
-  const wrap=document.getElementById('logwrap');
-  if(!rows.length){wrap.innerHTML='<div class="empty">No suggestions match.</div>';return;}
-  let html='<table class="logtable"><thead><tr><th class="col-id">ID</th><th>Headphone</th><th class="col-when">Submitted</th><th class="col-status">Status</th><th class="caretcol"><span class="vh">Details</span></th></tr></thead><tbody>';
-  rows.forEach((s,i)=>{
-    const isExp=expandedLog===s.id, z=i%2?' zebra':'';
-    html+='<tr class="datarow logrow'+z+(isExp?' expanded':'')+'" data-log="'+esc(s.id)+'">'+
-      '<td class="col-id">#'+esc(s.id)+'</td><td class="model-cell">'+esc(s.headphone)+'</td>'+
-      '<td class="col-when">'+esc((s.created_at||'').slice(0,10))+'</td>'+
-      '<td class="col-status"><span class="pill '+esc(s.status)+'">'+esc(s.status)+'</span></td>'+
-      '<td class="caretcol"><button class="expandbtn" aria-expanded="'+isExp+'" aria-label="Details for suggestion '+esc(s.id)+'"><span class="caret">&#x203A;</span></button></td></tr>'+
-      '<tr class="editrow'+z+'"'+(isExp?'':' hidden')+'><td colspan="5"><div class="editwrap">'+logDetail(s)+'</div></td></tr>';
-  });
-  wrap.innerHTML=html+'</tbody></table>';
-  wrap.querySelectorAll('tr.logrow').forEach(tr=>tr.addEventListener('click',e=>{
-    if(e.target.closest('a'))return;
-    const id=parseInt(tr.dataset.log,10);
-    expandedLog=expandedLog===id?null:id;renderLog();
-  }));
-  wrap.querySelectorAll('[data-reopen]').forEach(b=>b.addEventListener('click',()=>reopenSugg(parseInt(b.dataset.reopen,10))));
-}
-
-async function reopenSugg(id){
-  try{
-    await postSugg({id,action:'reopen'});
-    toast('Reopened \u2014 it is back in the Catalog editor queue');
-    await reloadSuggestions();
-  }catch(e){toast('Error: '+e.message);}
-}
-
-// Re-fetches suggestions so the log shows server-side fields (resolved_at, applied_changes).
-// The catalog table is only redrawn when visible, so an open product edit isn't wiped.
-async function reloadSuggestions(){
-  try{
-    const res=await fetch('/api/admin/suggestions');
-    const d=await res.json();if(!d.ok)throw new Error(d.error||'');
-    suggs=d.suggestions||[];
-  }catch(e){toast('Could not refresh the suggestion log: '+e.message);return;}
-  renderLog();
-  if(document.getElementById('catalogView').hidden)catalogStale=true;else render();
-}
-
-// Tabs: the current view is kept in the URL hash (/admin#log) so a reload or link lands on it.
-function showView(view){
-  const isLog=view==='log';
-  document.getElementById('catalogView').hidden=isLog;
-  document.getElementById('logView').hidden=!isLog;
-  document.getElementById('tabCatalog').setAttribute('aria-selected',String(!isLog));
-  document.getElementById('tabLog').setAttribute('aria-selected',String(isLog));
-  history.replaceState(null,'',isLog?'#log':location.pathname+location.search);
-  if(!isLog&&catalogStale){catalogStale=false;render();}
-}
-document.getElementById('tabCatalog').addEventListener('click',()=>showView('catalog'));
-document.getElementById('tabLog').addEventListener('click',()=>showView('log'));
-document.getElementById('logQ').addEventListener('input',()=>{renderLog();document.getElementById('logwrap').scrollTop=0;});
-document.querySelectorAll('.status-filters button').forEach(b=>b.addEventListener('click',()=>{
-  document.querySelectorAll('.status-filters button').forEach(x=>x.classList.remove('active'));
-  b.classList.add('active');logStatus=b.dataset.status;renderLog();document.getElementById('logwrap').scrollTop=0;
-}));
-
-document.getElementById('importBtn').addEventListener('click',()=>{
-  confirm2('Reset D1 from the GitHub CSV? This overwrites all current data.',async()=>{
-    toast('Importing\u2026');
-    try{
-      const res=await fetch('/api/admin/import',{method:'POST'});
-      const d=await res.json();if(!d.ok)throw new Error(d.error||'');
-      toast('Import successful');await load();
-    }catch(e){toast('Import failed: '+e.message);}
-  });
-});
-
-let _toastTimer;
-function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(_toastTimer);_toastTimer=setTimeout(()=>el.classList.remove('show'),2800);}
-function confirm2(msg,onYes){
-  const ov=document.getElementById('confirmOverlay');
-  document.getElementById('confirmMsg').textContent=msg;ov.removeAttribute('hidden');
-  const yes=document.getElementById('confirmYes'),no=document.getElementById('confirmNo');
-  const cleanup=()=>{ov.setAttribute('hidden','');yes.onclick=null;no.onclick=null;};
-  yes.onclick=()=>{cleanup();onYes();};no.onclick=cleanup;
-}
-
-// ---- Bootstrap ----
-// Initial load: fetches products, manufacturers, and suggestions in parallel, seeds state,
-// and kicks off the first render. This is the entry point run once when the page opens.
-async function load(){
-  try{
-    const [pRes,mRes,sRes]=await Promise.all([fetch('/api/admin/products'),fetch('/api/admin/products?manufacturers=1'),fetch('/api/admin/suggestions')]);
-    let pData,mData,sData;
-    try{pData=await pRes.json();}catch(e){throw new Error('Products API non-JSON ('+pRes.status+'). Access session may have expired \u2014 refresh to log in.');}
-    try{mData=await mRes.json();}catch(e){throw new Error('Manufacturers API non-JSON');}
-    try{sData=await sRes.json();}catch(e){sData={ok:true,suggestions:[]};}
-    if(!pData.ok)throw new Error('Products API error: '+(pData.error||'no message'));
-    all=pData.products||[];mfrs=(mData.ok&&mData.manufacturers)?mData.manufacturers:[];suggs=(sData.ok&&sData.suggestions)?sData.suggestions:[];
-    document.getElementById('source').textContent=all.length+' headphones \u00b7 '+mfrs.length+' brands';
-    ensureDatalists();
-    render();
-    if(sData.ok)renderLog();
-    else document.getElementById('logwrap').innerHTML='<div class="empty"><strong>Could not load suggestions:</strong> '+esc(sData.error||'unknown error')+'. Check the D1 binding and that the suggestions table exists.</div>';
-  }catch(e){
-    const msg='<div class="empty"><strong>Load failed:</strong> '+esc(e.message)+'</div>';
-    document.getElementById('tablewrap').innerHTML=msg;document.getElementById('logwrap').innerHTML=msg;
+// Datalists for the product picker and the fixed-vocabulary suggestion fields.
+function fillProductOptions() {
+  const saved = products.filter(product => !product._isNew).sort((a, b) => brandLabel(a).localeCompare(brandLabel(b)));
+  byId("productOptions").innerHTML = saved.map(product =>
+    `<option value="${escapeHtml(product.product_id)}">${escapeHtml(brandLabel(product))}</option>`).join("");
+  for (const field of SUGGESTION_FIELDS.filter(field => field.options)) {
+    let list = byId("options-" + field.to);
+    if (!list) {
+      list = document.createElement("datalist");
+      list.id = "options-" + field.to;
+      document.body.appendChild(list);
+    }
+    list.innerHTML = field.options.map(option => `<option value="${escapeHtml(option)}">`).join("");
   }
 }
 
-loadColW();
-if(location.hash==='#log')showView('log');
+async function acceptSuggestion(id) {
+  const product = pickedProduct(id);
+  if (!product) return toast("Pick the product this applies to");
+  const panel = reviewPanel(id);
+  const changes = {};
+  panel.querySelectorAll("tr[data-field]").forEach(row => {
+    if (row.querySelector("input[type=checkbox]").checked) changes[row.dataset.field] = row.querySelector("input[type=text]").value.trim();
+  });
+  try {
+    const result = await api("/api/admin/suggestions", {
+      method: "POST",
+      body: { id, action: "accept", product_id: product.product_id, changes, note: panel.querySelector(".review-note").value },
+    });
+    for (const [field, change] of Object.entries(result.applied)) product[field] = change.to;
+    histories.delete(product.product_id);
+    const count = Object.keys(result.applied).length;
+    toast(count ? `Applied ${count} change${count === 1 ? "" : "s"} to ${brandLabel(product)}` : "Accepted — no values changed");
+    openSuggestionId = null;
+    await reloadSuggestions();
+  } catch (e) { toast("Error: " + e.message); }
+}
+
+async function rejectSuggestion(id) {
+  try {
+    await api("/api/admin/suggestions", { method: "POST", body: { id, action: "reject", note: reviewPanel(id).querySelector(".review-note").value } });
+    toast("Rejected");
+    openSuggestionId = null;
+    await reloadSuggestions();
+  } catch (e) { toast("Error: " + e.message); }
+}
+
+async function reopenSuggestion(id) {
+  try {
+    await api("/api/admin/suggestions", { method: "POST", body: { id, action: "reopen" } });
+    toast("Reopened — it is back in the Catalog editor queue");
+    await reloadSuggestions();
+  } catch (e) { toast("Error: " + e.message); }
+}
+
+// Fetches suggestions again so the log shows the server's resolved_at and applied changes.
+async function reloadSuggestions() {
+  try {
+    suggestions = (await api("/api/admin/suggestions")).suggestions || [];
+  } catch (e) {
+    toast("Could not refresh suggestions: " + e.message);
+    return;
+  }
+  renderLog();
+  renderCatalogWhenVisible();
+}
+
+// ---- Suggestion log ----
+
+function outcomeHtml(suggestion) {
+  if (isPending(suggestion)) return '<div class="outcome">Still pending — review it in the Catalog editor tab.</div>';
+  let html = `<div class="outcome"><strong>${escapeHtml(suggestion.status)}</strong>` +
+    (suggestion.resolved_at ? " on " + escapeHtml(suggestion.resolved_at.slice(0, 10)) : "") +
+    (suggestion.product_id ? ` · applied to <strong>${escapeHtml(suggestion.product_id)}</strong>` : "");
+  let changes = {};
+  try { changes = JSON.parse(suggestion.applied_changes || "{}"); } catch (e) {}
+  const changed = Object.entries(changes);
+  if (changed.length) {
+    html += "<ul>" + changed.map(([field, change]) =>
+      `<li>${escapeHtml(CHANGE_LABELS[field] || field)}: <span class="old-value">${escapeHtml(change.from || "—")}</span> &rarr; ${escapeHtml(change.to || "—")}</li>`
+    ).join("") + "</ul>";
+  } else if (suggestion.status === "accepted") {
+    html += "<div>No catalog values changed.</div>";
+  }
+  if (suggestion.admin_note) html += `<div class="note">${escapeHtml(suggestion.admin_note)}</div>`;
+  if (suggestion.status === "rejected") html += `<button type="button" class="button ghost" data-reopen="${suggestion.id}">Reopen</button>`;
+  return html + "</div>";
+}
+
+function logDetailHtml(suggestion) {
+  const field = (label, value, unit = "") => value
+    ? `<div><span class="small-label">${label}</span><div class="read-only">${escapeHtml(value)}${unit}</div></div>` : "";
+  return `<div class="field-grid">
+      ${field("Driver size", suggestion.driver_size_mm, " mm")}${field("Impedance", suggestion.impedance_ohms, " Ω")}
+      ${field("Sensitivity", suggestion.sensitivity_db, " dB")}${field("Connector", suggestion.connector)}
+      ${field("Detachable cable", suggestion.detachable)}${field("Weight", suggestion.weight_g, " g")}
+      ${suggestion.notes ? `<div class="span-all"><span class="small-label">Submitter notes</span><div class="read-only">${escapeHtml(suggestion.notes)}</div></div>` : ""}
+      ${suggestion.source ? `<div class="span-all"><span class="small-label">Source</span><div class="read-only"><a href="${escapeHtml(suggestion.source)}" target="_blank" rel="noopener">${escapeHtml(suggestion.source)}</a></div></div>` : ""}
+    </div>
+    <div class="meta">
+      <span>Submitted by: <strong>${escapeHtml(suggestion.submitter || "—")}</strong></span>
+      <span>Submitted: <strong>${escapeHtml(suggestion.created_at || "—")}</strong></span>
+    </div>
+    ${outcomeHtml(suggestion)}`;
+}
+
+function renderLog() {
+  const pendingCount = suggestions.filter(isPending).length;
+  byId("pendingCount").textContent = pendingCount ? `(${pendingCount} pending)` : "";
+
+  const search = byId("logSearch").value.toLowerCase();
+  const rows = suggestions.filter(suggestion =>
+    (logStatus === "all" || suggestion.status === logStatus) &&
+    (!search || ["#" + suggestion.id, suggestion.headphone, suggestion.source, suggestion.submitter, suggestion.notes, suggestion.status]
+      .join(" ").toLowerCase().includes(search)));
+
+  const counts = {};
+  suggestions.forEach(suggestion => counts[suggestion.status] = (counts[suggestion.status] || 0) + 1);
+  const parts = [`${suggestions.length} total`, ...["pending", "accepted", "rejected", "reviewed"]
+    .filter(status => counts[status]).map(status => `${counts[status]} ${status}`)];
+  if (search || logStatus !== "all") parts.push(`${rows.length} shown`);
+  byId("logSummary").textContent = [...parts, "click a row for details"].join(" · ");
+
+  if (!rows.length) {
+    byId("logTable").innerHTML = '<div class="empty">No suggestions match.</div>';
+    return;
+  }
+  byId("logTable").innerHTML = `<table class="log-table"><thead><tr><th class="id-col">ID</th><th>Headphone</th>` +
+    `<th class="date-col">Submitted</th><th class="status-col">Status</th><th class="caret-col"><span class="visually-hidden">Details</span></th></tr></thead><tbody>` +
+    rows.map((suggestion, i) => {
+      const open = openLogId === suggestion.id;
+      const zebra = i % 2 ? " zebra" : "";
+      return `<tr class="row${zebra}${open ? " expanded" : ""}" data-log-id="${suggestion.id}">` +
+        `<td class="id-col">#${suggestion.id}</td><td class="model-cell">${escapeHtml(suggestion.headphone)}</td>` +
+        `<td class="date-col">${escapeHtml((suggestion.created_at || "").slice(0, 10))}</td>` +
+        `<td class="status-col"><span class="status-pill ${escapeHtml(suggestion.status)}">${escapeHtml(suggestion.status)}</span></td>` +
+        `<td class="caret-col"><button class="expand-button" aria-expanded="${open}" aria-label="Details for suggestion ${suggestion.id}"><span class="caret">&#x203A;</span></button></td></tr>` +
+        `<tr class="panel-row${zebra}"${open ? "" : " hidden"}><td colspan="5"><div class="panel">${open ? logDetailHtml(suggestion) : ""}</div></td></tr>`;
+    }).join("") + "</tbody></table>";
+}
+
+// ---- Tabs ----
+
+// The open tab is kept in the URL (/admin#log) so a reload or a link lands on it.
+function showView(view) {
+  const showLog = view === "log";
+  byId("catalogView").hidden = showLog;
+  byId("logView").hidden = !showLog;
+  byId("catalogTab").setAttribute("aria-selected", String(!showLog));
+  byId("logTab").setAttribute("aria-selected", String(showLog));
+  history.replaceState(null, "", showLog ? "#log" : location.pathname + location.search);
+  if (!showLog && catalogNeedsRender) {
+    catalogNeedsRender = false;
+    renderCatalog();
+  }
+}
+
+// ---- Events ----
+
+byId("catalogTable").addEventListener("mousedown", event => {
+  const handle = event.target.closest(".resizer");
+  if (!handle) return;
+  event.preventDefault();
+  resizing = { key: handle.dataset.key, startX: event.clientX, startWidth: columnWidths[handle.dataset.key] };
+});
+
+byId("catalogTable").addEventListener("click", event => {
+  const target = event.target;
+  const header = target.closest("th[data-key]");
+  if (header) {
+    if (target.closest(".resizer")) return;
+    const key = header.dataset.key;
+    if (sortKey === key) sortDir = sortDir === "ascending" ? "descending" : "ascending";
+    else { sortKey = key; sortDir = "ascending"; }
+    return renderCatalog();
+  }
+  const action = target.closest("[data-action]")?.dataset.action;
+  const productId = target.closest("tr.panel-row")?.previousElementSibling.dataset.productId;
+  const suggestionId = +target.closest("tr.panel-row")?.previousElementSibling.dataset.suggestionId;
+  if (action === "save") return saveProduct();
+  if (action === "cancel") return closeEditor();
+  if (action === "delete") return deleteProduct(productId);
+  if (action === "toggle-confidence") return toggleConfidence(productId);
+  if (action === "accept") return acceptSuggestion(suggestionId);
+  if (action === "reject") return rejectSuggestion(suggestionId);
+  const historyButton = target.closest("[data-history-index]");
+  if (historyButton) {
+    const index = +historyButton.dataset.historyIndex;
+    openHistoryEntry[productId] = openHistoryEntry[productId] === index ? -1 : index;
+    return renderHistory(productId);
+  }
+  const row = target.closest("tr.row");
+  if (!row || target.closest("a")) return;
+  if (row.dataset.suggestionId) toggleSuggestion(+row.dataset.suggestionId);
+  else toggleProduct(row.dataset.productId);
+});
+
+byId("catalogTable").addEventListener("keydown", event => {
+  if (event.target.matches("th[data-key]") && (event.key === "Enter" || event.key === " ")) {
+    event.preventDefault();
+    event.target.click();
+  }
+});
+
+byId("catalogTable").addEventListener("input", event => {
+  const panel = event.target.closest("[id^=review-]");
+  if (panel) refreshReview(+panel.id.slice("review-".length));
+});
+
+byId("logTable").addEventListener("click", event => {
+  const reopenButton = event.target.closest("[data-reopen]");
+  if (reopenButton) return reopenSuggestion(+reopenButton.dataset.reopen);
+  const row = event.target.closest("tr.row");
+  if (!row || event.target.closest("a")) return;
+  const id = +row.dataset.logId;
+  openLogId = openLogId === id ? null : id;
+  renderLog();
+});
+
+byId("logSearch").addEventListener("input", () => { renderLog(); byId("logTable").scrollTop = 0; });
+document.querySelector(".status-filters").addEventListener("click", event => {
+  const button = event.target.closest("button");
+  if (!button) return;
+  document.querySelectorAll(".status-filters button").forEach(other => other.classList.toggle("active", other === button));
+  logStatus = button.dataset.status;
+  renderLog();
+  byId("logTable").scrollTop = 0;
+});
+
+byId("catalogSearch").addEventListener("input", renderCatalog);
+byId("addButton").addEventListener("click", addProduct);
+byId("catalogTab").addEventListener("click", () => showView("catalog"));
+byId("logTab").addEventListener("click", () => showView("log"));
+byId("importButton").addEventListener("click", () => {
+  confirmThen("Reset D1 from the GitHub CSV? This overwrites all current data.", async () => {
+    toast("Importing…");
+    try {
+      await api("/api/admin/import", { method: "POST" });
+      histories.clear();
+      toast("Import successful");
+      await load();
+    } catch (e) { toast("Import failed: " + e.message); }
+  });
+});
+document.addEventListener("keydown", event => {
+  if (event.key !== "Escape") return;
+  if (!byId("confirmDialog").hidden) byId("confirmNo").click();
+  else if (openProductId !== null && !byId("catalogView").hidden) closeEditor();
+});
+
+// ---- Start ----
+
+async function load() {
+  // Suggestions are fetched alongside but allowed to fail, so a problem there doesn't block editing.
+  const suggestionsRequest = api("/api/admin/suggestions").catch(error => error);
+  try {
+    const [productData, brandData] = await Promise.all([
+      api("/api/admin/products"),
+      api("/api/admin/products?manufacturers=1"),
+    ]);
+    products = productData.products || [];
+    brands = brandData.manufacturers || [];
+  } catch (e) {
+    const html = `<div class="empty"><strong>Load failed:</strong> ${escapeHtml(e.message)}</div>`;
+    byId("catalogTable").innerHTML = html;
+    byId("logTable").innerHTML = html;
+    return;
+  }
+  const suggestionData = await suggestionsRequest;
+  if (suggestionData instanceof Error) {
+    byId("logTable").innerHTML = `<div class="empty"><strong>Could not load suggestions:</strong> ${escapeHtml(suggestionData.message)} ` +
+      "Check the D1 binding and that the suggestions table exists (functions/schema.sql).</div>";
+  } else {
+    suggestions = suggestionData.suggestions || [];
+    renderLog();
+  }
+  byId("footerCounts").textContent = `${products.length} headphones \u00b7 ${brands.length} brands`;
+  fillProductOptions();
+  renderCatalog();
+}
+
+loadColumnWidths();
+if (location.hash === "#log") showView("log");
 load();
-document.getElementById('q').addEventListener('input',render);
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&expandedId!==null&&!document.getElementById('catalogView').hidden)cancelEdit();});
 </script>
 </body>
 </html>

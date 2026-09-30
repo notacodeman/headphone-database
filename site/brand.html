@@ -1,449 +1,261 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Brand — The Headphone Archive</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Spline+Sans+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-  <style>
-    /* ---- Design tokens (brand page) ----
-       Shared neon-noir variables; this stylesheet then adds the brand-specific pieces: the
-       "DNA" breakdown bars, the per-decade timeline, and the product list layout. */
-    :root {
-      --ink: #1a1714;
-      --paper: #f4f0e8;
-      --paper-2: #eae3d6;
-      --accent: #c2410c;
-      --accent-2: #1e3a2f;
-      --line: #d6cdbd;
-      --muted: #8a8071;
-      --card: #ede7d9;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { background: var(--paper); color: var(--ink);
-      font-family: 'Spline Sans Mono', monospace; line-height: 1.5; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand — The Headphone Archive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Spline+Sans+Mono:wght@300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+  /* ---- Nav ---- */
+  .site-nav { max-width: 1300px; margin: 0 auto; padding: 1rem 2rem; border-bottom: 2px solid var(--ink);
+    display: flex; justify-content: space-between; align-items: center; }
+  .site-nav a { color: var(--ink); text-decoration: none; }
+  .site-nav a:hover { color: var(--accent); }
+  .site-name { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 700; }
+  .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+  .nav-link { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; }
 
-    /* ---- NAV ---- */
-    .sitenav { border-bottom: 2px solid var(--ink); padding: 1rem 2rem;
-      max-width: 1300px; margin: 0 auto;
-      display: flex; justify-content: space-between; align-items: center; }
-    .sitenav a { color: var(--ink); text-decoration: none; font-size: 0.7rem;
-      text-transform: uppercase; letter-spacing: 0.12em; }
-    .sitenav a:hover { color: var(--accent); }
-    .sitenav .sitename { font-family: 'Fraunces', serif; font-size: 1.1rem;
-      font-weight: 700; text-transform: none; letter-spacing: 0; }
-    .navlink { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.12em;
-      color: var(--muted); }
+  /* ---- Brand header ---- */
+  .brand-hero { max-width: 1300px; margin: 0 auto; padding: 3.5rem 2rem 2rem; border-bottom: 1px solid var(--line); }
+  .eyebrow { margin-bottom: 0.6rem; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); }
+  .brand-name { margin-bottom: 1.2rem; font-family: 'Fraunces', serif; font-weight: 900;
+    font-size: clamp(3rem, 8vw, 6.5rem); line-height: 0.9; letter-spacing: -0.03em; }
+  .brand-facts { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; font-size: 0.75rem; color: var(--muted); }
+  .brand-facts .pill { padding: 0.25rem 0.75rem; background: var(--paper-2); border: 1px solid var(--line);
+    border-radius: 99px; color: var(--ink); }
+  .brand-facts .pill.active { background: #d1fae5; border-color: var(--accent-2); color: #065f46; }
+  .brand-facts .pill.discontinued { background: #fef3c7; border-color: #fcd34d; color: #92400e; }
+  .brand-facts a { color: var(--accent-2); }
+  .brand-facts a:hover { color: var(--accent); }
+  .brand-description { max-width: 680px; margin-top: 1.2rem; font-size: 0.83rem; line-height: 1.7; color: var(--muted); }
 
-    /* ---- HERO ---- */
-    .brand-hero { max-width: 1300px; margin: 0 auto;
-      padding: 3.5rem 2rem 2rem; border-bottom: 1px solid var(--line); }
-    .brand-eyebrow { font-size: 0.65rem; text-transform: uppercase;
-      letter-spacing: 0.14em; color: var(--muted); margin-bottom: 0.6rem; }
-    .brand-name { font-family: 'Fraunces', serif; font-weight: 900;
-      font-size: clamp(3rem, 8vw, 6.5rem); line-height: 0.9;
-      letter-spacing: -0.03em; margin-bottom: 1.2rem; }
-    .brand-meta-row { display: flex; flex-wrap: wrap; gap: 1.5rem;
-      align-items: center; font-size: 0.75rem; color: var(--muted); }
-    .brand-meta-row .pill { background: var(--paper-2); border: 1px solid var(--line);
-      padding: 0.25rem 0.75rem; border-radius: 99px; color: var(--ink); }
-    .brand-meta-row .pill.active { border-color: var(--accent-2);
-      background: #d1fae5; color: #065f46; }
-    .brand-meta-row .pill.discontinued { background: #fef3c7; color: #92400e; border-color: #fcd34d; }
-    .brand-meta-row a { color: var(--accent-2); }
-    .brand-meta-row a:hover { color: var(--accent); }
-    .brand-desc { max-width: 680px; font-size: 0.83rem; line-height: 1.7;
-      color: var(--muted); margin-top: 1.2rem; }
+  /* ---- Layout: summary sidebar + timeline ---- */
+  .brand-body { max-width: 1300px; margin: 0 auto; padding: 2.5rem 2rem 4rem;
+    display: grid; grid-template-columns: 280px 1fr; gap: 3rem; align-items: start; }
+  @media (max-width: 860px) { .brand-body { grid-template-columns: 1fr; } }
+  .panel-title { margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--ink);
+    font-family: 'Fraunces', serif; font-size: 1.1rem; }
 
-    /* ---- LAYOUT ---- */
-    .brand-body { max-width: 1300px; margin: 0 auto;
-      padding: 2.5rem 2rem 4rem;
-      display: grid; grid-template-columns: 280px 1fr; gap: 3rem; align-items: start; }
-    @media (max-width: 860px) { .brand-body { grid-template-columns: 1fr; } }
+  /* ---- Brand DNA: headline numbers and breakdown bars ---- */
+  .summary { position: sticky; top: 1.5rem; }
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 2rem; }
+  .stat { padding: 0.75rem; background: var(--card); border: 1px solid var(--line); border-radius: 6px; }
+  .stat strong { display: block; font-family: 'Fraunces', serif; font-size: 1.8rem; font-weight: 700; line-height: 1; }
+  .stat span { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+  .breakdown { margin-bottom: 1.8rem; }
+  .breakdown-label { margin-bottom: 0.5rem; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); }
+  .bar { display: flex; height: 28px; overflow: hidden; border-radius: 4px; background: var(--line); }
+  .bar-segment { display: flex; align-items: center; min-width: 0; padding: 0 0.5rem; overflow: hidden;
+    font-size: 0.6rem; white-space: nowrap; transition: width 0.4s ease; }
+  .bar-segment span { overflow: hidden; text-overflow: ellipsis; }
 
-    /* ---- DNA PANEL ---- */
-    .dna-panel { position: sticky; top: 1.5rem; }
-    .dna-panel h2 { font-family: 'Fraunces', serif; font-size: 1.1rem;
-      margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--ink); }
-    .stat-nums { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;
-      margin-bottom: 2rem; }
-    .stat-num { background: var(--card); border: 1px solid var(--line);
-      padding: 0.75rem; border-radius: 6px; }
-    .stat-num strong { display: block; font-family: 'Fraunces', serif;
-      font-size: 1.8rem; font-weight: 700; line-height: 1; color: var(--ink); }
-    .stat-num span { font-size: 0.6rem; text-transform: uppercase;
-      letter-spacing: 0.1em; color: var(--muted); }
-    .dna-section { margin-bottom: 1.8rem; }
-    .dna-label { font-size: 0.6rem; text-transform: uppercase;
-      letter-spacing: 0.12em; color: var(--muted); margin-bottom: 0.5rem; }
-    .dna-bar { height: 28px; display: flex; border-radius: 4px;
-      overflow: hidden; background: var(--line); }
-    .dna-seg { display: flex; align-items: center; padding: 0 0.5rem;
-      font-size: 0.6rem; white-space: nowrap; overflow: hidden;
-      transition: width 0.4s ease; min-width: 0; }
-    .dna-seg span { overflow: hidden; text-overflow: ellipsis; }
-    .seg-open    { background: #d1fae5; color: #065f46; }
-    .seg-closed  { background: #e0e7ff; color: #3730a3; }
-    .seg-semi    { background: #fef3c7; color: #92400e; }
-    .seg-dynamic   { background: #fee2e2; color: #991b1b; }
-    .seg-planar    { background: #ede9fe; color: #5b21b6; }
-    .seg-electro   { background: #d1fae5; color: #065f46; }
-    .seg-other     { background: var(--paper-2); color: var(--muted); }
-    .seg-over  { background: #e0f2fe; color: #0369a1; }
-    .seg-onear { background: #fce7f3; color: #9d174d; }
+  /* ---- Timeline of products by decade ---- */
+  .decade { margin-bottom: 2.5rem; }
+  .decade-label { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;
+    font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); }
+  .decade-label::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+  .decade-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.6rem; }
+  .product-card { position: relative; display: block; padding: 0.7rem 0.8rem; color: inherit; text-decoration: none;
+    background: var(--card); border: 1px solid var(--line); border-radius: 6px;
+    transition: border-color 0.15s, transform 0.15s; }
+  .product-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .product-card.active { border-left: 3px solid var(--accent-2); }
+  .product-card.discontinued { opacity: 0.7; }
+  .product-years { margin-bottom: 0.2rem; font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+  .product-model { margin-bottom: 0.35rem; font-family: 'Fraunces', serif; font-size: 0.9rem; font-weight: 600; line-height: 1.2; }
+  .product-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.4rem; }
+  .product-tag { padding: 0.1rem 0.4rem; border: 1px solid var(--line); border-radius: 99px; background: var(--paper-2);
+    font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+  .product-specs { margin-top: 0.3rem; font-size: 0.6rem; color: var(--muted); }
+  .product-price { margin-top: 0.3rem; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.03em; color: var(--accent-2); }
 
-    /* ---- TIMELINE ---- */
-    .timeline-panel h2 { font-family: 'Fraunces', serif; font-size: 1.1rem;
-      margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--ink); }
-    .decade-group { margin-bottom: 2.5rem; }
-    .decade-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.14em;
-      color: var(--muted); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.75rem; }
-    .decade-label::after { content: ''; flex: 1; height: 1px; background: var(--line); }
-    .decade-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.6rem; }
-    .prod-card { display: block; text-decoration: none; color: inherit;
-      background: var(--card); border: 1px solid var(--line);
-      border-radius: 6px; padding: 0.7rem 0.8rem;
-      transition: border-color 0.15s, transform 0.15s; position: relative; }
-    .prod-card:hover { border-color: var(--accent); transform: translateY(-1px); }
-    .prod-card.active-prod { border-left: 3px solid var(--accent-2); }
-    .prod-card.discontinued-prod { opacity: 0.7; }
-    .prod-msrp { font-size: 0.65rem; color: var(--accent-2); margin-top: 0.3rem;
-      font-weight: 600; letter-spacing: 0.03em; }
-    /* Expanded card: highlighted in accent orange to mark which card's detail is open below. */
-    .prod-card.expanded { border-color: var(--accent); border-left: 3px solid var(--accent);
-      background: #f3e2d6; box-shadow: 0 0 0 1px var(--accent) inset; }
-    /* The detail panel spans the full grid width so it drops onto its own row beneath the
-       clicked card, regardless of how many cards sit per row at the current viewport. */
-    .card-detail-row { grid-column: 1 / -1; }
-    .card-detail { background: var(--card); border: 1px solid var(--accent);
-      border-radius: 6px; padding: 1rem 1.25rem; margin: 0.1rem 0 0.3rem; }
-    .card-detail h3 { font-family: 'Fraunces', serif; font-size: 1.05rem; margin-bottom: 0.7rem; color: var(--ink); }
-    .cd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.5rem 1.2rem; }
-    .cd-field { display: flex; flex-direction: column; }
-    .cd-label { font-size: 0.56rem; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); }
-    .cd-val { font-size: 0.84rem; color: var(--ink); font-variant-numeric: tabular-nums; }
-    .cd-notes { margin-top: 0.8rem; font-size: 0.82rem; color: var(--ink);
-      background: var(--paper); border: 1px solid var(--line); padding: 0.5rem 0.7rem; border-radius: 4px; }
-    .cd-links { margin-top: 0.8rem; font-size: 0.78rem; }
-    .cd-links a { color: var(--accent); text-decoration: none; }
-    .cd-links a:hover { text-decoration: underline; }
-    .prod-card.active-prod { border-left: 3px solid var(--accent-2); }
-    .prod-card.discontinued-prod { opacity: 0.7; }
-    .prod-year { font-size: 0.58rem; color: var(--muted); margin-bottom: 0.2rem;
-      text-transform: uppercase; letter-spacing: 0.1em; }
-    .prod-model { font-family: 'Fraunces', serif; font-size: 0.9rem;
-      font-weight: 600; line-height: 1.2; margin-bottom: 0.35rem; }
-    .prod-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.4rem; }
-    .prod-tag { font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.08em;
-      padding: 0.1rem 0.4rem; border-radius: 99px; background: var(--paper-2);
-      color: var(--muted); border: 1px solid var(--line); }
-    .prod-tag.tag-open    { background: #d1fae5; color: #065f46; border-color: #a7f3d0; }
-    .prod-tag.tag-closed  { background: #e0e7ff; color: #3730a3; border-color: #c7d2fe; }
-    .prod-tag.tag-semi    { background: #fef3c7; color: #92400e; border-color: #fde68a; }
-    .prod-tag.tag-planar  { background: #ede9fe; color: #5b21b6; border-color: #ddd6fe; }
-    .prod-tag.tag-estat   { background: #d1fae5; color: #065f46; border-color: #a7f3d0; }
-    .prod-tag.tag-on      { background: #fce7f3; color: #9d174d; border-color: #fbcfe8; }
-    .prod-lineage { font-size: 0.6rem; color: var(--muted); margin-top: 0.4rem;
-      font-style: italic; }
-    .prod-lineage a { color: var(--accent-2); text-decoration: none; }
-    .prod-lineage a:hover { color: var(--accent); }
-    .prod-specs { font-size: 0.6rem; color: var(--muted); margin-top: 0.3rem; }
+  /* One colour pair per value, shared by the bars and the product tags. After .product-tag so they win. */
+  .open-back, .electrostatic { background: #d1fae5; color: #065f46; border-color: #a7f3d0; }
+  .closed-back { background: #e0e7ff; color: #3730a3; border-color: #c7d2fe; }
+  .semi-open { background: #fef3c7; color: #92400e; border-color: #fde68a; }
+  .dynamic { background: #fee2e2; color: #991b1b; }
+  .planar { background: #ede9fe; color: #5b21b6; border-color: #ddd6fe; }
+  .other-driver { background: var(--paper-2); color: var(--muted); }
+  .over-ear { background: #e0f2fe; color: #0369a1; }
+  .on-ear { background: #fce7f3; color: #9d174d; border-color: #fbcfe8; }
 
-    .loading-state { padding: 4rem 2rem; text-align: center;
-      font-size: 0.75rem; color: var(--muted); }
-    .error-state { padding: 4rem 2rem; text-align: center;
-      color: var(--accent); font-size: 0.85rem; }
-  </style>
+  .loading-state { padding: 4rem 2rem; text-align: center; font-size: 0.75rem; color: var(--muted); }
+  .error-state { padding: 4rem 2rem; text-align: center; font-size: 0.85rem; color: var(--accent); }
+  .empty-note { font-size: 0.8rem; color: var(--muted); }
+</style>
 </head>
 <body>
 
-<nav class="sitenav">
-  <a href="index.html" class="sitename">The Headphone Archive</a>
-  <div style="display:flex;gap:1.5rem;align-items:center;">
-    <a href="brands.html" class="navlink">&#9674; All Brands</a>
-    <a href="index.html" class="navlink">&larr; Back to archive</a>
+<nav class="site-nav">
+  <a href="index.html" class="site-name">The Headphone Archive</a>
+  <div class="nav-links">
+    <a href="brands.html" class="nav-link">&#9674; All Brands</a>
+    <a href="index.html" class="nav-link">&larr; Back to archive</a>
   </div>
 </nav>
 
-<div id="heroArea"><div class="loading-state">Loading brand&hellip;</div></div>
+<div id="brandHero"><div class="loading-state">Loading brand&hellip;</div></div>
+<div id="brandContent"></div>
 
-<div id="bodyArea"></div>
-
+<script src="shared.js"></script>
 <script>
-const esc = s => String(s ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+// Short labels and colour classes for the tags and breakdown bars.
+const DESIGNS = {
+  "Closed Back": { label: "Closed", className: "closed-back" },
+  "Open Back": { label: "Open", className: "open-back" },
+  "Semi-Open": { label: "Semi", className: "semi-open" },
+};
+const DRIVER_TAGS = {
+  "Planar Magnetic": { label: "Planar", className: "planar" },
+  "Electrostatic": { label: "Electrostatic", className: "electrostatic" },
+};
 
-// ---- Small formatting helpers ----
-// pct() turns a count into a whole-number percentage of a total, guarding divide-by-zero.
-// It feeds the "Brand DNA" segmented bars that show each brand's mix of designs/drivers.
-function pct(n, total) { return total ? Math.round(n / total * 100) : 0; }
+const countWhere = (items, test) => items.filter(test).length;
 
-// Renders one horizontal "DNA" bar from an array of {label,count,pct} segments, used to
-// visualise how a brand's catalog breaks down (e.g. open- vs closed-back) at a glance.
-function dnaBar(segments) {
-  // segments: [{cls, label, count, total}]
-  const total = segments.reduce((s, x) => s + x.count, 0);
-  if (!total) return '<div class="dna-bar"></div>';
-  return '<div class="dna-bar">' +
-    segments.filter(s => s.count > 0).map(s => {
-      const p = pct(s.count, total);
-      return `<div class="dna-seg ${s.cls}" style="width:${p}%"><span>${p >= 12 ? s.label + ' ' + p + '%' : ''}</span></div>`;
-    }).join('') + '</div>';
-}
-
-function designTag(design) {
-  if (!design) return '';
-  const cls = design === 'Open Back' ? 'tag-open' : design === 'Closed Back' ? 'tag-closed' : 'tag-semi';
-  const short = design === 'Open Back' ? 'Open' : design === 'Closed Back' ? 'Closed' : 'Semi';
-  return `<span class="prod-tag ${cls}">${short}</span>`;
-}
-function driverTag(driver) {
-  if (!driver || driver === 'Dynamic') return '';
-  const cls = driver === 'Planar Magnetic' ? 'tag-planar' : driver === 'Electrostatic' ? 'tag-estat' : '';
-  const short = driver === 'Planar Magnetic' ? 'Planar' : driver === 'Electrostatic' ? 'Electrostatic' : driver;
-  return `<span class="prod-tag ${cls}">${short}</span>`;
-}
-function fitTag(fit) {
-  if (!fit || fit === 'Over-Ear') return '';
-  return `<span class="prod-tag tag-on">On-Ear</span>`;
-}
-
-function specStr(p) {
-  const parts = [];
-  if (p.impedance_ohms) parts.push(p.impedance_ohms + '\u03A9');
-  if (p.sensitivity_db) parts.push(p.sensitivity_db + '\u200adB');
-  return parts.join(' · ');
-}
-
-// ---- Data load ----
-// Reads the brand id from the URL query string and fetches that brand plus its products
-// from /api/brands. On failure it shows an inline error rather than a blank page.
-async function load() {
-  const params = new URLSearchParams(location.search);
-  const brandId = params.get('id');
-  if (!brandId) {
-    document.getElementById('heroArea').innerHTML = '<div class="error-state">No brand specified. <a href="index.html">Return to archive.</a></div>';
-    return;
-  }
-
-  try {
-    const res = await fetch(`/api/brands?id=${encodeURIComponent(brandId)}`);
-    const data = await res.json();
-    if (!data.ok) throw new Error(data.error || 'Not found');
-    render(data.brand, data.products);
-  } catch (e) {
-    document.getElementById('heroArea').innerHTML = `<div class="error-state">Could not load brand: ${esc(e.message)}</div>`;
-  }
-}
-
-// ---- Page render ----
-// Builds the whole brand page: header, the DNA breakdown bars, a per-decade timeline, and
-// the product list. Computes all the aggregate stats from the product array passed in.
-let currentBrandName = '';
-function render(brand, products) {
-  currentBrandName = brand.name || '';
-  document.title = `${brand.name} — The Headphone Archive`;
-
-  // ---- DNA stats ----
-  const total = products.length;
-  const active = products.filter(p => p.status === 'Active').length;
-  const years = products.map(p => +p.release_year).filter(Boolean);
-  const minYear = years.length ? Math.min(...years) : null;
-  const maxYear = years.length ? Math.max(...years) : null;
-
-  const designCount = { open: 0, closed: 0, semi: 0 };
-  const driverCount = { dynamic: 0, planar: 0, electrostatic: 0, other: 0 };
-  const fitCount = { over: 0, on: 0 };
-  products.forEach(p => {
-    if (p.design === 'Open Back') designCount.open++;
-    else if (p.design === 'Closed Back') designCount.closed++;
-    else designCount.semi++;
-    if (p.driver_type === 'Dynamic') driverCount.dynamic++;
-    else if (p.driver_type === 'Planar Magnetic') driverCount.planar++;
-    else if (p.driver_type === 'Electrostatic') driverCount.electrostatic++;
-    else driverCount.other++;
-    if (p.fit === 'On-Ear') fitCount.on++;
-    else fitCount.over++;
+// A bar split into coloured segments by share. Labels only show on segments wide enough to hold them.
+function breakdownBar(segments) {
+  const total = segments.reduce((sum, segment) => sum + segment.count, 0);
+  const parts = segments.filter(segment => segment.count > 0).map(segment => {
+    const percent = Math.round(segment.count / total * 100);
+    const label = percent >= 12 ? `${segment.label} ${percent}%` : "";
+    return `<div class="bar-segment ${segment.className}" style="width:${percent}%"><span>${label}</span></div>`;
   });
+  return `<div class="bar">${parts.join("")}</div>`;
+}
 
-  const statusCls = brand.status === 'Active' ? 'active' : 'discontinued';
+function productTags(product) {
+  const tags = [];
+  if (product.design) tags.push(DESIGNS[product.design] || DESIGNS["Semi-Open"]);
+  if (product.driver_type && product.driver_type !== "Dynamic") {
+    tags.push(DRIVER_TAGS[product.driver_type] || { label: product.driver_type, className: "" });
+  }
+  if (product.fit === "On-Ear") tags.push({ label: "On-Ear", className: "on-ear" });
+  return tags.map(tag => `<span class="product-tag ${tag.className}">${escapeHtml(tag.label)}</span>`).join("");
+}
 
-  // ---- Hero ----
-  document.getElementById('heroArea').innerHTML = `
-    <div class="brand-hero">
-      <div class="brand-eyebrow">Brand Study</div>
-      <div class="brand-name">${esc(brand.name)}</div>
-      <div class="brand-meta-row">
-        <span class="pill">${esc(brand.country)}</span>
-        ${brand.founded_year ? `<span class="pill">Est. ${brand.founded_year}</span>` : ''}
-        <span class="pill ${statusCls}">${esc(brand.status)}</span>
-        ${brand.website ? `<a href="${esc(brand.website)}" target="_blank" rel="noopener">${esc(brand.website.replace(/^https?:\/\//,''))} &nearr;</a>` : ''}
-      </div>
-      ${brand.description ? `<p class="brand-desc">${esc(brand.description)}</p>` : ''}
-    </div>`;
+// Each card links to the product's row on the main archive page.
+function productCard(product) {
+  const isActive = product.status === "Active";
+  const endYear = product.discontinued_year ? "–" + product.discontinued_year : isActive ? "–present" : "";
+  const specs = [
+    product.impedance_ohms && product.impedance_ohms + "Ω",
+    product.sensitivity_db && product.sensitivity_db + " dB",
+  ].filter(Boolean).join(" · ");
+  return `
+    <a class="product-card ${isActive ? "active" : "discontinued"}" href="index.html?focus=${escapeHtml(product.id)}" title="View ${escapeHtml(product.model_name)} in archive">
+      <div class="product-years">${escapeHtml(product.release_year)}${escapeHtml(endYear)}</div>
+      <div class="product-model">${escapeHtml(product.model_name)}</div>
+      <div class="product-tags">${productTags(product)}</div>
+      ${specs ? `<div class="product-specs">${escapeHtml(specs)}</div>` : ""}
+      ${product.msrp_usd ? `<div class="product-price">${formatPrice(product.msrp_usd)} MSRP</div>` : ""}
+    </a>`;
+}
 
-  // ---- Build decade groups ----
+// Newest decade first, oldest model first within each decade.
+function timelineHtml(products) {
   const byDecade = {};
-  products.forEach(p => {
-    const yr = +p.release_year;
-    if (!yr) return;
-    const dec = Math.floor(yr / 10) * 10;
-    if (!byDecade[dec]) byDecade[dec] = [];
-    byDecade[dec].push(p);
-  });
-  const decades = Object.keys(byDecade).map(Number).sort((a,b) => b - a);
-
-  // Build a lookup for lineage names
-  const byPid = {};
-  products.forEach(p => { byPid[p.product_id] = p; });
-  function nameOf(pid) {
-    const p = byPid[pid];
-    return p ? p.model_name : pid;
+  for (const product of products) {
+    const year = +product.release_year;
+    if (!year) continue;
+    const decade = Math.floor(year / 10) * 10;
+    (byDecade[decade] ||= []).push(product);
   }
-
-  const timelineHtml = decades.map(dec => {
-    const prods = byDecade[dec].sort((a,b) => +a.release_year - +b.release_year);
-    const cards = prods.map(p => {
-      const isActive = p.status === 'Active';
-      const specs = specStr(p);
-      const msrp = p.msrp_usd ? `$${Number(p.msrp_usd).toLocaleString()}` : '';
-      const archiveUrl = `index.html?focus=${p.id}`;
-      return `
-        <a class="prod-card ${isActive ? 'active-prod' : 'discontinued-prod'}" href="${archiveUrl}" title="View ${esc(p.model_name)} in archive">
-          <div class="prod-year">${p.release_year}${p.discontinued_year ? '–' + p.discontinued_year : isActive ? '–present' : ''}</div>
-          <div class="prod-model">${esc(p.model_name)}</div>
-          <div class="prod-tags">
-            ${designTag(p.design)}${driverTag(p.driver_type)}${fitTag(p.fit)}
-          </div>
-          ${specs ? `<div class="prod-specs">${esc(specs)}</div>` : ''}
-          ${msrp ? `<div class="prod-msrp">${esc(msrp)} MSRP</div>` : ''}
-        </a>`;
-    }).join('');
-    const decLabel = dec === Math.floor(new Date().getFullYear()/10)*10
-      ? `${dec}s (present)` : `${dec}s`;
+  const currentDecade = Math.floor(new Date().getFullYear() / 10) * 10;
+  return Object.keys(byDecade).map(Number).sort((a, b) => b - a).map(decade => {
+    const models = byDecade[decade].sort((a, b) => a.release_year - b.release_year);
     return `
-      <div class="decade-group">
-        <div class="decade-label">${decLabel} &mdash; ${prods.length} model${prods.length===1?'':'s'}</div>
-        <div class="decade-grid">${cards}</div>
+      <div class="decade">
+        <div class="decade-label">${decade}s${decade === currentDecade ? " (present)" : ""} &mdash; ${models.length} model${models.length === 1 ? "" : "s"}</div>
+        <div class="decade-grid">${models.map(productCard).join("")}</div>
       </div>`;
-  }).join('');
+  }).join("");
+}
 
-  // ---- DNA panel ----
-  const dnaHtml = `
-    <div class="dna-panel">
-      <h2>Brand DNA</h2>
-      <div class="stat-nums">
-        <div class="stat-num"><strong>${total}</strong><span>Total models</span></div>
-        <div class="stat-num"><strong>${active}</strong><span>Active now</span></div>
-        <div class="stat-num"><strong>${minYear||'—'}</strong><span>First model</span></div>
-        <div class="stat-num"><strong>${maxYear||'—'}</strong><span>Latest model</span></div>
+function summaryHtml(products) {
+  const years = products.map(product => +product.release_year).filter(Boolean);
+  const by = (key, value) => countWhere(products, product => product[key] === value);
+  const stat = (value, label) => `<div class="stat"><strong>${value}</strong><span>${label}</span></div>`;
+  return `
+    <div class="summary">
+      <h2 class="panel-title">Brand DNA</h2>
+      <div class="stat-grid">
+        ${stat(products.length, "Total models")}
+        ${stat(by("status", "Active"), "Active now")}
+        ${stat(years.length ? Math.min(...years) : "—", "First model")}
+        ${stat(years.length ? Math.max(...years) : "—", "Latest model")}
       </div>
-
-      <div class="dna-section">
-        <div class="dna-label">Acoustic design</div>
-        ${dnaBar([
-          { cls: 'seg-closed', label: 'Closed', count: designCount.closed },
-          { cls: 'seg-open',   label: 'Open',   count: designCount.open   },
-          { cls: 'seg-semi',   label: 'Semi',   count: designCount.semi   },
+      <div class="breakdown">
+        <div class="breakdown-label">Acoustic design</div>
+        ${breakdownBar([
+          { label: "Closed", className: "closed-back", count: by("design", "Closed Back") },
+          { label: "Open", className: "open-back", count: by("design", "Open Back") },
+          { label: "Semi", className: "semi-open", count: countWhere(products, p => p.design !== "Closed Back" && p.design !== "Open Back") },
         ])}
       </div>
-
-      <div class="dna-section">
-        <div class="dna-label">Driver technology</div>
-        ${dnaBar([
-          { cls: 'seg-dynamic',  label: 'Dynamic',    count: driverCount.dynamic       },
-          { cls: 'seg-planar',   label: 'Planar',     count: driverCount.planar        },
-          { cls: 'seg-electro',  label: 'Electro',    count: driverCount.electrostatic },
-          { cls: 'seg-other',    label: 'Other',      count: driverCount.other         },
+      <div class="breakdown">
+        <div class="breakdown-label">Driver technology</div>
+        ${breakdownBar([
+          { label: "Dynamic", className: "dynamic", count: by("driver_type", "Dynamic") },
+          { label: "Planar", className: "planar", count: by("driver_type", "Planar Magnetic") },
+          { label: "Electro", className: "electrostatic", count: by("driver_type", "Electrostatic") },
+          { label: "Other", className: "other-driver",
+            count: countWhere(products, p => !["Dynamic", "Planar Magnetic", "Electrostatic"].includes(p.driver_type)) },
         ])}
       </div>
-
-      <div class="dna-section">
-        <div class="dna-label">Form factor</div>
-        ${dnaBar([
-          { cls: 'seg-over',  label: 'Over-Ear', count: fitCount.over },
-          { cls: 'seg-onear', label: 'On-Ear',   count: fitCount.on   },
+      <div class="breakdown">
+        <div class="breakdown-label">Form factor</div>
+        ${breakdownBar([
+          { label: "Over-Ear", className: "over-ear", count: countWhere(products, p => p.fit !== "On-Ear") },
+          { label: "On-Ear", className: "on-ear", count: by("fit", "On-Ear") },
         ])}
       </div>
     </div>`;
+}
 
-  document.getElementById('bodyArea').innerHTML = `
+function render(brand, products) {
+  document.title = `${brand.name} — The Headphone Archive`;
+  const statusClass = brand.status === "Active" ? "active" : "discontinued";
+  document.getElementById("brandHero").innerHTML = `
+    <div class="brand-hero">
+      <div class="eyebrow">Brand Study</div>
+      <div class="brand-name">${escapeHtml(brand.name)}</div>
+      <div class="brand-facts">
+        <span class="pill">${escapeHtml(brand.country)}</span>
+        ${brand.founded_year ? `<span class="pill">Est. ${escapeHtml(brand.founded_year)}</span>` : ""}
+        <span class="pill ${statusClass}">${escapeHtml(brand.status)}</span>
+        ${brand.website ? `<a href="${escapeHtml(brand.website)}" target="_blank" rel="noopener">${escapeHtml(brand.website.replace(/^https?:\/\//, ""))} &nearr;</a>` : ""}
+      </div>
+      ${brand.description ? `<p class="brand-description">${escapeHtml(brand.description)}</p>` : ""}
+    </div>`;
+
+  document.getElementById("brandContent").innerHTML = `
     <div class="brand-body">
-      <aside>${dnaHtml}</aside>
+      <aside>${summaryHtml(products)}</aside>
       <main>
-        <div class="timeline-panel">
-          <h2>Product history &mdash; ${total} headphone${total===1?'':'s'}</h2>
-          ${timelineHtml || '<p style="color:var(--muted);font-size:0.8rem">No products found.</p>'}
-        </div>
+        <h2 class="panel-title">Product history &mdash; ${products.length} headphone${products.length === 1 ? "" : "s"}</h2>
+        ${timelineHtml(products) || '<p class="empty-note">No products found.</p>'}
       </main>
     </div>`;
-
-  // ---- Card expand/collapse ----
-  // Clicking a product card highlights it and opens a full-width detail card directly below
-  // its row in the same grid. Clicking the same card again (or another) closes/moves the panel.
-  wireCards(byPid);
 }
 
-// Builds the full-width detail card shown when a product card is expanded. Lays out every
-// available spec as a labelled grid, echoing the archive's detail panel but in card form.
-function cardDetail(p) {
-  const row = (label, v, unit) => v ? `<div class="cd-field"><span class="cd-label">${esc(label)}</span><span class="cd-val">${esc(v)}${unit||''}</span></div>` : '';
-  const fields = [
-    row('Full name', p.full_name),
-    row('Released', p.release_year),
-    row('Discontinued', p.discontinued_year),
-    row('Status', p.status),
-    row('Category', p.category),
-    row('Design', p.design),
-    row('Fit', p.fit),
-    row('Driver type', p.driver_type),
-    row('Driver size', p.driver_size_mm, ' mm'),
-    row('Impedance', p.impedance_ohms, ' \u03A9'),
-    row('Sensitivity', p.sensitivity_db, ' dB'),
-    row('Wireless', p.wireless),
-    row('ANC', p.anc),
-  ].filter(Boolean).join('');
-  const q = encodeURIComponent(`${currentBrandName} ${p.model_name} headphone review measurements`);
-  const note = p.notes ? `<p class="cd-notes">${esc(p.notes)}</p>` : '';
-  return `<div class="card-detail">
-    <h3>${esc(p.model_name)}</h3>
-    <div class="cd-grid">${fields}</div>
-    ${note}
-    <p class="cd-links"><a href="https://duckduckgo.com/?q=${q}" target="_blank" rel="noopener">Find reviews &amp; measurements &rarr;</a></p>
-  </div>`;
-}
-
-// Attaches click/keyboard handlers to every card and manages the single open detail panel.
-function wireCards(byPid) {
-  let openPid = null;
-  function closeOpen() {
-    const ex = document.querySelector('.card-detail-row');
-    if (ex) ex.remove();
-    document.querySelectorAll('.prod-card.expanded').forEach(c => {
-      c.classList.remove('expanded'); c.setAttribute('aria-expanded','false');
-    });
-    openPid = null;
+async function load() {
+  const hero = document.getElementById("brandHero");
+  const brandId = new URLSearchParams(location.search).get("id");
+  if (!brandId) {
+    hero.innerHTML = '<div class="error-state">No brand specified. <a href="index.html">Return to archive.</a></div>';
+    return;
   }
-  function toggle(card) {
-    const pid = card.getAttribute('data-pid');
-    if (openPid === pid) { closeOpen(); return; }
-    closeOpen();
-    const p = byPid[pid];
-    if (!p) return;
-    // Insert a full-width detail item right after the clicked card so it opens on the next row.
-    const detail = document.createElement('div');
-    detail.className = 'card-detail-row';
-    detail.innerHTML = cardDetail(p);
-    card.insertAdjacentElement('afterend', detail);
-    card.classList.add('expanded'); card.setAttribute('aria-expanded','true');
-    openPid = pid;
-    detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  try {
+    const response = await fetch(`/api/brands?id=${encodeURIComponent(brandId)}`);
+    const data = await response.json();
+    if (!data.ok) throw new Error(data.error || "Not found");
+    render(data.brand, data.products);
+  } catch (e) {
+    hero.innerHTML = `<div class="error-state">Could not load brand: ${escapeHtml(e.message)}</div>`;
   }
-  document.querySelectorAll('.prod-card').forEach(card => {
-    card.addEventListener('click', e => { if (e.target.closest('a')) return; toggle(card); });
-    card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(card); } });
-  });
 }
 
 load();

@@ -1,77 +1,78 @@
-// POST /api/admin/import — protected by Cloudflare Access.
-// Fetches the CSVs from GitHub, (re)creates the catalog tables in D1, and loads them.
-// Safe to re-run: it wipes and reloads the products & manufacturers tables.
-// NOTE: re-running OVERWRITES live edits with whatever is in the CSVs, so only
-// use this for the initial seed or a deliberate reset from a known-good CSV.
+// POST /api/admin/import: wipes the products and manufacturers tables and reloads them
+// from the CSVs on GitHub. This OVERWRITES every live edit, so it's only for the first
+// seed or a deliberate reset to a known-good CSV.
 
-const RAW_BASE = "https://raw.githubusercontent.com/notacodeman/headphone-database/main/database";
+const CSV_BASE_URL = "https://raw.githubusercontent.com/notacodeman/headphone-database/main/database";
+// D1 limits how many statements one batch() call can hold.
+const BATCH_SIZE = 40;
 
-// Minimal RFC-4180-ish CSV parser: walks the text char by char, respecting quoted
-// fields (so commas/newlines inside quotes don't split a row) and doubled "" escapes.
-// Returns an array of objects keyed by the header row, which is how the inserts below
-// reference columns by name regardless of their position in the file.
-function parseCSV(text) {
-  const rows = []; let row = [], field = "", q = false;
+const json = (body, status = 200) =>
+  new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json" } });
+
+// Handles quoted fields (commas and newlines inside quotes) and "" escapes.
+// Returns one object per row, keyed by the header names.
+function parseCsv(text) {
+  const rows = [];
+  let row = [], cell = "", inQuotes = false;
   for (let i = 0; i < text.length; i++) {
-    const c = text[i];
-    if (q) { if (c === '"') { if (text[i+1] === '"') { field += '"'; i++; } else q = false; } else field += c; }
-    else {
-      if (c === '"') q = true;
-      else if (c === ',') { row.push(field); field = ""; }
-      else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ""; }
-      else if (c === '\r') {}
-      else field += c;
-    }
+    const char = text[i];
+    if (inQuotes) {
+      if (char !== '"') cell += char;
+      else if (text[i + 1] === '"') { cell += '"'; i++; }
+      else inQuotes = false;
+    } else if (char === '"') inQuotes = true;
+    else if (char === ",") { row.push(cell); cell = ""; }
+    else if (char === "\n") { row.push(cell); rows.push(row); row = []; cell = ""; }
+    else if (char !== "\r") cell += char;
   }
-  if (field.length || row.length) { row.push(field); rows.push(row); }
-  const header = rows.shift();
-  // Drop blank/short trailing lines, then zip each remaining row against the header.
-  return rows.filter(r => r.length > 1).map(r => {
-    const o = {}; header.forEach((h, i) => o[h.trim()] = (r[i] || "").trim()); return o;
-  });
+  if (cell || row.length) { row.push(cell); rows.push(row); }
+
+  const header = rows.shift().map(name => name.trim());
+  return rows
+    .filter(cells => cells.length > 1) // skip blank lines
+    .map(cells => Object.fromEntries(header.map((name, i) => [name, (cells[i] || "").trim()])));
 }
 
-const json = (o, s = 200) => new Response(JSON.stringify(o), { status: s, headers: { "Content-Type": "application/json" } });
+const toInt = value => parseInt(value, 10) || null;
+
+async function runInBatches(db, statements) {
+  for (let i = 0; i < statements.length; i += BATCH_SIZE) {
+    await db.batch(statements.slice(i, i + BATCH_SIZE));
+  }
+}
 
 export async function onRequestPost({ env }) {
   try {
-    // Pull both CSVs straight from the GitHub raw URLs in parallel. If either comes
-    // back empty the fetch likely failed, so abort rather than wiping tables for nothing.
-    const [pTxt, mTxt] = await Promise.all([
-      fetch(RAW_BASE + "/products.csv").then(r => r.text()),
-      fetch(RAW_BASE + "/manufacturers.csv").then(r => r.text()),
+    const [productsCsv, manufacturersCsv] = await Promise.all([
+      fetch(CSV_BASE_URL + "/products.csv").then(r => r.text()),
+      fetch(CSV_BASE_URL + "/manufacturers.csv").then(r => r.text()),
     ]);
-    const products = parseCSV(pTxt);
-    const manufacturers = parseCSV(mTxt);
-    if (!products.length || !manufacturers.length) return json({ ok: false, error: "CSV fetch empty" }, 500);
+    const products = parseCsv(productsCsv);
+    const manufacturers = parseCsv(manufacturersCsv);
+    // An empty file means the fetch went wrong. Stop before wiping anything.
+    if (!products.length || !manufacturers.length) {
+      return json({ ok: false, error: "A CSV came back empty from GitHub." }, 500);
+    }
 
-    // Create tables (id-less mirror of the CSV columns; everything TEXT for simplicity).
     await env.DB.exec(
       "CREATE TABLE IF NOT EXISTS manufacturers (manufacturer_id INTEGER PRIMARY KEY, name TEXT, country TEXT, website TEXT, status TEXT, founded_year INTEGER, description TEXT);"
     );
     await env.DB.exec(
       "CREATE TABLE IF NOT EXISTS products (product_id TEXT PRIMARY KEY, id INTEGER UNIQUE, family_id TEXT, manufacturer_id INTEGER, model_name TEXT, full_name TEXT, release_year INTEGER, discontinued_year TEXT, status TEXT, category TEXT, design TEXT, driver_type TEXT, driver_size_mm TEXT, impedance_ohms TEXT, sensitivity_db TEXT, wireless TEXT, anc TEXT, predecessor TEXT, successor TEXT, notes TEXT, date_added TEXT, fit TEXT DEFAULT 'Over-Ear', date_updated TEXT, spec_confidence TEXT DEFAULT 'Estimated', msrp_usd TEXT, sound_signature TEXT, connector_type TEXT, detachable_cable TEXT, weight_g TEXT);"
     );
-
-    // Full reset: empty both tables, then reload from scratch. This is why re-running
-    // overwrites live edits — it is a deliberate reseed, not a merge.
     await env.DB.exec("DELETE FROM products;");
     await env.DB.exec("DELETE FROM manufacturers;");
 
-    // Insert manufacturers in batches of 40. D1 caps how many statements one batch()
-    // call can hold, so chunking keeps each call under that limit on large datasets.
-    const mStmt = env.DB.prepare(
+    const insertManufacturer = env.DB.prepare(
       "INSERT INTO manufacturers (manufacturer_id,name,country,website,status,founded_year,description) VALUES (?,?,?,?,?,?,?)"
     );
-    const mBatch = manufacturers.map(m =>
-      mStmt.bind(parseInt(m.manufacturer_id, 10) || null, m.name, m.country, m.website, m.status,
-                 parseInt(m.founded_year, 10) || null, m.description || null));
-    for (let i = 0; i < mBatch.length; i += 40) await env.DB.batch(mBatch.slice(i, i + 40));
+    await runInBatches(env.DB, manufacturers.map(m => insertManufacturer.bind(
+      toInt(m.manufacturer_id), m.name, m.country, m.website, m.status,
+      toInt(m.founded_year), m.description || null
+    )));
 
-    // Insert products the same way. date_added falls back to today's import date when
-    // blank, and date_updated/spec_confidence get sensible defaults so no row is null.
-    const importedAt = new Date().toISOString().slice(0, 10);
-    const pStmt = env.DB.prepare(
+    const today = new Date().toISOString().slice(0, 10);
+    const insertProduct = env.DB.prepare(
       `INSERT INTO products
        (product_id,id,family_id,manufacturer_id,model_name,full_name,release_year,discontinued_year,
         status,category,design,driver_type,driver_size_mm,impedance_ohms,sensitivity_db,
@@ -79,19 +80,19 @@ export async function onRequestPost({ env }) {
         msrp_usd,sound_signature,connector_type,detachable_cable,weight_g)
        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
     );
-    const pBatch = products.map(p => pStmt.bind(
-      p.product_id, parseInt(p.id, 10) || null, p.family_id,
-      parseInt(p.manufacturer_id, 10) || null, p.model_name, p.full_name,
-      parseInt(p.release_year, 10) || null, p.discontinued_year, p.status, p.category, p.design,
+    await runInBatches(env.DB, products.map(p => insertProduct.bind(
+      p.product_id, toInt(p.id), p.family_id,
+      toInt(p.manufacturer_id), p.model_name, p.full_name,
+      toInt(p.release_year), p.discontinued_year, p.status, p.category, p.design,
       p.driver_type, p.driver_size_mm, p.impedance_ohms, p.sensitivity_db,
       p.wireless, p.anc, p.predecessor, p.successor, p.notes,
-      p.date_added || importedAt,   // use import date as baseline if blank
-      p.fit || "Over-Ear", importedAt, p.spec_confidence || "Estimated",
-      p.msrp_usd, p.sound_signature, p.connector_type, p.detachable_cable, p.weight_g));
-    for (let i = 0; i < pBatch.length; i += 40) await env.DB.batch(pBatch.slice(i, i + 40));
+      p.date_added || today,
+      p.fit || "Over-Ear", today, p.spec_confidence || "Estimated",
+      p.msrp_usd, p.sound_signature, p.connector_type, p.detachable_cable, p.weight_g
+    )));
 
     return json({ ok: true, manufacturers: manufacturers.length, products: products.length });
   } catch (err) {
-    return json({ ok: false, error: String(err && err.message || err) }, 500);
+    return json({ ok: false, error: String(err?.message || err) }, 500);
   }
 }

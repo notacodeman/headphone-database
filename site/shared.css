@@ -1,0 +1,41 @@
+/* Shared by every page: colour tokens, reset, base type and accessibility helpers.
+   Each page's own <style> only adds the pieces unique to it. */
+
+:root {
+  --ink: #1a1714;
+  --paper: #f4f0e8;
+  --paper-2: #eae3d6;
+  --card: #ede7d9;
+  --zebra: #ece4d4;
+  --row-hover: #d6cebc;
+  --accent: #c2410c;
+  --accent-2: #1e3a2f;
+  --line: #d6cdbd;
+  --muted: #8a8071;
+  --pad: clamp(1rem, 3vw, 2rem);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Spline Sans Mono', monospace;
+  line-height: 1.5;
+}
+
+/* Hidden on screen, still read by screen readers. */
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible,
+textarea:focus-visible, [tabindex]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

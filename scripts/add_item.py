@@ -38,10 +38,20 @@ CSV_DIR = Path("database")
 # Validation helpers
 # ---------------------------------------------------------------------------
 
-VALID_STATUS   = {"Active", "Discontinued", "Legacy", "Legacy Active"}
-VALID_DESIGN   = {"Open Back", "Closed Back", "Semi-Open", "In-Ear", "Bone Conduction"}
-VALID_DRIVER   = {"Dynamic", "Planar Magnetic", "Electrostatic", "Hybrid", "BA", "Piezoelectric"}
+# Same values the admin page offers.
+VALID_STATUS   = {"Active", "Discontinued", "Legacy Active"}
+VALID_DESIGN   = {"Open Back", "Closed Back", "Semi-Open"}
+VALID_DRIVER   = {"Dynamic", "Planar Magnetic", "Electrostatic", "Ribbon", "AMT", "Hybrid"}
 VALID_YESNO    = {"Yes", "No"}
+
+# Every product column, in the order products.csv uses.
+PRODUCT_COLUMNS = [
+    "id", "product_id", "family_id", "manufacturer_id", "model_name", "full_name",
+    "release_year", "discontinued_year", "status", "category", "design", "driver_type",
+    "driver_size_mm", "impedance_ohms", "sensitivity_db", "wireless", "anc",
+    "predecessor", "successor", "notes", "date_added", "fit",
+    "msrp_usd", "sound_signature", "connector_type", "detachable_cable", "weight_g", "spec_confidence",
+]
 
 
 def validate_product(data: dict, conn: sqlite3.Connection) -> list[str]:
@@ -132,7 +142,7 @@ def prompt_product(conn) -> dict:
     data["release_year"]      = prompt("release_year (e.g. 2005)")
     data["discontinued_year"] = prompt("discontinued_year (if applicable)")
     data["status"]            = prompt("status", choices=sorted(VALID_STATUS))
-    data["category"]          = prompt("category (Headphone/IEM/Gaming)", default="Headphone")
+    data["category"]          = prompt("category", choices=["Headphone", "Studio", "Gaming"], default="Headphone")
     data["design"]            = prompt("design", choices=sorted(VALID_DESIGN))
     data["driver_type"]       = prompt("driver_type", choices=sorted(VALID_DRIVER))
     data["wireless"]          = prompt("wireless", choices=["Yes", "No"], default="No")
@@ -198,8 +208,8 @@ def prompt_source() -> dict:
 # ---------------------------------------------------------------------------
 
 def upsert_product(conn, data: dict):
-    """Insert or update a single product in the local SQLite DB, keyed by product_id. This is the
-    write half of add_item; sync_csv_products mirrors the result back out to the CSV afterwards."""
+    """Insert or update one product in the local DB, then rewrite products.csv from it.
+    Only the columns present in `data` are written, so an update leaves the rest alone."""
     errors = validate_product(data, conn)
     if errors:
         print("\n  ✗ Validation errors:")
@@ -207,31 +217,21 @@ def upsert_product(conn, data: dict):
             print(f"    • {e}")
         sys.exit(1)
 
-    conn.execute("""
-        INSERT INTO products(
-            product_id, family_id, manufacturer_id,
-            model_name, full_name, release_year, discontinued_year,
-            status, category, design, driver_type,
-            wireless, anc, predecessor, successor, notes
-        ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
-        ON CONFLICT(product_id) DO UPDATE SET
-            family_id=excluded.family_id, manufacturer_id=excluded.manufacturer_id,
-            model_name=excluded.model_name, full_name=excluded.full_name,
-            release_year=excluded.release_year, discontinued_year=excluded.discontinued_year,
-            status=excluded.status, category=excluded.category,
-            design=excluded.design, driver_type=excluded.driver_type,
-            wireless=excluded.wireless, anc=excluded.anc,
-            predecessor=excluded.predecessor, successor=excluded.successor,
-            notes=excluded.notes
-    """, (
-        data.get("product_id"), data.get("family_id") or None, data.get("manufacturer_id"),
-        data.get("model_name"), data.get("full_name"),
-        data.get("release_year") or None, data.get("discontinued_year") or None,
-        data.get("status"), data.get("category"), data.get("design"), data.get("driver_type"),
-        data.get("wireless", "No"), data.get("anc", "No"),
-        data.get("predecessor") or None, data.get("successor") or None,
-        data.get("notes"),
-    ))
+    exists = conn.execute("SELECT 1 FROM products WHERE product_id=?", (data["product_id"],)).fetchone()
+    if not exists:
+        # New products get the next sequential id; the site uses it for compare and ?focus= links.
+        data.setdefault("id", conn.execute("SELECT COALESCE(MAX(id), 0) + 1 FROM products").fetchone()[0])
+        data.setdefault("wireless", "No")
+        data.setdefault("anc", "No")
+
+    columns = [c for c in PRODUCT_COLUMNS if c in data]
+    values = [data[c] if data[c] != "" else None for c in columns]
+    updates = ", ".join(f"{c}=excluded.{c}" for c in columns if c != "product_id")
+    conn.execute(
+        f"INSERT INTO products({', '.join(columns)}) VALUES ({', '.join('?' for _ in columns)}) "
+        f"ON CONFLICT(product_id) DO UPDATE SET {updates}",
+        values,
+    )
     conn.commit()
     sync_csv_products(conn)
     print(f"\n  ✓ Product '{data['product_id']}' saved.")
@@ -284,23 +284,9 @@ def upsert_source(conn, data: dict):
 # ---------------------------------------------------------------------------
 
 def sync_csv_products(conn):
-    """Export the products table back to products.csv with the full canonical column set, in the
-    same column order _generate_data.py uses. Keeps the CSV backup in step with local DB edits."""
-    rows = conn.execute(
-        "SELECT id, product_id, family_id, manufacturer_id, model_name, full_name, "
-        "release_year, discontinued_year, status, category, design, driver_type, "
-        "driver_size_mm, impedance_ohms, sensitivity_db, wireless, anc, "
-        "predecessor, successor, notes, date_added, fit, "
-        "msrp_usd, sound_signature, connector_type, detachable_cable, weight_g, spec_confidence "
-        "FROM products ORDER BY product_id"
-    ).fetchall()
-    _write_csv(CSV_DIR / "products.csv", [
-        "id","product_id","family_id","manufacturer_id","model_name","full_name",
-        "release_year","discontinued_year","status","category","design","driver_type",
-        "driver_size_mm","impedance_ohms","sensitivity_db","wireless","anc",
-        "predecessor","successor","notes","date_added","fit",
-        "msrp_usd","sound_signature","connector_type","detachable_cable","weight_g","spec_confidence"
-    ], rows)
+    """Rewrite products.csv from the DB, ordered by id like the existing file."""
+    rows = conn.execute(f"SELECT {', '.join(PRODUCT_COLUMNS)} FROM products ORDER BY id").fetchall()
+    _write_csv(CSV_DIR / "products.csv", PRODUCT_COLUMNS, rows)
 
 
 def sync_csv_manufacturers(conn):
@@ -337,7 +323,7 @@ def _write_csv(path: Path, headers: list, rows):
     with open(path, "w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
         writer.writerow(headers)
-        writer.writerows([[r[h] if hasattr(r, '__getitem__') else r[i] for i, h in enumerate(headers)] for r in rows])
+        writer.writerows([[row[h] for h in headers] for row in rows])
 
 
 # ---------------------------------------------------------------------------

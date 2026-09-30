@@ -1,42 +1,33 @@
-// POST /api/suggest — public endpoint that receives a community edit suggestion from
-// the suggest.html form and stores it in D1 with a "pending" status for later review.
-// Unlike the admin routes this is open to anyone, so it leans on a honeypot and strict
-// input limits rather than authentication. The bound D1 database is env.DB (binding "DB").
+// POST /api/suggest: stores a community edit from suggest.html as a pending suggestion.
+// This route is public, so it relies on a honeypot and length limits instead of auth.
+
+const CORS_HEADERS = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type",
+};
+const MAX_FIELD_LENGTH = 2000;
+
+const json = (body, status = 200) =>
+  new Response(JSON.stringify(body), {
+    status,
+    headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
+  });
 
 export async function onRequestPost({ request, env }) {
-  // Open CORS so the form can post from the site; JSON content type for the reply.
-  const cors = {
-    "Access-Control-Allow-Origin": "*",
-    "Content-Type": "application/json",
-  };
-
   try {
     const form = await request.formData();
+    const field = (name) => (form.get(name) || "").toString().trim().slice(0, MAX_FIELD_LENGTH);
 
-    // Spam honeypot: "_gotcha" is a hidden field humans never see or fill. If it has
-    // any value, a bot filled it, so we silently pretend success and store nothing.
-    if ((form.get("_gotcha") || "").trim() !== "") {
-      return new Response(JSON.stringify({ ok: true }), { headers: cors });
-    }
+    // "_gotcha" is hidden from people, so only bots fill it in. Pretend it worked and store nothing.
+    if (field("_gotcha")) return json({ ok: true });
 
-    // Read-and-sanitise helper: coerces to string, trims, and hard-caps length at
-    // 2000 chars so a malicious payload can't bloat the row or the database.
-    const val = (k) => (form.get(k) || "").toString().trim().slice(0, 2000);
-
-    // Headphone name and a source link are the minimum required for a useful
-    // suggestion; without either, reject with a 400 before touching the database.
-    const headphone = val("headphone");
-    const source = val("source");
+    const headphone = field("headphone");
+    const source = field("source");
     if (!headphone || !source) {
-      return new Response(
-        JSON.stringify({ ok: false, error: "Headphone and source link are required." }),
-        { status: 400, headers: cors }
-      );
+      return json({ ok: false, error: "Headphone and source link are required." }, 400);
     }
 
-    // Parameterised INSERT (never string-built) so user input can't inject SQL.
-    // status is hard-coded to 'pending' and created_at is server-set, so neither can
-    // be spoofed by the submitter.
     await env.DB.prepare(
       `INSERT INTO suggestions
        (headphone, driver_size_mm, impedance_ohms, sensitivity_db,
@@ -44,36 +35,24 @@ export async function onRequestPost({ request, env }) {
        VALUES (?,?,?,?,?,?,?,?,?,?, 'pending', ?)`
     ).bind(
       headphone,
-      val("driver_size_mm"),
-      val("impedance_ohms"),
-      val("sensitivity_db"),
-      val("connector"),
-      val("detachable"),
-      val("weight_g"),
-      val("notes"),
+      field("driver_size_mm"),
+      field("impedance_ohms"),
+      field("sensitivity_db"),
+      field("connector"),
+      field("detachable"),
+      field("weight_g"),
+      field("notes"),
       source,
-      val("submitter"),
+      field("submitter"),
       new Date().toISOString()
     ).run();
 
-    return new Response(JSON.stringify({ ok: true }), { headers: cors });
+    return json({ ok: true });
   } catch (err) {
-    // Generic failure message — the submitter doesn't need (and shouldn't see) DB internals.
-    return new Response(
-      JSON.stringify({ ok: false, error: "Could not save suggestion." }),
-      { status: 500, headers: cors }
-    );
+    return json({ ok: false, error: "Could not save suggestion." }, 500);
   }
 }
 
-// CORS preflight handler. Browsers send an OPTIONS request before a cross-origin POST;
-// this answers it with the allowed method and headers so the real POST can proceed.
 export async function onRequestOptions() {
-  return new Response(null, {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type",
-    },
-  });
+  return new Response(null, { headers: CORS_HEADERS });
 }
